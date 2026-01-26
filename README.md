@@ -248,6 +248,102 @@ export default function Cart() {
 }
 ```
 
+## 🔍 SEO & Metadata
+
+This template includes a comprehensive SEO implementation with Next.js Metadata API and JSON-LD structured data.
+
+### Features
+
+- ✅ Dynamic metadata generation
+- ✅ Open Graph tags for social sharing
+- ✅ Twitter Card support
+- ✅ JSON-LD structured data (Organization, Article, Product, Breadcrumb)
+- ✅ Multi-language hreflang tags
+- ✅ Canonical URLs
+- ✅ Search engine verification (Google, Yandex)
+
+### Quick Start
+
+**1. Set environment variables** (`.env.local`):
+
+```env
+NEXT_PUBLIC_APP_URL=https://yoursite.com
+NEXT_PUBLIC_APP_NAME="Your Company Name"
+NEXT_PUBLIC_CDN_URL=https://cdn.yoursite.com
+NEXT_PUBLIC_GOOGLE_VERIFICATION=your_google_code
+NEXT_PUBLIC_YANDEX_VERIFICATION=your_yandex_code
+```
+
+**2. Use in your pages**:
+
+```typescript
+// src/app/[locale]/products/[slug]/page.tsx
+import { Metadata } from "next";
+import { generateSEOMetadata } from "@/lib/seo";
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const product = await fetchProduct(slug);
+
+  return generateSEOMetadata({
+    data: {
+      meta_title: product.title,
+      name: product.name,
+      meta_desc: product.description,
+      img: product.image,
+    },
+    locale,
+    pathname: `/${locale}/products/${slug}`,
+  });
+}
+```
+
+**3. Add JSON-LD schemas**:
+
+```typescript
+import { generateProductSchema, generateBreadcrumbSchema } from '@/lib/seo';
+
+export default function ProductPage({ product }) {
+  const productSchema = generateProductSchema({
+    name: product.name,
+    description: product.description,
+    image: product.image,
+    price: product.price,
+    currency: 'USD',
+  });
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      {/* Your content */}
+    </>
+  );
+}
+```
+
+### Available SEO Utilities
+
+| Function                       | Purpose                           |
+| ------------------------------ | --------------------------------- |
+| `generateSEOMetadata()`        | Generate complete metadata object |
+| `generateBreadcrumbSchema()`   | Breadcrumb navigation schema      |
+| `generateArticleSchema()`      | Article/blog post schema          |
+| `generateProductSchema()`      | E-commerce product schema         |
+| `generateOrganizationSchema()` | Organization/company schema       |
+
+### Documentation
+
+For complete examples and advanced usage, see **[`src/lib/SEO_USAGE.md`](src/lib/SEO_USAGE.md)**
+
+### Testing Your SEO
+
+- **Google Rich Results**: https://search.google.com/test/rich-results
+- **Schema Validator**: https://validator.schema.org/
+- **Facebook Debugger**: https://developers.facebook.com/tools/debug/
+
 ## 🧪 Testing
 
 ### Running Tests
