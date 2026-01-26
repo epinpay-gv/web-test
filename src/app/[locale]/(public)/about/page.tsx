@@ -1,0 +1,1 @@
+// useAboutPageMeta() kulllanılmış
