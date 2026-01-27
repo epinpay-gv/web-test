@@ -7,7 +7,6 @@ A production-ready Next.js template for building scalable e-commerce application
 - **Framework**: [Next.js 16.1.4](https://nextjs.org/) (App Router)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **UI Components**: [Flowbite React](https://flowbite-react.com/)
 - **Icons**: [Flowbite React Icons](https://www.npmjs.com/package/flowbite-react-icons)
 - **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
 - **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/)
@@ -20,7 +19,6 @@ A production-ready Next.js template for building scalable e-commerce application
 next-ecommerce-template/
 ├── .flowbite-react/          # Flowbite React configuration
 ├── .storybook/               # Storybook configuration
-├── .vscode/                  # VS Code settings
 ├── public/                   # Static assets
 ├── src/
 │   ├── app/                  # Next.js App Router
