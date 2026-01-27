@@ -1,4 +1,4 @@
-type HttpMethod = "GET" | "POST";
+type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
 type FetcherOptions<TBody> = {
   method?: HttpMethod;
@@ -11,7 +11,8 @@ export async function baseFetcher<
   TBody = undefined
 >(
   url: string,
-  options: FetcherOptions<TBody> = {}
+  options: FetcherOptions<TBody> = {},
+  msg: string = "Request failed"
 ): Promise<TResponse> {
   const res = await fetch(url, {
     method: options.method ?? "GET",
@@ -23,7 +24,7 @@ export async function baseFetcher<
   });
 
   if (!res.ok) {
-    const message = "Login request failed";
+    const message = msg;
     throw { status: res.status, message };
   }
 
