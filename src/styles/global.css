@@ -99,6 +99,8 @@
   --border-orange: #FF8A4C;
 
 
+  /* Border Radius */
+  --radius-base: 12px
 
  /* colors/text */
   --text-fg-lime: #7CCF00;
@@ -148,4 +150,11 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+@layer utilities {
+  .rounded-base {
+    border-radius: var(--radius-base);
+  }
 }
