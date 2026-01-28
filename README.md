@@ -33,7 +33,9 @@ next-ecommerce-template/
 │   │   ├── layout/           # Layout components (Header, Footer)
 │   │   └── user/             # User-specific components
 │   ├── features/             # Feature modules
-│   │   └── auth/             # Authentication feature
+│   │   ├── auth/             # Auth features
+│   │   ├── checkout/         # Checkout features
+│   │   └── main/             # Mainpage features
 │   ├── hooks/                # Custom React hooks
 │   ├── i18n/                 # Internationalization
 │   │   ├── messages/         # Translation files (tr.json, en.json)

@@ -1,74 +1,54 @@
-import { Metadata } from 'next';
-import { generateSEOMetadata, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/seo';
+import { createSeo } from '@/lib/seo'
+import { Metadata } from 'next'
+import Script from 'next/script'
 
-// Section 1 - Page Props : Define page props
-interface PageProps {
-    params: Promise<{ locale: string; slug: string }>;
+type Props = {
+  params: { locale: 'tr' | 'en' }
 }
 
-// Section 2 - Metadata : Generate dynamic metadata
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const product = await getProduct(slug);
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const isTr = params.locale === 'tr'
 
-  return generateSEOMetadata({
-    data: {
-      meta_title: product.title,
-      name: product.name,
-      meta_desc: product.description,
-      img: product.image,
-      img_alt: product.imageAlt,
-      created_at: product.createdAt,
-      updated_at: product.updatedAt,
-    },
-    locale,
-    pathname: `/${locale}/products/${slug}`,
-  });
+  return createSeo({
+    title: isTr ? 'Kategoriler' : 'Categories',
+    description: isTr
+      ? 'Epinpay üzerindeki tüm oyun ve ürün kategorilerini keşfet.'
+      : 'Explore all game and product categories on Epinpay.',
+    path: '/categories',
+    locale: params.locale,
+  })
 }
 
-// Section 3 - Page component : Generate JSON-LD schemas and render page
-export default async function CategoriesPage({params}: PageProps) {
-  const { locale, slug } = await params;
-  const product = await getProduct(slug);
+export default function CategoriesPage() {
+ const categories = [
+    { slug: 'steam', name: 'Steam' },
+    { slug: 'valorant', name: 'Valorant' },
+  ]
 
-  // Generate JSON-LD schemas
-  const articleSchema = generateArticleSchema(
-    {
-      name: product.name,
-      meta_desc: product.description,
-      img: product.image,
-      img_alt: product.imageAlt,
-      created_at: product.createdAt,
-      updated_at: product.updatedAt,
-    },
-    locale,
-    `/${locale}/products/${slug}`
-  );
-
-  const breadcrumbSchema = generateBreadcrumbSchema(
-    [
-      { name: 'Home', url: '/' },
-      { name: 'Products', url: '/products' },
-      { name: product.name, url: `/products/${slug}` },
-    ],
-    locale
-  );
   return (
-<>
-      {/* JSON-LD Scripts */}
-      <script
+    <>
+      <Script
+        id="categories-schema"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            itemListElement: categories.map((cat, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: cat.name,
+              url: `https://www.epinpay.com/tr/${cat.slug}`,
+            })),
+          }),
+        }}
       />
 
-      {/* Page content */}
       <div>
-        CATEGORIES
+        
       </div>
     </>
-  );
+  )
 }
