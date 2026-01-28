@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useThemeStore } from "@/features/theme/store/useThemeStore";
-import { Sun, Moon } from "flowbite-react-icons/outline";
 
 export default function Home() {
   const t = useTranslations("HomePage");
@@ -39,8 +38,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <Sun size={48}/>
-      <Moon size={48}/>
     </div>
   );
 }
