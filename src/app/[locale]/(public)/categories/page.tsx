@@ -1,54 +1,49 @@
-import { createSeo } from '@/lib/seo'
-import { Metadata } from 'next'
-import Script from 'next/script'
-
-type Props = {
-  params: { locale: 'tr' | 'en' }
-}
+import { createSeo } from "@/lib/seo";
+import { CategorySchema } from "@/components/seo/CategorySchema";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
-  const isTr = params.locale === 'tr'
-
+}: {
+  params: { locale: string };
+}) {
   return createSeo({
-    title: isTr ? 'Kategoriler' : 'Categories',
-    description: isTr
-      ? 'Epinpay üzerindeki tüm oyun ve ürün kategorilerini keşfet.'
-      : 'Explore all game and product categories on Epinpay.',
-    path: '/categories',
+    title: params.locale === "en" ? "All Categories" : "Tüm Kategoriler",
+    description:
+      params.locale === "en"
+        ? "Browse all categories"
+        : "Tüm kategorileri keşfedin",
+    canonical: "/categories",
     locale: params.locale,
-  })
+  });
 }
 
-export default function CategoriesPage() {
- const categories = [
-    { slug: 'steam', name: 'Steam' },
-    { slug: 'valorant', name: 'Valorant' },
-  ]
-
+export default function CategoriesPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const { locale } = params;
+  const baseUrl = "https://www.epinpay.com";
   return (
     <>
-      <Script
-        id="categories-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'ItemList',
-            itemListElement: categories.map((cat, index) => ({
-              '@type': 'ListItem',
-              position: index + 1,
-              name: cat.name,
-              url: `https://www.epinpay.com/tr/${cat.slug}`,
-            })),
-          }),
-        }}
+      {/* SEO Content */}
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: `${baseUrl}/${locale}` },
+          { name: "Categories", url: `${baseUrl}/${locale}/categories` },
+        ]}
       />
-
+      <CategorySchema
+        name="Epinpay Categories"
+        description="Dijital oyun, epin ve servis kategorileri"
+        url={`${baseUrl}/${locale}/categories`}
+        locale={locale}
+      />
+      {/* Page Content */}
       <div>
-        
+        <h1>CATEGORIES</h1>
       </div>
     </>
-  )
+  );
 }

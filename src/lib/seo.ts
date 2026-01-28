@@ -1,48 +1,47 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
+
+type CreateSeoParams = {
+  title: string
+  description: string
+  canonical: string
+  locale: string
+  image?: string
+}
 
 const SITE_URL = 'https://www.epinpay.com'
-
-type SeoParams = {
-  title: string
-  description?: string
-  path: string
-  locale: 'tr' | 'en'
-  image?: string
-  noIndex?: boolean
-}
+const SUPPORTED_LOCALES = ['tr', 'en']
 
 export function createSeo({
   title,
   description,
-  path,
+  canonical,
   locale,
   image,
-  noIndex,
-}: SeoParams): Metadata {
-  const url = `${SITE_URL}/${locale}${path}`
+}: CreateSeoParams): Metadata {
+  const languages: Record<string, string> = {}
+
+  SUPPORTED_LOCALES.forEach((l) => {
+    languages[l] = `${SITE_URL}/${l}${canonical}`
+  })
 
   return {
     title,
     description,
-    robots: noIndex ? 'noindex,nofollow' : 'index,follow',
+
     alternates: {
-      canonical: url,
-      languages: {
-        tr: `${SITE_URL}/tr${path}`,
-        en: `${SITE_URL}/en${path}`,
-        'x-default': `${SITE_URL}${path}`,
-      },
+      canonical: `${SITE_URL}${canonical}`,
+      languages,
     },
+
     openGraph: {
       title,
       description,
-      url,
+      url: `${SITE_URL}${canonical}`,
       images: image ? [{ url: image }] : undefined,
     },
+
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
       images: image ? [image] : undefined,
     },
   }

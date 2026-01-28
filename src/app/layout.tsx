@@ -1,14 +1,17 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import '@/app/globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.epinpay.com'),
   title: {
     default: 'Epinpay',
     template: '%s | Epinpay',
   },
   description: 'Güvenli ve hızlı alışverişin tek adresi',
-  robots: 'index, follow',
+  robots: {
+    index: true,
+    follow: true,
+  },
   themeColor: '#2a2b2c',
   referrer: 'no-referrer-when-downgrade',
   openGraph: {
@@ -19,6 +22,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
+        width: 1200,
+        height: 630,
       },
     ],
   },
@@ -38,7 +43,6 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        {/* Google Tag Manager */}
         <Script
           id="gtm"
           strategy="afterInteractive"
@@ -55,7 +59,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* Organization Schema */}
         <Script
           id="org-schema"
           type="application/ld+json"
@@ -85,7 +88,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* Website Schema */}
         <Script
           id="website-schema"
           type="application/ld+json"
@@ -101,7 +103,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* GTM noscript */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-WKCNWN7N"

@@ -1,74 +1,64 @@
-import { Metadata } from 'next'
-import { createSeo } from '@/lib/seo'
-import Script from 'next/script'
+import { createSeo } from "@/lib/seo";
+import { CategorySchema } from "@/components/seo/CategorySchema";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 
 type Props = {
   params: {
-    locale: 'tr' | 'en'
+    locale: string
     category: string
   }
 }
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
-  const { locale, category } = params
-
-  // normalde API’den gelir
-  const categoryName =
-    category === 'steam' ? 'Steam' : category
+}: {
+  params: { locale: string; category: string };
+}) {
+  const name = params.category.replace(/-/g, " ");
 
   return createSeo({
-    title:
-      locale === 'tr'
-        ? `${categoryName} Epin Satın Al`
-        : `Buy ${categoryName} Gift Cards`,
+    title: params.locale === "en" ? `${name} Products` : `${name} Ürünleri`,
     description:
-      locale === 'tr'
-        ? `${categoryName} epinlerini güvenle ve anında satın al.`
-        : `Buy ${categoryName} gift cards instantly and securely.`,
-    path: `/${category}`,
-    locale,
-  })
+      params.locale === "en"
+        ? `${name} category products`
+        : `${name} kategorisindeki ürünler`,
+    canonical: `/${params.category}`,
+    locale: params.locale,
+  });
 }
 
-
-export default function CategoryPage() {
-  const products = [
-    {
-      name: 'Steam 100 TL',
-      url: 'https://www.epinpay.com/tr/steam/100-tl',
-    },
-    {
-      name: 'Steam 200 TL',
-      url: 'https://www.epinpay.com/tr/steam/200-tl',
-    },
-  ]
+export default function CategoryPage({ params }: Props) {
+  const { locale, category } = params;
+  const baseUrl = "https://www.epinpay.com";
+  const categoryUrl = `${baseUrl}/${locale}/categories/${category}`;
 
   return (
     <>
-      <Script
-        id="category-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'CollectionPage',
-            name: 'Steam Epin',
-            hasPart: {
-              '@type': 'ItemList',
-              itemListElement: products.map((p, i) => ({
-                '@type': 'ListItem',
-                position: i + 1,
-                name: p.name,
-                url: p.url,
-              })),
-            },
-          }),
-        }}
+      {/* SEO Content */}
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: `${baseUrl}/${locale}` },
+          { name: "Categories", url: `${baseUrl}/${locale}/categories` },
+          { name: category, url: categoryUrl },
+        ]}
       />
 
-      <div>{/* UI */}</div>
+      <CategorySchema
+        name={category}
+        description={`${category} kategorisindeki ürünler`}
+        url={categoryUrl}
+        locale={locale}
+        items={[
+          // TODO : şimdilik fetch yok bunlar placeholder
+          { name: "Sample Item 1", url: `${categoryUrl}/item-1` },
+          { name: "Sample Item 2", url: `${categoryUrl}/item-2` },
+        ]}
+      />
+
+      {/* Page Content */}
+      <div>
+        <h1>category</h1>
+      </div>
     </>
-  )
+  );
 }
