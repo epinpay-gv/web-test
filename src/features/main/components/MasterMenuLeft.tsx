@@ -1,7 +1,9 @@
 'use client'
 
 import { BadgeCheck, ChevronDoubleRight, Wallet } from "flowbite-react-icons/outline"
-import GameCard from "@/components/common/GameCard/GameCard"
+import FeatureItem from "@/components/common/Label/FeatureItem"
+import SectionHeader from "@/components/common/Label/SectionHeader"
+import ProductCard from "@/components/common/NavLinks/ProductCard"
 
 export default function MasterMenuLeft() {
   const infoItems = [
@@ -10,46 +12,48 @@ export default function MasterMenuLeft() {
     { icon: Wallet, title: "Güvenli Ödeme" },
   ]
 
-  const gameCards = [
-    { coins: "2150 Coins", price: "₺599" },
-    { coins: "4300 Coins", price: "₺1.099" },
-    { coins: "8700 Coins", price: "₺1.999" },
-    { coins: "8700 Coins", price: "₺1.999" },
-    { coins: "8700 Coins", price: "₺1.999" },
-    { coins: "8700 Coins", price: "₺1.999" },
-  ]
+const products = [
+  { title: "2150 Coins", price: 599 },
+  { title: "4300 Coins", price: 1099 },
+  { title: "8700 Coins", price: 1999 },
+  { title: "8700 Coins", price: 1999 },
+  { title: "8700 Coins", price: 1999 },
+  { title: "8700 Coins", price: 1999 },
+]
 
-  return (
-    <div>
-      {/* Heading */}
-      <div className="text-3xl font-bold">
-        <p className="gradient-text">Oyun paranı anında yükle</p>
-        <p className="gradient-text">oyundan hiç kopma</p>
-      </div>
 
-      {/* Info icons */}
-      <div className="mt-3 flex gap-6">
-        {infoItems.map((item, index) => {
-          const Icon = item.icon
-          return (
-            <div key={index} className="flex items-center gap-1">
-              <Icon size={20} className="text-fg-brand" />
-              <p className="text-xs text-(--text-body)">{item.title}</p>
-            </div>
-          )
-        })}
-      </div>
+return (
+<div>
+{/* Heading */}
+<div className="text-3xl font-bold">
+    <p className="gradient-text">Oyun paranı anında yükle</p>
+    <p className="gradient-text">oyundan hiç kopma</p>
+    </div>
 
-      <div className="mt-8 flex gap-2 text-sm font-medium">
-        <p>Apex Legends</p>
-        <button className="text-(--text-fg-brand)">Tüm Ürünleri Gör</button>
-      </div>
+    {/* Info icons */}
+    <div className="mt-3 flex gap-6">
+    {infoItems.map((item, index) => (
+    <FeatureItem
+    key={index}
+    icon={item.icon}
+    title={item.title}
+    />
+    ))}
+    </div>
 
-    <div className="mt-6 grid grid-cols-3 gap-3">
-  {gameCards.map((item, index) => (
-    <GameCard
+   <SectionHeader
+  title="Apex Legends"
+  actionLabel="Tüm Ürünleri Gör"
+  onActionClick={() => {}}
+  
+
+/>
+
+   <div className="mt-6 grid grid-cols-3 gap-3">
+  {products.map((item, index) => (
+    <ProductCard
       key={index}
-      coins={item.coins}
+      title={item.title}
       price={item.price}
     />
   ))}
