@@ -6,7 +6,7 @@ export default function GameCategoryCards() {
   const mockCategories = [
     { id: 1, title: "Pubg Mobile", slug: "pubgmobile", image: "/image/mock-img.png" },
     { id: 2, title: "League of Legends RP", slug: "leagneoflegendsrp", image: "/image/mock-img.png" },
-    { id: 3, title: "Rise Online", slug: "riseonline", image: "/image/mock-img.png" },
+    { id: 3, title: "Rise Online", slug: "riseonline", image: "/image/mock-img.png" }, 
     { id: 4, title: "Valorant VP", slug:"valorantvp", image: "/image/mock-img.png" },
     { id: 5, title: "Metin2 RP", slug:"metin2rp", image: "/image/mock-img.png" },
     { id: 6, title: "Nowa Online World", slug:"nowaonline", image: "/image/mock-img.png" },
@@ -18,13 +18,16 @@ export default function GameCategoryCards() {
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-2" style={{ width: '518px', height: '276px', rowGap: '8px', columnGap: '8px' }}>
+    <div
+      className="grid grid-cols-4 gap-2 w-full md:w-129.5 md:h-69"
+      style={{ rowGap: '8px', columnGap: '8px' }}
+    >
       {mockCategories.map((category) => (
         <Link key={category.id} href={`/categories/${category.slug}`} className="block">
         <BaseCard
           key={category.id}
           onClick={() => console.log(category.title)}
-          className="relative w-[123.5px] h-[86.66px] rounded-3xl overflow-hidden flex items-center justify-center text-center"
+          className="relative w-full aspect-[123.5/86.66] md:w-[123.5px] md:h-[86.66px] rounded-3xl overflow-hidden flex items-center justify-center text-center"
         >
           <div className="absolute inset-0 bg-black/40 z-1" />
 
@@ -43,7 +46,7 @@ export default function GameCategoryCards() {
             z-10
             font-inter
             text-sm
-            font-semibold
+            md:font-semibold
             text-white
           "
           >
@@ -58,9 +61,9 @@ export default function GameCategoryCards() {
       <BaseCard
         onClick={() => console.log("Tüm oyunlar")}
         className="
-          w-[123.5px] h-[86.66px] rounded-3xl flex items-center justify-center text-center bg-(--bg-brand) "
+          w-full aspect-[123.5/86.66] md:w-[123.5px] md:h-[86.66px] rounded-3xl flex items-center justify-center text-center bg-(--bg-brand) "
       >
-        <span className="font-inter text-black text-sm font-semibold">
+        <span className="font-inter text-black text-sm md:font-semibold">
           Tüm Oyunları Keşfet
         </span>
       </BaseCard>

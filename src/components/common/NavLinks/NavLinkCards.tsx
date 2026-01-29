@@ -19,7 +19,7 @@ export default function NavLinkCards() {
             <BaseCard
               onClick={() => console.log(navLink.title)}
               className={`relative w-31.5 h-18 my-3 rounded-lg overflow-hidden flex text-center ${
-                navLink.isPremium ? 'items-center justify-center border-none' : 'items-start justify-start'
+                navLink.isPremium ? 'items-center justify-center border-none' : 'items-s tart justify-start'
               }`}
             >
               {!navLink.isPremium && navLink.bgImage && navLink.image && (
