@@ -6,10 +6,12 @@ const SUPPORTED_LOCALES = ['tr', 'en']
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  const locale = SUPPORTED_LOCALES.includes(params.locale)
-    ? params.locale
+  const { locale } = await params
+
+  const safeLocale = SUPPORTED_LOCALES.includes(locale)
+    ? locale
     : 'tr'
 
   const alternates: Record<string, string> = {}
@@ -25,16 +27,14 @@ export async function generateMetadata({
   }
 }
 
-export default function LocaleLayout({
+
+export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
-  return (
-    <html lang={params.locale}>
-      <body>{children}</body>
-    </html>
-  )
+  await params
+  return <>{children}</>
 }

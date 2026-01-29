@@ -14,7 +14,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  themeColor: '#2a2b2c',
   referrer: 'no-referrer-when-downgrade',
   openGraph: {
     type: 'website',
@@ -37,13 +36,18 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport = {
+  themeColor: '#2a2b2c',
+}
+
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html>
+    <html suppressHydrationWarning>
       <body>
         <Script
           id="gtm"
