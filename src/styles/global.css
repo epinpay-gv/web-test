@@ -13,6 +13,7 @@
   --font-body: var(--font-sans);
 
    /* colors/background */
+  --bg-variants-gray: #051017;
   --bg-neutral-secondary-soft: #081D28;
   --bg-neutral-primary-strong: #33444E;
   --bg-neutral-secondary: #061821;
@@ -211,7 +212,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: var(--bg-variants-gray);;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
