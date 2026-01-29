@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import "../components/common/Button/buttons";
 :root {
 
   /* typography */
@@ -99,6 +99,8 @@
   --border-orange: #FF8A4C;
 
 
+  /* Border Radius */
+  --radius-base: 12px;
 
  /* colors/text */
   --text-fg-lime: #7CCF00;
@@ -149,3 +151,4 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
