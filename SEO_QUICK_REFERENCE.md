@@ -1,227 +1,197 @@
-# SEO Quick Reference
+# SEO Implementation 
 
-Quick copy-paste examples for common SEO scenarios.
+Bu doküman, projede uygulanan **SEO mimarisinin tamamını** ve **neden bu şekilde kurgulandığını** açıklar. Amaç: SEO yüzünden mimarinin bozulmasını engellemek, ölçeklenebilir ve güvenli bir yapı kurmak.
 
-## 📄 Static Page
+---
 
-```typescript
-// src/app/[locale]/about/page.tsx
-import { Metadata } from 'next';
+## 🎯 Genel Yaklaşım
 
-export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Learn more about our company',
-};
+Bu projede SEO şu prensiplerle ele alındı:
 
-export default function AboutPage() {
-  return <div>About content</div>;
-}
+* **Metadata (head)** ve **Schema (JSON-LD)** kesin olarak ayrıldı
+* Global, statik ve dinamik sayfalar net biçimde ayrıştırıldı
+* i18n (çok dilli yapı) SEO’nun bir parçası olarak ele alındı
+* Canonical, hreflang ve sitemap otomatik çalışacak şekilde kuruldu
+* Sayfa dosyaları minimum sorumlulukla bırakıldı
+
+> SEO, UI mantığının içine gömülmedi. Ayrı bir katman olarak ele alındı.
+
+---
+
+## 📁 Dosya ve Klasör Yapısı (SEO ile İlgili)
+
+```txt
+src/
+├─ app/
+│  ├─ layout.tsx            # Global SEO (metadata + scriptler)
+│  ├─ sitemap.ts            # Tüm site için sitemap
+│  └─ [locale]/
+│     └─ (public)/
+│        ├─ categories/
+│        │  └─ page.tsx     # Statik kategori liste sayfası
+│        └─ [category]/
+│           └─ page.tsx     # Dinamik kategori detay sayfası
+│
+├─ lib/
+│  └─ seo.ts                # createSeo helper fonksiyonu
+│
+└─ components/
+   └─ seo/
+      ├─ CategorySchema.tsx
+      └─ BreadcrumbSchema.tsx
 ```
 
-## 🛍️ Product Page
+---
 
-```typescript
-// src/app/[locale]/products/[slug]/page.tsx
-import { Metadata } from 'next';
-import { generateSEOMetadata, generateProductSchema } from '@/lib/seo';
+## 🌍 Global SEO (`app/layout.tsx`)
 
-interface PageProps {
-  params: Promise<{ locale: string; slug: string }>;
-}
+### Bu dosya ne yapar?
 
-async function getProduct(slug: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${slug}`);
-  return res.json();
-}
+* Site genelinde geçerli olan **metadata**’yı tanımlar
+* Google Tag Manager ekler
+* Organization & Website schema’larını **1 kere** render eder
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const product = await getProduct(slug);
+### Burada neler vardır?
 
-  return generateSEOMetadata({
-    data: {
-      meta_title: `${product.name} - Buy Online`,
-      name: product.name,
-      meta_desc: product.description,
-      img: product.image,
-    },
-    locale,
-    pathname: `/${locale}/products/${slug}`,
-  });
-}
+* `title.template`
+* `description`
+* `robots`
+* `openGraph`
+* `twitter`
+* GTM scriptleri
+* Organization & WebSite schema (JSON-LD)
 
-export default async function ProductPage({ params }: PageProps) {
-  const { locale, slug } = await params;
-  const product = await getProduct(slug);
+> ❗ Bu dosyada **sayfa bazlı SEO yapılmaz**.
 
-  const productSchema = generateProductSchema({
-    name: product.name,
-    description: product.description,
-    image: product.image,
-    price: product.price,
-    currency: 'USD',
-    sku: product.sku,
-    availability: 'InStock',
-  });
+---
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
-      <div>
-        <h1>{product.name}</h1>
-        <p>{product.description}</p>
-      </div>
-    </>
-  );
-}
+## 🧠 Metadata Yönetimi (`lib/seo.ts`)
+
+### Amaç
+
+Tek tek her sayfada metadata yazmamak, tutarlı bir yapı oluşturmak.
+
+### Kullanım Mantığı
+
+* `createSeo()` fonksiyonu
+* Statik veya dinamik parametre alabilir
+* Canonical ve hreflang otomatik üretilir
+
+### Metadata neleri kapsar?
+
+* title
+* description
+* canonical
+* alternates (hreflang)
+* openGraph
+
+> Metadata = **tarayıcı & arama motoru head bilgisi**
+
+---
+
+## 🔗 Canonical & Hreflang
+
+### Canonical
+
+* Her sayfa **tek bir ana URL** belirtir
+* Duplicate content riskini engeller
+
+### Hreflang
+
+* `[locale]` segmenti üzerinden otomatik çalışır
+* Aynı içeriğin farklı dillerini Google’a bildirir
+
+Bu yapı **zaten mimarinin içine gömülüdür**, ekstra bir işlem gerekmez.
+
+---
+
+## 🗺 Sitemap (`app/sitemap.ts`)
+
+### Özellikler
+
+* Next.js native sitemap kullanılır
+* Locale bazlı URL’ler üretilebilir
+* Statik ve dinamik route’lar ayrıdır
+
+### Ne içerir?
+
+* `/categories`
+* `/[category]`
+* diğer public sayfalar
+
+> Sitemap fetch veya feature klasörleriyle **bağlantılı değildir**.
+
+---
+
+## 🧩 Schema (JSON-LD) Yapısı
+
+### Neden ayrı bileşenler?
+
+* Page logic ile karışmaması için
+* Tekrar kullanılabilirlik
+* SEO regression riskini azaltmak
+
+### Nerede?
+
+```txt
+components/seo/
+├─ CategorySchema.tsx
+├─ BreadcrumbSchema.tsx
 ```
 
-## 📝 Blog Post
+### Nasıl kullanılır?
 
-```typescript
-// src/app/[locale]/blog/[slug]/page.tsx
-import { Metadata } from 'next';
-import { generateSEOMetadata, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/seo';
-
-async function getBlogPost(slug: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${slug}`);
-  return res.json();
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const post = await getBlogPost(slug);
-
-  return generateSEOMetadata({
-    data: {
-      meta_title: post.title,
-      name: post.title,
-      meta_desc: post.excerpt,
-      img: post.featuredImage,
-      created_at: post.publishedAt,
-      updated_at: post.updatedAt,
-    },
-    locale,
-    pathname: `/${locale}/blog/${slug}`,
-  });
-}
-
-export default async function BlogPostPage({ params }: PageProps) {
-  const { locale, slug } = await params;
-  const post = await getBlogPost(slug);
-
-  const articleSchema = generateArticleSchema(
-    {
-      name: post.title,
-      meta_desc: post.excerpt,
-      img: post.featuredImage,
-      created_at: post.publishedAt,
-      updated_at: post.updatedAt,
-    },
-    locale,
-    `/${locale}/blog/${slug}`
-  );
-
-  const breadcrumbSchema = generateBreadcrumbSchema(
-    [
-      { name: 'Home', url: '/' },
-      { name: 'Blog', url: '/blog' },
-      { name: post.title, url: `/blog/${slug}` },
-    ],
-    locale
-  );
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <article>
-        <h1>{post.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      </article>
-    </>
-  );
-}
+```tsx
+<CategorySchema />
+<BreadcrumbSchema />
 ```
 
-## 🏠 Layout with Organization Schema
+> Schema = **Google’a içeriğin ne olduğunu anlatır**
 
-```typescript
-// src/app/[locale]/layout.tsx
-import { Metadata } from 'next';
-import { generateOrganizationSchema } from '@/lib/seo';
+Metadata’dan tamamen bağımsızdır.
 
-export async function generateMetadata({ params }): Promise<Metadata> {
-  const { locale } = await params;
+---
 
-  return {
-    title: {
-      default: 'My Site',
-      template: '%s | My Site',
-    },
-    description: 'Site description',
-    openGraph: {
-      type: 'website',
-      locale: locale === 'tr' ? 'tr_TR' : 'en_US',
-    },
-  };
-}
+## 📄 Statik vs Dinamik Sayfa SEO
 
-export default function Layout({ children }) {
-  const organizationSchema = generateOrganizationSchema([
-    'https://www.instagram.com/yourcompany',
-    'https://www.facebook.com/yourcompany',
-  ]);
+### Statik Sayfa (`/categories`)
 
-  return (
-    <html>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-      </head>
-      <body>{children}</body>
-    </html>
-  );
-}
-```
+* `metadata` sabittir
+* Sitemap’te tek URL vardır
+* Schema statik içerik anlatır
 
-## 🔧 Environment Variables
+### Dinamik Sayfa (`/[category]`)
 
-```env
-NEXT_PUBLIC_APP_URL=https://yoursite.com
-NEXT_PUBLIC_APP_NAME="Your Company"
-NEXT_PUBLIC_CDN_URL=https://cdn.yoursite.com
-NEXT_PUBLIC_GOOGLE_VERIFICATION=your_code
-NEXT_PUBLIC_YANDEX_VERIFICATION=your_code
-```
+* `generateMetadata` kullanılır
+* URL parametresine göre metadata üretilir
+* Schema props alarak render edilir
 
-## 📊 Testing Checklist
+> İstek atılmıyor olsa bile yapı buna hazırdır.
 
-- [ ] Title appears correctly in browser tab
-- [ ] Description is 150-160 characters
-- [ ] Open Graph image is 1200x630px
-- [ ] Canonical URL is correct
-- [ ] Hreflang tags for all languages
-- [ ] JSON-LD validates at schema.org
-- [ ] Google Rich Results test passes
-- [ ] Facebook sharing preview looks good
-- [ ] Twitter card preview looks good
+---
 
-## 🔗 Useful Links
+## 🚫 Bilinçli Olarak Yapılmayanlar
 
-- [Next.js Metadata Docs](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
-- [Schema.org Validator](https://validator.schema.org/)
-- [Google Rich Results Test](https://search.google.com/test/rich-results)
-- [Facebook Debugger](https://developers.facebook.com/tools/debug/)
-- [Twitter Card Validator](https://cards-dev.twitter.com/validator)
+* Schema’ları `seo.ts` içine gömmek ❌
+* Feature klasörlerinden sitemap üretmek ❌
+* SEO için API fetch zorunluluğu ❌
+* Page dosyalarını şişirmek ❌
+
+---
+
+## ✅ Sonuç
+
+Bu SEO mimarisi:
+
+* Çok dilli yapıyı destekler
+* Next.js App Router’a %100 uygundur
+* Büyüdükçe bozulmaz
+* SEO değişikliklerinin UI’yı kırmasını engeller
+
+Bu noktadan sonra eklenecek her şey:
+
+* yeni schema bileşeni
+* yeni sitemap entry
+* yeni metadata konfigürasyonu
+
+şeklinde **lokal ve güvenli** ilerler.

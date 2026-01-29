@@ -1,20 +1,123 @@
-import type { Metadata } from 'next';
+import type { Metadata } from 'next'
+import Script from 'next/script'
 import { ThemeInitializer } from '@/features/theme/hooks/ThemeInitializer';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
-  title: 'My App',
-  description: 'Created with Next.js',
-};
+  metadataBase: new URL('https://www.epinpay.com'),
+  title: {
+    default: 'Epinpay',
+    template: '%s | Epinpay',
+  },
+  description: 'Güvenli ve hızlı alışverişin tek adresi',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  referrer: 'no-referrer-when-downgrade',
+  openGraph: {
+    type: 'website',
+    siteName: 'Epinpay',
+    title: 'Epinpay',
+    description: 'Güvenli ve hızlı alışverişin tek adresi',
+    images: [
+      {
+        url: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [
+      'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
+    ],
+  },
+}
+
+export const viewport = {
+  themeColor: '#2a2b2c',
+}
+
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="tr" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <body>
+        <Script
+          id="gtm"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];
+              w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+              var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+              j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+              f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-WKCNWN7N');
+            `,
+          }}
+        />
+
+        <Script
+          id="org-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Epinpay',
+              description: 'Güvenli, hızlı epin alış ve satışı.',
+              url: 'https://www.epinpay.com',
+              email: 'contact@epinpay.com',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
+                width: 300,
+                height: 300,
+              },
+              sameAs: [
+                'https://www.tiktok.com/@epinpaycom',
+                'https://www.instagram.com/epinpayofficial',
+                'https://www.youtube.com/@epinpay',
+                'https://x.com/epinpay',
+                'https://tr.pinterest.com/epinpay/',
+                'https://www.facebook.com/people/Epinpayofficial/61575728233059/',
+              ],
+            }),
+          }}
+        />
+
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Epinpay',
+              alternateName: 'Epinpay',
+              url: 'https://www.epinpay.com',
+              description: 'Güvenli, hızlı epin alış ve satışı.',
+            }),
+          }}
+        />
+
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WKCNWN7N"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+
         {/* Theme Script */}
         <script
           dangerouslySetInnerHTML={{
@@ -37,8 +140,9 @@ export default function RootLayout({
           }}
         />
         <ThemeInitializer />
+
         {children}
       </body>
     </html>
-  );
+  )
 }
