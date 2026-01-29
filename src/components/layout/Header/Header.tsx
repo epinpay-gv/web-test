@@ -1,37 +1,25 @@
-import Link from 'next/link'
+import { ThemeToggle } from '@/features/theme/components/ThemeToggle';
+import { Button } from '@/components/common/Button/Button';
+import { Heart } from 'flowbite-react-icons/outline';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="text-xl text-red-700 font-bold">
-          Logo
-        </Link>
-
-        <nav className="hidden gap-6 md:flex">
-          <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            Ana Sayfa
-          </Link>
-          <Link
-            href="/products"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Urunler
-          </Link>
-          <Link
-            href="/categories"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Kategoriler
-          </Link>
-        </nav>
-
+    <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-(--bg-neutral-secondary-soft) transition-colors">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-            Giris Yap
-          </Link>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            My App
+          </h1>
+          {/* Diğer header içerikleriniz */}
+        </div>
+        
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <Button variant="warning" text="Button Text"/>
+          <Button appearance="outline" variant="warning" text="Button Text" />
+
         </div>
       </div>
     </header>
-  )
+  );
 }

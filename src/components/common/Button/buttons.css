@@ -1,0 +1,341 @@
+@layer components {
+  .btn {
+    /* layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+    border-style: solid;
+    border-radius: var(--radius-base);
+
+    /* state variables */
+    --btn-disabled-bg: var(--bg-disabled);
+    --btn-disabled-border-color: var(--border-default-medium);
+    --btn-disabled-border-size: 2px;
+    --btn-disabled-text: var(--text-fg-disabled);
+    --btn-disabled-cursor: not-allowed;
+
+    --btn-outline-border-size: 2px;
+
+    --btn-focus-ring-size: 8px;
+    --btn-focus-ring-color: #ffffff;
+  }
+
+  /* 🔒 DISABLED → tüm varyantlar */
+  .btn:disabled {
+    background-color: var(--btn-disabled-bg);
+    border-width: var(--btn-disabled-border-size);
+    border-color: var(--btn-disabled-border-color);
+    color: var(--btn-disabled-text);
+    cursor: var(--btn-disabled-cursor);
+  }
+
+/* 
+============================================
+                  BRAND
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-brand-filled {
+    background-color: var(--bg-brand);
+  }
+
+  .btn-brand-filled:hover:not(:disabled) {
+    background-color: var(--bg-brand-strong);
+  }
+
+  .btn-brand-filled:focus-visible {
+    outline: none;
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--btn-focus-ring-color);
+  }
+
+/* ------------- Outline ----------------- */
+  .btn-brand-outline{
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--bg-brand)
+  }
+
+  .btn-brand-outline:hover:not(:disabled) {
+    background-color: var(--bg-brand);
+  }
+
+  .btn-brand-outline:focus-visible {
+    background-color: var(--bg-brand);
+  }
+
+/* 
+============================================
+                 SECONDARY
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-secondary-filled {
+    background-color: var(--bg-neutral-secondary-medium);
+  }
+
+  .btn-secondary-filled:hover:not(:disabled) {
+    background-color: var(--bg-neutral-tertiary-medium);
+  }
+
+  .btn-secondary-filled:focus-visible {
+    outline: none;
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--btn-focus-ring-color);
+  }
+
+/* ------------- Outline ----------------- */
+  .btn-secondary-outline{
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--bg-neutral-secondary-medium)
+  }
+
+  .btn-secondary-outline:hover:not(:disabled) {
+    background-color: var(--bg-neutral-secondary-medium);
+  }
+
+  .btn-secondary-outline:focus-visible {
+    background-color: var(--bg-neutral-secondary-medium);
+  }
+
+/* 
+============================================
+                 TERTIATRY
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-success-filled {
+    background-color: var(--bg-neutral-primary-soft);
+  }
+
+  .btn-tertiatry-filled:hover:not(:disabled) {
+    background-color: var(--bg-neutral-secondary-medium);
+  }
+
+  .btn-tertiatry-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-neutral-secondary-soft);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--btn-focus-ring-color);
+  }
+
+/* ------------- Outline ----------------- */
+  .btn-success-outline{
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--bg-neutral-primary-soft)
+  }
+
+  .btn-tertiatry-outline:hover:not(:disabled) {
+    background-color: var(--bg-neutral-primary-soft);
+  }
+
+  .btn-tertiatry-outline:focus-visible {
+    background-color: var(--bg-neutral-primary-soft);
+  }
+
+
+/* 
+============================================
+                 SUCCESS
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-success-filled {
+    background-color: var(--bg-success);
+  }
+
+  .btn-success-filled:hover:not(:disabled) {
+    background-color: var(--bg-success-strong);
+  }
+
+  .btn-success-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-success-strong);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--border-success-subtle);
+  }
+
+/* ------------- Outline ----------------- */
+  .btn-success-outline{
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--border-success)
+  }
+
+  .btn-success-outline:hover:not(:disabled) {
+    background-color: var(--bg-success-strong);
+    border-color: var(--border-success-subtle);
+  }
+
+  .btn-success-outline:focus-visible {
+    background-color: var(--bg-success-strong);
+    border-color: var(--border-success-subtle);
+  }
+
+
+/* 
+============================================
+                  DANGER
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-danger-filled {
+    background-color: var(--bg-danger);
+  }
+
+  .btn-danger-filled:hover:not(:disabled) {
+    background-color: var(--bg-danger-strong);
+  }
+
+  .btn-danger-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-danger-strong);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--border-danger-subtle);
+  }
+
+/* -------------- Outline ----------------- */
+  .btn-danger-outline {
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--border-danger)
+  }
+
+  .btn-danger-outline:hover:not(:disabled) {
+    background-color: var(--bg-danger-strong);
+    border-color: var(--border-danger);
+  }
+
+  .btn-danger-outline:focus-visible {
+    background-color: var(--bg-danger-strong);
+    border-color: var(--border-danger-subtle);
+  }
+
+
+/* 
+============================================
+                  WARNING
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-warning-filled {
+    background-color: var(--bg-warning);
+  }
+
+  .btn-warning-filled:hover:not(:disabled) {
+    background-color: var(--bg-warning-strong);
+  }
+
+  .btn-warning-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-warning-strong);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--border-warning-subtle);
+  }
+
+/* -------------- Outline ----------------- */
+  .btn-warning-outline {
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--border-warning)
+  }
+
+  .btn-warning-outline:hover:not(:disabled) {
+    background-color: var(--bg-warning-strong);
+    border-color: var(--border-warning);
+  }
+
+  .btn-warning-outline:focus-visible {
+    background-color: var(--bg-warning-strong);
+    border-color: var(--border-warning-subtle);
+  }
+
+/* 
+============================================
+                    DARK
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-dark-filled {
+    background-color: var(--bg-dark);
+  }
+
+  .btn-dark-filled:hover:not(:disabled) {
+    background-color: var(--bg-dark-strong);
+  }
+
+  .btn-dark-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-dark-strong);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--border-default);
+  }
+
+/* -------------- Outline ----------------- */
+  .btn-dark-outline {
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--border-dark-strong)
+  }
+
+  .btn-dark-outline:hover:not(:disabled) {
+    background-color: var(--bg-dark-strong);
+    border-color: var(--border-default);
+  }
+
+  .btn-dark-outline:focus-visible {
+    background-color: var(--bg-dark-strong);
+    border-color: var(--border-default);
+  }
+
+
+/* 
+============================================
+                  GHOST
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-ghost-filled {
+    background-color: transparent;
+  }
+
+  .btn-ghost-filled:hover:not(:disabled) {
+    background-color: var(--bg-neutral-secondary-medium);
+  }
+
+  .btn-ghost-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-neutral-secondary-medium);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--border-light);
+  }
+
+/* -------------- Outline ----------------- */
+  .btn-ghost-outline {
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--border-light)
+  }
+
+  .btn-ghost-outline:hover:not(:disabled) {
+    background-color: var(--bg-bg-neutral-secondary-medium);
+    border-color: var(--border-light);
+  }
+
+  .btn-ghost-outline:focus-visible {
+    background-color: var(--bg-neutral-secondary-medium);
+    border-color: var(--border-light);
+  }
+}
