@@ -203,7 +203,7 @@
     border-color: var(--border-danger-subtle);
   }
 
-/* ------------- Outline ----------------- */
+/* -------------- Outline ----------------- */
   .btn-danger-outline {
     background-color: transparent;
     border-width: var(--btn-outline-border-size);
@@ -243,7 +243,7 @@
     border-color: var(--border-warning-subtle);
   }
 
-/* ------------- Outline ----------------- */
+/* -------------- Outline ----------------- */
   .btn-warning-outline {
     background-color: transparent;
     border-width: var(--btn-outline-border-size);
@@ -259,5 +259,83 @@
     background-color: var(--bg-warning-strong);
     border-color: var(--border-warning-subtle);
   }
-}
 
+/* 
+============================================
+                    DARK
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-dark-filled {
+    background-color: var(--bg-dark);
+  }
+
+  .btn-dark-filled:hover:not(:disabled) {
+    background-color: var(--bg-dark-strong);
+  }
+
+  .btn-dark-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-dark-strong);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--border-default);
+  }
+
+/* -------------- Outline ----------------- */
+  .btn-dark-outline {
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--border-dark-strong)
+  }
+
+  .btn-dark-outline:hover:not(:disabled) {
+    background-color: var(--bg-dark-strong);
+    border-color: var(--border-default);
+  }
+
+  .btn-dark-outline:focus-visible {
+    background-color: var(--bg-dark-strong);
+    border-color: var(--border-default);
+  }
+
+
+/* 
+============================================
+                  GHOST
+============================================ 
+*/
+
+/* -------------- Filled ------------------ */
+  .btn-ghost-filled {
+    background-color: transparent;
+  }
+
+  .btn-ghost-filled:hover:not(:disabled) {
+    background-color: var(--bg-neutral-secondary-medium);
+  }
+
+  .btn-ghost-filled:focus-visible {
+    outline: none;
+    background-color: var(--bg-neutral-secondary-medium);
+    border-width: var(--btn-focus-ring-size);
+    border-color: var(--border-light);
+  }
+
+/* -------------- Outline ----------------- */
+  .btn-ghost-outline {
+    background-color: transparent;
+    border-width: var(--btn-outline-border-size);
+    border-color: var(--border-light)
+  }
+
+  .btn-ghost-outline:hover:not(:disabled) {
+    background-color: var(--bg-bg-neutral-secondary-medium);
+    border-color: var(--border-light);
+  }
+
+  .btn-ghost-outline:focus-visible {
+    background-color: var(--bg-neutral-secondary-medium);
+    border-color: var(--border-light);
+  }
+}

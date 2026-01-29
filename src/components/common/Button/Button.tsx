@@ -12,7 +12,7 @@ type ButtonArrow = {
 
 type ButtonPadding = "xs" | "sm" | "base" | "lg" | "xl";
 
-type ButtonVariant = "brand" | "secondary" | "tertiatry" | "success" | "danger" | "warning";
+type ButtonVariant = "brand" | "secondary" | "tertiatry" | "success" | "danger" | "warning" | "dark" | "ghost";
 type ButtonAppearance = "filled" | "outline" ;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -68,6 +68,14 @@ const VARIANT_CLASSES: Record<
   warning: {
     filled: "btn-warning-filled",
     outline: "btn-warning-outline"
+  },
+  dark: {
+    filled: "btn-dark-filled",
+    outline: "btn-dark-outline"
+  },
+  ghost: {
+    filled: "btn-ghost-filled",
+    outline: "btn-ghost-outline"
   }
 };
 
