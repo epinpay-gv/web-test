@@ -13,7 +13,7 @@ export default function NavLinkCards() {
 
   return (
     <div className="w-full my-4 flex items-center justify-center">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-2 max-md:overflow-x-auto max-md:whitespace-nowrap">
         {mockNavLinkCards.map((navLink) => (
           <Link key={navLink.id} href={`/${navLink.slug}`} className="block group">
             <BaseCard
