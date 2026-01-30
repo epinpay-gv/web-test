@@ -21,6 +21,7 @@ export default function Test() {
       <Input
         placeholder="Test input"
         value={value}
+        disabled
         onChange={(e) => setValue(e.target.value)}
         onClear={() => setValue("")}
         inputSize="sm"
