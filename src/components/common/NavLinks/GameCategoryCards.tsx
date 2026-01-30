@@ -27,7 +27,7 @@ export default function GameCategoryCards() {
         <BaseCard
           key={category.id}
           onClick={() => console.log(category.title)}
-          className="relative w-full aspect-[123.5/86.66] md:w-[123.5px] md:h-[86.66px] rounded-3xl overflow-hidden flex items-center justify-center text-center"
+          className="relative w-full aspect-[123.5/86.66] md:w-[123.5px] md:h-[86.66px] rounded-3xl overflow-hidden flex items-center justify-center text-center "
         >
           <div className="absolute inset-0 bg-black/40 z-1" />
 

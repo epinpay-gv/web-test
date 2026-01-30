@@ -25,15 +25,14 @@ export default function NavLinkCards() {
               {!navLink.isPremium && navLink.bgImage && navLink.image && (
                 <>
                   {/* Background Image */}
-                  <Image
-                    src={navLink.bgImage}
-                    alt={`${navLink.title} background`}
-                    fill
-                    className="object-cover"
-                  />
-
+ <Image
+  src={navLink.bgImage}
+  alt={`${navLink.title} background`}
+  fill
+  className="object-cover filter hue-rotate-90"
+/>
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/40 z-1" />
+                  {/* <div className="absolute inset-0 bg-black/40 z-1" /> */}
 
                   {/* Image */}
                   <Image
