@@ -1,16 +1,19 @@
 import Image from "next/image";
 import { Button } from "../../Button/Button";
-import "./productCard.css";
 import { DesktopPc } from "flowbite-react-icons/outline";
 import { Product } from "@/types/types";
 import { ProductCardType, ProductCardOrientation } from "./types";
+import { CartPlusAlt } from "flowbite-react-icons/outline";
 
+// TODO : mobilde hemen al butonu sepet emojisi olacak, butonda revize gerekiyor. ayrıca butonun tam büyüyebilmesi lazım
+// TODO : yatay kart eklenecek
+// TODO : favori butonu eklenecek
 interface ProductCardProps {
   product: Product;
   orientation?: ProductCardOrientation;
 }
 
-export function ProductCard({product, orientation}: ProductCardProps) {
+export function ProductCard({ product, orientation }: ProductCardProps) {
   return (
     <>
       <div className="product-card-container p-3 gap-1 flex flex-col justify-between w-42.5 h-79 md:w-56 md:h-92.5">
@@ -46,15 +49,25 @@ export function ProductCard({product, orientation}: ProductCardProps) {
                     - {product.discountRate}
                   </span>
                 )}
-                <span className="text-fg-success-strong">{product.basePrice}</span>
+                <span className="text-fg-success-strong">
+                  {product.basePrice}
+                </span>
               </p>
               {/* buttons */}
               <div className="flex justify-between">
                 <Button
                   padding="sm"
                   textSize="sm"
-                  variant="ghost"
+                  variant="secondary"
                   text="Sepete Ekle"
+                  className="hidden md:block"
+                />
+                <Button
+                  padding="sm"
+                  textSize="sm"
+                  variant="secondary"
+                  icon={<CartPlusAlt />}
+                  className="block md:hidden"
                 />
                 <Button
                   padding="sm"
