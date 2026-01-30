@@ -2,6 +2,7 @@
 
 import { useThemeStore } from '../store/useThemeStore';
 import { Sun, Moon } from 'flowbite-react-icons/outline';
+import { Button } from '@/components/common/Button/Button';
 
 export function ThemeToggle() {
   const theme = useThemeStore((state) => state.theme);
@@ -21,23 +22,12 @@ export function ThemeToggle() {
   };
 
   return (
-    <button
-      onClick={toggleTheme}
+    <Button
+      onClick={() => toggleTheme()}
       aria-label="Toggle theme"
-      className="
-        w-10 h-10
-        flex items-center justify-center
-        rounded-full
-        text-gray-900 dark:text-white
-        hover:bg-gray-100 dark:hover:bg-gray-700
-        transition-all
-      "
-    >
-      {isDark ? (
-        <Moon className="w-6 h-6" />
-      ) : (
-        <Sun className="w-6 h-6" />
-      )}
-    </button>
+      variant="ghost"
+      icon={isDark ? (<Moon className='w-6 h-6'></Moon>) : (<Sun className="w-6 h-6"></Sun>)}
+    > 
+    </Button>
   );
 }
