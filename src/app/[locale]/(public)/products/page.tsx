@@ -2,105 +2,152 @@ import { createSeo } from "@/lib/seo";
 import { CategorySchema } from "@/components/seo/CategorySchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ProductCard } from "@/components/common/Cards/ProductCard/ProductCard";
-import {
-  ProductCardOrientation,
-  ProductCardType,
-} from "@/components/common/Cards/ProductCard/types";
+import { Product, PRODUCT_STATUS } from "@/types/types";
 
-interface ProductCardProps {
-  img: string;
-  img_alt: string;
-  title: string;
-  location: string;
-  price: string;
-  discountRate?: string;
-  fakePrice?: string;
-}
+export const productCardData: Product[] = [
+  {
+    id: 1,
+    category: "PUBG",
+    region: "TR",
+    platform: "MOBILE",
+    type: "UC",
 
-export const productCardData: ProductCardProps[] = [
-  {
-    img: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-60-uc-tr-5.webp",
-    img_alt: "PUBG Mobile 60 UC (Türkiye) Satın Al | Epinpay",
-    title: "PUBG Mobile 60 UC  (Türkiye) Satın Al | Epinpay",
-    location: "Türkiye",
-    price: "36.50 ₺",
-    fakePrice: "41.00 ₺",
-    discountRate: "%11",
+    status: PRODUCT_STATUS.ACTIVE,
+
+    basePrice: 41,
+    epPrice: 36.5,
+    fakePrice: 41,
+    discountRate: 11,
+
+    translation: {
+      id: 1,
+      typeId: 1,
+      locale: "tr",
+      name: "PUBG Mobile 60 UC",
+      slug: "pubg-mobile-60-uc-tr",
+      description: "PUBG Mobile 60 UC Türkiye bölgesi için geçerlidir.",
+      metaTitle: "PUBG Mobile 60 UC Satın Al",
+      metaDescription: "PUBG Mobile 60 UC Türkiye için güvenli ve hızlı satın alma.",
+      imgUrl:
+        "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-60-uc-tr-5.webp",
+      imgAlt: "PUBG Mobile 60 UC (Türkiye)",
+    },
   },
+
   {
-    img: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
-    img_alt: "PUBG Mobile 325 UC (Türkiye) Satın Al | Epinpay",
-    title: "PUBG Mobile 325 UC",
-    location: "Türkiye",
-    price: "182.95 ₺",
-    fakePrice: "210.00 ₺",
-    discountRate: "%13",
+    id: 2,
+    category: "PUBG",
+    region: "TR",
+    platform: "MOBILE",
+    type: "UC",
+
+    status: PRODUCT_STATUS.ACTIVE,
+
+    basePrice: 210,
+    epPrice: 182.95,
+    fakePrice: 210,
+    discountRate: 13,
+
+    translation: {
+      id: 2,
+      typeId: 2,
+      locale: "tr",
+      name: "PUBG Mobile 325 UC",
+      slug: "pubg-mobile-325-uc-tr",
+      description: "PUBG Mobile 325 UC Türkiye bölgesi için geçerlidir.",
+      metaTitle: "PUBG Mobile 325 UC Satın Al",
+      metaDescription: "PUBG Mobile 325 UC Türkiye için güvenli ve hızlı satın alma.",
+      imgUrl:
+        "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
+      imgAlt: "PUBG Mobile 325 UC (Türkiye)",
+    },
   },
+
   {
-    img: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
-    img_alt: "PUBG Mobile 660 UC (Türkiye) Satın Al | Epinpay",
-    title: "PUBG Mobile 660 UC",
-    location: "Türkiye",
-    price: "365.95 ₺",
-    fakePrice: "418.00 ₺",
-    discountRate: "%12",
+    id: 3,
+    category: "PUBG",
+    region: "TR",
+    platform: "MOBILE",
+    type: "UC",
+
+    status: PRODUCT_STATUS.ACTIVE,
+
+    basePrice: 418,
+    epPrice: 365.95,
+    fakePrice: 418,
+    discountRate: 12,
+
+    translation: {
+      id: 3,
+      typeId: 3,
+      locale: "tr",
+      name: "PUBG Mobile 660 UC",
+      slug: "pubg-mobile-660-uc-tr",
+      description: "PUBG Mobile 660 UC Türkiye bölgesi için geçerlidir.",
+      metaTitle: "PUBG Mobile 660 UC Satın Al",
+      metaDescription: "PUBG Mobile 660 UC Türkiye için güvenli ve hızlı satın alma.",
+      imgUrl:
+        "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
+      imgAlt: "PUBG Mobile 660 UC (Türkiye)",
+    },
   },
+
   {
-    img: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
-    img_alt: "PUBG Mobile 1800 UC (Türkiye) Satın Al | Epinpay",
-    title: "PUBG Mobile 1800 UC",
-    location: "Türkiye",
-    price: "915.00 ₺",
-    fakePrice: "1000.00 ₺",
-    discountRate: "%8",
+    id: 4,
+    category: "PUBG",
+    region: "TR",
+    platform: "MOBILE",
+    type: "PASS",
+
+    status: PRODUCT_STATUS.ACTIVE,
+
+    basePrice: null,
+    epPrice: 227,
+
+    translation: {
+      id: 4,
+      typeId: 4,
+      locale: "tr",
+      name: "PUBG Mobile Elite Royale Pass",
+      slug: "pubg-mobile-elite-royale-pass-tr",
+      description: "PUBG Mobile Elite Royale Pass Türkiye bölgesi.",
+      metaTitle: "PUBG Mobile Elite Royale Pass Satın Al",
+      metaDescription: "PUBG Mobile Elite Royale Pass TR için satın alma.",
+      imgUrl:
+        "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-tr-75.webp",
+      imgAlt: "PUBG Mobile Elite Royale Pass (TR)",
+    },
   },
+
   {
-    img: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
-    img_alt: "PUBG Mobile 3850 UC (Türkiye) Satın Al | Epinpay",
-    title: "PUBG Mobile 3850 UC",
-    location: "Türkiye",
-    price: "1829.50 ₺",
-    fakePrice: "2030.00 ₺",
-    discountRate: "%10",
-  },
-  {
-    img: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
-    img_alt: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
-    title: "PUBG Mobile 8100 UC",
-    location: "Türkiye",
-    price: "3659.00 ₺",
-    fakePrice: "4035.00 ₺",
-    discountRate: "%9",
-  },
-  {
-    img: "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-tr-75.webp",
-    img_alt: "PUBG Mobile Elite Royale Pass (TR) Satın Al | Epinpay",
-    title: "PUBG Mobile Elite Royale Pass",
-    location: "Türkiye",
-    price: "227.00 ₺",
-  },
-  {
-    img: "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-global-88.webp",
-    img_alt: "PUBG Mobile Elite Royale Pass (Global) Satın Al | Epinpay",
-    title: "PUBG Mobile Elite Royale Pass",
-    location: "Global",
-    price: "225.00 ₺",
-  },
-  {
-    img: "https://cdn.epinpay.com/image/ep/2025/10/product/pubg-mobile-1800-uc-top-up-global-94.webp",
-    img_alt: "PUBG Mobile 1800 UC GLOBAL Top-Up | Epinpay",
-    title: "PUBG Mobile 1800 UC Top-Up",
-    location: "Global",
-    price: "920.00 ₺",
-  },
-  {
-    img: "https://cdn.epinpay.com/image/ep/2025/11/product/pubg-royale-pass-global-52.webp",
-    img_alt: "PUBG Royale Pass Top-Up | Epinpay",
-    title: "PUBG Royale Pass",
-    location: "Global",
-    price: "",
+    id: 5,
+    category: "PUBG",
+    region: "GLOBAL",
+    platform: "MOBILE",
+    type: "PASS",
+
+    status: PRODUCT_STATUS.ACTIVE,
+
+    basePrice: 225,
+    epPrice: 225,
+
+    translation: {
+      id: 5,
+      typeId: 5,
+      locale: "en",
+      name: "PUBG Mobile Elite Royale Pass",
+      slug: "pubg-mobile-elite-royale-pass-global",
+      description: "PUBG Mobile Elite Royale Pass Global.",
+      metaTitle: "PUBG Mobile Elite Royale Pass Global",
+      metaDescription: "Buy PUBG Mobile Elite Royale Pass Global.",
+      imgUrl:
+        "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-global-88.webp",
+      imgAlt: "PUBG Mobile Elite Royale Pass (Global)",
+    },
   },
 ];
+
+
 
 export async function generateMetadata({
   params,
@@ -144,17 +191,8 @@ export default function ProductsPage({
       <div className="py-24">
         <h1>$listelenen ürün adı$ listeleniyor.</h1>
         <div className="flex flex-wrap gap-4">
-          {productCardData.map((cardProps, index) => (
-            <ProductCard
-              key={index}
-              img={cardProps.img}
-              img_alt={cardProps.img_alt}
-              title={cardProps.title}
-              location={cardProps.location}
-              price={cardProps.price}
-              discountRate={cardProps.discountRate}
-              fakePrice={cardProps.fakePrice}
-            />
+          {productCardData.map((productCard, index) => (
+            <ProductCard product={productCard} key={index}/>
           ))}
         </div>
       </div>

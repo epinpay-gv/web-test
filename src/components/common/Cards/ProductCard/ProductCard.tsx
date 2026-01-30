@@ -2,58 +2,54 @@ import Image from "next/image";
 import { Button } from "../../Button/Button";
 import "./productCard.css";
 import { DesktopPc } from "flowbite-react-icons/outline";
+import { Product } from "@/types/types";
+import { ProductCardType, ProductCardOrientation } from "./types";
 
 interface ProductCardProps {
-  img: string;
-  img_alt: string;
-  title: string;
-  location: string;
-  price: string;
-  discountRate?: string;
-  fakePrice?: string;
+  product: Product;
+  orientation?: ProductCardOrientation;
 }
 
-export function ProductCard(props: ProductCardProps) {
+export function ProductCard({product, orientation}: ProductCardProps) {
   return (
     <>
-      <div className="product-card-container p-3 gap-1 flex flex-col justify-between md:w-56 md:h-92.5">
+      <div className="product-card-container p-3 gap-1 flex flex-col justify-between w-42.5 h-79 md:w-56 md:h-92.5">
         {/* Fav button */}
         {/* Image */}
-        <div className="relative w-full aspect-square">
+        <div className="relative aspect-square w-36.5 h-36.5 md:w-50 md:h-50">
           <Image
-            src={props.img}
-            alt={props.img_alt}
-            width={200}
-            height={200}
+            src={product.translation.imgUrl}
+            alt={product.translation.imgAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, 224px"
             className="object-contain rounded mx-auto"
           />
         </div>
 
         <div className="space-y-2">
           {/* text */}
-          <p className="max-w-50 truncate">{props.title}</p>
-
+          <p className="max-w-50 truncate">{product.translation.name}</p>
           {/* product info : with stock*/}
-          {props.price ? (
+          {product.basePrice ? (
             <>
               <div className="text-xs flex gap-2 items-center">
                 <DesktopPc size={20} />
-                <span className="text-body"> {props.location}</span>
+                <span className="text-body"> {product.region}</span>
               </div>
 
               <p className="gap-2 flex items-center justify-end font-medium">
                 <span className="text-body text-xs line-through">
-                  {props.fakePrice}
+                  {product.fakePrice}
                 </span>
-                {props.discountRate && (
+                {product.discountRate && (
                   <span className="text-fg-brand-strong text-xs">
-                    - {props.discountRate}
+                    - {product.discountRate}
                   </span>
                 )}
-                <span className="text-fg-success-strong">{props.price}</span>
+                <span className="text-fg-success-strong">{product.basePrice}</span>
               </p>
               {/* buttons */}
-              <div className="flex  justify-between">
+              <div className="flex justify-between">
                 <Button
                   padding="sm"
                   textSize="sm"
@@ -72,18 +68,10 @@ export function ProductCard(props: ProductCardProps) {
             <>
               <div className="text-xs flex gap-2 items-center">
                 <DesktopPc size={20} />
-                <span className="text-body"> {props.location}</span>
+                <span className="text-body"> {product.region}</span>
               </div>
 
               <p className="gap-2 flex items-center justify-end font-medium">
-                <span className="text-body text-xs line-through">
-                  {props.fakePrice}
-                </span>
-                {props.discountRate && (
-                  <span className="text-fg-brand-strong text-xs">
-                    - {props.discountRate}
-                  </span>
-                )}
                 <span className="text-fg-danger-strong">Stokta Yok</span>
               </p>
               {/* buttons */}

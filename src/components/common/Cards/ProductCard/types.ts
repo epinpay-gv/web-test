@@ -8,4 +8,5 @@ enum ProductCardOrientation {
   VERTICAL = "vertical",
 }
 
+
 export { ProductCardType, ProductCardOrientation };
