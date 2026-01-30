@@ -21,7 +21,7 @@ export const productCardData: ProductCardProps[] = [
   {
     img: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-60-uc-tr-5.webp",
     img_alt: "PUBG Mobile 60 UC (Türkiye) Satın Al | Epinpay",
-    title: "PUBG Mobile 60 UC",
+    title: "PUBG Mobile 60 UC  (Türkiye) Satın Al | Epinpay",
     location: "Türkiye",
     price: "36.50 ₺",
     fakePrice: "41.00 ₺",
@@ -98,7 +98,7 @@ export const productCardData: ProductCardProps[] = [
     img_alt: "PUBG Royale Pass Top-Up | Epinpay",
     title: "PUBG Royale Pass",
     location: "Global",
-    price: "—",
+    price: "",
   },
 ];
 

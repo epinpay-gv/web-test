@@ -1,3 +1,21 @@
-  .product-card-bg {
-    background-color: var(--bg-neutral-primary);
-  }
+.product-card-container {
+  background-color: var(--bg-neutral-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-base);
+}
+
+.text-body {
+  color: var(--text-body);
+}
+
+.text-fg-brand-strong {
+  color: var(--text-fg-brand-strong);
+}
+.text-fg-success-strong{
+    
+  color: var(--text-fg-success-strong);
+}
+
+.text-fg-danger-strong{
+  color: var(--text-fg-danger-strong);
+}

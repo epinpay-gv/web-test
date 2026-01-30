@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Button } from "../../Button/Button";
+import "./productCard.css";
+import { DesktopPc } from "flowbite-react-icons/outline";
 
 interface ProductCardProps {
   img: string;
@@ -14,32 +16,88 @@ interface ProductCardProps {
 export function ProductCard(props: ProductCardProps) {
   return (
     <>
-      <div className="rounded-base gap-2 p-3 border border-[#1D303A] rounded-lg flex md:flex-col">
+      <div className="product-card-container p-3 gap-1 flex flex-col justify-between md:w-56 md:h-92.5">
         {/* Fav button */}
         {/* Image */}
         <div className="relative w-full aspect-square">
           <Image
             src={props.img}
             alt={props.img_alt}
-            fill
-            className="object-contain rounded"
-            sizes="(max-width: 768px) 100vw, 300px"
+            width={200}
+            height={200}
+            className="object-contain rounded mx-auto"
           />
         </div>
 
-        {/* text */}
         <div className="space-y-2">
-          <p>{props.location}</p>
-          <p>{props.title}</p>
-          <p className="text-end">
-            {props.fakePrice} {props.discountRate} {props.price}
-          </p>
-          <div className="flex gap-2">
-            <Button padding="xs" variant="ghost" text="Sepete Ekle" />
-            <Button padding="xs" variant="brand" text="Hemen Al"/>
-          </div>
+          {/* text */}
+          <p className="max-w-50 truncate">{props.title}</p>
+
+          {/* product info : with stock*/}
+          {props.price ? (
+            <>
+              <div className="text-xs flex gap-2 items-center">
+                <DesktopPc size={20} />
+                <span className="text-body"> {props.location}</span>
+              </div>
+
+              <p className="gap-2 flex items-center justify-end font-medium">
+                <span className="text-body text-xs line-through">
+                  {props.fakePrice}
+                </span>
+                {props.discountRate && (
+                  <span className="text-fg-brand-strong text-xs">
+                    - {props.discountRate}
+                  </span>
+                )}
+                <span className="text-fg-success-strong">{props.price}</span>
+              </p>
+              {/* buttons */}
+              <div className="flex  justify-between">
+                <Button
+                  padding="sm"
+                  textSize="sm"
+                  variant="ghost"
+                  text="Sepete Ekle"
+                />
+                <Button
+                  padding="sm"
+                  textSize="sm"
+                  variant="brand"
+                  text="Hemen Al"
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="text-xs flex gap-2 items-center">
+                <DesktopPc size={20} />
+                <span className="text-body"> {props.location}</span>
+              </div>
+
+              <p className="gap-2 flex items-center justify-end font-medium">
+                <span className="text-body text-xs line-through">
+                  {props.fakePrice}
+                </span>
+                {props.discountRate && (
+                  <span className="text-fg-brand-strong text-xs">
+                    - {props.discountRate}
+                  </span>
+                )}
+                <span className="text-fg-danger-strong">Stokta Yok</span>
+              </p>
+              {/* buttons */}
+              <div className="flex w-full justify-between">
+                <Button
+                  padding="sm"
+                  textSize="sm"
+                  variant="secondary"
+                  text="Gelince Haber Ver"
+                />
+              </div>
+            </>
+          )}
         </div>
-        {/* buttons */}
       </div>
     </>
   );
