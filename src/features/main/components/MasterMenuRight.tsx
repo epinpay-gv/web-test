@@ -3,7 +3,7 @@
 import GameCategoryCards from '@/components/common/NavLinks/GameCategoryCards'
 export default function MasterMenuRight() {
   return (
-    <div className='hidden lg:block' >
+    <div >
   <GameCategoryCards/>
     </div>
   )
