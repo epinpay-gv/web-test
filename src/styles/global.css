@@ -1,10 +1,9 @@
 @import "tailwindcss";
-
 /* @plugin "tailwindcss-animate"; */
 @import "../components/common/Button/buttons";
 @import "../components/common/Cards/ProductCard/productCard.css";
 
-/* @import "tw-animate-css"; */
+/* @import "../components/common/Form/Input/inputs"; */
 
 @custom-variant dark (&:is(.dark *));
 :root {
@@ -107,6 +106,8 @@
 
   /* Border Radius */
   --radius-base: 12px;
+  --radius-sm: 6px;
+  --radius-xs: 3px;
 
  /* colors/text */
   --text-fg-lime: #7CCF00;
