@@ -1,3 +1,9 @@
+/* COMMON */
+export interface PaginationData{
+  count: number;
+  rows: [];
+}
+
 /* PRODUCT */
 
 export enum PRODUCT_STATUS {

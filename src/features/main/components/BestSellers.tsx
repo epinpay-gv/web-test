@@ -24,7 +24,7 @@ export default function BestSellers() {
           activeValue={range}
           onChange={setRange}
           containerClassName="inline-flex items-center w-[341px] h-[56px] gap-3 rounded-[16px] bg-(--bg-neutral-primary-soft) p-2"
-          tabClassName="flex items-center justify-center text-xs rounded-lg transition"
+          tabClassName="flex items-center justify-center text-sm rounded-lg transition"
           activeTabClassName="bg-(--bg-brand) w-[113px] h-[40px] text-black rounded-[12px]"
           inactiveTabClassName="w-[113px] h-[40px] text-(--text-body)"
         />

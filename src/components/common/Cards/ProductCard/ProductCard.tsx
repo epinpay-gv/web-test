@@ -53,11 +53,11 @@ export function ProductCard({ product, orientation, addToCart, notifyWhenAvailab
                 </span>
                 {product.discountRate && (
                   <span className="text-fg-brand-strong text-xs">
-                    - {product.discountRate}
+                    - {product.discountRate} %
                   </span>
                 )}
                 <span className="text-fg-success-strong">
-                  {product.basePrice}
+                  $ {product.basePrice}
                 </span>
               </p>
               {/* buttons */}
