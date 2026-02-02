@@ -238,7 +238,8 @@
   }
 
   .input[aria-invalid="true"] {
-    border-color: var(--border-danger);
+    
+    background-color: var(--border-danger);
   }
 
   /* ================= SIZES ================= */

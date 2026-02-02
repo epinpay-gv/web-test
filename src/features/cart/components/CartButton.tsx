@@ -9,13 +9,20 @@ export function CartButton() {
   const itemCount = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <button className="relative p-2 text-(--text-body) hover:bg-(--bg-neutral-tertiary) rounded-md transition-colors outline-none group">
-      <Cart className="w-6 h-6 transition-colors" />
+    <div className="relative inline-flex">
+      <Button
+        variant="ghost"
+        appearance="filled"
+        padding="xs"
+        className="border-none! focus:ring-0" 
+        icon={<Cart className="w-6 h-6 transition-colors" />}
+      />
+      
       {itemCount > 0 && (
-        <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white ring-2 ring-(--bg-neutral-secondary-soft)">
+        <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-(--bg-neutral-secondary-soft) pointer-events-none z-10">
           {itemCount}
         </span>
       )}
-    </button>
+    </div>
   );
 }

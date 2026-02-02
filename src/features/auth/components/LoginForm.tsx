@@ -1,95 +1,160 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAuthStore } from "../store/auth.store";
-import { authApi } from "../service";
+import Link from "next/link";
+import { Input } from "@/components/common/Form/Input/Input";
 import { Button } from "@/components/common/Button/Button";
+import { 
+  Envelope, 
+  Lock, 
+  Eye, 
+  EyeSlash 
+} from "flowbite-react-icons/outline";
+import { Google } from "flowbite-react-icons/solid";
+import { authApi } from "../service";
+import { useAuthStore } from "../store/auth.store";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "@/features/cart/store/cart.store";
-import { useNotificationStore } from "@/features/notifications/stores/notification.store";
-import { MOCK_CART_ITEMS, MOCK_NOTIFICATIONS } from "@/features/notifications/mock-data";
-
-interface AuthError {
-  status?: number;
-  message: string;
-}
+import clsx from "clsx";
 
 export function LoginForm() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const setAuth = useAuthStore((state) => state.setAuth);
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setError(null);
 
+    if (!email) {
+      setError("Doldurulması zorunlu alan.");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const response = await authApi.login({ email, password });
-      setAuth(response.user, response.token);
-      useNotificationStore.getState().setNotifications(MOCK_NOTIFICATIONS);
-      useCartStore.getState().setItems(MOCK_CART_ITEMS);
+      const res = await authApi.login({ email, password });
+      setAuth(res.user, res.token);
       router.push("/");
-    } catch (error) {
-      const authError = error as AuthError;
-      alert(authError.message || "Bir hata oluştu");
-    } finally {
+   } catch (err: unknown) {
+    // 1. Durum: Eğer bu bir standart JavaScript Error objesi ise
+    if (err instanceof Error) {
+      setError(err.message);
+    } 
+    // 2. Durum: Eğer bu bir obje ise ve içinde 'message' string'i varsa
+    else if (
+      typeof err === "object" && 
+      err !== null && 
+      "message" in err && 
+      typeof (err as { message: unknown }).message === "string"
+    ) {
+      setError((err as { message: string }).message);
+    }   
+    // 3. Durum: Hiçbiri değilse varsayılan bir mesaj
+    else {
+      setError("Beklenmedik bir hata oluştu!");
+    }
+  } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleLogin} className="space-y-4 w-full max-w-sm p-8 bg-(--bg-neutral-secondary-soft) rounded-xl border border-(--border-default-medium) shadow-xl">
-      <div className="space-y-2 text-center mb-6">
-        <h1 className="text-2xl font-bold text-(--text-body)">Tekrar Hoş Geldin</h1>
-        <p className="text-sm text-neutral-500">Hesabına giriş yaparak devam et.</p>
+    <div className="max-w-md w-full mx-auto z-10">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-white mb-3">Hesabına Giriş Yap</h1>
+        <p className="text-gray-400 text-sm leading-relaxed">
+          Fırsatlardan faydalanmak ve alışveriş yapmak için hemen üye ol ya da giriş yap.
+        </p>
+        <p className="mt-2 text-sm">
+          <span className="text-gray-400">Hesabın yok mu? </span>
+          <Link href="/register" className="text-cyan-400 hover:underline font-medium">Kayıt Ol</Link>
+        </p>
       </div>
 
-      <div className="space-y-4">
-        <div className="space-y-1">
-          <label className="text-sm font-medium text-(--text-body)">E-posta</label>
-          <input
+      <form onSubmit={handleLogin} className="space-y-6">
+        {/* Email Input - Error State Eklenmiş */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-white flex items-center gap-1">
+            Email <span className="text-red-500">*</span>
+          </label>
+          <Input
             type="email"
+            placeholder="Email adresinizi girin"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2.5 rounded-md border bg-transparent text-(--text-body) border-(--border-default-medium) focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none"
-            placeholder="ornek@mail.com"
-            required
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if(error) setError(null);
+            }}
+            leftIcon={<Envelope className={clsx("w-5 h-5", error ? "text-white" : "text-gray-500")} />}
+            
+            className="text-white placeholder:text-gray-600"
           />
+          {error && (
+            <span className="text-[11px] text-red-500 font-medium animate-in fade-in slide-in-from-top-1">
+              {error}
+            </span>
+          )}
         </div>
 
-        <div className="space-y-1">
-          <label className="text-sm font-medium text-(--text-body)">Şifre</label>
-          <input
-            type="password"
+        {/* Şifre Input */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-white flex items-center gap-1">
+            Şifre <span className="text-red-500">*</span>
+          </label>
+          <Input
+            type={showPassword ? "text" : "password"}
+            placeholder="••••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2.5 rounded-md border bg-transparent text-(--text-body) border-(--border-default-medium) focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none"
-            placeholder="••••••••"
-            required
+            leftIcon={<Lock className="w-5 h-5 text-gray-500" />}
+            variant="innerButton"
+            innerButton={
+              <button 
+                type="button" 
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-gray-500 hover:text-white px-3"
+              >
+                {showPassword ? <EyeSlash className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            }
+            wrapperClassName="bg-[#161F28] border-gray-800 focus-within:border-cyan-500"
+            className="text-white"
           />
         </div>
-      </div>
 
-      <Button 
-        variant="brand" 
-        text={loading ? "Giriş Yapılıyor..." : "Giriş Yap"} 
-        className="w-full mt-2 py-6"
-        type="submit"
-        disabled={loading}
-      />
+        <div className="flex items-center justify-between">
+          <label className="flex items-center gap-2 cursor-pointer group">
+            <input type="checkbox" className="w-4 h-4 rounded border-gray-700 bg-transparent text-cyan-500 focus:ring-0 ring-offset-0" />
+            <span className="text-xs text-gray-400 group-hover:text-white transition-colors">Beni hatırla</span>
+          </label>
+          <Link href="/forgot-password" title="Şifremi unuttum" className="text-xs text-cyan-400 hover:text-cyan-300">
+            Şifremi unuttum
+          </Link>
+        </div>
 
-      <div className="text-center mt-4">
-        <button 
-          type="button"
-          onClick={() => router.push("/register")}
-          className="text-sm text-neutral-500 hover:text-orange-500 transition-colors"
-        >
-          Henüz hesabın yok mu? <span className="font-semibold underline">Kayıt Ol</span>
-        </button>
-      </div>
-    </form>
+        <div className="space-y-3 pt-2">
+          <Button 
+            type="submit" 
+            variant="brand" 
+            text={loading ? "Giriş yapılıyor..." : "Giriş Yap"} 
+            className="w-full py-4 font-bold shadow-lg shadow-cyan-500/10" 
+            disabled={loading}
+          />
+          <Button 
+            type="button" 
+            variant="dark" 
+            appearance="filled"
+            text="Google ile Giriş Yap" 
+            icon={<Google className="w-5 h-5" />}
+            className="w-full py-4 text-sm font-semibold bg-[#1C2630] border-none hover:bg-[#25313C]" 
+          />
+        </div>
+      </form>
+    </div>
   );
 }

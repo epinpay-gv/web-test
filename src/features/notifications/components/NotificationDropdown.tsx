@@ -10,44 +10,73 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useNotificationStore } from "../stores/notification.store";
+import { Button } from "@/components/common/Button/Button";
 
 export function NotificationDropdown() {
   const { notifications, markAsRead } = useNotificationStore();
-  const unreadCount = notifications.filter(n => !n.isRead).length;
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   return (
     <DropdownMenu>
+      {/* asChild sayesinde DropdownMenuTrigger kendi butonunu oluşturmaz, 
+        içindeki ilk bileşeni (bizim Button'u) tetikleyici olarak kullanır.
+      */}
       <DropdownMenuTrigger asChild>
-        <button className="relative p-2 text-(--text-body) hover:bg-(--bg-neutral-tertiary) rounded-md transition-colors outline-none group">
-          <Bell className="w-6 h-6 group-hover:text-orange-500 transition-colors" />
+        <div className="relative inline-flex">
+          <Button
+            variant="ghost"
+            padding="xs"
+            className="!border-none focus:ring-0"
+            icon={<Bell className="w-6 h-6 transition-colors" />}
+          />
           {unreadCount > 0 && (
-            <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-(--bg-neutral-secondary-soft)">
+            <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-(--bg-neutral-secondary-soft) pointer-events-none z-10">
               {unreadCount}
             </span>
           )}
-        </button>
+        </div>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-80 bg-(--bg-neutral-secondary-soft) border-(--border-default-medium)">
-        <DropdownMenuLabel className="text-(--text-body)">Bildirimler</DropdownMenuLabel>
+      <DropdownMenuContent
+        align="end"
+        sideOffset={8}
+        className="w-80 bg-(--bg-neutral-secondary-soft) border-(--border-default-medium) p-1"
+      >
+        <DropdownMenuLabel className="text-(--text-body) px-2 py-2">
+          Bildirimler
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="max-h-[300px] overflow-y-auto">
           {notifications.length > 0 ? (
             notifications.map((n) => (
-              <DropdownMenuItem 
-                key={n.id} 
+              <DropdownMenuItem
+                key={n.id}
                 onClick={() => markAsRead(n.id)}
-                className={`flex flex-col items-start gap-1 p-3 cursor-pointer focus:bg-(--bg-neutral-tertiary) ${!n.isRead ? 'bg-orange-500/5' : ''}`}
+                className={`flex flex-col items-start gap-1 p-3 cursor-pointer rounded-md focus:bg-(--bg-neutral-tertiary) mb-1 last:mb-0 ${
+                  !n.isRead ? "bg-orange-500/5" : ""
+                }`}
               >
-                <div className="flex justify-between w-full">
-                  <span className={`text-sm font-semibold ${!n.isRead ? 'text-orange-500' : 'text-(--text-body)'}`}>{n.title}</span>
-                  <span className="text-[10px] text-neutral-500">{n.createdAt}</span>
+                <div className="flex justify-between w-full gap-2">
+                  <span
+                    className={`text-sm font-semibold truncate ${
+                      !n.isRead ? "text-orange-500" : "text-(--text-body)"
+                    }`}
+                  >
+                    {n.title}
+                  </span>
+                  <span className="text-[10px] text-neutral-500 whitespace-nowrap">
+                    {n.createdAt}
+                  </span>
                 </div>
-                <p className="text-xs text-neutral-400 line-clamp-2">{n.message}</p>
+                <p className="text-xs text-neutral-400 line-clamp-2">
+                  {n.message}
+                </p>
               </DropdownMenuItem>
             ))
           ) : (
-            <div className="p-4 text-center text-sm text-neutral-500">Bildirim bulunmuyor.</div>
+            <div className="p-8 text-center text-sm text-neutral-500">
+              Bildirim bulunmuyor.
+            </div>
           )}
         </div>
       </DropdownMenuContent>
