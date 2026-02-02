@@ -25,6 +25,7 @@ export default function Test() {
         onClear={() => setValue("")}
         inputSize="sm"
         variant="addOnIcon"
+        aria-invalid="true"
         addOnIcon={<User />}
       />
     </div>

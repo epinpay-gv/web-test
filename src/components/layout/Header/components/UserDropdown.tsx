@@ -40,7 +40,7 @@ export function UserDropdown({ user, onLogout }: UserDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 p-1 rounded-full border border-(--border-default-medium) hover:bg-(--bg-neutral-tertiary) transition-colors outline-none group">
+        <button className="flex items-center gap-2 p-1 rounded-full bg-(--bg-neutral-secondary-medium) transition-colors outline-none group">
           <div className="w-8 h-8 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
               <span className="text-xs font-bold">{initial}</span>
           </div>
