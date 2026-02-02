@@ -1,3 +1,5 @@
+import { Offer, Product } from "@/types/types";
+
 enum ProductCardType {
   MOBILE = "mobile",
   DESKTOP = "desktop",
@@ -11,12 +13,13 @@ export interface AddToCartPayload {
   action: string;
   offerId: number;
   count: number;
-  isBuyNow : boolean;
+  isBuyNow: boolean;
 }
 
 export interface NotifyWhenAvailablePayload {
   productId: number;
   userId: number;
 }
+
 
 export { ProductCardType, ProductCardOrientation };

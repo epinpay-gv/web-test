@@ -28,8 +28,6 @@ export interface Product {
   discountRate?: number;
   fakePrice?: number;
 
-  //TODO : StockOffer a göre bu alanlar eklenecek:
-  offers: Offer[];
 }
 
 export interface Translation {
