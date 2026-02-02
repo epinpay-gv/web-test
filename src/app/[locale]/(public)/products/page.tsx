@@ -205,12 +205,12 @@ export default function ProductsPage({
       /> */}
 
       {/* Page Content */}
-      <div className="max-w-7xl mx-auto py-24">
+      <div className="container max-w-7xl mx-auto py-24">
         {/* <FilterNavBar /> */}
         <PageTitle
           data={{
             title: "Tüm ürünler ",
-            totalProductAmount: 0,
+            totalProductAmount: 2173,
           }}
           changeOrder={function (order: string): void {
             throw new Error("Function not implemented.");

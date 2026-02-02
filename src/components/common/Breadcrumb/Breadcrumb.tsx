@@ -12,9 +12,9 @@ export default function Breadcrumb({ data }: BreadcrumbProps) {
   return (
     <>
       <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-        <Home />
+        <Home size={14}/>
         <span>Ana Sayfa</span>
-        <AngleRight />
+        <AngleRight size={14}/>
         <Link href={data.currentPageLink}>{data.currentPage}</Link>
       </div>
     </>

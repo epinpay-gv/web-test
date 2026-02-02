@@ -7,7 +7,7 @@ interface FiltersProps {
 export default function Filters({data} : FiltersProps) {
   return (
     <>
-      <div className="container max-w-77">
+      <div className="blue-container container max-w-77">
 
       </div>
     </>

@@ -16,3 +16,4 @@ export default function ProductGrid({ data }: ProductGridProps) {
     </>
   );
 }
+
