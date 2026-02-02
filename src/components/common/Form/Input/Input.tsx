@@ -19,8 +19,6 @@ export function Input({
   ...props
 }: InputProps) {
   const showClearButton =
-    value !== undefined &&
-    value !== "" &&
     variant !== "innerButton" &&
     !innerButton;
 

@@ -1,24 +1,17 @@
 export interface User {
   id: string;
   name: string;
-  avatar: string;
   email: string;
+  avatar?: string;
+  surname?: string;
 }
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
+export interface AuthResponse {
   user: User;
+  token: string;
 }
 
-export interface ApiUser {
-  id: string;
-  name: string;
-  avatar: string;
+export interface LoginCredentials {
   email: string;
   password: string;
-  token: boolean;
 }
