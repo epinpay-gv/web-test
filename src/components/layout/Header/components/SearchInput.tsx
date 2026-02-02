@@ -8,8 +8,6 @@ import { Search } from 'flowbite-react-icons/outline';
 export function SearchInput() {
   const { query, setQuery, results, isLoading, isOpen, setIsOpen } = useSearch();
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  // Click outside ile kapatma
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -20,8 +18,6 @@ export function SearchInput() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [setIsOpen]);
-
-  // ESC ile kapatma
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

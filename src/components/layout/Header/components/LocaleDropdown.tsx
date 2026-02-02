@@ -11,8 +11,9 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, ChevronRight } from "lucide-react";
 import clsx from "clsx";
+import { Check, ChevronDown } from "flowbite-react-icons/outline";
+
 
 export function LocaleDropdown() {
   const LANGUAGES = [
@@ -40,6 +41,7 @@ export function LocaleDropdown() {
             "hover:bg-(--bg-neutral-tertiary)",
             "transition-colors",
             "focus:border-0",
+            "border-(--border-default-medium)",
             "outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:ring-0"
           )}
         >
@@ -66,18 +68,20 @@ export function LocaleDropdown() {
           </DropdownMenuSubTrigger>
 
           <DropdownMenuSubContent className="bg-(--bg-neutral-secondary-soft)">
-            {LANGUAGES.map((lang) => (
-              <DropdownMenuItem
-                key={lang.code}
-                onClick={() => setLanguage(lang)}
-                className={clsx(
-                  "flex items-center gap-2 cursor-pointer",
-                  language.code === lang.code &&
-                    "bg-(--bg-neutral-tertiary)"
-                )}
-              >
-                <span className="text-(--text-body)">{lang.label}</span>
-              </DropdownMenuItem>
+            {LANGUAGES.map((lang, index) => (
+              <React.Fragment key={lang.code}>
+                <DropdownMenuItem
+                  onClick={() => setLanguage(lang)}
+                  className={clsx(
+                    "flex items-center gap-2 cursor-pointer",
+                    language.code === lang.code && "bg-(--bg-neutral-tertiary)"
+                  )}
+                >
+                  <span className="text-(--text-body)">{lang.label}</span>
+                </DropdownMenuItem>
+                {/* Son eleman değilse separator ekle */}
+                {index < LANGUAGES.length - 1 && <DropdownMenuSeparator />}
+              </React.Fragment>
             ))}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
@@ -91,18 +95,23 @@ export function LocaleDropdown() {
           </DropdownMenuSubTrigger>
 
           <DropdownMenuSubContent className="bg-(--bg-neutral-secondary-soft)">
-            {CURRENCIES.map((cur) => (
-              <DropdownMenuItem
-                key={cur.code}
-                onClick={() => setCurrency(cur)}
-                className={clsx(
-                  "cursor-pointer",
-                  currency.code === cur.code &&
-                    "bg-(--bg-neutral-tertiary)"
-                )}
-              >
-                <span className="text-(--text-body)">{cur.label}</span>
-              </DropdownMenuItem>
+            {CURRENCIES.map((cur, index) => (
+              <React.Fragment key={cur.code}>
+                <DropdownMenuItem
+                  onClick={() => setCurrency(cur)}
+                  className={clsx(
+                    "cursor-pointer flex justify-between",
+                    currency.code === cur.code && "bg-(--bg-neutral-tertiary)"
+                  )}
+                >
+                  <span className="text-(--text-body)">{cur.label}</span>
+                  {currency.code === cur.code && (
+                    <Check className="w-4 h-4 text-(--text-body)" />
+                  )}
+                </DropdownMenuItem>
+                {/* Son eleman değilse separator ekle */}
+                {index < CURRENCIES.length - 1 && <DropdownMenuSeparator />}
+              </React.Fragment>
             ))}
           </DropdownMenuSubContent>
         </DropdownMenuSub>

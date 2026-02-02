@@ -3,7 +3,7 @@
 @import "../components/common/Button/buttons";
 @import "../components/common/Cards/ProductCard/productCard.css";
 
-/* @import "../components/common/Form/Input/inputs"; */
+@import "../components/common/Form/Input/inputs";
 
 @custom-variant dark (&:is(.dark *));
 :root {

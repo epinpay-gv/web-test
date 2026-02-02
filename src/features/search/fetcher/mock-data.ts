@@ -274,3 +274,4 @@ export const MOCK_SEARCH_DATA: SearchItem[] = [
     image: '',
   },
 ];
+
