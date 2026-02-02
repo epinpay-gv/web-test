@@ -1,6 +1,9 @@
+"use client";
+
 import { ProductCard } from "@/components/common/Cards/ProductCard/ProductCard";
 import TimeRangeTabs from "@/components/common/NavLinks/NavTabs/TimeRangeTabs";
-import { Product, PRODUCT_STATUS } from "@/types/types";
+import { ProductCarousel } from "@/features/bestsellers/components/ProductCarousel";
+import {Product, PRODUCT_STATUS } from "@/types/types";
 import { useState } from "react";
 
 const TIME_RANGES = [
@@ -8,7 +11,6 @@ const TIME_RANGES = [
   { label: "Son 7 Gün", value: "7d" },
   { label: "Son 30 Gün", value: "30d" },
 ];
-
 
 export const productCardData: Product[] = [
   {
@@ -33,11 +35,14 @@ export const productCardData: Product[] = [
       slug: "pubg-mobile-60-uc-tr",
       description: "PUBG Mobile 60 UC Türkiye bölgesi için geçerlidir.",
       metaTitle: "PUBG Mobile 60 UC Satın Al",
-      metaDescription: "PUBG Mobile 60 UC Türkiye için güvenli ve hızlı satın alma.",
+      metaDescription:
+        "PUBG Mobile 60 UC Türkiye için güvenli ve hızlı satın alma.",
       imgUrl:
         "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-60-uc-tr-5.webp",
       imgAlt: "PUBG Mobile 60 UC (Türkiye)",
     },
+    cheapestOffer: { id: 101 },
+    offers: [],
   },
 
   {
@@ -62,11 +67,14 @@ export const productCardData: Product[] = [
       slug: "pubg-mobile-325-uc-tr",
       description: "PUBG Mobile 325 UC Türkiye bölgesi için geçerlidir.",
       metaTitle: "PUBG Mobile 325 UC Satın Al",
-      metaDescription: "PUBG Mobile 325 UC Türkiye için güvenli ve hızlı satın alma.",
+      metaDescription:
+        "PUBG Mobile 325 UC Türkiye için güvenli ve hızlı satın alma.",
       imgUrl:
         "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
       imgAlt: "PUBG Mobile 325 UC (Türkiye)",
     },
+    cheapestOffer: { id: 102 },
+    offers: [],
   },
 
   {
@@ -91,11 +99,14 @@ export const productCardData: Product[] = [
       slug: "pubg-mobile-660-uc-tr",
       description: "PUBG Mobile 660 UC Türkiye bölgesi için geçerlidir.",
       metaTitle: "PUBG Mobile 660 UC Satın Al",
-      metaDescription: "PUBG Mobile 660 UC Türkiye için güvenli ve hızlı satın alma.",
+      metaDescription:
+        "PUBG Mobile 660 UC Türkiye için güvenli ve hızlı satın alma.",
       imgUrl:
         "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
       imgAlt: "PUBG Mobile 660 UC (Türkiye)",
     },
+    cheapestOffer: { id: 103 },
+    offers: [],
   },
 
   {
@@ -123,6 +134,8 @@ export const productCardData: Product[] = [
         "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-tr-75.webp",
       imgAlt: "PUBG Mobile Elite Royale Pass (TR)",
     },
+    cheapestOffer: { id: 104 },
+    offers: [],
   },
 
   {
@@ -150,30 +163,35 @@ export const productCardData: Product[] = [
         "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-global-88.webp",
       imgAlt: "PUBG Mobile Elite Royale Pass (Global)",
     },
+    cheapestOffer: { id: 105 },
+    offers: [],
   },
 ];
 
-
 export default function BestSellers() {
-     const [range, setRange] = useState("24h");
-    return (
-        <div>
-            <h1 className="text-(--text-heading) text-[24px] font-semibold py-4">En Çok Satanlar</h1>
-            <div>
-                <TimeRangeTabs
-                          items={TIME_RANGES}
-                          activeValue={range}
-                          onChange={setRange}
-                          containerClassName="inline-flex items-center w-[341px] h-[56px] gap-3 rounded-[16px] bg-(--bg-neutral-primary-soft) p-2"
-                          tabClassName="flex items-center justify-center text-xs rounded-lg transition"
-                          activeTabClassName="bg-(--bg-brand) w-[113px] h-[40px] text-black rounded-[12px]"
-                          inactiveTabClassName="w-[113px] h-[40px] text-(--text-body)" />
-            </div>
-             <div className="flex mx-auto py-5 gap-4">
-                     {productCardData.map((productCard, index) => (
-                       <ProductCard product={productCard} key={index}/>
-                     ))}
-                   </div>
-            </div>
-    )
+  const [range, setRange] = useState("24h");
+
+  return (
+    <div>
+      <h1 className="text-(--text-heading) text-[24px] font-semibold py-4">
+        En Çok Satanlar
+      </h1>
+
+ <TimeRangeTabs
+        items={TIME_RANGES}
+        activeValue={range}
+        onChange={setRange}
+        containerClassName="inline-flex items-center w-[341px] h-[56px] gap-3 rounded-[16px] bg-(--bg-neutral-primary-soft) p-2"
+        tabClassName="flex items-center justify-center text-xs rounded-lg transition"
+        activeTabClassName="bg-(--bg-brand) w-[113px] h-[40px] text-black rounded-[12px]"
+        inactiveTabClassName="w-[113px] h-[40px] text-(--text-body)"
+      />
+
+      <ProductCarousel 
+        products={productCardData}
+        showControls={false}
+        loop={false}
+      />
+    </div>
+  );
 }

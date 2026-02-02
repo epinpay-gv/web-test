@@ -24,7 +24,7 @@ export default function MasterMenu() {
 
 
   return (
-    <div className="h-auto md:h-100 lg:mt-20 md:grid md:grid-cols-2 md:gap-12">
+    <div className="h-auto md:h-100 lg:mt-15 md:grid md:grid-cols-2 md:gap-12 pb-3">
       <div className="hidden md:block">
         <MasterMenuLeft />
       </div>

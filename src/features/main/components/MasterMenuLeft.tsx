@@ -67,13 +67,14 @@ return (
    )}
 
 
-      <style jsx>{`
-        .gradient-text {
-          background: linear-gradient(to right, #ffffff, #24d7ff);
-          -webkit-background-clip: text;
-          color: transparent;
-        }
-      `}</style>
-    </div>
-  )
+{/* Başlık Gradient Renk Geçişi*/}
+<style jsx>{`
+.gradient-text {
+background: linear-gradient(to right, #ffffff, #24d7ff);
+-webkit-background-clip: text;
+color: transparent;
+}
+`}</style>
+</div>
+)
 }
