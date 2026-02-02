@@ -17,7 +17,7 @@ export default function ProductCard({
       : `$${price.toLocaleString('en-US')}`
 
   return (
-    <div className="rounded-xl bg-(--bg-neutral-primary-soft) border border-(--border-default) p-1 flex items-center justify-between gap-6 w-37.75 h-9.5">
+    <div className="rounded-xl bg-(--bg-neutral-primary-soft) border border-(--border-default) p-1 flex items-center justify-between gap-6 w-full md:w-37.75 h-9.5">
       <span className="text-sm font-medium text-(--text-heading)">
         {title}
       </span>

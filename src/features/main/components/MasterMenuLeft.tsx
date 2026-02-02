@@ -3,9 +3,11 @@
 import { BadgeCheck, ChevronDoubleRight, Wallet } from "flowbite-react-icons/outline"
 import FeatureItem from "@/components/common/Label/FeatureItem"
 import SectionHeader from "@/components/common/Label/SectionHeader"
-import ProductCard from "@/components/common/NavLinks/ProductCard"
+import ProductCard from "@/components/common/NavLinks/NavCard/ProductCard"
 
-export default function MasterMenuLeft() {
+type MasterMenuLeftSection = 'top' | 'bottom' | 'all'
+
+export default function MasterMenuLeft({ section = 'all' }: { section?: MasterMenuLeftSection }) {
   const infoItems = [
     { icon: ChevronDoubleRight, title: "Anında Teslimat" },
     { icon: BadgeCheck, title: "Lisanslı Epinler" },
@@ -21,16 +23,18 @@ const products = [
   { title: "8700 Coins", price: 1999 },
 ]
 
-
 return (
 <div>
 {/* Heading */}
+{(section === 'top' || section === 'all') && (
 <div className="text-3xl font-bold">
     <p className="gradient-text">Oyun paranı anında yükle</p>
     <p className="gradient-text">oyundan hiç kopma</p>
     </div>
+)}
 
     {/* Info icons */}
+    {(section === 'top' || section === 'all') && (
     <div className="mt-3 flex gap-6">
     {infoItems.map((item, index) => (
     <FeatureItem
@@ -40,16 +44,17 @@ return (
     />
     ))}
     </div>
+    )}
 
+   {(section === 'bottom' || section === 'all') && (
+   <>
    <SectionHeader
   title="Apex Legends"
   actionLabel="Tüm Ürünleri Gör"
   onActionClick={() => {}}
-  
-
 />
 
-   <div className="mt-6 grid grid-cols-3 gap-3">
+   <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
   {products.map((item, index) => (
     <ProductCard
       key={index}
@@ -58,6 +63,8 @@ return (
     />
   ))}
 </div>
+   </>
+   )}
 
 
       <style jsx>{`

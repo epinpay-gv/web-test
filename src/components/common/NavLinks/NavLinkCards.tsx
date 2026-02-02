@@ -13,27 +13,26 @@ export default function NavLinkCards() {
 
   return (
     <div className="w-full my-4 flex items-center justify-center">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-2 max-md:overflow-x-auto max-md:whitespace-nowrap">
         {mockNavLinkCards.map((navLink) => (
           <Link key={navLink.id} href={`/${navLink.slug}`} className="block group">
             <BaseCard
               onClick={() => console.log(navLink.title)}
               className={`relative w-31.5 h-18 my-3 rounded-lg overflow-hidden flex text-center ${
-                navLink.isPremium ? 'items-center justify-center border-none' : 'items-start justify-start'
+                navLink.isPremium ? 'items-center justify-center border-none' : 'items-s tart justify-start'
               }`}
             >
               {!navLink.isPremium && navLink.bgImage && navLink.image && (
                 <>
                   {/* Background Image */}
-                  <Image
-                    src={navLink.bgImage}
-                    alt={`${navLink.title} background`}
-                    fill
-                    className="object-cover"
-                  />
-
+ <Image
+  src={navLink.bgImage}
+  alt={`${navLink.title} background`}
+  fill
+  className="object-cover filter hue-rotate-90"
+/>
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/40 z-1" />
+                  {/* <div className="absolute inset-0 bg-black/40 z-1" /> */}
 
                   {/* Image */}
                   <Image
