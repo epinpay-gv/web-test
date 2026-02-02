@@ -15,7 +15,6 @@ export function Header() {
   const isLogin = useAuthStore((state) => state.isLogin);
   return (
     <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-(--bg-neutral-secondary-soft) transition-colors">
-      <div className="container max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <div className="max-w-7xl w-full mx-auto px-4 py-4 flex justify-between items-center gap-8">
         <div className="flex items-center gap-4">
           <div className='flex items-center gap-2'>
