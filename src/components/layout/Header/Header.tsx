@@ -1,11 +1,13 @@
 import { ThemeToggle } from '@/features/theme/components/ThemeToggle';
 import { Button } from '@/components/common/Button/Button';
 import Image from "next/image";
+import { SearchInput } from '@/features/search/index'
+import { LocaleDropdown } from './components/LocaleDropdown';
 
 export function Header() {
   return (
     <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-(--bg-neutral-secondary-soft) transition-colors">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="max-w-6xl w-full mx-auto px-4 py-4 flex justify-between items-center gap-8">
         <div className="flex items-center gap-4">
           <div className='flex items-center gap-2'>
             <div>
@@ -31,8 +33,14 @@ export function Header() {
           </div>
           {/* Diğer header içerikleriniz */}
         </div>
+        <div className="max-w-lg min-w-2/5">
+          <div className="mx-auto">
+            <SearchInput />
+          </div>
+        </div>
         
         <div className="flex items-center gap-4">
+          <LocaleDropdown />
           <ThemeToggle />
           <Button variant="secondary" text="Giriş Yap" />
           <Button variant="brand" text="Satıcı ol" />
@@ -42,3 +50,5 @@ export function Header() {
     </header>
   );
 }
+
+
