@@ -63,11 +63,9 @@
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-body-subtle);
-    pointer-events: none;
     font-size: var(--input-text);
     display: flex;
     align-items: center;
-    z-index: 1;
   }
 
   .input-clear-btn {
@@ -77,6 +75,7 @@
     border: none;
     cursor: pointer;
     color: var(--text-body-muted);
+    pointer-events: auto;
   }
 
   .input-clear-btn:hover {
@@ -213,11 +212,17 @@
   }
 
   .input-inner:has(.input:disabled) .input-close-icon {
+    cursor: not-allowed;
     color: var(--text-fg-disabled);
     font-weight: 400;
   }
 
+  .input-wrapper:has(.input:disabled) .input-clear-btn {
+    cursor: not-allowed;
+  }
+
   .input-wrapper:has(.input:disabled) .input-addon {
+    cursor: not-allowed;
     border-color: var(--border-default-medium);
     color: var(--text-fg-disabled)
   }

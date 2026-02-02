@@ -124,14 +124,10 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  const theme = localStorage.getItem('theme') || 'system';
+                  const theme = localStorage.getItem('theme') || 'dark';
                   let resolvedTheme = 'dark';
                   
-                  if (theme === 'system') {
-                    resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  } else {
-                    resolvedTheme = theme;
-                  }
+                  if (theme === 'dark') resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   
                   document.documentElement.classList.add(resolvedTheme);
                 } catch (e) {}
