@@ -37,5 +37,5 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   await params
-  return <><MainLayout><div>{children}</div></MainLayout></>
+  return <><MainLayout><div className='mx-auto'>{children}</div></MainLayout></>
 }

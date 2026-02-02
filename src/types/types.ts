@@ -22,10 +22,14 @@ export interface Product {
   translation: ProductTranslation;
 
   //TODO : walleta göre bu typeları değiştir:
+  cheapestOffer : Offer;
   basePrice: number | null;
   epPrice: number | null;
   discountRate?: number;
   fakePrice?: number;
+
+  //TODO : StockOffer a göre bu alanlar eklenecek:
+  offers: Offer[];
 }
 
 export interface Translation {
@@ -72,4 +76,8 @@ export interface CategoryTranslation extends Translation {
   imgAlt: string;
   metaTitle: string;
   metaDescription: string;
+}
+
+export interface Offer {
+  id: number;
 }

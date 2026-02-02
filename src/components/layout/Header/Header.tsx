@@ -5,7 +5,7 @@ import Image from "next/image";
 export function Header() {
   return (
     <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-(--bg-neutral-secondary-soft) transition-colors">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="container max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <div className='flex items-center gap-2'>
             <div>
