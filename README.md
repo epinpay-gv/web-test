@@ -53,6 +53,14 @@ next-ecommerce-template/
 
 ## 🏗️ Architecture Patterns
 
+### Hangi Bileşen Hangi İşi Yapar?
+
+Projede "layered" yani "katmanlı" bir yapı değil, daha modüler olan "feature-sliced" yapı kullanılmıştır.
+Bu yapıda : 
+- **Component**: Sadece içeriği render eder
+- **Page**: Gerekli feature-based fonksiyonları ilgili bileşenlere iletir, bağlantı görevi görür
+- **Feature**: İş mantığını içerir
+
 ### Route Groups
 
 This template uses Next.js route groups to organize pages by access level:
@@ -68,7 +76,12 @@ Features are organized in the `features/` directory with the following structure
 ```
 features/
 └── [feature-name]/
-    ├── [feature].store.ts    # Zustand store
+    ├── components
+    │   └── messages/         # Translation files (tr.json, en.json)
+    ├── hooks        
+    │   └── messages/         # Translation files (tr.json, en.json)
+    ├── store   
+    │   └── messages/         # Translation files (tr.json, en.json) 
     ├── [feature].types.ts    # TypeScript types
     └── [feature].service.ts  # API service layer
 ```
@@ -79,7 +92,6 @@ Components are categorized by their scope:
 
 - **common/**: Reusable UI components (buttons, modals, inputs)
 - **layout/**: Layout components (header, footer, sidebar)
-- **[domain]/**: Domain-specific components (user, product, cart)
 
 ## 🛠️ Getting Started
 
