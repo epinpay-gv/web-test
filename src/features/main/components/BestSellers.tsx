@@ -33,11 +33,14 @@ export const productCardData: Product[] = [
       slug: "pubg-mobile-60-uc-tr",
       description: "PUBG Mobile 60 UC Türkiye bölgesi için geçerlidir.",
       metaTitle: "PUBG Mobile 60 UC Satın Al",
-      metaDescription: "PUBG Mobile 60 UC Türkiye için güvenli ve hızlı satın alma.",
+      metaDescription:
+        "PUBG Mobile 60 UC Türkiye için güvenli ve hızlı satın alma.",
       imgUrl:
         "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-60-uc-tr-5.webp",
       imgAlt: "PUBG Mobile 60 UC (Türkiye)",
     },
+    cheapestOffer: { id: 101 },
+    offers: [],
   },
 
   {
@@ -62,11 +65,14 @@ export const productCardData: Product[] = [
       slug: "pubg-mobile-325-uc-tr",
       description: "PUBG Mobile 325 UC Türkiye bölgesi için geçerlidir.",
       metaTitle: "PUBG Mobile 325 UC Satın Al",
-      metaDescription: "PUBG Mobile 325 UC Türkiye için güvenli ve hızlı satın alma.",
+      metaDescription:
+        "PUBG Mobile 325 UC Türkiye için güvenli ve hızlı satın alma.",
       imgUrl:
         "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
       imgAlt: "PUBG Mobile 325 UC (Türkiye)",
     },
+    cheapestOffer: { id: 102 },
+    offers: [],
   },
 
   {
@@ -91,11 +97,14 @@ export const productCardData: Product[] = [
       slug: "pubg-mobile-660-uc-tr",
       description: "PUBG Mobile 660 UC Türkiye bölgesi için geçerlidir.",
       metaTitle: "PUBG Mobile 660 UC Satın Al",
-      metaDescription: "PUBG Mobile 660 UC Türkiye için güvenli ve hızlı satın alma.",
+      metaDescription:
+        "PUBG Mobile 660 UC Türkiye için güvenli ve hızlı satın alma.",
       imgUrl:
         "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
       imgAlt: "PUBG Mobile 660 UC (Türkiye)",
     },
+    cheapestOffer: { id: 103 },
+    offers: [],
   },
 
   {
@@ -123,6 +132,8 @@ export const productCardData: Product[] = [
         "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-tr-75.webp",
       imgAlt: "PUBG Mobile Elite Royale Pass (TR)",
     },
+    cheapestOffer: { id: 104 },
+    offers: [],
   },
 
   {
@@ -150,6 +161,8 @@ export const productCardData: Product[] = [
         "https://cdn.epinpay.com/image/ep/2025/1/product/pubg-mobile-elite-royale-pass-global-88.webp",
       imgAlt: "PUBG Mobile Elite Royale Pass (Global)",
     },
+    cheapestOffer: { id: 105 },
+    offers: [],
   },
 ];
 

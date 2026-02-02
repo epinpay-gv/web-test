@@ -1,10 +1,10 @@
 import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { Product, PRODUCT_STATUS } from "@/types/types";
-import ProductGrid from "@/features/category/components/ProductGrid";
-import Filters from "@/features/category/components/Filters";
 import { Filter } from "@/components/common/Filter/types";
-import PageTitle from "@/features/category/components/PageTitle";
+import { FilterNavBar, PageTitle, Filters, ProductGrid } from "@/features/category/components/components";
+import { ProductsSchema } from "@/components/seo/ProductsSchema";
+
 
 export const productCardData: Product[] = [
   {
@@ -197,16 +197,16 @@ export default function ProductsPage({
           { name: "Products", url: `${baseUrl}/${locale}/products` },
         ]}
       />
-      {/* <CategorySchema
-        name="Epinpay Categories"
-        description="Dijital oyun, epin ve servis kategorileri"
-        url={`${baseUrl}/${locale}/categories`}
+      <ProductsSchema
+        name="Epinpay Products"
+        description="Epinpay ürünleri"
+        url={`${baseUrl}/${locale}/products`}
         locale={locale}
-      /> */}
+      />
 
       {/* Page Content */}
-      <div className="container max-w-7xl mx-auto py-24">
-        {/* <FilterNavBar /> */}
+      <div className="container max-w-7xl mx-auto pb-12">
+        <FilterNavBar data={filterData} />
         <PageTitle
           data={{
             title: "Tüm ürünler ",
