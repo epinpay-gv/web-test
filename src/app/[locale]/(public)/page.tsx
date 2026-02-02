@@ -18,8 +18,11 @@ export default function Home() {
 
   return (
     <>
+    <Section backgroundClassName="bg-[#081D28] border-b">
+    <NavLinkCards />
+    </Section>
+    
       <Section>
-        <NavLinkCards />
         <MasterMenu />
       </Section>
 
