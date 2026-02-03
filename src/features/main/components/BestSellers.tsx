@@ -30,7 +30,7 @@ export default function BestSellers() {
         inactiveTabClassName="w-[113px] h-[40px] text-(--text-body)"
       />
 
-      {/* Artık flex map yerine gerçek slider */}
+      
       <ProductCarousel
         products={mockProducts}
         showControls={false}
