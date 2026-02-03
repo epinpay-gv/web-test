@@ -22,7 +22,7 @@ export function Header() {
   return (
     <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50">
       {/* Background Glow Vector */}
-      <div className="absolute w-[774px] h-[664px] -left-[242px] -top-[304px] bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />
+      <div className="absolute w-193.5 h-166 -left-60.5 -top-76 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />
       <div className="max-w-7xl w-full mx-auto px-4 flex justify-between items-center gap-4 md:gap-8 z-10">
         
         {/* LOGO ALANI */}
