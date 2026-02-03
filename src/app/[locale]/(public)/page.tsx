@@ -6,6 +6,7 @@ import Campaigns from "@/features/main/components/Campaings";
 import NavLinkCards from "@/components/common/NavLinks/NavLinkCards";
 import { useThemeStore } from "@/features/theme/store/useThemeStore";
 import Section from "@/components/layout/Section/Section";
+import PremiumSection from "@/features/main/components/PremiumSection";
 
 export default function Home() {
   const theme = useThemeStore((state) => state.theme);
@@ -18,10 +19,10 @@ export default function Home() {
 
   return (
     <>
-    <Section backgroundClassName="bg-[#081D28] border-b">
-    <NavLinkCards />
-    </Section>
-    
+      <Section backgroundClassName="bg-[#081D28] border-b">
+        <NavLinkCards />
+      </Section>
+
       <Section>
         <MasterMenu />
       </Section>
@@ -32,6 +33,10 @@ export default function Home() {
 
       <Section>
         <Campaigns />
+      </Section>
+
+      <Section backgroundClassName=" bg-[linear-gradient(263.8deg,#F9D697_0.55%,#FFE7DD_24.87%,#BFC3D2_89.38%,#FFDBAD_97.8%)]">
+        <PremiumSection />
       </Section>
     </>
   );

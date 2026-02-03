@@ -13,7 +13,7 @@ export default function NavLinkCards() {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="flex items-center justify-center gap-2 max-md:overflow-x-auto max-md:whitespace-nowrap">
+      <div className="flex items-center justify-center gap-2 max-md:overflow-x-auto">
         {mockNavLinkCards.map((navLink) => (
           <Link key={navLink.id} href={`/${navLink.slug}`} className="block group">
             <BaseCard
@@ -28,7 +28,7 @@ export default function NavLinkCards() {
                     src={navLink.bgImage}
                     alt={`${navLink.title} background`}
                     fill
-                    className="object-cover filter hue-rotate-90"
+                    className="object-cover"
                   />
                   {/* Overlay */}
                   {/* <div className="absolute inset-0 bg-black/40 z-1" /> */}
@@ -38,7 +38,7 @@ export default function NavLinkCards() {
                     src={navLink.image}
                     alt={navLink.title}
                     fill
-                    className="object-cover z-2 translate-x-1/4 translate-y-1/4 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:z-20 transition-all duration-300"
+                    className="object-cover translate-x-1/3 translate-y-1/3 group-hover:translate-y-0  transition-all duration-300"
                   />
                 </>
               )}
