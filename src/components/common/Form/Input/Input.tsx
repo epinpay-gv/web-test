@@ -14,13 +14,12 @@ export function Input({
   className,
   wrapperClassName,
   value,
+  rightIcon,
   onChange,
   onClear,
   ...props
 }: InputProps) {
-  const showClearButton =
-    variant !== "innerButton" &&
-    !innerButton;
+  const showClearButton = variant !== "innerButton" && !innerButton && !rightIcon;
 
   return (
     <div
@@ -60,6 +59,10 @@ export function Input({
       {/* INNER BUTTON */}
       {variant === "innerButton" && innerButton && (
         <span className="input-addon">{innerButton}</span>
+      )}
+
+      {rightIcon && (
+        <span className=" rounded-r-full">{rightIcon}</span>
       )}
 
       {/* CLEAR BUTTON */}

@@ -87,6 +87,38 @@
     height: 1em;
   }
 
+  /* ============== RIGHT ICON =============== */
+
+  .input-right-icon {
+    position: absolute;
+    right: var(--input-px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-body-subtle);
+    font-size: var(--input-text);
+    display: flex;
+    align-items: center;
+  }
+
+  .input-right-icon-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-body-muted);
+    pointer-events: auto;
+  }
+
+  .input-right-btn:hover {
+    color: white;
+  }
+
+  .input-right-icon {
+    width: 1em;
+    height: 1em;
+  }
+
 
   /* ================= ADDON ================= */
 
@@ -170,6 +202,10 @@
     color: var(--border-brand);
   }
 
+  .input-wrapper:focus-within .input-right-icon {
+    color: var(--border-brand);
+  }
+
   .input-wrapper:focus-within .input-addon {
     border-color: var(--border-brand);
     color: var(--border-brand);
@@ -198,6 +234,10 @@
     color: white;
   }
 
+  .input-wrapper:has(.input:not(:placeholder-shown):not(:focus)) .input-right-icon {
+    color: white;
+  }
+
   .input:disabled {
     background-color: var(--bg-disabled);
     border-color: var(--border-default-medium);
@@ -217,9 +257,20 @@
     font-weight: 400;
   }
 
+  .input-inner:has(.input:disabled) .input-right-icon {
+    cursor: not-allowed;
+    color: var(--text-fg-disabled);
+    font-weight: 400;
+  }
+
   .input-wrapper:has(.input:disabled) .input-clear-btn {
     cursor: not-allowed;
   }
+
+   .input-wrapper:has(.input:disabled) .input-right-icon-btn {
+    cursor: not-allowed;
+  }
+  
 
   .input-wrapper:has(.input:disabled) .input-addon {
     cursor: not-allowed;
@@ -234,12 +285,31 @@
   }
 
   .input[aria-invalid="false"] {
-    border-color: var(--border-success);
+    border-color: var(--border-success-subtle);
+    background-color: var(--bg-success-soft);
+    color: var(--text-fg-success-strong);
+  }
+
+  .input-wrapper:has([aria-invalid="false"]) .input-left-icon{
+    color: var(--text-fg-success-strong) !important;
+  }
+  
+  .input-wrapper:has([aria-invalid="false"]) .input-right-icon{
+    color: var(--text-fg-success-strong) !important;
   }
 
   .input[aria-invalid="true"] {
-    
-    background-color: var(--border-danger);
+    color: var(--text-fg-danger-strong);
+    border-color: var(--border-danger-subtle);
+    background-color: var(--bg-danger-soft);
+  }
+
+  .input-wrapper:has([aria-invalid="true"]) .input-left-icon {
+    color: var(--text-fg-danger-strong) !important;
+  }
+
+  .input-wrapper:has([aria-invalid="true"]) .input-right-icon {
+    color: var(--text-fg-danger-strong) !important;
   }
 
   /* ================= SIZES ================= */
