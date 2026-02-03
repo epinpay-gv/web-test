@@ -23,6 +23,7 @@ export interface InputProps
   addOnIcon?: ReactNode;
   addOnText?: string;
   innerButton?: ReactNode;
+  rightIcon?: ReactNode;
 
   /* styling */
   wrapperClassName?: string;

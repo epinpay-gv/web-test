@@ -1,159 +1,151 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { Input } from "@/components/common/Form/Input/Input";
-import { Button } from "@/components/common/Button/Button";
-import { 
-  Envelope, 
-  Lock, 
-  Eye, 
-  EyeSlash 
-} from "flowbite-react-icons/outline";
-import { Google } from "flowbite-react-icons/solid";
-import { authApi } from "../service";
-import { useAuthStore } from "../store/auth.store";
-import { useRouter } from "next/navigation";
-import clsx from "clsx";
+import { useState } from 'react';
+import { useLogin } from '../service';
+import { Input } from '@/components/common/Form/Input/Input';
+import { Link } from 'lucide-react';
+import { Button } from '@/components/common/Button/Button';
+import Image from "next/image";
+import { Google } from 'flowbite-react-icons/solid';
+import { Envelope, Lock, Eye, EyeSlash } from 'flowbite-react-icons/outline';
+
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    formData,
+    errors,
+    isLoading,
+    touched,
+    handleChange,
+    handleClear,
+    handleBlur,
+    handleRememberMe,
+    handleSubmit,
+  } = useLogin();
+
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const setAuth = useAuthStore((state) => state.setAuth);
-  const router = useRouter();
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    if (!email) {
-      setError("Doldurulması zorunlu alan.");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const res = await authApi.login({ email, password });
-      setAuth(res.user, res.token);
-      router.push("/");
-   } catch (err: unknown) {
-    // 1. Durum: Eğer bu bir standart JavaScript Error objesi ise
-    if (err instanceof Error) {
-      setError(err.message);
-    } 
-    // 2. Durum: Eğer bu bir obje ise ve içinde 'message' string'i varsa
-    else if (
-      typeof err === "object" && 
-      err !== null && 
-      "message" in err && 
-      typeof (err as { message: unknown }).message === "string"
-    ) {
-      setError((err as { message: string }).message);
-    }   
-    // 3. Durum: Hiçbiri değilse varsayılan bir mesaj
-    else {
-      setError("Beklenmedik bir hata oluştu!");
-    }
-  } finally {
-      setLoading(false);
-    }
-  };
 
   return (
-    <div className="max-w-md w-full mx-auto z-10">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-3">Hesabına Giriş Yap</h1>
-        <p className="text-gray-400 text-sm leading-relaxed">
-          Fırsatlardan faydalanmak ve alışveriş yapmak için hemen üye ol ya da giriş yap.
-        </p>
-        <p className="mt-2 text-sm">
-          <span className="text-gray-400">Hesabın yok mu? </span>
-          <Link href="/register" className="text-cyan-400 hover:underline font-medium">Kayıt Ol</Link>
-        </p>
+    <div className="w-full max-w-96 mx-auto">
+      {/* Logo */}
+      <div className="mb-10">
+        <Image src="/image/logos/epinpay-lg.png" height={30} width={132} alt='Epinpay' />
       </div>
 
-      <form onSubmit={handleLogin} className="space-y-6">
-        {/* Email Input - Error State Eklenmiş */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-white flex items-center gap-1">
-            Email <span className="text-red-500">*</span>
+      {/* Title */}
+      <div className="mb-8">
+        <h2 className="text-(--text-heading) font-semibold text-xl mb-2">
+          Hesabına Giriş Yap
+        </h2>
+        <p className="text-(--text-body) font-normal lea text-sm">
+          Fırsatladan faydalanmak ve alışveriş yapabilmek için hemen üye ol ya da giriş yap.
+        </p>
+        <div className="text-(--text-body) flex gap-1 text-sm mt-2">
+          Hesabın yok mu?{' '}
+          <p  className="text-(--text-fg-brand) transition-colors">
+            Kayıt Ol
+          </p>
+        </div>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-5 bg-(--bg-neutral-primary-soft) p-6 rounded-(--radius-base) border border-(--border-default)">
+        {/* Email */}
+        <div className="flex flex-col gap-1.5 max-w-84 w-full">
+          <label className="text-gray-300 text-sm font-medium">
+            Email <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input
-            type="email"
-            placeholder="Email adresinizi girin"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if(error) setError(null);
-            }}
-            leftIcon={<Envelope className={clsx("w-5 h-5", error ? "text-white" : "text-gray-500")} />}
-            
-            className="text-white placeholder:text-gray-600"
+            type="text"
+            name="email"
+            placeholder="Email adresini girisin"
+            leftIcon={<Envelope />}
+            value={formData.email}
+            onChange={handleChange('email')}
+            onBlur={handleBlur('email')}
+            onClear={handleClear('email')}
+            aria-invalid={touched.email ? !!errors.email : undefined}
+            inputSize="base"
           />
-          {error && (
-            <span className="text-[11px] text-red-500 font-medium animate-in fade-in slide-in-from-top-1">
-              {error}
-            </span>
+          {touched.email && errors.email && (
+            <span className="text-(--text-fg-danger-strong) text-xs">{errors.email}</span>
           )}
         </div>
 
-        {/* Şifre Input */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-white flex items-center gap-1">
-            Şifre <span className="text-red-500">*</span>
+        {/* Password */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-gray-300 text-sm font-medium">
+            Şifre <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input
-            type={showPassword ? "text" : "password"}
-            placeholder="••••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            leftIcon={<Lock className="w-5 h-5 text-gray-500" />}
-            variant="innerButton"
-            innerButton={
-              <button 
-                type="button" 
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            placeholder="••••••••"
+            leftIcon={<Lock />}
+            
+            rightIcon={
+              <button
+                type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-gray-500 hover:text-white px-3"
+                className="input-right-icon " 
               >
-                {showPassword ? <EyeSlash className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? <Eye /> : <EyeSlash />}
               </button>
             }
-            wrapperClassName="bg-[#161F28] border-gray-800 focus-within:border-cyan-500"
-            className="text-white"
+            value={formData.password}
+            onChange={handleChange('password')}
+            onBlur={handleBlur('password')}
+            aria-invalid={touched.password ? !!errors.password : undefined}
+            inputSize="base"
           />
+          {touched.password && errors.password && (
+            <span className="text-(--text-fg-danger-strong) text-xs">{errors.password}</span>
+          )}
         </div>
 
+        {/* Remember Me + Forgot Password */}
         <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 cursor-pointer group">
-            <input type="checkbox" className="w-4 h-4 rounded border-gray-700 bg-transparent text-cyan-500 focus:ring-0 ring-offset-0" />
-            <span className="text-xs text-gray-400 group-hover:text-white transition-colors">Beni hatırla</span>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.rememberMe}
+              onChange={handleRememberMe}
+              className="w-4 h-4 rounded border-gray-600 bg-gray-700 accent-blue-500"
+            />
+            <span className="text-gray-400 text-sm">Beni hatırla</span>
           </label>
-          <Link href="/forgot-password" title="Şifremi unuttum" className="text-xs text-cyan-400 hover:text-cyan-300">
+          <p
+            className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+          >
             Şifremi unuttum
-          </Link>
+          </p>
         </div>
 
-        <div className="space-y-3 pt-2">
-          <Button 
-            type="submit" 
-            variant="brand" 
-            text={loading ? "Giriş yapılıyor..." : "Giriş Yap"} 
-            className="w-full py-4 font-bold shadow-lg shadow-cyan-500/10" 
-            disabled={loading}
-          />
-          <Button 
-            type="button" 
-            variant="dark" 
-            appearance="filled"
-            text="Google ile Giriş Yap" 
-            icon={<Google className="w-5 h-5" />}
-            className="w-full py-4 text-sm font-semibold bg-[#1C2630] border-none hover:bg-[#25313C]" 
-          />
-        </div>
+        {/* Form Error (API Error) */}
+        {errors.form && (
+          <div className="bg-red-900/30 border border-red-800 rounded-(--radius-base) px-3 py-2">
+            <p className="text-red-400 text-sm">{errors.form}</p>
+          </div>
+        )}
+
+        {/* Login Button */}
+        <Button
+          variant='brand'
+          text={isLoading ? "Giriş Yapılıyor... ": "Giriş Yap"}
+          type="submit"
+          disabled={isLoading}
+          className="w-full btn-brand-filled py-3 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+        />
+              
+
+        {/* Google Login */}
+        <button
+          type="button"
+          className="btn w-full py-3  btn-secondary-filled border border-(--border-default-medium)"
+        >
+          <Google/>
+          Google ile Giriş Yap
+        </button>
       </form>
     </div>
   );
