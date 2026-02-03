@@ -1,12 +1,12 @@
 "use client";
 
-import MasterMenu from "@/features/main/components/MasterMenu";
-import BestSellers from "@/features/main/components/BestSellers";
-import Campaigns from "@/features/main/components/Campaings";
+import MasterMenu from "@/features/mainpage/components/MasterMenu";
+import BestSellers from "@/features/mainpage/bestsellers/components/BestSellers";
+import Campaigns from "@/features/mainpage/components/Campaings";
 import NavLinkCards from "@/components/common/NavLinks/NavLinkCards";
 import { useThemeStore } from "@/features/theme/store/useThemeStore";
 import Section from "@/components/layout/Section/Section";
-import PremiumSection from "@/features/main/components/PremiumSection";
+import PremiumSection from "@/features/mainpage/components/PremiumSection";
 
 export default function Home() {
   const theme = useThemeStore((state) => state.theme);
@@ -19,9 +19,9 @@ export default function Home() {
 
   return (
     <>
-      <Section backgroundClassName="bg-[#081D28] border-b">
+      {/* <Section backgroundClassName="bg-[#081D28] border-b"> */}
         <NavLinkCards />
-      </Section>
+      {/* </Section> */}
 
       <Section>
         <MasterMenu />
