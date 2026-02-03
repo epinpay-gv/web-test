@@ -19,3 +19,7 @@
 .text-fg-danger-strong{
   color: var(--text-fg-danger-strong);
 }
+
+.border-default{
+  color: var(--border-default);
+}

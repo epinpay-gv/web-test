@@ -1,24 +1,21 @@
 "use client";
 import Breadcrumb from "@/components/common/Breadcrumb/Breadcrumb";
 import Link from "next/link";
+import { TitleData } from "./types";
 
 interface TitleProps {
-  data: {
-    title: string;
-    secondaryTitle?: string;
-    actionLink?: string;
-    actionLinkText?: string;
-    isBreadcrumb?: boolean;
-  };
+  data: TitleData;
 }
 
 export default function Title({ data }: TitleProps) {
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <div className={`flex flex-col gap-4 ${
+        data.isUnderlined ? "border-b border-border-default pb-3" : ""
+      }`}>
         <div className="flex items-center justify-between">
           <span className="text-xl flex items-center gap-2">
-            <h1>{data.title}</h1>
+            <h1 className={data.titleColor ? data.titleColor : "white"}>{data.title}</h1>
             <p className="text-body text-[14px] my-0">{data.secondaryTitle}</p>
           </span>
           {data.actionLink && (

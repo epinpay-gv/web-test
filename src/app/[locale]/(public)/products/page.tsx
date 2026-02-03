@@ -1,15 +1,14 @@
 import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
-import { Filter } from "@/components/common/Filter/types";
 import {
   FilterNavBar,
   PageTitle,
-  Filters,
+  FilterContainer,
   ProductGrid,
-} from "@/features/category/components/components";
+} from "@/features/catalog/components/components";
 import { ProductsSchema } from "@/components/seo/ProductsSchema";
 import { mockProducts } from "@/mocks";
-
+import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 
 export async function generateMetadata({
   params,
@@ -33,8 +32,128 @@ export default function ProductsPage({
   const { locale } = params;
   const baseUrl = "https://www.epinpay.com";
 
-  const filterData: Filter = {
-    min_price: "",
+  const filterGroups: FilterGroupConfig[] = [
+    {
+      titleData: {
+        title: "Oyunlar",
+        isUnderlined: true,
+        titleColor: "text-body"
+      },
+      elements: [
+        {
+          type: "checkbox",
+          key: "games",
+          options: [
+            {
+              label: "League of Legends (LoL RP)",
+              value: "league-of-legends-lol-rp",
+              count: 128,
+            },
+            { label: "Apex Legends", value: "apex-legends", count: 42 },
+            { label: "PUBG Mobile", value: "pubg-mobile", count: 76 },
+            { label: "Free Fire Elmas", value: "free-fire-elmas", count: 33 },
+            { label: "Pasha Fencer", value: "pasha-fencer", count: 9 },
+            {
+              label: "Tom Clancy's Rainbow Six Siege",
+              value: "tom-clancys-rainbow-six-siege",
+              count: 21,
+            },
+            { label: "Point Blank", value: "point-blank", count: 18 },
+            { label: "Zula Altın", value: "zula-altin", count: 64 },
+            {
+              label: "Wild Guns Nuggets",
+              value: "wild-guns-nuggets",
+              count: 11,
+            },
+            { label: "Xbox", value: "xbox", count: 90 },
+            {
+              label: "The Lord of the Rings: Rise to War",
+              value: "the-lord-of-the-rings-rise-to-war-degerli-tas",
+              count: 5,
+            },
+            {
+              label: "Google Play Hediye Kartı",
+              value: "google-play-hediye-karti",
+              count: 154,
+            },
+            {
+              label: "Playstation Hediye Kartı",
+              value: "playstation-hediye-karti",
+              count: 203,
+            },
+            { label: "Razer Gold", value: "razer-gold", count: 47 },
+          ],
+          search: {
+            placeholder: "Oyun ara...",
+          },
+        },
+      ],
+    },
+    {
+      titleData: {
+        title: "Platform",
+        isUnderlined: true,
+        titleColor: "text-body"
+      },
+      elements: [
+        {
+          type: "dropdown",
+          key: "brand",
+          options: [
+            { label: "Riot Games", value: "riot-games" },
+            {
+              label: "Playstation Gift Cards",
+              value: "playstation-gift-cards",
+            },
+            {
+              label: "Google Play Gift Cards",
+              value: "google-play-gift-cards",
+            },
+            { label: "Mobile Games", value: "mobile-games" },
+            { label: "Xbox Games", value: "xbox-games" },
+            { label: "Epic Games", value: "epic-games" },
+            { label: "PSN Games", value: "psn-games" },
+            { label: "EA App", value: "ea-app" },
+            { label: "Nintendo Games", value: "nintendo-games" },
+            { label: "PC Games", value: "pc-games" },
+            { label: "GameForge", value: "gameforge" },
+            { label: "Ubisoft", value: "ubisoft" },
+            { label: "Steam", value: "steam" },
+            { label: "Origin", value: "origin" },
+            { label: "Green Games", value: "green-games" },
+            { label: "Playstation Games", value: "playstation-games" },
+            { label: "Battle.net", value: "battle-net" },
+            { label: "Amazon", value: "amazon" },
+            { label: "Browser Games", value: "browser-games" },
+            { label: "Razer Gold Gift Cards", value: "razer-gold-gift-cards" },
+            { label: "Roblox Games", value: "roblox-games" },
+            { label: "PS-XBOX", value: "ps-xbox" },
+            { label: "Microsoft Store", value: "microsoft-store" },
+            { label: "Online Game Codes", value: "online-game-codes" },
+            { label: "NC Soft", value: "nc-soft" },
+            { label: "Google Play Games", value: "google-play-games" },
+            { label: "Apple Store Games", value: "apple-store-games" },
+            { label: "Netflix", value: "netflix" },
+            { label: "Itunes", value: "itunes" },
+            { label: "Icloud", value: "icloud" },
+            { label: "Disney", value: "disney" },
+            { label: "Deezer", value: "deezer" },
+            { label: "Spotify", value: "spotify" },
+            { label: "Twitch", value: "twitch" },
+            { label: "Xbox Live", value: "xbox-live" },
+            { label: "JoyGame", value: "joygame" },
+            { label: "Market & Alışveriş", value: "market-alisveris" },
+            { label: "Exxen", value: "exxen" },
+            { label: "Windows", value: "windows" },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const titleData = {
+    title: "Filtrele",
+    isUnderlined: true,
   };
 
   return (
@@ -55,7 +174,7 @@ export default function ProductsPage({
 
       {/* Page Content */}
       <div className="container max-w-7xl mx-auto pb-12">
-        <FilterNavBar data={filterData} />
+        {/* <FilterNavBar data={filterData} /> */}
         <PageTitle
           data={{
             title: "Tüm ürünler ",
@@ -66,7 +185,7 @@ export default function ProductsPage({
           }}
         />
         <div className="flex gap-4">
-          <Filters data={filterData} />
+          <FilterContainer titleData={titleData} groups={filterGroups} />
           <ProductGrid data={mockProducts} />
         </div>
       </div>

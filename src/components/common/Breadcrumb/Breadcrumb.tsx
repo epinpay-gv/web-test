@@ -1,6 +1,7 @@
 import { Home, AngleRight } from "flowbite-react-icons/outline";
 import Link from "next/link";
 
+// TODO : BreadvrumbItem bileşeni oluşturulacak, bu bileşen itemları mapleyecek.
 interface BreadcrumbProps {
   data: {
     currentPage: string;

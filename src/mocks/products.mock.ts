@@ -1,4 +1,4 @@
-import { ProductPageData } from "@/features/category/types";
+import { ProductPageData } from "@/features/catalog/types";
 import { PRODUCT_STATUS } from "@/types/types";
 
 export const mockProducts:  ProductPageData[] = [
