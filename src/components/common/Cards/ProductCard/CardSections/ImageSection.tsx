@@ -1,0 +1,45 @@
+"use client";
+import Image from "next/image";
+import { FavButton } from "@/components/common/Button/FavButton/FavButton";
+import { Product } from "@/types/types";
+import { NotifyWhenAvailablePayload } from "../types";
+
+interface ImageSectionProps {
+  product: Product;
+  isHorizontal : boolean;
+  addToFavorites: (payload: NotifyWhenAvailablePayload) => void;
+  isFavorite: boolean;
+}
+
+export function ImageSection({
+  product,
+  isHorizontal,
+  addToFavorites,
+  isFavorite = false,
+}: ImageSectionProps) {
+  return (
+    <div
+      className={`relative ${isHorizontal ? "w-36.5 h-36.5 md:w-50 md:h-50" : "aspect-square w-36.5 h-36.5 md:w-50 md:h-50"}`}
+    >
+      <div className="absolute top-2 right-2 z-10">
+        <FavButton
+          isFavorite={isFavorite}
+          addToFavorites={() =>
+            addToFavorites?.({
+              productId: product.id,
+              userId: 0,
+            })
+          }
+        />
+      </div>
+
+      <Image
+        src={product.translation.imgUrl}
+        alt={product.translation.imgAlt}
+        fill
+        sizes="(max-width: 768px) 100vw, 224px"
+        className="object-contain rounded mx-auto"
+      />
+    </div>
+  );
+}
