@@ -12,12 +12,14 @@ import { useAuthStore } from "@/features/auth/store/auth.store";
 import { NotificationDropdown } from "@/features/notifications/components/NotificationDropdown";
 import Link from "next/link";
 import { Menu, Search, X } from "lucide-react"; // Mobil ikonlar için
+import { useRouter } from "next/navigation";
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
   const isLogin = useAuthStore((state) => state.isLogin);
+  const router = useRouter()
 
   return (
     <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50">
@@ -61,16 +63,12 @@ export function Header() {
           {/* Giriş Durumu Kontrolü */}
           {!isLogin ? (
             <div className="flex items-center gap-2">
-              <Link href="/login" className="hidden sm:block">
-                <Button variant="secondary" text="Giriş Yap" appearance="outline" padding="sm" />
-              </Link>
+              <Button variant="secondary" text="Giriş Yap" appearance="outline" padding="sm" onClick={() => router.push('/login')} />
               <Button variant="brand" text="Satıcı ol" padding="sm" className="hidden xs:block" />
             </div>
           ) : (
             <div className="flex items-center gap-1 md:gap-3">
-              <div className="hidden md:block">
-                <ThemeToggle />
-              </div>
+
               <CartButton />
               <NotificationDropdown />
               <UserDropdown user={user!} onLogout={logout} />

@@ -61,7 +61,7 @@
   --bg-neutral-primary: #061821;
 
   --bg-cyan: #00B8DB;
-  --bg-neutral-primary-soft: #081D28;
+  --bg-neutral-primary-soft: #f9fafb;
   --bg-success-medium: #004F3B;
   --bg-brand: #00BBE5;
 
@@ -215,6 +215,7 @@
 }
 
 .dark {
+  --bg-neutral-primary-soft: #081D28;
   --background: var(--bg-variants-gray);;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -261,4 +262,31 @@
   background-color: var(--bg-neutral-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-base);
+}
+
+body {
+  @apply transition-colors duration-300;
+}
+
+/* *, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+} */
+
+
+* {
+  transition-property: none !important;
+}
+
+/* 2. Sadece tema ile ilgili özellikleri seçici olarak hızlandırın */
+html.dark body, 
+html.light body {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease !important;
+  will-change: background-color, color; /* Tarayıcıyı önceden hazırlar */
+}
+
+/* 3. Kartlar ve Inputlar için özel yumuşatma */
+.card, .input, .btn, form, div {
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
