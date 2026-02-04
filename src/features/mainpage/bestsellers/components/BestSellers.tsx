@@ -1,9 +1,9 @@
 "use client";
 
 import TimeRangeTabs from "@/components/common/NavLinks/NavTabs/TimeRangeTabs";
-import { ProductCarousel } from "@/features/bestsellers/components/ProductCarousel";
 import { mockProducts } from "@/mocks";
 import { useState } from "react";
+import { ProductCarousel } from "./ProductCarousel";
 
 const TIME_RANGES = [
   { label: "Son 24 Saat", value: "24h" },
@@ -29,7 +29,6 @@ export default function BestSellers() {
         activeTabClassName="bg-(--bg-brand) w-[113px] h-[40px] text-black rounded-[12px]"
         inactiveTabClassName="w-[113px] h-[40px] text-(--text-body)"
       />
-
       
       <ProductCarousel
         products={mockProducts}
