@@ -12,7 +12,6 @@ interface ProductCardProps {
   addToCart: (payload: AddToCartPayload) => void;
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: NotifyWhenAvailablePayload) => void;
-  isFavorite: boolean;
 }
 
 export function ProductCard({
@@ -21,7 +20,6 @@ export function ProductCard({
   addToCart,
   notifyWhenAvailable,
   addToFavorites,
-  isFavorite = false,
 }: ProductCardProps) {
   const isHorizontal = orientation === "horizontal";
 
@@ -32,7 +30,7 @@ export function ProductCard({
       } ${isHorizontal ? 'w-full h-auto' : 'w-42.5 h-79 md:w-56 md:h-92.5'}`}
     >
       {/* Image Section */}
-      <ImageSection product={product} isHorizontal={isHorizontal} addToFavorites={addToFavorites} isFavorite={isFavorite} />
+      <ImageSection product={product} isHorizontal={isHorizontal} addToFavorites={addToFavorites} />
 
       {/* Content Section */}
       <div className={`space-y-2 ${isHorizontal ? 'flex-1 flex flex-col justify-between' : ''}`}>

@@ -8,14 +8,12 @@ interface ImageSectionProps {
   product: Product;
   isHorizontal : boolean;
   addToFavorites: (payload: NotifyWhenAvailablePayload) => void;
-  isFavorite: boolean;
 }
 
 export function ImageSection({
   product,
   isHorizontal,
   addToFavorites,
-  isFavorite = false,
 }: ImageSectionProps) {
   return (
     <div
@@ -23,7 +21,7 @@ export function ImageSection({
     >
       <div className="absolute top-2 right-2 z-10">
         <FavButton
-          isFavorite={isFavorite}
+          isFavorite={product.isFavorite}
           addToFavorites={() =>
             addToFavorites?.({
               productId: product.id,

@@ -34,6 +34,7 @@ export interface Product {
   discountRate?: number;
   fakePrice?: number;
 
+  isFavorite?: boolean;
 }
 
 export interface Translation {
