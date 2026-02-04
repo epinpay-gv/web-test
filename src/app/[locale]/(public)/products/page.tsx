@@ -34,10 +34,16 @@ export default function ProductsPage({
 
   const filterGroups: FilterGroupConfig[] = [
     {
+      titleData: { title: "Fiyat Aralığı" },
+      elements: [
+        { type: "range", key: "price", min: 0, max: 10000 }
+      ],
+    },
+    {
       titleData: {
         title: "Oyunlar",
         isUnderlined: true,
-        titleColor: "text-body"
+        titleColor: "text-body",
       },
       elements: [
         {
@@ -93,12 +99,12 @@ export default function ProductsPage({
       titleData: {
         title: "Platform",
         isUnderlined: true,
-        titleColor: "text-body"
+        titleColor: "text-body",
       },
       elements: [
         {
           type: "dropdown",
-          key: "brand",
+          key: "platform",
           options: [
             { label: "Riot Games", value: "riot-games" },
             {
@@ -145,6 +151,87 @@ export default function ProductsPage({
             { label: "Market & Alışveriş", value: "market-alisveris" },
             { label: "Exxen", value: "exxen" },
             { label: "Windows", value: "windows" },
+          ],
+        },
+      ],
+    },
+    {
+      titleData: {
+        title: "Bölge",
+        isUnderlined: true,
+        titleColor: "text-body",
+      },
+      elements: [
+        {
+          type: "dropdown",
+          key: "region",
+          options: [
+            { label: "Global", value: "26" },
+            { label: "Turkey", value: "1" },
+            { label: "United States", value: "2" },
+            { label: "India", value: "3" },
+            { label: "Arab Emirates", value: "4" },
+            { label: "United Kingdom", value: "5" },
+            { label: "Hong Kong", value: "6" },
+            { label: "France", value: "7" },
+            { label: "Brasil", value: "8" },
+            { label: "South Africa", value: "9" },
+            { label: "Germany", value: "10" },
+            { label: "Saudi Arabia", value: "11" },
+            { label: "Poland", value: "12" },
+            { label: "Oman", value: "13" },
+            { label: "Indonesia", value: "14" },
+            { label: "Kuwait", value: "15" },
+            { label: "Lebanon", value: "16" },
+            { label: "Italy", value: "17" },
+            { label: "Canada", value: "18" },
+            { label: "Qatar", value: "19" },
+            { label: "Bahrein", value: "20" },
+            { label: "Spain", value: "21" },
+            { label: "Australia", value: "22" },
+            { label: "Romania", value: "23" },
+            { label: "New Zealand", value: "24" },
+            { label: "Malaysia", value: "25" },
+          ],
+        },
+      ],
+    },
+    {
+      titleData: {
+        title: "Ürün Tipi",
+        isUnderlined: true,
+        titleColor: "text-body",
+      },
+      elements: [
+        {
+          type: "dropdown",
+          key: "productType",
+          options: [
+            { label: "Key", value: "1" },
+            { label: "Gift Card", value: "2" },
+            { label: "Epin", value: "3" },
+            { label: "Pay Card", value: "4" },
+            { label: "Top-Up", value: "5" },
+          ],
+        },
+      ],
+    },
+    {
+      titleData: {
+        title: "Kullanılabilirlik",
+        isUnderlined: true,
+        titleColor: "text-body",
+      },
+      elements: [
+        {
+          type: "checkbox",
+          key: "usability",
+          options: [
+            {
+              label: "Türkiye'de kullanılabilenleri göster",
+              value: "use-in-tr",
+            },
+            { label: "Stoktakileri göster", value: "in-stock" },
           ],
         },
       ],
