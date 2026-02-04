@@ -17,7 +17,7 @@ export function ImageSection({
 }: ImageSectionProps) {
   return (
     <div
-      className={`relative ${isHorizontal ? "w-36.5 h-36.5 md:w-50 md:h-50" : "aspect-square w-36.5 h-36.5 md:w-50 md:h-50"}`}
+      className={`relative ${isHorizontal ? "w-16 h-16 md:w-33.5 md:h-33.5" : "aspect-square w-36.5 h-36.5 md:w-50 md:h-50"}`}
     >
       <div className="absolute top-2 right-2 z-10">
         <FavButton

@@ -9,7 +9,7 @@ interface ActionButtonsProps {
 
 export function ActionButtons({ addToCart }: ActionButtonsProps) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between gap-2">
       <Button
         padding="sm"
         textSize="sm"
