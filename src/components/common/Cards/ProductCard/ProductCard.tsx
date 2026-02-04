@@ -22,19 +22,18 @@ export function ProductCard({
   addToFavorites,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
-  console.log("isHorizontal : ", isHorizontal);
 
   return (
     <div
       className={`product-card-container p-3 gap-1 flex ${
-        isHorizontal ? 'flex-row gap-4' : 'flex-col justify-between'
+        isHorizontal ? 'flex-row gap-4' : 'flex-col justify-start'
       } ${isHorizontal ? 'w-155.5 h-39.5' : 'w-42.5 h-79 md:w-56 md:h-92.5'}`}
     >
       {/* Image Section */}
       <ImageSection product={product} isHorizontal={isHorizontal} addToFavorites={addToFavorites} />
 
       {/* Content Section */}
-      <div className={`space-y-2 ${isHorizontal ? 'flex-1 flex flex-col items-start' : ''}`}>
+      <div className={` space-y-2 ${isHorizontal ? 'flex-1 flex flex-col items-start' : 'flex flex-col justify-between'}`}>
         <ProductInfo product={product} isHorizontal={isHorizontal}/>
         
         {product.basePrice ? (

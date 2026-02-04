@@ -11,7 +11,7 @@ export function OutOfStockSection({
 }: OutOfStockSectionProps) {
   return (
     <>
-      <p className="gap-2 flex items-center justify-end font-medium">
+      <p className="gap-2 flex items-center justify-end">
         <span className="text-fg-danger-strong">Stokta Yok</span>
       </p>
       <div className="flex w-full justify-between">

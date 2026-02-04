@@ -12,10 +12,10 @@ export function ActionButtons({ addToCart }: ActionButtonsProps) {
     <div className="flex justify-between gap-2">
       <Button
         padding="sm"
-        textSize="sm"
+        textSize="xs"
         variant="secondary"
         text="Sepete Ekle"
-        className="hidden md:block"
+        className="hidden md:block w-full font-medium"
         onClick={() =>
           addToCart?.({
             action: "string",
@@ -26,7 +26,7 @@ export function ActionButtons({ addToCart }: ActionButtonsProps) {
         }
       />
       <Button
-        padding="sm"
+        padding="xs"
         textSize="sm"
         variant="secondary"
         icon={<CartPlusAlt />}
@@ -42,9 +42,10 @@ export function ActionButtons({ addToCart }: ActionButtonsProps) {
       />
       <Button
         padding="sm"
-        textSize="sm"
+        textSize="xs"
         variant="brand"
         text="Hemen Al"
+        className="w-full font-medium"
         onClick={() =>
           addToCart?.({
             action: "string",
