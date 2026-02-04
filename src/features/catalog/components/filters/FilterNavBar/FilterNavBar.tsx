@@ -1,7 +1,7 @@
 "use client";
-import { Filter } from "@/components/common/Filter/types";
 import TimeRangeTabs from "@/components/common/NavLinks/NavTabs/TimeRangeTabs";
 import { useState } from "react";
+import { FilterGroupConfig } from "../Filters/types";
 
 const TIME_RANGES = [
   { label: "Tüm Ürünler", value: "a" },
@@ -13,7 +13,7 @@ const TIME_RANGES = [
 ];
 
 interface FilterNavBarProps {
-  data: Filter;
+  data: FilterGroupConfig;
 }
 
 export default function FilterNavBar({ data }: FilterNavBarProps) {

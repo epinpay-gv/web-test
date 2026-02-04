@@ -238,6 +238,13 @@ export default function ProductsPage({
     },
   ];
 
+  const filterData : FilterGroupConfig = {
+    titleData: {
+      title: ""
+    },
+    elements: []
+  }
+
   const titleData = {
     title: "Filtrele",
     isUnderlined: true,
@@ -261,7 +268,7 @@ export default function ProductsPage({
 
       {/* Page Content */}
       <div className="container max-w-7xl mx-auto pb-12">
-        {/* <FilterNavBar data={filterData} /> */}
+        <FilterNavBar data={filterData} />
         <PageTitle
           data={{
             title: "Tüm ürünler ",
