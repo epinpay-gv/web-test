@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { MainLayout } from '@/components/layout'
 
 const SITE_URL = 'https://www.epinpay.com'
 const SUPPORTED_LOCALES = ['tr', 'en']
@@ -37,5 +36,5 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   await params
-  return <><MainLayout><div>{children}</div></MainLayout></>
+  return <><div>{children}</div></>
 }

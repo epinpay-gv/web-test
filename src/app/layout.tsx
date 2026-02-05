@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { ThemeInitializer } from '@/features/theme/hooks/ThemeInitializer';
+import { ThemeProvider } from '@/features/theme/components/ThemeProvider';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
@@ -40,15 +40,15 @@ export const viewport = {
   themeColor: '#2a2b2c',
 }
 
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="tr" suppressHydrationWarning>
       <body>
+        {/* Google Tag Manager */}
         <Script
           id="gtm"
           strategy="afterInteractive"
@@ -65,6 +65,7 @@ export default function RootLayout({
           }}
         />
 
+        {/* Organization Schema */}
         <Script
           id="org-schema"
           type="application/ld+json"
@@ -94,6 +95,7 @@ export default function RootLayout({
           }}
         />
 
+        {/* WebSite Schema */}
         <Script
           id="website-schema"
           type="application/ld+json"
@@ -118,26 +120,9 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* Theme Script */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const theme = localStorage.getItem('theme') || 'dark';
-                  let resolvedTheme = 'dark';
-                  
-                  if (theme === 'dark') resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  
-                  document.documentElement.classList.add(resolvedTheme);
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-        <ThemeInitializer />
-
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
