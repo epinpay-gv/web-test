@@ -2,10 +2,9 @@
 
 import MasterMenu from "@/features/mainpage/components/MasterMenu";
 import BestSellers from "@/features/mainpage/bestsellers/components/BestSellers";
-import Campaigns from "@/features/mainpage/components/Campaings";
+// import Campaigns from "@/features/mainpage/components/Campaings";
 import NavLinkCards from "@/components/common/NavLinks/NavLinkCards";
-import { useThemeStore } from "@/features/theme/store/useThemeStore";
-import Section from "@/components/layout/Section/Section";
+import { useThemeStore } from "@/features/theme/store/useThemeStore"; 
 import PremiumSection from "@/features/mainpage/components/PremiumSection";
 
 export default function Home() {
@@ -19,25 +18,12 @@ export default function Home() {
 
   return (
     <>
-      {/* <Section backgroundClassName="bg-[#081D28] border-b"> */}
-        <NavLinkCards />
-      {/* </Section> */}
-
-      <Section>
-        <MasterMenu />
-      </Section>
-
-      <Section backgroundClassName="bg-(--bg-brand-softer)">
-        <BestSellers />
-      </Section>
-
-      <Section>
-        <Campaigns />
-      </Section>
-
-      <Section backgroundClassName=" bg-[linear-gradient(263.8deg,#F9D697_0.55%,#FFE7DD_24.87%,#BFC3D2_89.38%,#FFDBAD_97.8%)]">
-        <PremiumSection />
-      </Section>
+      <NavLinkCards />
+      <MasterMenu />
+      <BestSellers />
+      {/* <Campaigns /> */}
+      <PremiumSection />
+      
     </>
   );
 }
