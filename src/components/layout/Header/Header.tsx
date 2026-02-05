@@ -11,21 +11,23 @@ import { CartButton } from "../../../features/cart/components/CartButton";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { NotificationDropdown } from "@/features/notifications/components/NotificationDropdown";
 import Link from "next/link";
-import { Menu, Search, X } from "lucide-react"; // Mobil ikonlar için
+import { Menu,  X } from "lucide-react";
+import { Search } from "flowbite-react-icons/outline";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes"
 
+
 export function Header() {
+  const [isMobile, setIsMobile] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
   const isLogin = useAuthStore((state) => state.isLogin);
   const router = useRouter()
   const { resolvedTheme } = useTheme()
-  const logoSrc = resolvedTheme === "light" 
-  ? "/image/logos/epinpay-black-lg.png"
-  : "/image/logos/epinpay-white-lg.png" 
-
+  const themeSuffix = resolvedTheme === "light" ? "black" : "white"
+  const sizeSuffix = isMobile ? "xs" : "lg"
+  const logoSrc = `/image/logos/epinpay-${themeSuffix}-${sizeSuffix}.png`
   return (
     <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50">
       {/* Background Glow Vector */}
@@ -37,9 +39,9 @@ export function Header() {
           <Image
             src={logoSrc}
             alt="Epinpay"
-            width={298}
-            height={40}
-            className="h-8 md:h-10 w-auto object-contain"
+            width={isMobile ? 120 : 298}
+            height={isMobile ? 32 : 40}
+            className="h-6 md:h-10 w-auto object-contain"
             priority
           />
         </button>
@@ -50,14 +52,15 @@ export function Header() {
         </div>
 
         {/* AKSİYON ALANI */}
-        <div className="flex items-center lg:gap-4">
+        <div className="flex items-center md:gap-4">
           
           {/* Mobil Arama Tetikleyici (Mobile only) */}
           <Button 
             variant="ghost"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            icon={<Search />}
+            icon={<Search className="w-4 h-4 md:w-5 md:h-5"/>}
             padding="xs"
+            className="md:hidden"
           />
           {/* Masaüstü Araçlar (Desktop only) */}
           <div className="hidden lg:flex items-center gap-4">

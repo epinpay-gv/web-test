@@ -15,7 +15,7 @@ export function CartButton() {
         appearance="filled"
         padding="xs"
         className="border-none! focus:ring-0" 
-        icon={<Cart className="w-6 h-6 transition-colors" />}
+        icon={<Cart className="md:w-5 md:h-5 w-4 h-4 transition-colors" />}
       />
       
       {itemCount > 0 && (

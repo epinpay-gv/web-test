@@ -291,6 +291,131 @@ html.light body {
   transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
+/* ================= THEME TOKENS ================= */
+
+:root {
+  --radius-base: 8px;
+}
+
+.light {
+  /* ================= BACKGROUND ================= */
+  --bg-variants-gray: #F9FAFB;
+  --bg-neutral-primary-soft: #F2F8FB;
+  --bg-neutral-secondary-soft: #EAF2F7;
+  --bg-neutral-secondary: #FFFFFF;
+  --bg-neutral-primary-medium: #E5EDF3;
+  --bg-neutral-secondary-medium: #F1F5F9;
+  --bg-neutral-secondary-strong: #FFFFFF;
+  --bg-neutral-tertiary: #F3F4F6;
+  --bg-neutral-tertiary-medium: #E5E7EB;
+  --bg-neutral-tertiary-soft: #F9FAFB;
+  --bg-neutral-quaternary: #E5E7EB;
+
+  --bg-disabled: #E5E7EB;
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+
+  /* ================= BRAND / STATUS ================= */
+  --bg-brand: #00BBE5;
+  --bg-brand-medium: #009AC2;
+  --bg-brand-strong: #007CA3;
+  --bg-brand-soft: #E6F8FD;
+  --bg-brand-softer: #F0FBFF;
+
+  --bg-success: #16A34A;
+  --bg-success-medium: #22C55E;
+  --bg-success-strong: #15803D;
+  --bg-success-soft: #ECFDF5;
+
+  --bg-danger: #DC2626;
+  --bg-danger-medium: #EF4444;
+  --bg-danger-strong: #B91C1C;
+  --bg-danger-soft: #FEE2E2;
+
+  --bg-warning: #F59E0B;
+  --bg-warning-medium: #FBBF24;
+  --bg-warning-strong: #D97706;
+  --bg-warning-soft: #FFF7ED;
+
+  --bg-dark: #111827;
+  --bg-dark-strong: #020617;
+
+  /* ================= BORDER ================= */
+  --border-default: #E5E7EB;
+  --border-default-medium: #D1D5DB;
+  --border-default-strong: #9CA3AF;
+  --border-default-subtle: #F3F4F6;
+
+  --border-brand: #00BBE5;
+  --border-brand-subtle: #67E8F9;
+  --border-brand-light: #A5F3FC;
+
+  --border-success: #16A34A;
+  --border-success-subtle: #86EFAC;
+
+  --border-danger: #DC2626;
+  --border-danger-subtle: #FCA5A5;
+
+  --border-warning: #F59E0B;
+  --border-warning-subtle: #FCD34D;
+
+  --border-light: #E5E7EB;
+  --border-light-medium: #D1D5DB;
+
+  /* ================= TEXT ================= */
+  --text-heading: #020617;
+  --text-body: #374151;
+  --text-body-subtle: #6B7280;
+  --text-body-muted: #9CA3AF;
+
+  --text-white: #FFFFFF;
+  --text-black: #020617;
+
+  --text-fg-brand: #0284C7;
+  --text-fg-brand-strong: #0369A1;
+  --text-fg-brand-subtle: #7DD3FC;
+
+  --text-fg-success: #15803D;
+  --text-fg-success-strong: #166534;
+
+  --text-fg-danger: #DC2626;
+  --text-fg-danger-strong: #B91C1C;
+
+  --text-fg-warning: #D97706;
+  --text-fg-warning-subtle: #F59E0B;
+
+  --text-fg-disabled: #9CA3AF;
+
+  /* ================= SHADCN / SYSTEM ================= */
+  --background: #FFFFFF;
+  --foreground: oklch(0.205 0 0);
+
+  --card: #FFFFFF;
+  --card-foreground: oklch(0.205 0 0);
+
+  --popover: #FFFFFF;
+  --popover-foreground: oklch(0.205 0 0);
+
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+
+  --border: oklch(0 0 0 / 12%);
+  --input: oklch(0 0 0 / 15%);
+  --ring: oklch(0.708 0 0);
+
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #020617;
+  --sidebar-border: #E5E7EB;
+}
+
 /* Custom Scrollbar - Cross Browser */
 .custom-scrollbar {
   /* Firefox */
