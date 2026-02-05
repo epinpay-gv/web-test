@@ -1,10 +1,6 @@
 "use client";
 import { ProductCard } from "@/components/common/Cards/ProductCard/ProductCard";
-import {
-  AddToCartPayload,
-  NotifyWhenAvailablePayload,
-  ProductCardOrientation,
-} from "@/components/common/Cards/ProductCard/types";
+import { AddToCartPayload, NotifyWhenAvailablePayload,} from "@/components/common/Cards/ProductCard/types";
 import { Product } from "@/types/types";
 
 interface ProductGridProps {
@@ -14,8 +10,6 @@ interface ProductGridProps {
 export default function ProductGrid({ data }: ProductGridProps) {
   return (
     <>
-
-
       <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {data.map((productCard, index) => (
           <ProductCard
