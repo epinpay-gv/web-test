@@ -29,7 +29,7 @@ export function LoginForm() {
     <div className="w-full max-w-96 mx-auto">
       {/* Logo */}
       <div className="mb-10">
-        <Image src="/image/logos/epinpay-lg.png" height={30} width={132} alt='Epinpay' />
+        <Image src="/image/logos/epinpay-white-lg.png" height={30} width={132} alt='Epinpay' />
       </div>
 
       {/* Title */}
