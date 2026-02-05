@@ -1,5 +1,4 @@
 "use client";
-import TimeRangeTabs from "@/components/common/NavLinks/NavTabs/TimeRangeTabs";
 import { useState } from "react";
 import { FilterGroupConfig } from "../Filters/types";
 
@@ -21,7 +20,7 @@ export default function FilterNavBar({ data }: FilterNavBarProps) {
   return (
     <>
       <div className="w-full py-8">
-        <TimeRangeTabs
+        {/* <TimeRangeTabs
           items={TIME_RANGES}
           activeValue={range}
           onChange={setRange}
@@ -29,7 +28,7 @@ export default function FilterNavBar({ data }: FilterNavBarProps) {
           tabClassName="flex w-auto items-center justify-center text-xs rounded-lg transition "
           activeTabClassName="bg-(--bg-brand) h-[40px]  text-black rounded-[12px] px-4"
           inactiveTabClassName="h-[40px] text-(--text-body) px-4"
-        />
+        /> */}
       </div>
     </>
   );
