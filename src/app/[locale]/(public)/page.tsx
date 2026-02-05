@@ -34,6 +34,6 @@ export default function Home() {
       <Section backgroundClassName="bg-[linear-gradient(263.8deg,#F9D697_0.55%,#FFE7DD_24.87%,#BFC3D2_89.38%,#FFDBAD_97.8%)] dark:opacity-90">
         <PremiumSection />
       </Section>
-    </main>
+    </>
   );
 }
