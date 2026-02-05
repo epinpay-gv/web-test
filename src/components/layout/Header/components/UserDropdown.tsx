@@ -41,8 +41,8 @@ export function UserDropdown({ user, onLogout }: UserDropdownProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="flex items-center gap-2 p-1 rounded-full bg-(--bg-neutral-secondary-medium) transition-colors outline-none group">
-          <div className="w-8 h-8 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
-              <span className="text-xs font-bold">{initial}</span>
+          <div className="w-8 h-8 rounded-full flex items-center justify-center text-(--text-body) shadow-sm group-hover:scale-105 transition-transform">
+              <span className="text-xs font-bold ">{initial}</span>
           </div>
         </button>
       </DropdownMenuTrigger>
