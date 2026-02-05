@@ -90,7 +90,7 @@ export default function FilterElement({
             {config.options.map((opt) => (
               <div
                 key={opt.value}
-                className="flex items-center justify-start gap-2 w-56"
+                className="flex items-center justify-start gap-2 w-48"
               >
                 <Checkbox
                   variant="square"

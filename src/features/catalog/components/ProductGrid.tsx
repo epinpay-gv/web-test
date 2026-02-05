@@ -10,11 +10,11 @@ interface ProductGridProps {
 export default function ProductGrid({ data }: ProductGridProps) {
   return (
     <>
-      <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {data.map((productCard, index) => (
+      <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-max">
+        {data.map((productCard) => (
           <ProductCard
             product={productCard}
-            key={index}
+            key={productCard.id}
             addToCart={function (payload: AddToCartPayload): void {
               throw new Error("Function not implemented.");
             }}
