@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { Check } from "lucide-react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export interface CheckboxProps
-  extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
-  variant?: "square" | "circle"
-  label?: string
-  helperText?: string
+export interface CheckboxProps extends React.ComponentPropsWithoutRef<
+  typeof CheckboxPrimitive.Root
+> {
+  variant?: "square" | "circle";
+  label?: string;
+  helperText?: string;
 }
 
 const Checkbox = React.forwardRef<
@@ -26,13 +27,13 @@ const Checkbox = React.forwardRef<
       disabled,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const reactId = React.useId()
-    const finalId = id ?? reactId
+    const reactId = React.useId();
+    const finalId = id ?? reactId;
 
     return (
-      <div className={cn("flex items-start gap-3", disabled && "opacity-50")}>
+      <div className={cn("flex items-center gap-3", disabled && "opacity-50")}>
         <div className="relative flex items-center justify-center h-6 w-6">
           <CheckboxPrimitive.Root
             ref={ref}
@@ -84,7 +85,7 @@ const Checkbox = React.forwardRef<
               ],
 
               "disabled:cursor-not-allowed",
-              className
+              className,
             )}
             {...props}
           >
@@ -109,16 +110,14 @@ const Checkbox = React.forwardRef<
               </label>
             )}
             {helperText && (
-              <p className="text-xs text-slate-500 font-normal">
-                {helperText}
-              </p>
+              <p className="text-xs text-slate-500 font-normal">{helperText}</p>
             )}
           </div>
         )}
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-Checkbox.displayName = "Checkbox"
-export { Checkbox }
+Checkbox.displayName = "Checkbox";
+export { Checkbox };

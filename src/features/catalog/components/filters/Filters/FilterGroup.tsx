@@ -11,8 +11,8 @@ export default function FilterGroup({ config }: FilterGroupProps) {
   const { titleData, elements } = config;
 
   return (
-    <div className="space-y-3">
-      <Title data={titleData} />
+    <div className="space-y-4">
+      {titleData && <Title data={titleData} />}
 
       <div className="space-y-4">
         {elements.map((el) => (

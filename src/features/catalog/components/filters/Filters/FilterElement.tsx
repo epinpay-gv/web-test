@@ -2,6 +2,7 @@
 import { SearchInput } from "@/components/layout/Header/components/SearchInput";
 import { FilterElementConfig } from "./types";
 import { Input } from "@/components/common/Form/Input/Input";
+import { Checkbox } from "@/components/common/CheckBox/CheckBox";
 
 export default function FilterElement({
   config,
@@ -9,7 +10,7 @@ export default function FilterElement({
   config: FilterElementConfig;
 }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       {"search" in config && config.search && <SearchInput />}
 
       {config.type === "dropdown" && (
@@ -54,7 +55,7 @@ export default function FilterElement({
                 inputSize="sm"
                 className="text-center"
                 wrapperClassName="flex-1"
-                variant="innerButton"
+                rightIcon={<></>}
               />
             </div>
             <div>
@@ -66,7 +67,7 @@ export default function FilterElement({
                 inputSize="sm"
                 className="text-center"
                 wrapperClassName="flex-1"
-                variant="innerButton"
+                rightIcon={<></>}
               />
             </div>
           </div>
@@ -76,29 +77,34 @@ export default function FilterElement({
       {config.type === "checkbox" && (
         <div>
           {config.label && (
-            <label className="block mb-1 font-medium">{config.label}</label>
+            <label className="block mb-3 font-medium text-sm">
+              {config.label}
+            </label>
           )}
 
           <div
-            className={`space-y-1 ${
-              config.options.length > 6 ? "max-h-48 overflow-y-auto pr-1" : ""
+            className={`space-y-2 ${
+              config.options.length > 6 ? "max-h-52 overflow-y-auto pr-1 custom-scrollbar" : ""
             }`}
           >
             {config.options.map((opt) => (
-              <label
+              <div
                 key={opt.value}
-                className="flex items-center justify-between gap-2 text-sm"
+                className="flex items-center justify-start gap-2 w-48"
               >
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" value={opt.value} />
-                  <span>{opt.label}</span>
-                </div>
+                <Checkbox
+                  variant="square"
+                  value={opt.value}
+                  label={opt.label}
+                />
 
                 {/* Count */}
                 {typeof opt.count === "number" && (
-                  <span className="text-xs text-gray-500">({opt.count})</span>
+                  <span className="text-sm text-body">
+                    ({opt.count})
+                  </span>
                 )}
-              </label>
+              </div>
             ))}
           </div>
         </div>

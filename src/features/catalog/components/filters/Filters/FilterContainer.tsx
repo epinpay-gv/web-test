@@ -14,8 +14,8 @@ export default function Filters({ titleData, groups }: FiltersProps) {
     <>
       <div className="blue-container container max-w-77 p-6 space-y-4">
         <Title data={titleData} />
-        {groups.map((group) => (
-          <FilterGroup key={group.titleData.title} config={group} />
+        {groups.map((group, index) => (
+          <FilterGroup key={index} config={group} />
         ))}
       </div>
     </>

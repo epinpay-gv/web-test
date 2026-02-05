@@ -49,7 +49,7 @@ export default function RootLayout({
     <html lang="tr" suppressHydrationWarning>
       <body>
         {/* Google Tag Manager */}
-        <Script
+        {/* <Script
           id="gtm"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -63,10 +63,10 @@ export default function RootLayout({
               })(window,document,'script','dataLayer','GTM-WKCNWN7N');
             `,
           }}
-        />
+        /> */}
 
         {/* Organization Schema */}
-        <Script
+        {/* <Script
           id="org-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -93,10 +93,10 @@ export default function RootLayout({
               ],
             }),
           }}
-        />
+        /> */}
 
         {/* WebSite Schema */}
-        <Script
+        {/* <Script
           id="website-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -118,7 +118,7 @@ export default function RootLayout({
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
-        </noscript>
+        </noscript> */}
 
         <ThemeProvider>
           {children}

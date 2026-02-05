@@ -39,6 +39,6 @@ export type FilterElementConfig =
     };
 
 export interface FilterGroupConfig {
-  titleData: TitleData;
+  titleData?: TitleData;
   elements: FilterElementConfig[];
 }
