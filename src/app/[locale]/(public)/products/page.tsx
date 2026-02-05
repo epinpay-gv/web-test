@@ -62,7 +62,7 @@ export default function ProductsPage({
 
       {/* Page Content */}
       <div className="container max-w-7xl mx-auto pb-12">
-        <FilterNavBar data={filterData} />
+        {/* <FilterNavBar data={filterData} /> */}
         <PageTitle
           data={{
             title: "Tüm ürünler ",
@@ -73,7 +73,7 @@ export default function ProductsPage({
           }}
         />
         <div className="flex gap-4">
-          <FilterContainer titleData={titleData} groups={filterGroups} />
+          {/* <FilterContainer titleData={titleData} groups={filterGroups} /> */}
           <ProductGrid data={mockProducts} />
         </div>
       </div>

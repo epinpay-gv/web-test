@@ -4,22 +4,41 @@ import { FavButton } from "@/components/common/Button/FavButton/FavButton";
 import { Product } from "@/types/types";
 import { NotifyWhenAvailablePayload } from "../types";
 
+const sizeClasses = {
+  vertical: "aspect-square w-36.5 h-36.5 md:w-50 md:h-50",
+  horizontal: {
+    default: "w-16 h-16 md:w-33.5 md:h-33.5",
+    cart: "w-16 h-16 md:w-27.5 md:h-27.5", 
+  },
+};
+
 interface ImageSectionProps {
   product: Product;
-  isHorizontal : boolean;
+  isHorizontal: boolean;
+  isInCart?: boolean;
   addToFavorites: (payload: NotifyWhenAvailablePayload) => void;
 }
 
 export function ImageSection({
   product,
   isHorizontal,
+  isInCart,
   addToFavorites,
 }: ImageSectionProps) {
+
+  const sizeClass = isHorizontal
+    ? isInCart
+      ? sizeClasses.horizontal.cart
+      : sizeClasses.horizontal.default
+    : sizeClasses.vertical;
+
   return (
     <div
-      className={`relative ${isHorizontal ? "w-16 h-16 md:w-33.5 md:h-33.5" : "aspect-square w-36.5 h-36.5 md:w-50 md:h-50"}`}
+      className={`relative ${sizeClass}`}
     >
-      <div className="absolute top-2 right-2 z-10">
+      <div
+        className={`absolute top-2 right-2 z-10 ${isHorizontal ? "hidden md:block" : ""}`}
+      >
         <FavButton
           isFavorite={product.isFavorite}
           addToFavorites={() =>

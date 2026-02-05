@@ -4,12 +4,13 @@ import { CartPlusAlt } from "flowbite-react-icons/outline";
 import { AddToCartPayload } from "../types";
 
 interface ActionButtonsProps {
+  isHorizontal : boolean;
   addToCart: (payload: AddToCartPayload) => void;
 }
 
-export function ActionButtons({ addToCart }: ActionButtonsProps) {
+export function ActionButtons({ isHorizontal, addToCart }: ActionButtonsProps) {
   return (
-    <div className="flex justify-between gap-2">
+    <div className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""}`}>
       <Button
         padding="sm"
         textSize="xs"

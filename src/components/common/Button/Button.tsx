@@ -10,7 +10,7 @@ type ButtonArrow = {
   right?: boolean;
 };
 
-type ButtonPadding = "xs" | "sm" | "base" | "lg" | "xl";
+type ButtonPadding = "rounded" |"xs" | "sm" | "base" | "lg" | "xl";
 
 type ButtonVariant = "brand" | "secondary" | "tertiatry" | "success" | "danger" | "warning" | "dark" | "ghost";
 type ButtonAppearance = "filled" | "outline" ;
@@ -34,6 +34,7 @@ const TEXT_SIZE_CLASSES: Record<ButtonTextSize, string> = {
 };
 
 const BUTTON_PADDING: Record<ButtonPadding, string> = {
+  rounded: "",
   xs: "py-1.5 px-3",
   sm: "py-2 px-3",
   base: "py-2.5 px-4",

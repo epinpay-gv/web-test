@@ -21,5 +21,9 @@ export interface NotifyWhenAvailablePayload {
   userId: number;
 }
 
+export interface ChangeQuantityPayload {
+  action: string;
+  offerId: number;
+}
 
 export { ProductCardType, ProductCardOrientation };

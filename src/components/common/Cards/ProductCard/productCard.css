@@ -4,6 +4,10 @@
   border-radius: var(--radius-base);
 }
 
+.cart-card-container {
+  background-color: var(--bg-neutral-primary);
+}
+
 .text-body {
   color: var(--text-body);
 }
