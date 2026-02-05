@@ -2,7 +2,6 @@
 
 import { useTheme } from 'next-themes';
 import { useSyncExternalStore } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/common/Button/Button';
 import { Moon, Sun } from 'flowbite-react-icons/outline';
 
@@ -24,7 +23,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-14 h-7 bg-gray-700 rounded-full animate-pulse" />
+      <div className="lg:w-14 lg:h-7 w-6 h-6 bg-gray-700 rounded-full animate-pulse" />
     );
   }
 
@@ -34,6 +33,7 @@ export function ThemeToggle() {
     <Button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       variant='ghost'
+      padding='xs'
       icon={isDark ? (<Moon />) : (<Sun />)}
       
       aria-label="Toggle theme"
