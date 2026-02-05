@@ -11,6 +11,7 @@ export interface CheckboxProps extends React.ComponentPropsWithoutRef<
   variant?: "square" | "circle";
   label?: string;
   helperText?: string;
+  secondaryText?: string;
 }
 
 const Checkbox = React.forwardRef<
@@ -23,6 +24,7 @@ const Checkbox = React.forwardRef<
       variant = "square",
       label,
       helperText,
+      secondaryText,
       id,
       disabled,
       ...props
@@ -33,7 +35,7 @@ const Checkbox = React.forwardRef<
     const finalId = id ?? reactId;
 
     return (
-      <div className={cn("flex items-center gap-3", disabled && "opacity-50")}>
+      <div className={cn("flex items-start gap-3", disabled && "opacity-50")}>
         <div className="relative flex items-center justify-center h-6 w-6">
           <CheckboxPrimitive.Root
             ref={ref}
@@ -101,14 +103,17 @@ const Checkbox = React.forwardRef<
 
         {(label || helperText) && (
           <div className="grid gap-1 pt-0.5 leading-none select-none">
-            {label && (
-              <label
-                htmlFor={finalId}
-                className="text-sm font-medium text-slate-200 cursor-pointer"
-              >
-                {label}
-              </label>
-            )}
+              {label && (
+                <label
+                  htmlFor={finalId}
+                  className="text-sm font-medium text-slate-200 cursor-pointer"
+                >
+                  {label} {secondaryText && (
+                <span className="text-sm text-body">{secondaryText}</span>
+              )}
+                </label>
+              )}
+              
             {helperText && (
               <p className="text-xs text-slate-500 font-normal">{helperText}</p>
             )}

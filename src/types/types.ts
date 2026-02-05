@@ -1,11 +1,12 @@
 /* COMMON */
 export interface PaginationData{
   count: number;
-  rows: [];
+  per_page: number;
+  current_page: number;
+  total_page: number;
 }
 
 /* PRODUCT */
-
 export enum PRODUCT_STATUS {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",

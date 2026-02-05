@@ -1,5 +1,14 @@
 import { NextResponse } from "next/server";
 import { mockProducts, filterGroups } from "@/mocks";
+import { PaginationData } from "@/types/types";
+
+/* Backendden beklenen response:
+{
+  data: ProductPageData[];
+  pagination: PaginationData;
+  filters: FilterGroupConfig[];
+}
+*/ 
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -32,19 +41,15 @@ export async function GET(req: Request) {
     data = data.filter((p) => (p.epPrice ?? 0) <= Number(maxPrice));
   }
 
+  const perPage = 8;
   return NextResponse.json({
     data,
     pagination: {
       count: data.length,
-      rows: data,
-    },
-    filters: filterGroups,   // dinamik filtre içeriği
+      per_page: perPage,
+      current_page: 1,
+      total_page: data.length / perPage,
+    } as PaginationData,
+    filters: filterGroups, // dinamik filtre içeriği
   });
 }
-
-// BAckendden beklenen response:
-// {
-//   data: ProductPageData[];
-//   pagination: PaginationData;
-//   filters: FilterGroupConfig[];
-// }

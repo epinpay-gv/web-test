@@ -1,14 +1,6 @@
 import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
-import {
-  FilterNavBar,
-  PageTitle,
-  FilterContainer,
-  ProductGrid,
-} from "@/features/catalog/components/components";
 import { ProductsSchema } from "@/components/seo/ProductsSchema";
-import { mockProducts, filterGroups } from "@/mocks";
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import ProductsClient from "./products-client";
 import { getProducts } from "@/features/catalog/service";
 

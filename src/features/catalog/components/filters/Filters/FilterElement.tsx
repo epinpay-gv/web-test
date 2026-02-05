@@ -98,22 +98,17 @@ export default function FilterElement({
             {config.options.map((opt) => (
               <div
                 key={opt.value}
-                className="flex items-center justify-start gap-2 w-48"
+                className="flex items-center justify-start gap-2"
               >
                 <Checkbox
                   variant="square"
                   value={opt.value}
                   label={opt.label}
+                  secondaryText={`(${opt.count})`}
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   onChange={() => setCheckboxFilter(config.key as any, opt.value)}
                 />
 
-                {/* Count */}
-                {typeof opt.count === "number" && (
-                  <span className="text-sm text-body">
-                    ({opt.count})
-                  </span>
-                )}
               </div>
             ))}
           </div>
