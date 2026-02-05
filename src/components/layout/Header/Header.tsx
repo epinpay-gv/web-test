@@ -22,9 +22,9 @@ export function Header() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const router = useRouter()
   const { resolvedTheme } = useTheme()
-  const logoSrc = resolvedTheme === "dark" 
-    ? "/image/logos/epinpay-white-lg.png" 
-    : "/image/logos/epinpay-black-lg.png"
+  const logoSrc = resolvedTheme === "light" 
+  ? "/image/logos/epinpay-black-lg.png"
+  : "/image/logos/epinpay-white-lg.png" 
 
   return (
     <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50">
