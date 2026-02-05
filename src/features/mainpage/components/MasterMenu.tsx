@@ -7,7 +7,7 @@ export default function MasterMenu() {
   return (
     <Section>
       {/* Desktop */}
-      <div className="hidden md:grid md:grid-cols-2 md:gap-12 lg:mt-15 pb-18">
+      <div className="hidden md:grid md:grid-cols-2 md:gap-12 lg:mt-15 py-20">
         <MasterMenuLeft />
         <MasterMenuRight />
       </div>

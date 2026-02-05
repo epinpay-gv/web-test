@@ -1,41 +1,39 @@
+// TabPlans.tsx
 import { Checkbox } from "../CheckBox/CheckBox"
 
-export default function TabPlans() {
-    const premiumMock = [
+interface PlanOption {
+    id: string;
+    title: string;
+    description: string;
+}
 
-        {
-        id:"1m",    
-        title: "1 Aylık",
-        description: "1.00 $ ay başına (+ varsa KDV) her ay faturalandırılır."
-        },
-        {
-        id:"2m", 
-        title: "3 Aylık",
-        description: "1.00 $ ay başına (+ varsa KDV) her ay faturalandırılır."
-        },
-        {
-        id:"3m", 
-        title: "12 Aylık",
-        description: "1.00 $ ay başına (+ varsa KDV) her ay faturalandırılır."   
-        }
-    ]
-    return(
-        <div className="flex gap-2.5">
-            {premiumMock.map(tab => (
+interface TabPlansProps {
+    plans: PlanOption[];
+    selectedPlanId?: string;
+    onPlanSelect?: (id: string) => void;
+}
+
+export default function TabPlans({ plans, selectedPlanId, onPlanSelect }: TabPlansProps) {
+    return (
+        <div className="flex gap-4">
+            {plans.map(plan => (
                 <div
-                key={tab.id} className="bg-(--bg-dark) w-[320px] h-24.25 border rounded-t-lg p-4 flex flex-col justify-center"
+                    key={plan.id}
+                    className="bg-(--bg-neutral-primary-soft) hover:bg-(--bg-dark) max-w-xs rounded-t-lg p-4 flex flex-col gap-2 cursor-pointer w-84 h-24.25"
+                    onClick={() => onPlanSelect?.(plan.id)}
                 >
-                    <div>
-                          <Checkbox
-            variant="circle"
-            
-            
-          />
+                    <div className="flex items-start justify-between">
+                        <p className="text-(--text-heading) font-semibold text-[14px]">{plan.title}</p>
+                        <Checkbox
+                            variant="circle"
+                            checked={selectedPlanId === plan.id}
+                        />
+
                     </div>
-                    <p className="text-sm font-semibold text-[14px] text-(--text-heading)">{tab.title}</p>
-                    <p className="text-(--text-body) text-sm">{tab.description}</p>
+                    <p className="text-(--text-body) text-sm  w-65.5 h-10">
+                        {plan.description}
+                    </p>
                 </div>
-                
             ))}
         </div>
     )

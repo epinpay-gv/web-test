@@ -49,8 +49,8 @@ export default function TestPage() {
             <Checkbox variant="square" checked />
           </div>
           <div>
-            <Checkbox variant="square" disabled/>
-            <Checkbox variant="square" disabled checked/>
+            <Checkbox variant="square" disabled />
+            <Checkbox variant="square" disabled checked />
           </div>
         </div>
         <div className="flex gap-4">
@@ -59,8 +59,8 @@ export default function TestPage() {
             <Checkbox variant="circle" checked />
           </div>
           <div>
-            <Checkbox variant="circle" disabled/>
-            <Checkbox variant="circle" disabled checked/>
+            <Checkbox variant="circle" disabled />
+            <Checkbox variant="circle" disabled checked />
           </div>
         </div>
         <div className="flex gap-10">
@@ -82,28 +82,28 @@ export default function TestPage() {
             />
           </div>
 
-      <div>
-       
-            <NavItems
-          label="Item 1"
-          value="item1"
-          icon={AdjustmentsHorizontal}
-          isActive={false}
-          onClick={() => {}}
-          variant="bordered"
-          size="base"
-          iconPosition="left"
-        />
+          <div>
 
-        <NavigationTabs
-          items={MENU_TABS}
-          activeValue={activeTab}
-          onChange={setActiveTab}
-          variant="bordered"
-          size="base"
-        />
-    
-      </div>
+            <NavItems
+              label="Item 1"
+              value="item1"
+              icon={AdjustmentsHorizontal}
+              isActive={false}
+              onClick={() => { }}
+              variant="bordered"
+              size="base"
+              iconPosition="left"
+            />
+
+            <NavigationTabs
+              items={MENU_TABS}
+              activeValue={activeTab}
+              onChange={setActiveTab}
+              variant="bordered"
+              size="base"
+            />
+
+          </div>
         </div>
       </div>
     </div>
