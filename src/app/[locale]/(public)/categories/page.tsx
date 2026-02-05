@@ -1,6 +1,7 @@
 import { createSeo } from "@/lib/seo";
 import { CategorySchema } from "@/components/seo/CategorySchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { PageTitle } from "@/features/catalog/components/components";
 
 export async function generateMetadata({
   params,
@@ -40,9 +41,21 @@ export default function CategoriesPage({
         url={`${baseUrl}/${locale}/categories`}
         locale={locale}
       />
+
       {/* Page Content */}
-      <div>
-        <h1>CATEGORIES</h1>
+      <div className="container max-w-7xl mx-auto pb-12">
+        <PageTitle
+          data={{
+            title: "Kategoriler ",
+            totalProductAmount: 2173,
+          }}
+          changeOrder={function (order: string): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+        <div className="flex gap-4">
+          {/* <CategoryGrid data={mockProducts} /> */}
+        </div>
       </div>
     </>
   );

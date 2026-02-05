@@ -73,7 +73,7 @@ export default function ProductsPage({
           }}
         />
         <div className="flex gap-4">
-          {/* <FilterContainer titleData={titleData} groups={filterGroups} /> */}
+          <FilterContainer titleData={titleData} groups={filterGroups} />
           <ProductGrid data={mockProducts} />
         </div>
       </div>

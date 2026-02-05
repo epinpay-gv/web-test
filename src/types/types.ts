@@ -68,7 +68,7 @@ export interface ProductType {
 export interface Category {
   id: number;
   status: CATEGORY_STATUS;
-  translations: CategoryTranslation;
+  translation: CategoryTranslation;
 }
 
 export interface CategoryTranslation extends Translation {
