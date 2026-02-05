@@ -1,5 +1,5 @@
 import Section from "@/components/layout/Section/Section";
-import TabPlans from "@/features/premium/components/TabPlans";
+import TabPlans from "@/components/common/Tabs/TabPlans";
 
 export default function PremiumSection() {
     return(

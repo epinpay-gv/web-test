@@ -89,9 +89,9 @@ const ITEM_VARIANT_CLASSES: Record<
       base: "h-10 rounded-md px-4 py-2.5",
       lg: "h-12 rounded-lg px-5 py-3",
     },
-    base: "flex items-center whitespace-nowrap transition-colors",
+    base: "flex items-center whitespace-nowrap transition-colors ",
     active: "bg-(--bg-neutral-primary-soft) text-(--text-fg-on-brand)",
-    inactive: "text-(--text-body) hover:bg-(--bg-secondary)",
+    inactive: "text-(--text-body) hover:bg-(--bg-neutral-primary-soft) ",
   },
 
   segmented: {

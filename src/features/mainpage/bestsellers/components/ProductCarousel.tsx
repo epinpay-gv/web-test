@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { Product } from "@/types/types";
 import { ProductCard } from "@/components/common/Cards/ProductCard/ProductCard";
+import { AddToCartPayload, NotifyWhenAvailablePayload } from "@/components/common/Cards/ProductCard/types";
 
 interface ProductCarouselProps {
   products: Product[];
@@ -36,7 +37,13 @@ export function ProductCarousel({
             key={product.id}
             className="pl-4 basis-auto"
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} addToCart={function (payload: AddToCartPayload): void {
+              throw new Error("Function not implemented.");
+            } } notifyWhenAvailable={function (payload: NotifyWhenAvailablePayload): void {
+              throw new Error("Function not implemented.");
+            } } addToFavorites={function (payload: NotifyWhenAvailablePayload): void {
+              throw new Error("Function not implemented.");
+            } } />
           </CarouselItem>
         ))}
       </CarouselContent>

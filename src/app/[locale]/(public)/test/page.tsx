@@ -6,9 +6,37 @@ import { Input } from "@/components/common/Form/Input/Input";
 import { User } from "flowbite-react-icons/outline";
 import { useEffect } from "react";
 import { Checkbox } from "@/components/common/CheckBox/CheckBox";
+import NavigationTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
+
+
+import {
+  Home,
+  AdjustmentsHorizontal,
+  UserCircle,
+  Download,
+  UserHeadset,
+  CheckCircle,
+} from "flowbite-react-icons/outline";
+
+import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
+
+const TIME_RANGES = [
+  { label: "7 Gün", value: "1h" },
+  { label: "10Gün", value: "24h" },
+  { label: "12Gün", value: "1w" },
+];
+
+const MENU_TABS = [
+  { label: "Home", value: "home", icon: Home },
+  { label: "Settings", value: "settings", icon: AdjustmentsHorizontal },
+  { label: "My account", value: "accounts", icon: UserCircle },
+  { label: "Downloads", value: "downloads", icon: Download },
+  { label: "Supports", value: "supports", icon: UserHeadset },
+];
 
 export default function TestPage() {
-
+  const [activeTab, setActiveTab] = useState("");
+  const [range, setRange] = useState("");
   return (
     <div className="min-h-screen gap-8 flex justify-center items-center transition-colors bg-white dark:bg-slate-900">
       {/* DİKKAT: bg-white dark:bg-slate-900 kullandığında 
@@ -54,7 +82,28 @@ export default function TestPage() {
             />
           </div>
 
+      <div>
+       
+            <NavItems
+          label="Item 1"
+          value="item1"
+          icon={AdjustmentsHorizontal}
+          isActive={false}
+          onClick={() => {}}
+          variant="bordered"
+          size="base"
+          iconPosition="left"
+        />
 
+        <NavigationTabs
+          items={MENU_TABS}
+          activeValue={activeTab}
+          onChange={setActiveTab}
+          variant="bordered"
+          size="base"
+        />
+    
+      </div>
         </div>
       </div>
     </div>

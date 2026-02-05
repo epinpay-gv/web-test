@@ -5,7 +5,7 @@ import MasterMenu from "@/features/mainpage/components/MasterMenu";
 import BestSellers from "@/features/mainpage/bestsellers/components/BestSellers";
 // import Campaigns from "@/features/mainpage/components/Campaings";
 import NavLinkCards from "@/components/common/NavLinks/NavLinkCards"; 
-import PremiumSection from "@/features/mainpage/components/PremiumSection";
+import PremiumSection from "@/features/mainpage/premium/components/PremiumSection";
 
 export default function Home() {
   // NOT: Artık manuel bgColor/textColor değişkenlerine ihtiyacın yok.

@@ -3,7 +3,6 @@ import { mockProducts } from "@/mocks";
 import { useState } from "react";
 import { ProductCarousel } from "./ProductCarousel";
 import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
-import { Divide } from "lucide-react";
 import Section from "@/components/layout/Section/Section";
 
 const TIME_RANGES = [
