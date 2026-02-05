@@ -1,6 +1,13 @@
-import { AddToCartPayload } from "@/components/common/Cards/ProductCard/types";
-import { http } from "@/lib/http";
+import { baseFetcher } from "@/lib/api/baseFetcher";
+import { ProductPageResponse } from "./types";
+import { FilterGroupConfig } from "./components/filters/Filters/types";
 
-export function addToCartRequest(payload: AddToCartPayload) {
-  return http.post("/cart/add", payload);
+export interface ProductsApiResponse extends ProductPageResponse {
+  filters: FilterGroupConfig[];
 }
+
+export const getProducts = (query: URLSearchParams) => {
+  return baseFetcher<ProductsApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/products?${query.toString()}`
+  );
+};

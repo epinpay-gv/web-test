@@ -14,7 +14,13 @@ export async function baseFetcher<
   options: FetcherOptions<TBody> = {},
   msg: string = "Request failed"
 ): Promise<TResponse> {
-  const res = await fetch(url, {
+
+  const finalUrl =
+    url.startsWith("http")
+      ? url
+      : `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
+
+  const res = await fetch(finalUrl, {
     method: options.method ?? "GET",
     headers: { "Content-Type": "application/json" },
     body: options.body

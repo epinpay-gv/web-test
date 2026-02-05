@@ -9,6 +9,8 @@ import {
 import { ProductsSchema } from "@/components/seo/ProductsSchema";
 import { mockProducts, filterGroups } from "@/mocks";
 import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
+import ProductsClient from "./products-client";
+import { getProducts } from "@/features/catalog/service";
 
 export async function generateMetadata({
   params,
@@ -24,7 +26,7 @@ export async function generateMetadata({
   });
 }
 
-export default function ProductsPage({
+export default async function ProductsPage({
   params,
 }: {
   params: { locale: string };
@@ -32,17 +34,7 @@ export default function ProductsPage({
   const { locale } = params;
   const baseUrl = "https://www.epinpay.com";
 
-  const filterData: FilterGroupConfig = {
-    titleData: {
-      title: "",
-    },
-    elements: [],
-  };
-
-  const titleData = {
-    title: "Filtrele",
-    isUnderlined: true,
-  };
+ const res = await getProducts(new URLSearchParams());
 
   return (
     <>
@@ -61,22 +53,12 @@ export default function ProductsPage({
       />
 
       {/* Page Content */}
-      <div className="container max-w-7xl mx-auto pb-12">
-        {/* <FilterNavBar data={filterData} /> */}
-        <PageTitle
-          data={{
-            title: "Tüm ürünler ",
-            totalProductAmount: 2173,
-          }}
-          changeOrder={function (order: string): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
-        <div className="flex gap-4">
-          <FilterContainer titleData={titleData} groups={filterGroups} />
-          <ProductGrid data={mockProducts} />
-        </div>
-      </div>
+      <ProductsClient
+        initialProducts={res.data}
+        initialFilters={res.filters}
+        // total={res.pagination.count}
+        total={2000}
+      />
     </>
   );
 }

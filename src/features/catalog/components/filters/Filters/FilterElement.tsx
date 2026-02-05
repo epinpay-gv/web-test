@@ -3,12 +3,18 @@ import { SearchInput } from "@/components/layout/Header/components/SearchInput";
 import { FilterElementConfig } from "./types";
 import { Input } from "@/components/common/Form/Input/Input";
 import { Checkbox } from "@/components/common/CheckBox/CheckBox";
+import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
+
+
+
 
 export default function FilterElement({
   config,
 }: {
   config: FilterElementConfig;
 }) {
+  const { setCheckboxFilter, setRange } = useCatalogFilters();
+
   return (
     <div className="space-y-4">
       {"search" in config && config.search && <SearchInput />}
@@ -56,6 +62,7 @@ export default function FilterElement({
                 className="text-center"
                 wrapperClassName="flex-1"
                 rightIcon={<></>}
+                onChange={(e) => setRange(Number(e.target.value), undefined)}
               />
             </div>
             <div>
@@ -68,6 +75,7 @@ export default function FilterElement({
                 className="text-center"
                 wrapperClassName="flex-1"
                 rightIcon={<></>}
+                 onChange={(e) => setRange(undefined, Number(e.target.value))}
               />
             </div>
           </div>
@@ -96,6 +104,8 @@ export default function FilterElement({
                   variant="square"
                   value={opt.value}
                   label={opt.label}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  onChange={() => setCheckboxFilter(config.key as any, opt.value)}
                 />
 
                 {/* Count */}
