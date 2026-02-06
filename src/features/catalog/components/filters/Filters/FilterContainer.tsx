@@ -6,15 +6,15 @@ import FilterGroup from "./FilterGroup";
 
 interface FiltersProps {
   titleData: TitleData;
-  groups: FilterGroupConfig[];
+  filters: FilterGroupConfig[];
 }
 
-export default function Filters({ titleData, groups }: FiltersProps) {
+export default function Filters({ titleData, filters }: FiltersProps) {
   return (
     <>
       <div className="blue-container container max-w-77 p-6 space-y-4">
         <Title data={titleData} />
-        {groups.map((group, index) => (
+        {filters.map((group, index) => (
           <FilterGroup key={index} config={group} />
         ))}
       </div>

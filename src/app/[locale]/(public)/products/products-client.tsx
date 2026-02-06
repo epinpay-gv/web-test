@@ -10,6 +10,7 @@ import { getProducts } from "@/features/catalog/service";
 import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
 import { ProductPageData } from "@/features/catalog/types";
+import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
 
 export default function ProductsClient({
   initialProducts,
@@ -46,8 +47,31 @@ export default function ProductsClient({
     filters.maxPrice,
   ]);
 
+  const productTypeGroup = groups.find(
+    (item) => item.titleData?.title === "Ürün Tipi",
+  );
+
+  // const productTypeTabItems =
+  //   productTypeGroup?.elements?.[0]?.options?.map((opt) => ({
+  //     label: opt.label,
+  //     value: opt.value,
+  //   })) ?? [];
+
   return (
     <div className="container max-w-7xl mx-auto pb-12">
+      {/* {productTypeTabItems.length > 0 && (
+        <NavTabs
+          items={productTypeTabItems}
+          activeValue={activeProductType}
+          onChange={(val) => {
+            // setActiveProductType(val);
+            // filters.setProductType?.([val]);
+          }}
+          variant="segmented"
+          size="base"
+        />
+      )} */}
+
       <PageTitle
         data={{
           title: "Tüm ürünler",
@@ -57,7 +81,10 @@ export default function ProductsClient({
       />
 
       <div className="flex gap-4">
-        <FilterContainer titleData={{ title: "Filtrele", isUnderlined: true }} groups={groups} />
+        <FilterContainer
+          titleData={{ title: "Filtrele", isUnderlined: true }}
+          filters={groups}
+        />
         <ProductGrid data={products} />
       </div>
     </div>

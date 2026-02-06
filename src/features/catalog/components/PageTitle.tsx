@@ -17,17 +17,19 @@ export default function PageTitle({ data, changeOrder }: PageTitleProps) {
         <div className="flex items-center justify-between">
           <span className="text-xl flex items-center gap-2">
             <h1>{data.title}</h1> listeleniyor{" "}
-            <p className="text-body text-[14px] my-0">
+            <p className="text-body text-[14px] my-0 py-0">
               {data.totalProductAmount} ürün
             </p>
           </span>
-          <Button
-            padding="sm"
-            textSize="sm"
-            variant="secondary"
-            icon={<Sort />}
-            text="Sırala (Artan Fiyat)"
-          />
+          <div className="w-60">
+            <Button
+              padding="sm"
+              textSize="sm"
+              variant="secondary"
+              icon={<Sort />}
+              text="Sırala (Artan Fiyat)"
+            />
+          </div>
         </div>
         <Breadcrumb
           data={{
