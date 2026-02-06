@@ -7,23 +7,25 @@ import { getProducts } from "@/features/catalog/service";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
   return createSeo({
-    title: params.locale === "en" ? "All Products" : "Tüm Ürünler",
+    title: locale === "en" ? "All Products" : "Tüm Ürünler",
     description:
-      params.locale === "en" ? "Browse all products" : "Tüm ürünleri keşfedin",
+      locale === "en" ? "Browse all products" : "Tüm ürünleri keşfedin",
     canonical: "/products",
-    locale: params.locale,
+    locale: locale,
   });
 }
 
 export default async function ProductsPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   const baseUrl = "https://www.epinpay.com";
 
  const res = await getProducts(new URLSearchParams());

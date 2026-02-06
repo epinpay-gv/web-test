@@ -300,6 +300,7 @@ html.light body {
 .light {
   /* ================= BACKGROUND ================= */
   --bg-variants-gray: #F9FAFB;
+  --bg-neutral-primary:#F2F8FB;
   --bg-neutral-primary-soft: #F2F8FB;
   --bg-neutral-secondary-soft: #EAF2F7;
   --bg-neutral-secondary: #FFFFFF;
