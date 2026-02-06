@@ -7,6 +7,7 @@ import { User } from "flowbite-react-icons/outline";
 import { useEffect } from "react";
 import { Checkbox } from "@/components/common/CheckBox/CheckBox";
 import NavigationTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
+import { Toggle } from "@/components/common/Toggle/Toggle";
 
 
 import {
@@ -76,6 +77,30 @@ export default function TestPage() {
             helperText="Save my credentials for easier sign-in"
           />
 
+          <div className="p-10 space-y-6">
+            {/* Normal */}
+            <div className="flex gap-2">
+              <Toggle />          
+              <Toggle checked />
+            </div>
+            {/* Disabled */}
+            <div className="flex gap-2">
+              <Toggle disabled />
+              <Toggle disabled checked />
+            </div>
+             {/* Normal */}
+            <div className="flex gap-2">
+              <Toggle size="lg"/>          
+              <Toggle checked size="lg"/>
+            </div>
+            {/* Disabled */}
+            <div className="flex gap-2">
+              <Toggle disabled size="lg"/>
+              <Toggle disabled checked size="lg"/>
+            </div>
+            
+            {/* Focus halini görmek için Tab tuşuna basabilirsin */}
+          </div>
           <div className="flex items-start gap-3 rounded-lg bg-slate-800/60 px-4 py-3">
             <Checkbox
               variant="square"
