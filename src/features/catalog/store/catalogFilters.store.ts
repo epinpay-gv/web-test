@@ -27,10 +27,8 @@ export const useCatalogFilters = create<CatalogFiltersStore>()(
 
     toggleFilter: (key, value) =>
       set((state) => {
-        console.log("toggle a girdi");
         const current = state.filters[key];
         const exists = current.includes(value);
-console.log(state, exists);
         return {
           filters: {
             ...state.filters,

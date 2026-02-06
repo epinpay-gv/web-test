@@ -124,7 +124,6 @@ export default function FilterElement({
                     }
                     checked={isChecked}
                     onCheckedChange={() => {
-                      console.log("işte key: ", mappedKey);
                       if (!mappedKey) return ;
                       toggleFilter(mappedKey, opt.value);
                     }}

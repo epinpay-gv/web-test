@@ -46,14 +46,10 @@ export default function ProductsClient({
       isFirstRender.current = false;
       return;
     }
-
-    console.log("FILTERS : ", filters);
     const params = buildCatalogSearchParams(filters);
-
     router.replace(`?${params.toString()}`, {
       scroll: false,
     });
-
     getProducts(params).then((res) => {
       setProducts(res.data);
       setGroups(res.filters);
