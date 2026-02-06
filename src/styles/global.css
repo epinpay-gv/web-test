@@ -282,13 +282,13 @@ body {
 /* 2. Sadece tema ile ilgili özellikleri seçici olarak hızlandırın */
 html.dark body, 
 html.light body {
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease !important;
-  will-change: background-color, color; /* Tarayıcıyı önceden hazırlar */
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease-out !important;
+  will-change: background-color, color; 
 }
 
 /* 3. Kartlar ve Inputlar için özel yumuşatma */
 .card, .input, .btn, form, div {
-  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease-out !important;
 }
 
 /* ================= THEME TOKENS ================= */

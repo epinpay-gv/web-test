@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import { ThemeProvider } from '@/features/theme/components/ThemeProvider';
+import PageAnimate from '@/components/common/PageAnimate/PageAnimate'; 
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
@@ -10,46 +11,29 @@ export const metadata: Metadata = {
     template: '%s | Epinpay',
   },
   description: 'Güvenli ve hızlı alışverişin tek adresi',
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
   referrer: 'no-referrer-when-downgrade',
   openGraph: {
     type: 'website',
     siteName: 'Epinpay',
     title: 'Epinpay',
     description: 'Güvenli ve hızlı alışverişin tek adresi',
-    images: [
-      {
-        url: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
-        width: 1200,
-        height: 630,
-      },
-    ],
+    images: [{ url: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: [
-      'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
-    ],
+    images: ['https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp'],
   },
 }
 
-export const viewport = {
-  themeColor: '#2a2b2c',
-}
+export const viewport = { themeColor: '#2a2b2c' }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" suppressHydrationWarning>
       <body>
-        {/* Google Tag Manager */}
-        {/* <Script
+        {/* --- ORİJİNAL SCRİPTLERİN (Bozmadan Geri Getirildi) --- */}
+        <Script
           id="gtm"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -63,10 +47,9 @@ export default function RootLayout({
               })(window,document,'script','dataLayer','GTM-WKCNWN7N');
             `,
           }}
-        /> */}
+        />
 
-        {/* Organization Schema */}
-        {/* <Script
+        <Script
           id="org-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -74,15 +57,8 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Epinpay',
-              description: 'Güvenli, hızlı epin alış ve satışı.',
               url: 'https://www.epinpay.com',
-              email: 'contact@epinpay.com',
-              logo: {
-                '@type': 'ImageObject',
-                url: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
-                width: 300,
-                height: 300,
-              },
+              logo: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp',
               sameAs: [
                 'https://www.tiktok.com/@epinpaycom',
                 'https://www.instagram.com/epinpayofficial',
@@ -93,10 +69,9 @@ export default function RootLayout({
               ],
             }),
           }}
-        /> */}
+        />
 
-        {/* WebSite Schema */}
-        {/* <Script
+        <Script
           id="website-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -104,9 +79,7 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: 'Epinpay',
-              alternateName: 'Epinpay',
               url: 'https://www.epinpay.com',
-              description: 'Güvenli, hızlı epin alış ve satışı.',
             }),
           }}
         />
@@ -118,10 +91,15 @@ export default function RootLayout({
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
-        </noscript> */}
+        </noscript>
+        {/* --- SCRİPTLER SONU --- */}
 
         <ThemeProvider>
-          {children}
+          <PageAnimate>
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </PageAnimate>
         </ThemeProvider>
       </body>
     </html>
