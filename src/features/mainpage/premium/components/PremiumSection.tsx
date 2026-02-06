@@ -79,10 +79,10 @@ export default function PremiumSection() {
                     <Image
                         src="/image/premium/premium.png"
                         alt={PLAN_NAME}
-                        width={50}
-                        height={50}
+                        width={8000}
+                        height={8000}
                         priority
-                        className="absolute object-contain bottom-0 right-0"
+                        className="absolute object-contain top-12 left-38"
                     />
                 </div>
             </div>
