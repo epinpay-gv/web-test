@@ -84,9 +84,9 @@ export function useLogin() {
     setIsLoading(true);
     try {
       await delay(1000);
-      if (formData.email === 'test@mail.com' && formData.password === '123456') {
+      if (formData.email === 'test@epinpay.com' && formData.password === 'epinpay') {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setAuth({ id: '1', name: 'Ahmet', email: 'test@mail.com' } as any, 'mock-token');
+        setAuth({ id: '1', name: 'Ahmet', surname: "Yılmaz", balance: 35, epPoints: 35, email: 'test@mail.com' } as any, 'mock-token');
         router.push('/');
       } else {
         setErrors({ form: 'E-posta veya şifre hatalı!' });

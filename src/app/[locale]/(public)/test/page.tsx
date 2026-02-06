@@ -19,6 +19,8 @@ import {
 } from "flowbite-react-icons/outline";
 
 import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
+import { IconShape } from "@/components/common/IconSahpe/IconShape";
+import { Flame } from "lucide-react";
 
 const TIME_RANGES = [
   { label: "7 Gün", value: "1h" },
@@ -81,7 +83,22 @@ export default function TestPage() {
               helperText="Save my credentials for easier sign-in"
             />
           </div>
-
+          <div className="p-10 flex gap-4 items-center">
+            {/* Statik Renk - Circle */}
+            <IconShape icon={Flame} color="green" variant="circle" size="lg" />
+            
+            {/* Statik Renk - Square */}
+            <IconShape icon={Flame} color="red" variant="square" size="lg" onClick={() => alert("ikona tıklandı")}/>
+            
+            {/* Dışarıdan Özel Renk (Custom) */}
+            <IconShape 
+              icon={Flame} 
+              color="custom" 
+              customColor="var(--text-heading)" 
+              variant="square" 
+              size="lg" 
+            />
+          </div>
           <div>
 
             <NavItems
