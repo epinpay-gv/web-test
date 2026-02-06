@@ -51,8 +51,8 @@ export function ProductCarousel({
       </CarouselContent>
       {showControls && (
         <>
-          <CarouselPrevious className="hidden md:flex -left-4" />
-          <CarouselNext className="hidden md:flex -right-4" />
+          <CarouselPrevious className="hidden md:flex bg-(--bg-quaternary-medium) border-none" />
+          <CarouselNext className="hidden md:flex bg-(--bg-quaternary-medium) border-none " />
         </>
       )}
     </Carousel>

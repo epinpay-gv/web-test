@@ -67,10 +67,10 @@ const CONTAINER_VARIANT_CLASSES: Record<
   },
 
   segmented: {
-    base: "inline-flex items-center bg-(--bg-neutral-primary-soft) overflow-hidden",
+    base: "inline-flex items-center bg-(--bg-neutral-primary-soft) font-semibold overflow-hidden",
     size: {
       sm: "w-[280px] h-[48px] gap-2 p-1.5 rounded-[14px]",
-      base: "w-[341px] h-[56px] gap-3 p-2 rounded-[16px]",
+      base: "w-[341px] h-[56px] gap-3 p-2 rounded-[16px] font-semibold",
       lg: "w-[400px] h-[64px] gap-4 p-2.5 rounded-[18px]",
     },
   },

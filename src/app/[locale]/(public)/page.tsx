@@ -13,14 +13,14 @@ export default function Home() {
   // gibi Tailwind classları kullanman yeterli.
 
   return (
-    <>
+      <>
       <NavLinkCards />
       <MasterMenu />
       <BestSellers />
       {/* <Campaigns /> */}
+
+      {/* PremiumSection sadece ekran genişliği md ve üzeri boyutlarda görünsün */}
       <PremiumSection />
-  
-      
     </>
   );
 }

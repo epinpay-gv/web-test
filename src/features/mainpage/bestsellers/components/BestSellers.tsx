@@ -33,7 +33,7 @@ export default function BestSellers() {
 
           <ProductCarousel
             products={mockProducts}
-            showControls={false}
+            showControls={true}
             loop={false}
           />
         </div>

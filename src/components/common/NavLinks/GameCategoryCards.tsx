@@ -100,14 +100,14 @@ export default function GameCategoryCards() {
                 absolute inset-0
                 pointer-events-none
                 opacity-0
-                transition-opacity duration-300
+                transition-opacity transaction-shadow duration-300
                 group-hover:opacity-100
                 shadow-[inset_0_0_30px_10px_rgba(255,255,255,0.7)]
               "
             />
 
             {/* Title */}
-            <span className="relative z-10 font-inter text-sm md:font-semibold text-white">
+            <span className="relative z-10 font-inter text-sm font-semibold text-white">
               {category.title}
             </span>
           </BaseCard>
@@ -121,7 +121,7 @@ export default function GameCategoryCards() {
           className="
           w-full aspect-[123.5/86.66] md:w-[123.5px] md:h-[86.66px] rounded-3xl flex items-center justify-center text-center bg-(--bg-brand) "
         >
-          <span className="font-inter text-black text-sm md:font-semibold">
+          <span className="font-inter text-black text-sm font-semibold">
             Tüm Oyunları Keşfet
           </span>
         </BaseCard>
