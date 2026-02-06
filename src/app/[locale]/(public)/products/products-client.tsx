@@ -1,6 +1,5 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   FilterContainer,
   PageTitle,
@@ -9,68 +8,71 @@ import {
 import { getProducts } from "@/features/catalog/service";
 import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
-import { ProductPageData } from "@/features/catalog/types";
 import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
+import { buildCatalogSearchParams } from "@/features/catalog/utils/buildCatalogSearchParams";
+import { Product } from "@/types/types";
+import { useRouter } from "next/navigation";
 
 export default function ProductsClient({
   initialProducts,
   initialFilters,
   total,
 }: {
-  initialProducts: ProductPageData[];
+  initialProducts: Product[];
   initialFilters: FilterGroupConfig[];
   total: number;
 }) {
-  const filters = useCatalogFilters();
+  const router = useRouter();
+  const isFirstRender = useRef(true);
+
+  const filters = useCatalogFilters((s) => s.filters);
+  const setProductType = useCatalogFilters((s) => s.setProductType);
+
   const [products, setProducts] = useState(initialProducts);
   const [groups, setGroups] = useState(initialFilters);
 
+  const tabFilters = groups.find((item) => item.isTab);
+
+  const columnFilters = groups.filter((item) => !item.isTab);
+
+  const productTypeTabItems =
+    tabFilters?.elements?.[0]?.options?.map((opt) => ({
+      label: opt.label,
+      value: opt.value,
+    })) ?? [];
+
   useEffect(() => {
-    const params = new URLSearchParams();
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
 
-    filters.category?.forEach((v) => params.append("category", v));
-    filters.region?.forEach((v) => params.append("region", v));
-    filters.platform?.forEach((v) => params.append("platform", v));
+    console.log("FILTERS : ", filters);
+    const params = buildCatalogSearchParams(filters);
 
-    if (filters.minPrice) params.set("minPrice", String(filters.minPrice));
-    if (filters.maxPrice) params.set("maxPrice", String(filters.maxPrice));
+    router.replace(`?${params.toString()}`, {
+      scroll: false,
+    });
 
     getProducts(params).then((res) => {
       setProducts(res.data);
       setGroups(res.filters);
     });
-  }, [
-    filters.category?.join(","),
-    filters.region?.join(","),
-    filters.platform?.join(","),
-    filters.minPrice,
-    filters.maxPrice,
-  ]);
-
-  const productTypeGroup = groups.find(
-    (item) => item.titleData?.title === "Ürün Tipi",
-  );
-
-  // const productTypeTabItems =
-  //   productTypeGroup?.elements?.[0]?.options?.map((opt) => ({
-  //     label: opt.label,
-  //     value: opt.value,
-  //   })) ?? [];
+  }, [filters]);
 
   return (
-    <div className="container max-w-7xl mx-auto pb-12">
-      {/* {productTypeTabItems.length > 0 && (
-        <NavTabs
-          items={productTypeTabItems}
-          activeValue={activeProductType}
-          onChange={(val) => {
-            // setActiveProductType(val);
-            // filters.setProductType?.([val]);
-          }}
-          variant="segmented"
-          size="base"
-        />
-      )} */}
+    <div className="container max-w-7xl mx-auto py-12 space-y-4">
+      {productTypeTabItems.length > 0 && (
+        <div className="w-full">
+          <NavTabs
+            items={productTypeTabItems}
+            activeValue={filters.productType[0]}
+            variant="segmented"
+            size="base"
+            onChange={(value) => setProductType(value)}
+          />
+        </div>
+      )}
 
       <PageTitle
         data={{
@@ -83,7 +85,7 @@ export default function ProductsClient({
       <div className="flex gap-4">
         <FilterContainer
           titleData={{ title: "Filtrele", isUnderlined: true }}
-          filters={groups}
+          filters={columnFilters}
         />
         <ProductGrid data={products} />
       </div>

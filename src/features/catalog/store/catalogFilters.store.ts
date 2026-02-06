@@ -1,50 +1,63 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import { CatalogFilterState } from "../catalog.types";
 
-export type CatalogFilters = {
-  category?: string[];
-  region?: string[];
-  platform?: string[];
-  minPrice?: number;
-  maxPrice?: number;
+type FilterKey = "category" | "region" | "platform";
 
-  setCheckboxFilter: (key: "category" | "region" | "platform", value: string) => void;
-  setRange: (min?: number, max?: number) => void;
+type CatalogFiltersStore = {
+  filters: CatalogFilterState;
+
+  toggleFilter: (key: FilterKey, value: string) => void;
+  setProductType: (value: string) => void;
+  setPriceRange: (min?: number, max?: number) => void;
   reset: () => void;
 };
 
-export const useCatalogFilters = create<CatalogFilters>((set) => ({
+const initialFilters: CatalogFilterState = {
   category: [],
   region: [],
   platform: [],
-  minPrice: undefined,
-  maxPrice: undefined,
+  productType: [],
+  price: undefined,
+};
 
-  setCheckboxFilter: (key, value) =>
-    set((state) => {
-      const current = state[key] ?? [];
-      const exists = current.includes(value);
+export const useCatalogFilters = create<CatalogFiltersStore>()(
+  devtools((set) => ({
+    filters: initialFilters,
 
-      return {
-        ...state,
-        [key]: exists
-          ? current.filter((v) => v !== value)
-          : [...current, value],
-      };
-    }),
+    toggleFilter: (key, value) =>
+      set((state) => {
+        console.log("toggle a girdi");
+        const current = state.filters[key];
+        const exists = current.includes(value);
+console.log(state, exists);
+        return {
+          filters: {
+            ...state.filters,
+            [key]: exists
+              ? current.filter((v) => v !== value)
+              : [...current, value],
+          },
+        };
+      }),
 
-  setRange: (min, max) =>
-    set((state) => ({
-      ...state,
-      minPrice: min,
-      maxPrice: max,
-    })),
+    // TAB → single select
+    setProductType: (value) =>
+      set((state) => ({
+        filters: {
+          ...state.filters,
+          productType: [value],
+        },
+      })),
 
-  reset: () =>
-    set({
-      category: [],
-      region: [],
-      platform: [],
-      minPrice: undefined,
-      maxPrice: undefined,
-    }),
-}));
+    setPriceRange: (min, max) =>
+      set((state) => ({
+        filters: {
+          ...state.filters,
+          price: { min, max },
+        },
+      })),
+
+    reset: () => set({ filters: initialFilters }),
+  })),
+);

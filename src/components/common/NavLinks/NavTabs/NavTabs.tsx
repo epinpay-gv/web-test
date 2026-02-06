@@ -89,7 +89,7 @@ export default function NavigationTabs({
   const containerClasses = `${variantClasses.base} ${variantClasses.size[size]}`;
 
   return (
-    <nav className={`${containerClasses} ${containerClassName ?? ""}`}>
+    <nav className={`${containerClasses} ${containerClassName ?? ""} w-full`}>
       {items.map((item) => (
         <NavItem
           key={item.value}
@@ -101,7 +101,7 @@ export default function NavigationTabs({
           size={size}
           variant={variant}
           iconPosition={iconPosition}
-          className=""
+          className="w-full"
         />
       ))}
     </nav>

@@ -19,32 +19,38 @@ export enum CATEGORY_STATUS {
 export interface Product {
   id: number;
 
-  // TODO : alttaki alanlar id ile tutuluyor ama fronta string olarak gelecek
-  category: string;
+  // * Alttaki değerler filtrelemede kullanılıyor, backendden isimleri de dönmeli
+  category_id: number;
+  region_id: number;
+  platform_id: number;
+  type_id: number;
+  status: PRODUCT_STATUS;
+
   region: string;
   platform: string;
+  platform_icon: string;
   type: string;
 
-  status: PRODUCT_STATUS;
   translation: ProductTranslation;
 
-  //TODO : walleta göre bu typeları değiştir:
-  cheapestOffer : Offer;
+  genres: {id: number; name: string;}[];
+
+  cheapestOffer? : Offer | null;
   basePrice: number | null;
   epPrice: number | null;
   discountRate?: number;
-  fakePrice?: number;
+  fakePrice?: number | null;
 
   isFavorite?: boolean;
 }
-
 export interface Translation {
   id: number;
-  typeId: number;
+  // typeId: number; // ! bu bana lazım değil
   locale: string;
   name: string;
 }
 export interface ProductTranslation extends Translation {
+  category_slug: string; // ! bu backende eklenmeli
   slug: string;
   description: string;
   metaTitle: string;
