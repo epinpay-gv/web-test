@@ -150,7 +150,7 @@ export default function ProductsClient({
             <div className="flex flex-wrap items-center gap-2 mb-4">
               <button
                 onClick={resetFilters}
-                className="text-(--text-fg-brand) mr-2 cursor-pointer"
+                className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"
               >
                 Seçimleri Temizle
               </button>

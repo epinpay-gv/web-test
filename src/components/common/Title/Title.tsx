@@ -44,7 +44,7 @@ export default function Title({
           {actionBtn && activeCount > 0 && (
             <button
               onClick={onAction}
-              className="text-(--text-fg-brand) mr-2 cursor-pointer"
+              className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"
             >
               Temizle
             </button>
