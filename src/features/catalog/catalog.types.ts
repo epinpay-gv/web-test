@@ -1,7 +1,8 @@
 import { Product, Offer, PaginationData, Category } from "@/types/types";
 
-export interface ProductPageResponse extends PaginationData {
+export interface ProductPageResponse {
   data: Product[];
+  pagination: PaginationData;
 }
 
 export interface CategoryPageData extends Category{

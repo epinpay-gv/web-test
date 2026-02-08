@@ -702,7 +702,7 @@ export const mockProducts: Product[] = [
     id: 2729,
     category_id: 11,
     region_id: 52,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -737,7 +737,7 @@ export const mockProducts: Product[] = [
     id: 2730,
     category_id: 11,
     region_id: 52,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -772,7 +772,7 @@ export const mockProducts: Product[] = [
     id: 2731,
     category_id: 11,
     region_id: 52,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -807,7 +807,7 @@ export const mockProducts: Product[] = [
     id: 2732,
     category_id: 11,
     region_id: 52,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -842,7 +842,7 @@ export const mockProducts: Product[] = [
     id: 2733,
     category_id: 11,
     region_id: 52,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -877,7 +877,7 @@ export const mockProducts: Product[] = [
     id: 2734,
     category_id: 11,
     region_id: 52,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -912,7 +912,7 @@ export const mockProducts: Product[] = [
     id: 2724,
     category_id: 11,
     region_id: 1,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -946,7 +946,7 @@ export const mockProducts: Product[] = [
     id: 2735,
     category_id: 11,
     region_id: 52,
-    platform_id: 4,
+    platform_id: 5,
     type_id: 2,
     status: PRODUCT_STATUS.ACTIVE,
     translation: {
@@ -1134,6 +1134,7 @@ export const filterGroups: FilterGroupConfig[] = [
         type: "checkbox",
         key: "productType",
         options: [
+          { label: "Tüm Ürünler", value: "0" },
           { label: "Yazılım ve Lisanlar", value: "1" },
           { label: "Cüzdan Kodları ve Hediye Kartları", value: "2" },
           { label: "Oyun Pinleri", value: "3" },

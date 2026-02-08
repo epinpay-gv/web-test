@@ -15,7 +15,7 @@ export default function NavLinkCards() {
     {
       id: 2,
       title: "Çekilişler",
-      slug: "giveaways",
+      slug: "raffles",
       image: "/image/navLinks-img-mock.png",
       bgImage: "/image/navLinks-bg-mock.png",
     },
@@ -29,7 +29,7 @@ export default function NavLinkCards() {
     {
       id: 4,
       title: "EP Oyunları",
-      slug: "ep-games",
+      slug: "mini-games",
       image: "/image/navLinks-img-mock.png",
       bgImage: "/image/navLinks-bg-mock.png",
     },
