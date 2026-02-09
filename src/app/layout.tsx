@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import { ThemeProvider } from '@/features/theme/components/ThemeProvider';
-import PageAnimate from '@/components/common/PageAnimate/PageAnimate'; 
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
@@ -95,11 +94,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* --- SCRİPTLER SONU --- */}
 
         <ThemeProvider>
-          <PageAnimate>
             <main className="min-h-screen">
               {children}
             </main>
-          </PageAnimate>
         </ThemeProvider>
       </body>
     </html>

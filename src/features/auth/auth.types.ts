@@ -4,6 +4,8 @@ export interface User {
   email: string;
   avatar?: string;
   surname?: string;
+  balance?: number;
+  epPoints?: number
 }
 
 export interface AuthResponse {

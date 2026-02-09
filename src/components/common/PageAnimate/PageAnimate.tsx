@@ -2,33 +2,51 @@
 
 import { motion, Variants } from "framer-motion";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 15 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.4, ease: "easeOut", staggerChildren: 0.1 } 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
   },
 };
 
 export default function PageAnimate({ children }: { children: ReactNode }) {
-  const { theme } = useTheme();
-  const pathname = usePathname(); // Sayfa değişimlerini takip etmek için
-  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const prevThemeRef = useRef<string | undefined>(resolvedTheme);
+  const isFirstRenderRef = useRef(true);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
+    // İlk render'da flag'i false yap
+    if (isFirstRenderRef.current) {
+      isFirstRenderRef.current = false;
+      prevThemeRef.current = resolvedTheme;
+      return;
+    }
 
-  if (!mounted) return <>{children}</>;
+    // Tema değiştiğinde güncelle
+    prevThemeRef.current = resolvedTheme;
+  }, [resolvedTheme]);
+
+  // Hydration aşamasında animasyon yok
+  if (!resolvedTheme) {
+    return <>{children}</>;
+  }
+
+  // İlk render'da animasyon yok
+  // eslint-disable-next-line react-hooks/refs
+  if (isFirstRenderRef.current) {
+    return <>{children}</>;
+  }
 
   return (
     <motion.div
-      key={`${theme}-${pathname}`} // Hem tema hem sayfa değişince tetiklenir
+      key={resolvedTheme}
       initial="hidden"
       animate="visible"
       variants={variants}

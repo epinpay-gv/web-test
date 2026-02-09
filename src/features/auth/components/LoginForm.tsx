@@ -52,7 +52,7 @@ export function LoginForm() {
       <form onSubmit={handleSubmit} className="space-y-5 bg-(--bg-neutral-primary-soft) p-6 rounded-(--radius-base) border border-(--border-default)">
         {/* Email */}
         <div className="flex flex-col gap-1.5 max-w-84 w-full">
-          <label className="text-gray-300 text-sm font-medium">
+          <label className="text-(--tex-heading) text-sm font-medium">
             Email <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input
@@ -74,7 +74,7 @@ export function LoginForm() {
 
         {/* Password */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-gray-300 text-sm font-medium">
+          <label className="text-(--text-heading) text-sm font-medium">
             Şifre <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input

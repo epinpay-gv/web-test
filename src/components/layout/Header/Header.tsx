@@ -15,6 +15,7 @@ import { Menu,  X } from "lucide-react";
 import { Search } from "flowbite-react-icons/outline";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes"
+import { IconShape } from "@/components/common/IconSahpe/IconShape";
 
 
 export function Header() {
@@ -29,7 +30,7 @@ export function Header() {
   const sizeSuffix = isMobile ? "xs" : "lg"
   const logoSrc = `/image/logos/epinpay-${themeSuffix}-${sizeSuffix}.png`
   return (
-    <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50">
+    <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50 overflow-visible">
       {/* Background Glow Vector */}
       <div className="absolute max-lg:hidden w-193.5 h-166 -left-60.5 -top-76 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />
       <div className="max-w-7xl w-full mx-auto px-4 flex justify-between items-center gap-4 md:gap-8 z-10">
@@ -52,16 +53,27 @@ export function Header() {
         </div>
 
         {/* AKSİYON ALANI */}
-        <div className="flex items-center md:gap-4">
+        <div className="flex items-center justify-end md:gap-4">
           
           {/* Mobil Arama Tetikleyici (Mobile only) */}
-          <Button 
+          {/* <Button 
             variant="ghost"
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            
             icon={<Search className="w-4 h-4 md:w-5 md:h-5"/>}
             padding="xs"
             className="md:hidden"
+          /> */}
+
+          <IconShape 
+            icon={Search} 
+            color="custom" 
+            customColor="var(--text-heading)" 
+            variant="square" 
+            size="lg" 
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="md:hidden"
           />
+          
           {/* Masaüstü Araçlar (Desktop only) */}
           <div className="hidden lg:flex items-center gap-4">
             <LocaleDropdown />
@@ -83,7 +95,9 @@ export function Header() {
               <div className="hidden">
               <NotificationDropdown />
               </div>
-              <UserDropdown user={user!} onLogout={logout} />
+              <div className="relative">
+                <UserDropdown user={user!} onLogout={logout} />
+              </div>
             </div>
           )}
 

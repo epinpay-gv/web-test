@@ -6,6 +6,7 @@ import Image from "next/image"
 import { X, Youtube, Facebook, Instagram } from "flowbite-react-icons/solid"
 import { FooterColumn } from "./components/FooterColumn"
 import { FooterLink } from "./types"
+import { IconShape } from "@/components/common/IconSahpe/IconShape"
 
 export const Footer = () => {
   const supportLinks : FooterLink[] = [
@@ -86,9 +87,24 @@ export const Footer = () => {
                 <Image src="/image/logos/epinpay-white-lg.png" width={200} height={48} alt="Epinpay" className="h-10 w-auto" />
                 
                 <div className="flex gap-2">
-                  {[X, Youtube, Facebook, Instagram].map((Icon, idx) => (
-                    <a key={idx} href="#" className="bg-(--bg-dark) p-2 rounded-lg text-[#00BBE5] hover:scale-105 transition-transform">
-                      <Icon size={20} className="text-white" />
+                  {[
+                    { icon: X, href: "#" },
+                    { icon: Youtube, href: "#" },
+                    { icon: Facebook, href: "#" },
+                    { icon: Instagram, href: "#" }
+                  ].map((social, idx) => (
+                    <a 
+                      key={idx} 
+                      href={social.href} 
+                      className="block outline-none"
+                    >
+                      <IconShape 
+                        icon={social.icon} 
+                        variant="square" 
+                        size="md" 
+                        color="dark" 
+                        className="text-white hover:text-[#00BBE5] hover:scale-110 transition-all duration-200"
+                      />
                     </a>
                   ))}
                 </div>

@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import { useSyncExternalStore } from 'react';
 import { Button } from '@/components/common/Button/Button';
 import { Moon, Sun } from 'flowbite-react-icons/outline';
+import { IconShape } from '@/components/common/IconSahpe/IconShape';
 
 function subscribe() {
   return () => {};
@@ -30,14 +31,14 @@ export function ThemeToggle() {
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <Button
+    <IconShape 
+      icon={isDark ? Moon : Sun} 
+      color="custom" 
+      customColor="var(--text-heading)" 
+      variant="square" 
+      size="lg" 
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      variant='ghost'
-      padding='xs'
-      icon={isDark ? (<Moon className='w-4 h-4 md:w-5 md:h-5' />) : (<Sun className='w-4 h-4 md:w-6 md:h-6'/>)}
-      
-      aria-label="Toggle theme"
-    >
-    </Button>
+    />
+  
   );
 }

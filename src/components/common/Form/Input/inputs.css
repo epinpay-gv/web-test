@@ -4,6 +4,7 @@
   .input-wrapper {
     display: inline-flex;
     position: relative;
+    height: fit-content;
     width: 100%;
   }
 
@@ -15,7 +16,6 @@
   }
 
   .input {
-    width: 100%;
     border-radius: var(--radius-base);
     border: 1px solid var(--border-default-medium);
     background-color: var(--bg-neutral-secondary-medium);
@@ -23,46 +23,165 @@
     padding: var(--input-py) var(--input-px);
     font-size: var(--input-text);
     outline: none;
+    width: 100%;
   }
 
-  /* ================= ICON ================= */
+  /* ================= DEFAULT VARIANT ================= */
+  
+  .input-variant-default .input-inner {
+    width: 100%;
+  }
 
-  .input-left-icon,
-  .input-right-icon,
-  .input-close-icon {
+  .input-variant-default .input {
+    width: 100%;
+  }
+
+  /* ================= ICON (Input içi) ================= */
+
+  .input-left-icon {
     position: absolute;
+    left: var(--input-px);
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-body-subtle);
+    pointer-events: none;
     font-size: var(--input-text);
     display: flex;
     align-items: center;
-    pointer-events: none;
-  }
-
-  .input-left-icon {
-    left: var(--input-px);
-  }
-
-  .input-right-icon,
-  .input-close-icon {
-    right: var(--input-px);
+    z-index: 1;
   }
 
   .input.has-left-icon {
     padding-left: calc(var(--input-px) + var(--input-text) + 0.75rem);
   }
 
+  /* ================= CLEAR ================= */
+
+  .input-close-icon {
+    position: absolute;
+    right: var(--input-px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-body-subtle);
+    font-size: var(--input-text);
+    display: flex;
+    align-items: center;
+  }
+
+  .input-clear-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-body-muted);
+    pointer-events: auto;
+  }
+
+  .input-clear-btn:hover {
+    color: white;
+  }
+
+  .input-close-icon {
+    width: 1em;
+    height: 1em;
+  }
+
+  /* ============== RIGHT ICON =============== */
+
+  .input-right-icon {
+    position: absolute;
+    right: var(--input-px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-body-subtle);
+    font-size: var(--input-text);
+    display: flex;
+    align-items: center;
+  }
+
+  .input-right-icon-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-body-muted);
+    pointer-events: auto;
+  }
+
+  .input-right-btn:hover {
+    color: white;
+  }
+
+  .input-right-icon {
+    width: 1em;
+    height: 1em;
+  }
+
+
   /* ================= ADDON ================= */
 
   .input-addon {
     display: flex;
     align-items: center;
-    padding: 0 var(--input-px);
+    justify-content: center;
+    padding-left: var(--input-px);
+    padding-right: var(--input-px);
     background-color: var(--bg-neutral-tertiary);
     border: 1px solid var(--border-default-medium);
     color: var(--text-body-muted);
     white-space: nowrap;
+    /* height: calc(calc(var(--input-py) * 2) + calc(var(--input-text) * 1.5) + 2px) */
+  }
+
+  /* ================= ADD ON ICON VARIANT ================= */
+  
+  .input-variant-addOnIcon .input-addon {
+    border-right: none;
+    border-top-left-radius: var(--radius-base);
+    border-bottom-left-radius: var(--radius-base);
+    color: var(--text-body-subtle);
+  }
+
+  .input-variant-addOnIcon .input {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: var(--radius-base);
+    border-bottom-right-radius: var(--radius-base);
+  }
+
+  /* ================= ADD ON TEXT VARIANT ================= */
+  
+  .input-variant-addOnText .input-addon {
+    border-right: none;
+    border-top-left-radius: var(--radius-base);
+    border-bottom-left-radius: var(--radius-base);
+  }
+
+  .input-variant-addOnText .input {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: var(--radius-base);
+    border-bottom-right-radius: var(--radius-base);
+  }
+
+  /* ================= INNER BUTTON VARIANT ================= */
+  
+  .input-variant-innerButton .input-addon {
+    border-left: none;
+    border-top-right-radius: var(--radius-base);
+    border-bottom-right-radius: var(--radius-base);
+  }
+
+  .input-variant-innerButton .input {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: var(--radius-base);
+    border-bottom-left-radius: var(--radius-base);
   }
 
   /* ================= STATES ================= */
@@ -73,42 +192,133 @@
 
   .input:focus {
     border-color: var(--border-brand);
+    color: var(--text-heading);
   }
 
-  .input-wrapper:focus-within .input-left-icon,
-  .input-wrapper:focus-within .input-right-icon,
-  .input-wrapper:focus-within .input-close-icon,
-  .input-wrapper:focus-within .input-addon {
+  .input-wrapper:focus-within .input-left-icon {
     color: var(--border-brand);
+  }
+
+  .input-wrapper:focus-within .input-close-icon {
+    color: var(--border-brand);
+  }
+
+  .input-wrapper:focus-within .input-right-icon {
+    color: var(--border-brand);
+  }
+
+  .input-wrapper:focus-within .input-addon {
+    border-color: var(--border-brand);
+    color: var(--border-brand);
+  }
+
+  .input-wrapper:focus-within .input {
     border-color: var(--border-brand);
   }
 
-  .input:not(:placeholder-shown) {
-    color: white;
-    border-color: white;
+  .input:not(:placeholder-shown){
+    color: var(--text-heading);
+    border-color: var(--text-heading);
+  }
+
+  .input-wrapper:has(.input:not(:placeholder-shown):not(:focus)) .input-addon {
+    color: var(--text-heading);
+    border-color: var(--text-heading);
+  }
+
+  .input-wrapper:has(.input:not(:placeholder-shown):not(:focus)) .input-left-icon {
+    color: var(--text-heading);
+    border-color: var(--text-heading);
+  }
+
+  .input-wrapper:has(.input:not(:placeholder-shown):not(:focus)) .input-close-icon {
+    color: var(--text-heading);
+  }
+
+  .input-wrapper:has(.input:not(:placeholder-shown):not(:focus)) .input-right-icon {
+    color: var(--text-heading);
   }
 
   .input:disabled {
     background-color: var(--bg-disabled);
+    border-color: var(--border-default-medium);
     color: var(--text-fg-disabled);
+    cursor: not-allowed;
+    font-weight: 400;
+  }
+
+  .input-inner:has(.input:disabled) .input-left-icon {
+    color: var(--text-fg-disabled);
+    font-weight: 400;
+  }
+
+  .input-inner:has(.input:disabled) .input-close-icon {
+    cursor: not-allowed;
+    color: var(--text-fg-disabled);
+    font-weight: 400;
+  }
+
+  .input-inner:has(.input:disabled) .input-right-icon {
+    cursor: not-allowed;
+    color: var(--text-fg-disabled);
+    font-weight: 400;
+  }
+
+  .input-wrapper:has(.input:disabled) .input-clear-btn {
     cursor: not-allowed;
   }
 
-  .input-wrapper:has(.input:disabled) * {
+   .input-wrapper:has(.input:disabled) .input-right-icon-btn {
     cursor: not-allowed;
-    color: var(--text-fg-disabled);
+  }
+  
+
+  .input-wrapper:has(.input:disabled) .input-addon {
+    cursor: not-allowed;
+    border-color: var(--border-default-medium);
+    color: var(--text-fg-disabled)
   }
 
-  .input[aria-invalid="true"] {
-    border-color: var(--border-danger-subtle);
-    background-color: var(--bg-danger-soft);
-    color: var(--text-fg-danger-strong);
+  .input[readonly] {
+    background-color: var(--bg-neutral-tertiary);
+    border-color: var(--border-default-medium);
+    color: var(--text-body-muted);
   }
 
   .input[aria-invalid="false"] {
     border-color: var(--border-success-subtle);
     background-color: var(--bg-success-soft);
     color: var(--text-fg-success-strong);
+  }
+
+  .input-wrapper:has([aria-invalid="false"]) .input-left-icon{
+    color: var(--text-fg-success-strong) !important;
+  }
+  
+  .input-wrapper:has([aria-invalid="false"]) .input-right-icon{
+    color: var(--text-fg-success-strong) !important;
+  }
+
+  .input-wrapper:has([aria-invalid="false"]) .input-close-icon{
+    color: var(--text-fg-success-strong) !important;
+  }
+
+  .input[aria-invalid="true"] {
+    color: var(--text-fg-danger-strong);
+    border-color: var(--border-danger-subtle);
+    background-color: var(--bg-danger-soft);
+  }
+
+  .input-wrapper:has([aria-invalid="true"]) .input-left-icon {
+    color: var(--text-fg-danger-strong) !important;
+  }
+
+  .input-wrapper:has([aria-invalid="true"]) .input-right-icon {
+    color: var(--text-fg-danger-strong) !important;
+  }
+
+  .input-wrapper:has([aria-invalid="true"]) .input-close-icon{
+    color: var(--text-fg-danger-strong) !important;
   }
 
   /* ================= SIZES ================= */
