@@ -1,89 +1,102 @@
 "use client";
-import { Close, Clock } from "flowbite-react-icons/outline";
-import { ReactNode, useState } from "react";
+import { Close } from "flowbite-react-icons/outline";
+import { ReactNode } from "react";
 
 type BadgeSize = "sm" | "lg";
-type BadgeTheme = "gray" | "brand" | "success" | "danger" | "warning" | "dark";
+type BadgeTheme = "gray" | "white" | "brand" | "danger" | "warning" | "success";
 type BadgeType = "default" | "pill";
 
 interface BadgeProps {
-  text: string;
+  text?: string;
   secondaryText?: string;
-  number?: string | number;
-  theme?: BadgeTheme;
+  icon?: ReactNode;
   size?: BadgeSize;
+  theme?: BadgeTheme;
   type?: BadgeType;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-  showLeftIcon?: boolean;
-  showRightIcon?: boolean;
-  showSecondaryText?: boolean;
-  showCloseOnHover?: boolean;
+  closable?: boolean;
   onClose?: () => void;
   className?: string;
 }
 
-const SIZE_CLASSES: Record<BadgeSize, string> = {
-  sm: "text-xs px-2 py-0.5 gap-1",
-  lg: "text-sm px-3 py-1 gap-1.5",
+const BASE_BADGE_CLASS = "inline-flex items-center font-medium";
+
+const BADGE_SIZE_CLASSES: Record<BadgeSize, string> = {
+  sm: "text-xs px-2 py-1 gap-1",
+  lg: "text-sm px-3 py-1.5 gap-2",
 };
 
-const ICON_SIZE_CLASSES: Record<BadgeSize, string> = {
-  sm: "w-[10px] h-[10px]",
-  lg: "w-[11.67px] h-[11.67]",
+const BADGE_ICON_SIZE_CLASSES: Record<BadgeSize, string> = {
+  sm: "w-3 h-3",
+  lg: "w-4 h-4",
+}
+
+const BADGE_THEME_CLASSES: Record<BadgeTheme, string> = {
+  gray: "bg-(--bg-neutral-secondary) border-(--border-default-medium) text-(--text-heading)",
+  white:
+    "bg-(--bg-neutral-primary-soft) border-(--border-default) text-(--text-heading)",
+  brand:
+    "bg-(--bg-brand-softer) border-(--border-brand-subtle) text-(--text-brand-strong)",
+  danger:
+    "bg-(--bg-danger-soft) border-(--border-danger-subtle) text-(--text-fg-danger-strong)",
+  warning:
+    "bg-(--bg-warning-soft) border-(--border-warning-subtle) text-(--text-fg-warning)",
+  success:
+    "bg-(--bg-success-strong) border-(--border-success-subtle) text-(--text-fg-success)",
 };
 
-const THEME_CLASSES: Record<BadgeTheme, string> = {
-  gray: "bg-gray-100 text-gray-800 border-gray-300",
-  brand: "bg-blue-100 text-blue-800 border-blue-300",
-  success: "bg-green-100 text-green-800 border-green-300",
-  danger: "bg-red-100 text-red-800 border-red-300",
-  warning: "bg-yellow-100 text-yellow-800 border-yellow-300",
-  dark: "bg-gray-800 text-white border-gray-700",
-};
-
-const TYPE_CLASSES: Record<BadgeType, string> = {
-  default: "rounded",
+const BADGE_TYPE_CLASSES: Record<BadgeType, string> = {
+  default: "rounded-sm",
   pill: "rounded-full",
 };
 
-export function Badges({
+export default function Badges({
   text,
   secondaryText,
-  number,
-  theme = "gray",
+  icon,
   size = "sm",
+  theme = "gray",
   type = "default",
-  leftIcon,
-  rightIcon,
-  showLeftIcon = false,
-  showRightIcon = false,
-  showSecondaryText = false,
-  showCloseOnHover = false,
+  closable = false,
   onClose,
   className,
 }: BadgeProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const iconSizeClass = ICON_SIZE_CLASSES[size];
-
   return (
     <span
       className={`
-        inline-flex items-center font-medium border
-        ${SIZE_CLASSES[size]}
-        ${THEME_CLASSES[theme]}
-        ${TYPE_CLASSES[type]}
-        ${showCloseOnHover ? "cursor-pointer" : ""}
-        ${className ?? ""}
-      `}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    ${BASE_BADGE_CLASS}
+    ${BADGE_SIZE_CLASSES[size]}
+    ${BADGE_THEME_CLASSES[theme]}
+    ${BADGE_TYPE_CLASSES[type]}
+    ${className ?? ""}
+    `}
     >
-    
-  
-
-  
+      {icon && (
+        <span
+          className={`
+      inline-flex items-center justify-center shrink-0
+      ${BADGE_ICON_SIZE_CLASSES[size]}
+    `}
+        >
+          {icon}
+        </span>
+      )}
+      
+       {text && <span className="leading-none">{text}</span>}
+      {secondaryText && (
+        <>
+          <span className="opacity-50">|</span>
+          <span className="leading-none opacity-75">{secondaryText}</span>
+        </>
+      )}
+      {closable && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="inline-flex items-center justify-center hover:opacity-75"
+        >
+          <Close className={BADGE_ICON_SIZE_CLASSES[size]} />
+        </button>
+      )}
     </span>
   );
 }

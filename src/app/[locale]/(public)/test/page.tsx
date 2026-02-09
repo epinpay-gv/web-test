@@ -19,6 +19,8 @@ import {
 } from "flowbite-react-icons/outline";
 
 import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
+import Badges from "@/components/common/Badges/Badges";
+import { Clock } from "lucide-react";
 
 const TIME_RANGES = [
   { label: "7 Gün", value: "1h" },
@@ -37,6 +39,7 @@ const MENU_TABS = [
 export default function TestPage() {
   const [activeTab, setActiveTab] = useState("");
   const [range, setRange] = useState("");
+  const [visible, setVisible] = useState(true);
   return (
     <div className="min-h-screen gap-8 flex justify-center items-center transition-colors bg-white dark:bg-slate-900">
       {/* DİKKAT: bg-white dark:bg-slate-900 kullandığında 
@@ -105,6 +108,22 @@ export default function TestPage() {
 
           </div>
         </div>
+      </div>
+      <div className="flex flex-col">
+        <Badges text="new" theme="gray" secondaryText="secondary text" closable icon={<Clock />} type="default" />
+
+        {visible && (
+          <Badges
+            text="Closable badge"
+            theme="danger"
+            icon={<Clock />}
+            size="lg"
+            closable
+            secondaryText="secondary text"
+            onClose={() => setVisible(false)}
+          />
+        )}
+
       </div>
     </div>
   );
