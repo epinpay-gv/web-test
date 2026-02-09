@@ -1,7 +1,7 @@
 import { createSeo } from "@/lib/seo";
 import { CategorySchema } from "@/components/seo/CategorySchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
-import { PageTitle } from "@/features/catalog/components/components";
+import { PageTitle } from "@/features/catalog/components";
 
 export async function generateMetadata({
   params,

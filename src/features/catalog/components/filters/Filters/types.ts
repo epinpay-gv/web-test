@@ -39,6 +39,7 @@ export type FilterElementConfig =
     };
 
 export interface FilterGroupConfig {
+  isTab: boolean;
   titleData?: TitleData;
   elements: FilterElementConfig[];
 }

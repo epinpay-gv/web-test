@@ -1,0 +1,21 @@
+import { Product, Offer, PaginationData, Category } from "@/types/types";
+
+export interface ProductPageResponse {
+  data: Product[];
+  pagination: PaginationData;
+}
+
+export interface CategoryPageData extends Category{
+  smth: ""
+}
+
+export type CatalogFilterState = {
+  category: string[];
+  region: string[];
+  platform: string[];
+  productType: string[]; // TAB + checkbox ortak
+  price?: {
+    min?: number;
+    max?: number;
+  };
+};

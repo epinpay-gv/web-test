@@ -5,55 +5,47 @@ import { Input } from "@/components/common/Form/Input/Input";
 import { Checkbox } from "@/components/common/CheckBox/CheckBox";
 import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
 
-
-
+/**
+ * Backend filter key → zustand store key mapping
+ */
+const mapFilterKey = (
+  key: string,
+): "category" | "region" | "platform" | null => {
+  if (key === "games") return "category";
+  if (key === "region") return "region";
+  if (key === "platform") return "platform";
+  return null;
+};
 
 export default function FilterElement({
   config,
 }: {
   config: FilterElementConfig;
 }) {
-  const { setCheckboxFilter, setRange } = useCatalogFilters();
+  const filters = useCatalogFilters((s) => s.filters);
+  const toggleFilter = useCatalogFilters((s) => s.toggleFilter);
+  const setPriceRange = useCatalogFilters((s) => s.setPriceRange);
 
   return (
     <div className="space-y-4">
       {"search" in config && config.search && <SearchInput />}
 
-      {config.type === "dropdown" && (
-        <div>
-          <label className="block mb-1">{config.label}</label>
-          <select className="w-full rounded border px-2 py-1">
-            {config.options.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
+      {/* TOGGLE (şimdilik pasif) */}
       {config.type === "toggle" && (
-        <label className="flex items-center gap-2">
-          <input type="checkbox" />
+        <label className="flex items-center gap-2 opacity-50 cursor-not-allowed">
+          <input type="checkbox" disabled />
           <span>{config.label}</span>
         </label>
       )}
 
-      {config.type === "input" && (
-        <div>
-          <label className="text-sm block mb-1">{config.label}</label>
-          <input
-            placeholder={config.placeholder}
-            className="w-full rounded border px-2 py-1"
-          />
-        </div>
-      )}
-
+      {/* RANGE (FİYAT) */}
       {config.type === "range" && (
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <div>
-              <label className="block text-sm font-medium mb-2">Minimum</label>
+            <div className="flex-1">
+              <label className="block text-sm font-medium mb-2">
+                Minimum
+              </label>
               <Input
                 type="number"
                 min={config.min}
@@ -62,11 +54,19 @@ export default function FilterElement({
                 className="text-center"
                 wrapperClassName="flex-1"
                 rightIcon={<></>}
-                onChange={(e) => setRange(Number(e.target.value), undefined)}
+                onChange={(e) =>
+                  setPriceRange(
+                    Number(e.target.value),
+                    filters.price?.max,
+                  )
+                }
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Maximum</label>
+
+            <div className="flex-1">
+              <label className="block text-sm font-medium mb-2">
+                Maximum
+              </label>
               <Input
                 type="number"
                 max={config.max}
@@ -75,13 +75,19 @@ export default function FilterElement({
                 className="text-center"
                 wrapperClassName="flex-1"
                 rightIcon={<></>}
-                 onChange={(e) => setRange(undefined, Number(e.target.value))}
+                onChange={(e) =>
+                  setPriceRange(
+                    filters.price?.min,
+                    Number(e.target.value),
+                  )
+                }
               />
             </div>
           </div>
         </div>
       )}
 
+      {/* CHECKBOX */}
       {config.type === "checkbox" && (
         <div>
           {config.label && (
@@ -92,25 +98,39 @@ export default function FilterElement({
 
           <div
             className={`space-y-2 ${
-              config.options.length > 6 ? "max-h-52 overflow-y-auto pr-1 custom-scrollbar" : ""
+              config.options.length > 6
+                ? "max-h-52 overflow-y-auto pr-1 custom-scrollbar"
+                : ""
             }`}
           >
-            {config.options.map((opt) => (
-              <div
-                key={opt.value}
-                className="flex items-center justify-start gap-2"
-              >
-                <Checkbox
-                  variant="square"
-                  value={opt.value}
-                  label={opt.label}
-                  secondaryText={`(${opt.count})`}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onChange={() => setCheckboxFilter(config.key as any, opt.value)}
-                />
-
-              </div>
-            ))}
+            {config.options.map((opt) => {
+              const mappedKey = mapFilterKey(config.key);
+              const isChecked =
+                mappedKey !== null &&
+                filters[mappedKey].includes(opt.value);
+              return (
+                <div
+                  key={opt.value}
+                  className="flex items-center gap-2"
+                >
+                  <Checkbox
+                    variant="square"
+                    value={opt.value}
+                    label={opt.label}
+                    secondaryText={
+                      opt.count !== undefined
+                        ? `(${opt.count})`
+                        : undefined
+                    }
+                    checked={isChecked}
+                    onCheckedChange={() => {
+                      if (!mappedKey) return ;
+                      toggleFilter(mappedKey, opt.value);
+                    }}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

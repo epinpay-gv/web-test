@@ -1,5 +1,5 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
-import { ProductPageResponse } from "./types";
+import { ProductPageResponse } from "./catalog.types";
 import { FilterGroupConfig } from "./components/filters/Filters/types";
 
 export interface ProductsApiResponse extends ProductPageResponse {
