@@ -51,12 +51,11 @@ export const useCatalogFilters = create<CatalogFiltersStore>()(
         },
       })),
 
-    // TAB → single select
     setProductType: (value) =>
       set((state) => ({
         filters: {
           ...state.filters,
-          productType: [value],
+          productType: value === "all" ? [] : [value],
         },
       })),
 
