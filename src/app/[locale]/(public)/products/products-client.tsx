@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   FilterContainer,
   PageTitle,
@@ -78,11 +78,10 @@ export default function ProductsClient({
     };
 
     fetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, filters]);
 
-  /**
-   * FILTER CHANGE → RESET PAGE
-   */
+  /* FILTER CHANGE → RESET PAGE */
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -92,13 +91,10 @@ export default function ProductsClient({
     const params = buildCatalogSearchParams(filters);
     router.replace(`?${params.toString()}`, { scroll: false });
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, [filters, router]);
 
-  /**
-   * INFINITE SCROLL
-   */
+  /* INFINITE SCROLL */
   useEffect(() => {
     if (!observerRef.current || !hasMore) return;
 
@@ -120,7 +116,7 @@ export default function ProductsClient({
       {productTypeTabItems.length > 0 && (
         <NavTabs
           items={productTypeTabItems}
-          activeValue={filters.productType[0]}
+          activeValue={filters.productType[0] ?? "all"}
           variant="segmented"
           size="base"
           onChange={(value) => setProductType(value)}

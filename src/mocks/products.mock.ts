@@ -1134,7 +1134,7 @@ export const filterGroups: FilterGroupConfig[] = [
         type: "checkbox",
         key: "productType",
         options: [
-          { label: "Tüm Ürünler", value: "0" },
+          { label: "Tüm Ürünler", value: "all" },
           { label: "Yazılım ve Lisanlar", value: "1" },
           { label: "Cüzdan Kodları ve Hediye Kartları", value: "2" },
           { label: "Oyun Pinleri", value: "3" },

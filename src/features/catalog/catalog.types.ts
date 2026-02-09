@@ -14,8 +14,7 @@ export type CatalogFilterState = {
   region: string[];
   platform: string[];
   productType: string[]; // TAB + checkbox ortak
-  price?: {
-    min?: number;
-    max?: number;
-  };
+  price?: { min?: number; max?: number;};
+  inTr?: boolean;
+  inStock?: boolean;
 };
