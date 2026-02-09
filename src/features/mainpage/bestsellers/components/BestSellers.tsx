@@ -22,14 +22,15 @@ export default function BestSellers() {
             En Çok Satanlar
           </h1>
 
-          <NavTabs
-            items={TIME_RANGES}
-            activeValue={range}
-            onChange={setRange}
-            variant="segmented"
-            size="base"
-          />
-
+          <div className="w-72">
+            <NavTabs
+              items={TIME_RANGES}
+              activeValue={range}
+              onChange={setRange}
+              variant="segmented"
+              size="base"
+            />
+          </div>
 
           <ProductCarousel
             products={mockProducts}
