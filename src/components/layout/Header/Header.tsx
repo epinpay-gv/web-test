@@ -42,7 +42,7 @@ export function Header() {
             alt="Epinpay"
             width={isMobile ? 120 : 298}
             height={isMobile ? 32 : 40}
-            className="h-6 md:h-10 w-auto object-contain"
+            className="h-6 md:h-10 w-auto object-contain cursor-pointer"
             priority
           />
         </button>

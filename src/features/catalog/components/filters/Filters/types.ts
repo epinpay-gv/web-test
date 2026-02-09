@@ -43,3 +43,5 @@ export interface FilterGroupConfig {
   titleData?: TitleData;
   elements: FilterElementConfig[];
 }
+
+export type ToggleKeyMap = "inTr" | "inStock";
