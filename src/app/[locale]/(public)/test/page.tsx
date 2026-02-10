@@ -167,11 +167,11 @@ export default function TestPage() {
             {currentPage}. Sayfadasın
           </p>
           <Pagination
-            count={80}
+            count={120}
             current_page={currentPage}
             has_more={true}
             per_page={8}
-            total_page={10}
+            total_page={5}
             onPageChange={handlePageChange}
           />
         </div>
