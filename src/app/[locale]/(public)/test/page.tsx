@@ -23,6 +23,7 @@ import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
 import { IconShape } from "@/components/common/IconSahpe/IconShape";
 import { Flame, Clock } from "lucide-react";
 import Badges from "@/components/common/Badges/Badges";
+import Pagination from "@/components/common/Paginate/Pagination";
 
 const TIME_RANGES = [
   { label: "7 Gün", value: "1h" },
@@ -39,9 +40,22 @@ const MENU_TABS = [
 ];
 
 export default function TestPage() {
+  const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState("");
   const [range, setRange] = useState("");
   const [visible, setVisible] = useState(true);
+   const paginationData = {
+    count: 28,
+    current_page: currentPage,
+    has_more: true,
+    per_page: 8,
+    total_page: 4,
+  };
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Burada API çağrısı yapabilirsiniz
+    // fetchData(page);
+  };
   return (
     <div className="min-h-screen gap-8 flex justify-center items-center transition-colors bg-white dark:bg-slate-900">
       {/* DİKKAT: bg-white dark:bg-slate-900 kullandığında 
@@ -149,6 +163,52 @@ export default function TestPage() {
 
           </div>
         </div>
+        <div className="mt-20 flex items-center flex-col">
+           <div className="mt-12">
+          <p className="text-white text-center mb-4">
+            {currentPage}. Sayfadasın
+          </p>
+          <Pagination
+            count={80}
+            current_page={currentPage}
+            has_more={true}
+            per_page={8}
+            total_page={10}
+            onPageChange={handlePageChange}
+          />
+        </div>
+        </div>
+        <div className="mt-20 flex items-center flex-col">
+           <div className="mt-12">
+          <p className="text-white text-center mb-4">
+            {currentPage}. Sayfadasın
+          </p>
+          <Pagination
+            count={80}
+            current_page={currentPage}
+            has_more={true}
+            per_page={8}
+            total_page={10}
+            onPageChange={handlePageChange}
+          />
+        </div>
+        </div>
+      </div>
+      <div className="flex flex-col">
+        <Badges text="new" theme="gray" secondaryText="secondary text" closable icon={<Clock />} type="default" />
+
+        {visible && (
+          <Badges
+            text="Closable badge"
+            theme="danger"
+            icon={<Clock />}
+            size="lg"
+            closable
+            secondaryText="secondary text"
+            onClose={() => setVisible(false)}
+          />
+        )}
+
       </div>
       <div className="flex flex-col">
         <Badges text="new" theme="gray" secondaryText="secondary text" closable icon={<Clock />} type="default" />
