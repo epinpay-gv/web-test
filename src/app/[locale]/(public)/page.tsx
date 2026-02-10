@@ -19,7 +19,7 @@ export default function Home() {
       <BestSellers />
       {/* <Campaigns /> */}
 
-      {/* PremiumSection sadece ekran genişliği md ve üzeri boyutlarda görünsün */}
+      {/* PremiumSection (şimdilik) sadece ekran genişliği md ve üzeri boyutlarda görünecek. */}
       <PremiumSection />
     </>
   );
