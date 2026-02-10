@@ -10,14 +10,16 @@ type ButtonArrow = {
   right?: boolean;
 };
 
-type ButtonPadding = "rounded" |"xs" | "sm" | "base" | "lg" | "xl";
+type ButtonPadding = "rounded" | "xs" | "sm" | "base" | "lg" | "xl";
 
 type ButtonVariant = "brand" | "secondary" | "tertiatry" | "success" | "danger" | "warning" | "dark" | "ghost";
 type ButtonAppearance = "filled" | "outline" ;
+type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl" | "full"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
   icon?: ReactNode;
+  size?: ButtonSize;
   textSize?: ButtonTextSize;
   arrows?: ButtonArrow;
   padding?: ButtonPadding;
@@ -41,6 +43,16 @@ const BUTTON_PADDING: Record<ButtonPadding, string> = {
   lg: "py-3 px-5",
   xl: "py-3.5 px-6",
 };
+
+const BUTTON_SIZE: Record<ButtonSize, string> = {
+  full: "w-full",
+  xs: "w-8 h-8",
+  sm: "w-9 h-9",
+  base: "w-10 h-10",
+  lg: "w-11 h-11",
+  xl: "w-12 h-12",
+
+}
 
 const VARIANT_CLASSES: Record<
   ButtonVariant,
@@ -89,6 +101,7 @@ export function Button({
   variant = "brand",
   appearance = "filled",
   className,
+  size = "full",
   ...props
 }: ButtonProps) {
   return (
@@ -96,6 +109,7 @@ export function Button({
       {...props}
       className={`
         btn
+        ${BUTTON_SIZE[size]}
         ${VARIANT_CLASSES[variant][appearance]}
         ${TEXT_SIZE_CLASSES[textSize]}
         ${BUTTON_PADDING[padding]}
