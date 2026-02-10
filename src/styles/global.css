@@ -4,6 +4,7 @@
 @import "../components/common/Cards/ProductCard/productCard.css";
 
 @import "../components/common/Form/Input/inputs";
+@import "../components/common/BottomSheet/bottom-sheet";
 
 @custom-variant dark (&:is(.dark *));
 :root {

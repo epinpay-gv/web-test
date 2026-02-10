@@ -125,7 +125,7 @@
   .btn-tertiatry-filled { 
    background-color: var(--bg-neutral-primary-soft); 
    border: 2px;
-   border-color: var(--border-default )
+   border-color: var(--border-default);
   }
   .btn-success-filled {
     background-color: var(--bg-neutral-primary-soft);    
