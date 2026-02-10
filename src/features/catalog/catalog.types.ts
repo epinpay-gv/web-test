@@ -5,6 +5,11 @@ export interface ProductPageResponse {
   pagination: PaginationData;
 }
 
+export interface CategoriesPageResponse {
+  data: Category[];
+  pagination: PaginationData;
+}
+
 export interface CategoryPageData extends Category{
   smth: ""
 }

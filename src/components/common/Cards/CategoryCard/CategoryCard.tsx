@@ -12,9 +12,8 @@ export default function CategoryCard({ category }: CategoryCardProps) {
       <Image
         src={category.translation.imgUrl}
         alt={category.translation.imgAlt}
-        fill
-        sizes="(max-width: 768px) 100vw, 200px"
-        className="object-contain rounded mx-auto"
+        width={200}
+        height={200}
       />
 
       {/* Content  */}

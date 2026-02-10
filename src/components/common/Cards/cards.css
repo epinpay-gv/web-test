@@ -3,3 +3,9 @@
   border: 1px solid var(--border-default);
   border-radius: var(--radius-base);
 }
+
+.category-card-container {
+  background-color: var(--bg-neutral-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-base);
+}

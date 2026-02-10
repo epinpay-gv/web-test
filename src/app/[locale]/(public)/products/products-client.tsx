@@ -114,7 +114,7 @@ export default function ProductsClient({
         changeOrder={() => {}}
       />
 
-      <div className="flex md:flex-row flex-col gap-4">
+      <div className="flex md:flex-row flex-col items-start gap-4">
         <FilterContainer
           titleData={{ title: "Filtrele", isUnderlined: true }}
           filters={columnFilters}

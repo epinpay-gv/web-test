@@ -6,7 +6,7 @@ interface PageTitleProps {
     title: string;
     totalProductAmount: number;
   };
-  changeOrder: (order: string) => void;
+  changeOrder?: (order: string) => void;
 }
 
 export default function PageTitle({ data, changeOrder }: PageTitleProps) {
