@@ -1,5 +1,5 @@
-// TabPlans.tsx
-import { Checkbox } from "../../../../components/common/CheckBox/CheckBox"
+import { CheckBox } from "@/components/common";
+
 
 interface PlanOption {
     id: string;
@@ -37,7 +37,7 @@ export default function TabPlans({ plans, selectedPlanId, onPlanSelect }: TabPla
                             <p className="text-(--text-heading) font-semibold text-[14px]">
                                 {plan.title}
                             </p>
-                            <Checkbox
+                            <CheckBox
                                 variant="circle"
                                 checked={isSelected}
                             />

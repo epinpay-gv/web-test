@@ -1,6 +1,11 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { FilterContainer, PageTitle, ProductGrid } from "@/features/catalog/components";
+import {
+  FilterContainer,
+  FilterLabels,
+  PageTitle,
+  ProductGrid,
+} from "@/features/catalog/components";
 import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { getProducts } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
@@ -11,8 +16,8 @@ import {
 } from "@/features/catalog/utils";
 import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import Pagination from "@/components/common/Paginate/Pagination";
-import { Label } from "flowbite-react-icons/outline";
+import { Badge, Pagination } from "@/components/common";
+import { Clock } from "lucide-react";
 
 export default function ProductsClient({
   initialProducts,
@@ -52,6 +57,8 @@ export default function ProductsClient({
 
   const activeFilters = getActiveFilterLabels(filters, groups);
 
+  const handleFilterLabelClose = () => {};
+
   /**
    * PAGE → FETCH
    */
@@ -85,7 +92,6 @@ export default function ProductsClient({
 
     const params = buildCatalogSearchParams(filters);
     router.replace(`?${params.toString()}`, { scroll: false });
-
   }, [filters, router]);
 
   return (
@@ -116,48 +122,26 @@ export default function ProductsClient({
           resetFilters={resetFilters}
         />
 
-        <div className="flex-1 items-center flex flex-col gap-4 ">
-          {/* // TODO : Burası label ile değiştirilecek */}
+        <div className="flex-1 flex flex-col gap-4 ">
           {activeFilters.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={resetFilters}
-                className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"
-              >
-                Seçimleri Temizle
-              </button>
-
-              {activeFilters.map((chip) => (
-                <button
-                  key={`${chip.key}-${chip.value}`}
-                  className=" group transition-all cursor-pointer flex items-center gap-1 rounded-sm border border-(--border-default) px-2 py-1 text-sm hover:bg-(--bg-danger-soft)"
-                  onClick={() => {
-                    if (chip.key === "price") {
-                      setPriceRange(undefined, undefined);
-                    } else {
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      toggleFilter(chip.key as any, chip.value);
-                    }
-                  }}
-                >
-                  {chip.label}
-                  <span className="ml-0 overflow-hidden whitespace-nowrap opacity-0 w-0 transition-all duration-200 group-hover:opacity-100 group-hover:w-3 group-hover:ml-1 text-xs">
-                    ✕
-                  </span>
-                </button>
-              ))}
-            </div>
+            <FilterLabels
+              activeFilters={activeFilters}
+              resetFilters={resetFilters}
+              setPriceRange={setPriceRange}
+              toggleFilter={toggleFilter}
+            />
           )}
-          <Label/>
 
           <ProductGrid data={products} />
-          <Pagination
-            pagination={paginationState}
-            onPageChange={(page) => {
-              setPage(page);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          />
+          <div className="mx-auto">
+            <Pagination
+              pagination={paginationState}
+              onPageChange={(page) => {
+                setPage(page);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

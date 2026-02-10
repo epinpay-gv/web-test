@@ -28,20 +28,20 @@ const BADGE_SIZE_CLASSES: Record<BadgeSize, string> = {
 const BADGE_ICON_SIZE_CLASSES: Record<BadgeSize, string> = {
   sm: "w-3 h-3",
   lg: "w-4 h-4",
-}
+};
 
 const BADGE_THEME_CLASSES: Record<BadgeTheme, string> = {
-  gray: "bg-(--bg-neutral-secondary) border-(--border-default-medium) text-(--text-heading)",
+  gray: "bg-(--bg-neutral-secondary) border border-(--border-default-medium) text-(--text-heading)",
   white:
-    "bg-(--bg-neutral-primary-soft) border-(--border-default) text-(--text-heading)",
+    "bg-(--bg-neutral-primary-soft) border border-(--border-default) text-(--text-heading)",
   brand:
-    "bg-(--bg-brand-softer) border-(--border-brand-subtle) text-(--text-brand-strong)",
+    "bg-(--bg-brand-softer) border border-(--border-brand-subtle) text-(--text-brand-strong)",
   danger:
-    "bg-(--bg-danger-soft) border-(--border-danger-subtle) text-(--text-fg-danger-strong)",
+    "bg-(--bg-danger-soft)  border border-(--border-danger-subtle) text-(--text-fg-danger-strong)",
   warning:
-    "bg-(--bg-warning-soft) border-(--border-warning-subtle) text-(--text-fg-warning)",
+    "bg-(--bg-warning-soft) border border-(--border-warning-subtle) text-(--text-fg-warning)",
   success:
-    "bg-(--bg-success-strong) border-(--border-success-subtle) text-(--text-fg-success)",
+    "bg-(--bg-success-strong) border border-(--border-success-subtle) text-(--text-fg-success)",
 };
 
 const BADGE_TYPE_CLASSES: Record<BadgeType, string> = {
@@ -62,13 +62,19 @@ export default function Badge({
 }: BadgeProps) {
   return (
     <span
-      className={`
+      className={` group 
     ${BASE_BADGE_CLASS}
     ${BADGE_SIZE_CLASSES[size]}
     ${BADGE_THEME_CLASSES[theme]}
     ${BADGE_TYPE_CLASSES[type]}
     ${className ?? ""}
-    `}
+    ${
+      closable
+        ? `${BADGE_THEME_CLASSES[theme]} hover:${BADGE_THEME_CLASSES.danger}`
+        : BADGE_THEME_CLASSES[theme]
+    }
+        ${closable ? "pr-2 hover:pr-3 cursor-pointer" : ""}
+     `}
     >
       {icon && (
         <span
@@ -80,8 +86,8 @@ export default function Badge({
           {icon}
         </span>
       )}
-      
-       {text && <span className="leading-none">{text}</span>}
+
+      {text && <span className="leading-none">{text}</span>}
       {secondaryText && (
         <>
           <span className="opacity-50">|</span>
@@ -92,7 +98,10 @@ export default function Badge({
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center justify-center hover:opacity-75"
+          className="ml-1 inline-flex items-center justify-center
+            opacity-0 w-0 translate-x-2
+            group-hover:opacity-100 group-hover:w-4 group-hover:translate-x-0
+            transition-all duration-200"
         >
           <Close className={BADGE_ICON_SIZE_CLASSES[size]} />
         </button>
