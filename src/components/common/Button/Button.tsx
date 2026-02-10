@@ -14,7 +14,7 @@ type ButtonPadding = "rounded" | "xs" | "sm" | "base" | "lg" | "xl";
 
 type ButtonVariant = "brand" | "secondary" | "tertiatry" | "success" | "danger" | "warning" | "dark" | "ghost";
 type ButtonAppearance = "filled" | "outline" ;
-type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl"
+type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl" | "full"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
@@ -45,6 +45,7 @@ const BUTTON_PADDING: Record<ButtonPadding, string> = {
 };
 
 const BUTTON_SIZE: Record<ButtonSize, string> = {
+  full: "w-full",
   xs: "w-8 h-8",
   sm: "w-9 h-9",
   base: "w-10 h-10",
@@ -100,7 +101,7 @@ export function Button({
   variant = "brand",
   appearance = "filled",
   className,
-  size = "base",
+  size = "full",
   ...props
 }: ButtonProps) {
   return (
