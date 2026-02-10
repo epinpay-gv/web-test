@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { FavButton } from "@/components/common/Button/FavButton/FavButton";
+import { FavButton } from "@/components/common";
 import { Product } from "@/types/types";
 import { NotifyWhenAvailablePayload } from "../types";
 

@@ -1,10 +1,8 @@
 'use client';
-
 import { useTheme } from 'next-themes';
 import { useSyncExternalStore } from 'react';
-import { Button } from '@/components/common/Button/Button';
 import { Moon, Sun } from 'flowbite-react-icons/outline';
-import { IconShape } from '@/components/common/IconSahpe/IconShape';
+import { IconShape } from '@/components/common';
 
 function subscribe() {
   return () => {};

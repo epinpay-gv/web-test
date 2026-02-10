@@ -7,7 +7,7 @@ interface FavButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   addToFavorites?: (payload: NotifyWhenAvailablePayload) => void;
 }
 
-export function FavButton({
+export default function FavButton({
   isFavorite = false,
   addToFavorites,
   ...props

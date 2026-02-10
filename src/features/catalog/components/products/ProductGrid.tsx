@@ -1,14 +1,8 @@
 "use client";
 import Image from "next/image";
-import { ProductCard } from "@/components/common/Cards/ProductCard/ProductCard";
-import {
-  AddToCartPayload,
-  ChangeQuantityPayload,
-  NotifyWhenAvailablePayload,
-  ProductCardOrientation,
-} from "@/components/common/Cards/ProductCard/types";
+import { Button, ProductCard } from "@/components/common";
+import { AddToCartPayload, ChangeQuantityPayload, NotifyWhenAvailablePayload } from "@/components/common/Cards/ProductCard/types";
 import { Product } from "@/types/types";
-import { Button } from "@/components/common/Button/Button";
 
 interface ProductGridProps {
   data: Product[];

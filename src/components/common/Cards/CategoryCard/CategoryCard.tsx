@@ -5,7 +5,7 @@ interface CategoryCardProps {
   category: Category;
 }
 
-export function CategoryCard({ category }: CategoryCardProps) {
+export default function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link href={category.translation.slug} className="category-card-container p-3 gap-1">
       {/* Image  */}

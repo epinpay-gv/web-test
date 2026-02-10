@@ -1,6 +1,6 @@
 "use client";
 import { NotifyWhenAvailablePayload } from "../types";
-import { Button } from "@/components/common/Button/Button";
+import { Button } from "@/components/common";
 
 interface OutOfStockSectionProps {
   isHorizontal : boolean;

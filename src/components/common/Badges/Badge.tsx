@@ -49,7 +49,7 @@ const BADGE_TYPE_CLASSES: Record<BadgeType, string> = {
   pill: "rounded-full",
 };
 
-export default function Badges({
+export default function Badge({
   text,
   secondaryText,
   icon,

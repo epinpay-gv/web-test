@@ -32,7 +32,7 @@ const sizeClasses = {
   },
 };
 
-export function ProductCard({
+export default function ProductCard({
   product,
   orientation = ProductCardOrientation.VERTICAL,
   isInCart = false,

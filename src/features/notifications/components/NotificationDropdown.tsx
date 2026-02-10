@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useNotificationStore } from "../stores/notification.store";
-import { Button } from "@/components/common/Button/Button";
+import { Button } from "@/components/common";
 
 export function NotificationDropdown() {
   const { notifications, markAsRead } = useNotificationStore();

@@ -1,8 +1,7 @@
 "use client";
-
 import { useState } from "react";
 import { ThemeToggle } from "@/features/theme/components/ThemeToggle";
-import { Button } from "@/components/common/Button/Button";
+import { Button, IconShape } from "@/components/common";
 import Image from "next/image";
 import { SearchInput } from "@/features/search/index";
 import { LocaleDropdown } from "./components/LocaleDropdown";
@@ -10,12 +9,10 @@ import { UserDropdown } from "./components/UserDropdown";
 import { CartButton } from "../../../features/cart/components/CartButton";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { NotificationDropdown } from "@/features/notifications/components/NotificationDropdown";
-import Link from "next/link";
-import { Menu,  X } from "lucide-react";
+import { X } from "lucide-react";
 import { Search } from "flowbite-react-icons/outline";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes"
-import { IconShape } from "@/components/common/IconSahpe/IconShape";
 
 
 export function Header() {

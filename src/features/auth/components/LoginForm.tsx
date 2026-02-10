@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useLogin } from '../service';
 import { Input } from '@/components/common/Form/Input/Input';
 import { Link } from 'lucide-react';
-import { Button } from '@/components/common/Button/Button';
+import { Button } from '@/components/common/Button/Button/Button';
 import Image from "next/image";
 import { Google } from 'flowbite-react-icons/solid';
 import { Envelope, Lock, Eye, EyeSlash } from 'flowbite-react-icons/outline';

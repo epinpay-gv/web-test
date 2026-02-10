@@ -20,9 +20,9 @@ import {
 } from "flowbite-react-icons/outline";
 
 import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
-import { IconShape } from "@/components/common/IconSahpe/IconShape";
+import { IconShape } from "@/components/common/IconShape/IconShape";
 import { Flame, Clock } from "lucide-react";
-import Badges from "@/components/common/Badges/Badges";
+import Badges from "@/components/common/Badges/Badge";
 import Pagination from "@/components/common/Paginate/Pagination";
 
 const TIME_RANGES = [
