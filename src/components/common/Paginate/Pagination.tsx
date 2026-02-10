@@ -79,7 +79,10 @@ const Pagination: React.FC<PaginationProps> = ({
           size="sm"
           onClick={() => handlePageClick(page)}
           disabled={page === '...' || page === current_page}
-          className={` flex items-center justify-center rounded-none border-t border-b border-r transition-all font-medium`}
+          className={`flex items-center justify-center rounded-none border-t border-b border-r transition-all font-medium
+          ${page === current_page ? 'border-none' : ''}   
+          ${page === (current_page - 1) ? 'border-r-0' : ''}
+          `}
         >
   
         </Button>
