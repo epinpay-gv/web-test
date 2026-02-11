@@ -1,7 +1,7 @@
 @import "tailwindcss";
 /* @plugin "tailwindcss-animate"; */
-@import "../components/common/Button/buttons";
-@import "../components/common/Cards/ProductCard/productCard.css";
+@import "../components/common/Button/Button/buttons.css";
+@import "../components/common/Cards/cards.css";
 @import "../components/common/Form/Input/inputs";
 
 @custom-variant dark (&:is(.dark *));
