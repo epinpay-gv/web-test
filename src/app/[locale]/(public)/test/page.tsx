@@ -17,6 +17,7 @@ import {
   Download,
   UserHeadset,
   CheckCircle,
+  ExclamationCircle
 } from "flowbite-react-icons/outline";
 
 import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
@@ -24,6 +25,7 @@ import { IconShape } from "@/components/common/IconSahpe/IconShape";
 import { Flame, Clock } from "lucide-react";
 import Badges from "@/components/common/Badges/Badges";
 import Pagination from "@/components/common/Paginate/Pagination";
+import { Modal } from "@/components/common/Modal/Modal";
 
 const TIME_RANGES = [
   { label: "7 Gün", value: "1h" },
@@ -44,7 +46,7 @@ export default function TestPage() {
   const [activeTab, setActiveTab] = useState("");
   const [range, setRange] = useState("");
   const [visible, setVisible] = useState(true);
-   const paginationData = {
+  const paginationData = {
     count: 28,
     current_page: currentPage,
     has_more: true,
@@ -96,7 +98,7 @@ export default function TestPage() {
           <div className="p-10 space-y-6">
             {/* Normal */}
             <div className="flex gap-2">
-              <Toggle />          
+              <Toggle />
               <Toggle checked />
             </div>
             {/* Disabled */}
@@ -104,17 +106,17 @@ export default function TestPage() {
               <Toggle disabled />
               <Toggle disabled checked />
             </div>
-             {/* Normal */}
+            {/* Normal */}
             <div className="flex gap-2">
-              <Toggle size="lg"/>          
-              <Toggle checked size="lg"/>
+              <Toggle size="lg" />
+              <Toggle checked size="lg" />
             </div>
             {/* Disabled */}
             <div className="flex gap-2">
-              <Toggle disabled size="lg"/>
-              <Toggle disabled checked size="lg"/>
+              <Toggle disabled size="lg" />
+              <Toggle disabled checked size="lg" />
             </div>
-            
+
             {/* Focus halini görmek için Tab tuşuna basabilirsin */}
           </div>
           <div className="flex items-start gap-3 rounded-lg bg-slate-800/60 px-4 py-3">
@@ -127,17 +129,17 @@ export default function TestPage() {
           <div className="p-10 flex gap-4 items-center">
             {/* Statik Renk - Circle */}
             <IconShape icon={Flame} color="green" variant="circle" size="lg" />
-            
+
             {/* Statik Renk - Square */}
-            <IconShape icon={Flame} color="red" variant="square" size="lg" onClick={() => alert("ikona tıklandı")}/>
-            
+            <IconShape icon={Flame} color="red" variant="square" size="lg" onClick={() => alert("ikona tıklandı")} />
+
             {/* Dışarıdan Özel Renk (Custom) */}
-            <IconShape 
-              icon={Flame} 
-              color="custom" 
-              customColor="var(--text-heading)" 
-              variant="square" 
-              size="lg" 
+            <IconShape
+              icon={Flame}
+              color="custom"
+              customColor="var(--text-heading)"
+              variant="square"
+              size="lg"
             />
           </div>
           <div>
@@ -164,34 +166,34 @@ export default function TestPage() {
           </div>
         </div>
         <div className="mt-20 flex items-center flex-col">
-           <div className="mt-12">
-          <p className="text-white text-center mb-4">
-            {currentPage}. Sayfadasın
-          </p>
-          <Pagination
-            count={120}
-            current_page={currentPage}
-            has_more={true}
-            per_page={8}
-            total_page={5}
-            onPageChange={handlePageChange}
-          />
-        </div>
+          <div className="mt-12">
+            <p className="text-white text-center mb-4">
+              {currentPage}. Sayfadasın
+            </p>
+            <Pagination
+              count={120}
+              current_page={currentPage}
+              has_more={true}
+              per_page={8}
+              total_page={5}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
         <div className="mt-20 flex items-center flex-col">
-           <div className="mt-12">
-          <p className="text-white text-center mb-4">
-            {currentPage}. Sayfadasın
-          </p>
-          <Pagination
-            count={80}
-            current_page={currentPage}
-            has_more={true}
-            per_page={8}
-            total_page={10}
-            onPageChange={handlePageChange}
-          />
-        </div>
+          <div className="mt-12">
+            <p className="text-white text-center mb-4">
+              {currentPage}. Sayfadasın
+            </p>
+            <Pagination
+              count={80}
+              current_page={currentPage}
+              has_more={true}
+              per_page={8}
+              total_page={10}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
       <div className="flex flex-col">
@@ -226,6 +228,18 @@ export default function TestPage() {
         )}
 
       </div>
+      {/* <div>
+        <Modal
+          open={true}
+          theme="popup"
+          description="It provides more details about the content  of the modal. "
+          confirmText="Confirm"
+          cancelText="Close"
+          icon={<ExclamationCircle size={40}/>}
+          onClose={() => { }}
+        />
+      </div> */}
+
     </div>
   );
 }
