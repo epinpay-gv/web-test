@@ -30,7 +30,7 @@ export const viewport = { themeColor: '#2a2b2c' }
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         {/* --- ORİJİNAL SCRİPTLERİN (Bozmadan Geri Getirildi) --- */}
         <Script
           id="gtm"

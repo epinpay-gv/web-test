@@ -4,33 +4,33 @@ type FetcherOptions<TBody> = {
   method?: HttpMethod;
   body?: TBody;
   cache?: RequestCache;
+  headers?: Record<string, string>; 
 };
 
-export async function baseFetcher<
-  TResponse,
-  TBody = undefined
->(
+export async function baseFetcher<TResponse, TBody = undefined>(
   url: string,
   options: FetcherOptions<TBody> = {},
   msg: string = "Request failed"
 ): Promise<TResponse> {
+  const finalUrl = url.startsWith("http")
+    ? url
+    : `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
 
-  const finalUrl =
-    url.startsWith("http")
-      ? url
-      : `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
+  const finalHeaders = {
+    "Content-Type": "application/json",
+    ...options.headers,
+  };
 
   const res = await fetch(finalUrl, {
     method: options.method ?? "GET",
-    headers: { "Content-Type": "application/json" },
-    body: options.body
-      ? JSON.stringify(options.body)
-      : undefined,
+    headers: finalHeaders,
+    body: options.body ? JSON.stringify(options.body) : undefined,
     cache: options.cache,
   });
 
   if (!res.ok) {
-    const message = msg;
+    const errorData = await res.json().catch(() => ({}));
+    const message = errorData.message || msg;
     throw { status: res.status, message };
   }
 

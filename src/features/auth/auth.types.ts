@@ -1,31 +1,47 @@
-export interface User {
-  id: string;
-  name: string;
+// Firebase REST API yanıtı için
+export interface FirebaseSignInResponse {
+  idToken: string;
   email: string;
-  avatar?: string;
-  surname?: string;
-  balance?: number;
-  epPoints?: number
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
+  registered?: boolean;
 }
 
-export interface AuthResponse {
-  user: User;
-  token: string;
-}
-
+// Formdan gelen veriler için
 export interface LoginCredentials {
   email: string;
   password: string;
 }
 
-export interface LoginFormData {
-  email: string;
-  password: string;
-  rememberMe: boolean;
+// Backend login yanıtındaki kullanıcı verisi
+export interface LoginData {
+  user: {
+    id: string;
+    email: string;
+    phone: string | null;
+    roles: string[];
+    isIdentityVerified: boolean;
+  };
+  token?: string;
 }
 
-export interface LoginError {
-  email?: string;
-  password?: string;
-  form?: string;
+// Profil servisinden gelen detaylı veriler (Zustand için)
+export interface UserProfile {
+  id: string;
+  email: string;
+  phone: string | null;
+  roles: string[];
+  isIdentityVerified: boolean;
+  name: string;
+  surname: string;
+  balance: number;
+  epPoints: number;
+}
+
+// Genel API yanıt yapısı
+export interface AuthResponse {
+  success: boolean;
+  message: string;
+  data: LoginData;
 }
