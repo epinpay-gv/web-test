@@ -17,14 +17,17 @@ import {
   Download,
   UserHeadset,
   CheckCircle,
+  UserAdd,
+  AngleRight,
 } from "flowbite-react-icons/outline";
 
 import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
 import { IconShape } from "@/components/common/IconSahpe/IconShape";
-import { Flame, Clock, HelpCircle, ChevronDown } from "lucide-react";
+import { Flame, Clock, HelpCircle, ChevronDown, Badge, ChevronRight, Trash } from "lucide-react";
 import Badges from "@/components/common/Badges/Badges";
 import Accordion from "@/components/common/Accordion/Accordion";
 import AccordionItem from "@/components/common/Accordion/AccordionItem";
+import DropdownListItem from "@/components/common/Dropdown/DropdownListItem";
 
 const TIME_RANGES = [
   { label: "7 Gün", value: "1h" },
@@ -131,6 +134,7 @@ export default function TestPage() {
   const [activeTab, setActiveTab] = useState("");
   const [range, setRange] = useState("");
   const [visible, setVisible] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
   return (
     <div className="min-h-screen gap-8 flex flex-col justify-center items-center transition-colors bg-white dark:bg-slate-900">
       {/* DİKKAT: bg-white dark:bg-slate-900 kullandığında 
@@ -138,6 +142,7 @@ export default function TestPage() {
       */}
       <div className="flex flex-col gap-10">
         <div className="flex gap-4">
+          // checkbox ve toggle componentlerini farklı durumlarda görmek için örnekler
           <div>
             <Checkbox variant="square" />
             <Checkbox variant="square" checked />
@@ -239,6 +244,7 @@ export default function TestPage() {
           </div>
         </div>
       </div>
+      // Badges ve Accordion componentlerini görmek için örnekler
       <div className="flex flex-col">
         <Badges text="new" theme="gray" secondaryText="secondary text" closable icon={<Clock />} type="default" />
 
@@ -270,6 +276,51 @@ export default function TestPage() {
         </Accordion>
 
       </div>
+
+      <div>
+
+<DropdownListItem
+  text="Default Item"
+  showLeftIcon={true}
+  leftIcon={<UserAdd />}
+  showRightIcon={true}
+  rightIcon={<AngleRight />}
+/>
+
+
+<DropdownListItem
+  text="Secondary Text Item"
+  secondaryText="(456)"
+  showLeftIcon={true}
+  leftIcon={<UserAdd />}
+/>
+
+
+<DropdownListItem
+  text="Two Icons Item"
+  showLeftIcon={true}
+  leftIcon={<UserAdd />}
+  showRightIcon={true}
+  rightIcon={<AngleRight />}
+/>
+
+
+<DropdownListItem
+  text="Left Form Item"
+  secondaryText="(456)"
+  checkbox={true}
+  checked={isChecked}
+  onCheckboxChange={setIsChecked}
+/>
+
+
+<DropdownListItem
+  text="With Flag Item"
+  flagImage="/image/navLinkCard/mock-img.png"
+/>
+      
     </div>
+      </div>
+   
   );
 }
