@@ -40,7 +40,7 @@ export default function CategoriessClient({
   }, [page]);
 
   return (
-    <div className="container max-w-7xl mx-auto pb-12">
+    <div className="container max-w-7xl mx-auto pb-12 ">
       <PageTitle
         data={{
           title: "Kategoriler ",

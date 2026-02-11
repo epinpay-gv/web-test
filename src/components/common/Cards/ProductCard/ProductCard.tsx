@@ -55,7 +55,7 @@ export default function ProductCard({
 
   return (
     <div
-      className={`gap-1 flex ${isInCart ? "cart-card-container" : "product-card-container p-3"} ${
+      className={`gap-1 flex ${isInCart ? "cart-card-container" : "card-container p-3"} ${
         isHorizontal ? "flex-row gap-4" : "flex-col justify-start"
       } ${cardSizeClass}`}
     >

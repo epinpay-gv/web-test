@@ -19,3 +19,9 @@ export const getCategories = (query: URLSearchParams) => {
     `${process.env.NEXT_PUBLIC_API_URL}/categories?${query.toString()}`
   );
 };
+
+export const getCategory = (query: URLSearchParams, category: string) => {
+  return baseFetcher<ProductsApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/${category}?${query.toString()}`
+  );
+};
