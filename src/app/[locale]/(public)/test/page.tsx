@@ -221,7 +221,7 @@ export default function TestPage() {
 
       <BottomSheet
         isOpen={isOpen}
-        onClose={history.length < 1 ? handleClose : undefined}
+        onClose={history.length < 2 ? handleClose : undefined}
         onBack={history.length > 1 ? goBack : undefined} 
         title={
           currentView === 'CATEGORY_LIST' ? 'Filtrele' : 
