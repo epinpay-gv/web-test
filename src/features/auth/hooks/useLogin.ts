@@ -94,7 +94,6 @@ export function useLogin() {
     const loginData = response.data; 
 
     if (loginData && loginData.user) {
-      // Zustand store'a veriyi gönder
       setAuth(loginData.user, loginData.token);
       
       console.log("Giriş başarılı, Kullanıcı:", loginData.user);

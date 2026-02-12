@@ -34,6 +34,7 @@ export function LocaleDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
+          id="locale-dropdown-trigger"
           className={clsx(
             "flex items-center gap-2 px-3 py-2 rounded-md",
             "text-sm text-(--text-body)",
