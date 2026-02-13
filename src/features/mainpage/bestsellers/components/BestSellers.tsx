@@ -11,17 +11,21 @@ const TIME_RANGES = [
   { label: "Son 30 Gün", value: "30d" },
 ];
 
-export default function BestSellers() {
+interface BestSellersProps {
+  hideTimeRanges?: boolean;
+}
+
+export default function BestSellers({ hideTimeRanges = false }: BestSellersProps) {
   const [range, setRange] = useState("24h");
 
   return (
     <Section backgroundClassName="bg-(--bg-brand-softer)">
-      <div className="bg-(--bg-brand-softer)">
-        <div>
-          <h1 className="text-(--text-heading) text-[24px] font-semibold py-4">
-            En Çok Satanlar
-          </h1>
+      <div>
+        <h1 className="text-(--text-heading) text-[24px] font-semibold py-4">
+          En Çok Satanlar
+        </h1>
 
+        {!hideTimeRanges && (
           <NavTabs
             items={TIME_RANGES}
             activeValue={range}
@@ -29,14 +33,13 @@ export default function BestSellers() {
             variant="segmented"
             size="base"
           />
+        )}
 
-
-          <ProductCarousel
-            products={mockProducts}
-            showControls={true}
-            loop={false}
-          />
-        </div>
+        <ProductCarousel
+          products={mockProducts}
+          showControls={false}
+          loop={false}
+        />
       </div>
     </Section>
   );
