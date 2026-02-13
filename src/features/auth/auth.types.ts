@@ -1,47 +1,39 @@
-// Firebase REST API yanıtı için
-export interface FirebaseSignInResponse {
-  idToken: string;
+export interface User {
+  id?: string;
   email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
+  name?: string;
+  surname?: string;
 }
 
-// Formdan gelen veriler için
-export interface LoginCredentials {
+export interface RegisterFormData {
   email: string;
   password: string;
+  passwordAgain: string;
+  name?: string;
+  surname?: string;
+  referal?: string;
+  rememberMe?: boolean; 
 }
 
-// Backend login yanıtındaki kullanıcı verisi
-export interface LoginData {
-  user: {
-    id: string;
-    email: string;
-    phone: string | null;
-    roles: string[];
-    isIdentityVerified: boolean;
-  };
-  token?: string;
-}
-
-// Profil servisinden gelen detaylı veriler (Zustand için)
-export interface UserProfile {
-  id: string;
+export interface LoginFormState {
   email: string;
-  phone: string | null;
-  roles: string[];
-  isIdentityVerified: boolean;
-  name: string;
-  surname: string;
-  balance: number;
-  epPoints: number;
+  password: string;
+  rememberMe: boolean;
 }
 
-// Genel API yanıt yapısı
 export interface AuthResponse {
   success: boolean;
-  message: string;
-  data: LoginData;
+  message?: string;
+  token?: string;
+  user?: User;
 }
+
+export interface ValidationRules {
+  minLength: boolean;
+  hasNumber: boolean;
+  hasLowerCase: boolean;
+  hasUpperCase: boolean;
+  hasSymbol: boolean;
+}
+
+export type AuthStep = 'form' | 'otp';

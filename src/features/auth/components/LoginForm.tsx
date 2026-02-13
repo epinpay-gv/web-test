@@ -7,6 +7,7 @@ import { Button } from '@/components/common/Button/Button';
 import Image from "next/image";
 import { Google } from 'flowbite-react-icons/solid';
 import { Envelope, Lock, Eye, EyeSlash } from 'flowbite-react-icons/outline';
+import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
   const {
@@ -22,10 +23,11 @@ export function LoginForm() {
   } = useLogin();
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const router = useRouter()
   return (
     <div className="w-full max-w-96 mx-auto">
       {/* Logo */}
+      {/* TODO: Logonun sağına dil dropdownu gelecek */}
       <div className="mb-10">
         <Image 
           src="/image/logos/epinpay-white-lg.png" 
@@ -46,7 +48,7 @@ export function LoginForm() {
         </p>
         <div className="text-(--text-body) flex gap-1 text-sm mt-2">
           Hesabın yok mu?{' '}
-          <button type="button" className="text-(--text-fg-brand) hover:underline transition-colors font-medium">
+          <button type="button" className="text-(--text-fg-brand) hover:underline transition-colors font-medium" onClick={()=> router.push("/signup")}>
             Kayıt Ol
           </button>
         </div>
@@ -88,14 +90,13 @@ export function LoginForm() {
             name="password"
             placeholder="••••••••"
             leftIcon={<Lock />}
-            rightIcon={
+            rightIcon={ 
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="flex items-center justify-center p-1 hover:text-white transition-colors"
-                tabIndex={-1}
+                onClick={() => setShowPassword(!showPassword)}  
+                className="focus:outline-none flex items-center justify-center"                                 
               >
-                {showPassword ? <Eye /> : <EyeSlash />}
+                {showPassword ? <Eye className='input-right-icon'/> : <EyeSlash className='input-right-icon'/>}
               </button>
             }
             value={formData.password}
@@ -109,7 +110,8 @@ export function LoginForm() {
             <span className="text-(--text-fg-danger-strong) text-xs font-medium">{errors.password}</span>
           )}
         </div>
-
+        
+          {/* TODO: Checkbox componenti ile değiştirilecek */}
         {/* Remember Me + Forgot Password */}
         <div className="flex items-center justify-between">
           <label className="flex items-center gap-2 cursor-pointer group">
@@ -146,14 +148,7 @@ export function LoginForm() {
           type="submit"
           disabled={isLoading}
           className="w-full py-3 text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed transition-all active:scale-[0.98]"
-        />
-
-        {/* Divider */}
-        <div className="relative flex items-center py-1">
-          <div className="flex-grow border-t border-(--border-default)"></div>
-          <span className="flex-shrink mx-4 text-(--text-body) text-xs uppercase tracking-wider">veya</span>
-          <div className="flex-grow border-t border-(--border-default)"></div>
-        </div>
+        />       
 
         {/* Google Login */}
         <button
