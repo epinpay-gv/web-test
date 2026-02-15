@@ -19,6 +19,7 @@ import {
   CheckCircle,
   UserAdd,
   AngleRight,
+  ExclamationCircle
 } from "flowbite-react-icons/outline";
 
 import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
@@ -29,6 +30,7 @@ import Pagination from "@/components/common/Paginate/Pagination";
 import Accordion from "@/components/common/Accordion/Accordion";
 import AccordionItem from "@/components/common/Accordion/AccordionItem";
 import DropdownListItem from "@/components/common/Dropdown/DropdownListItem";
+import { Modal } from "@/components/common/Modal/Modal";
 
 const TIME_RANGES = [
   { label: "7 Gün", value: "1h" },
@@ -136,7 +138,7 @@ export default function TestPage() {
   const [activeTab, setActiveTab] = useState("");
   const [range, setRange] = useState("");
   const [visible, setVisible] = useState(true);
-   const paginationData = {
+  const paginationData = {
     count: 28,
     current_page: currentPage,
     has_more: true,
@@ -288,34 +290,34 @@ export default function TestPage() {
         </div>
         </div>
         <div className="mt-20 flex items-center flex-col">
-           <div className="mt-12">
-          <p className="text-white text-center mb-4">
-            {currentPage}. Sayfadasın
-          </p>
-          <Pagination
-            count={120}
-            current_page={currentPage}
-            has_more={true}
-            per_page={8}
-            total_page={5}
-            onPageChange={handlePageChange}
-          />
-        </div>
+          <div className="mt-12">
+            <p className="text-white text-center mb-4">
+              {currentPage}. Sayfadasın
+            </p>
+            <Pagination
+              count={120}
+              current_page={currentPage}
+              has_more={true}
+              per_page={8}
+              total_page={5}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
         <div className="mt-20 flex items-center flex-col">
-           <div className="mt-12">
-          <p className="text-white text-center mb-4">
-            {currentPage}. Sayfadasın
-          </p>
-          <Pagination
-            count={80}
-            current_page={currentPage}
-            has_more={true}
-            per_page={8}
-            total_page={10}
-            onPageChange={handlePageChange}
-          />
-        </div>
+          <div className="mt-12">
+            <p className="text-white text-center mb-4">
+              {currentPage}. Sayfadasın
+            </p>
+            <Pagination
+              count={80}
+              current_page={currentPage}
+              has_more={true}
+              per_page={8}
+              total_page={10}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
       <div className="flex flex-col">
@@ -426,6 +428,18 @@ export default function TestPage() {
   flagImage="/image/navLinkCard/mock-img.png"
 />
       
+      {/* <div>
+        <Modal
+          open={true}
+          theme="popup"
+          description="It provides more details about the content  of the modal. "
+          confirmText="Confirm"
+          cancelText="Close"
+          icon={<ExclamationCircle size={40}/>}
+          onClose={() => { }}
+        />
+      </div> */}
+
     </div>
       </div>
    
