@@ -28,12 +28,12 @@ export const Footer = () => {
   ]
 
   const institutionalLinks : FooterLink[] = [
-    { label: "Hüküm ve Koşullar", href: "#"},
-    { label: "AML & KYC Politikası ", href: "#"},
-    { label: "Gizlilik Sözleşmesi", href: "#"},
-    { label: "KVKK Aydınlatma Metni", href: "#"},
-    { label: "İade Politikası", href: "#"},
-    { label: "Reklam Politikası", href: "#"},
+    { label: "Hüküm ve Koşullar", href: "/legal/terms-of-use"},
+    { label: "AML & KYC Politikası ", href: "/legal/aml-kyc-policy"},
+    { label: "Gizlilik Sözleşmesi", href: "/legal/privacy-policy"},
+    { label: "KVKK Aydınlatma Metni", href: "/legal/kvkk"},
+    { label: "İade Politikası", href: "/legal/refund-policy"},
+    { label: "Reklam Politikası", href: "/legal/advertising-policy"},
     { label: "Ürün ve Listeleme Politikası", href: "#"},
     { label: "Alıcı Koruma Politikası", href: "#"},
     { label: "İletişim", href: "#"},
