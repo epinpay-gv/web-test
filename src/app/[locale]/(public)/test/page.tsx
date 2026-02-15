@@ -31,6 +31,8 @@ import Accordion from "@/components/common/Accordion/Accordion";
 import AccordionItem from "@/components/common/Accordion/AccordionItem";
 import DropdownListItem from "@/components/common/Dropdown/DropdownListItem";
 import { Modal } from "@/components/common/Modal/Modal";
+import {BottomSheet} from "@/components/common/BottomSheet/BottomSheet";
+import { Button } from "@/components/common/Button/Button";
 
 const TIME_RANGES = [
   { label: "7 Gün", value: "1h" },
@@ -133,6 +135,94 @@ Find out more information by reading the release.`,
 ];
 
 
+const faqData = [
+  {
+    id: 1,
+    title: "Can I use Flowbite in open-source projects?",
+    content: `Generally, it is accepted to use Flowbite in open-source projects, as long as it is not a UI library, a theme, a template, a page-builder that would be considered as an alternative to Flowbite itself.
+
+With that being said, feel free to use this design kit for your open-source projects.
+
+Find out more information by reading the release.`,
+    defaultOpen: true,
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 2,
+    title: "Can I contribute to the Flowbite project?",
+    content:
+      "Yes! Flowbite is open-source and we welcome contributions from the community.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 3,
+    title: "What are the main features of Flowbite?",
+    content:
+      "Flowbite includes a comprehensive set of UI components, dark mode support, and more.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 4,
+    title: "Is Flowbite compatible with popular frontend frameworks?",
+    content:
+      "Yes, Flowbite works with React, Vue, Angular, and vanilla JavaScript.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 5,
+    title: "Does Flowbite offer pre-built components?",
+    content: "Yes, Flowbite provides dozens of ready-to-use components.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 6,
+    title: "Is Flowbite free to use, or does it have premium features?",
+    content:
+      "Flowbite offers both free and premium versions with additional components.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 7,
+    title: "How can I get technical support for Flowbite?",
+    content:
+      "You can get support through GitHub issues, Discord community, or documentation.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 8,
+    title: "Where can I find Flowbite documentation and guides?",
+    content:
+      "Complete documentation is available at flowbite.com/docs with examples and guides.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 9,
+    title: "Is Flowbite suitable for commercial projects?",
+    content:
+      "Yes, Flowbite can be used in commercial projects under the MIT license.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+  {
+    id: 10,
+    title: "How can I get support if I encounter issues with Flowbite?",
+    content:
+      "Support is available through multiple channels including community forums and direct support.",
+    leftIcon: <HelpCircle className="w-5 h-5" />,
+    rightIcon: <ChevronDown className="w-5 h-5" />,
+  },
+];
+
+
+type ViewState = 'CATEGORY_LIST' | 'PLATFORM_DETAIL' | 'PRICE_FILTER';
 export default function TestPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState("");
@@ -151,11 +241,30 @@ export default function TestPage() {
     // fetchData(page);
   };
   const [isChecked, setIsChecked] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [history, setHistory] = useState<ViewState[]>(['CATEGORY_LIST']);
+  const currentView = history[history.length - 1];
+  const navigateTo = (nextView: ViewState) => {
+    setHistory((prev) => [...prev, nextView]);
+  };
+
+  const goBack = () => {
+    if (history.length > 1) {
+      setHistory((prev) => prev.slice(0, -1)); 
+    } else {
+      setIsOpen(false); 
+    }
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+    setTimeout(() => setHistory(['CATEGORY_LIST']), 300);
+  };
+  const handleClear = () => {
+    console.log("Temizleye basıldı")
+  }
   return (
-    <div className="min-h-screen gap-8 flex flex-col justify-center items-center transition-colors bg-white dark:bg-slate-900">
-      {/* DİKKAT: bg-white dark:bg-slate-900 kullandığında 
-          next-themes temayı değiştirdiğinde Tailwind bunu otomatik yakalar.
-      */}
+    <div className="min-h-screen gap-8 flex flex-col justify-center items-center transition-colors bg-white dark:bg-slate-900">     
       <div className="flex flex-col gap-10">
         <div className="flex gap-4">
           // checkbox ve toggle componentlerini farklı durumlarda görmek için örnekler
@@ -213,30 +322,30 @@ export default function TestPage() {
 
             {/* Focus halini görmek için Tab tuşuna basabilirsin */}
           </div>
-          <div className="flex items-start gap-3 rounded-lg bg-slate-800/60 px-4 py-3">
+          {/* <div className="flex items-start gap-3 rounded-lg bg-slate-800/60 px-4 py-3">
             <Checkbox
               variant="square"
               label="Remember me"
               helperText="Save my credentials for easier sign-in"
             />
-          </div>
+          </div> */}
           <div className="p-10 flex gap-4 items-center">
             {/* Statik Renk - Circle */}
-            <IconShape icon={Flame} color="green" variant="circle" size="lg" />
+            {/* <IconShape icon={Flame} color="green" variant="circle" size="lg" /> */}
 
             {/* Statik Renk - Square */}
-            <IconShape icon={Flame} color="red" variant="square" size="lg" onClick={() => alert("ikona tıklandı")} />
-
+            {/* <IconShape icon={Flame} color="red" variant="square" size="lg" onClick={() => alert("ikona tıklandı")} />
+ */}
             {/* Dışarıdan Özel Renk (Custom) */}
-            <IconShape
+            {/* <IconShape
               icon={Flame}
               color="custom"
               customColor="var(--text-heading)"
               variant="square"
               size="lg"
-            />
+            /> */}
           </div>
-          <div>
+          {/* <div>
 
             <NavItems
               label="Item 1"
@@ -287,7 +396,7 @@ export default function TestPage() {
             total_page={10}
             onPageChange={handlePageChange}
           />
-        </div>
+        </div> */}
         </div>
         <div className="mt-20 flex items-center flex-col">
           <div className="mt-12">
@@ -320,7 +429,7 @@ export default function TestPage() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         <Badges text="new" theme="gray" secondaryText="secondary text" closable icon={<Clock />} type="default" />
 
         {visible && (
@@ -370,76 +479,6 @@ export default function TestPage() {
         )}
 
       </div>
-      <div className="w-full max-w-3xl">
-        <Accordion theme="dark" type="single">
-          {faqData.map((faq) => (
-            <AccordionItem
-              key={faq.id}
-              title={faq.title}
-              leftIcon={faq.leftIcon}
-              rightIcon={faq.rightIcon}
-            >
-              {faq.content}
-            </AccordionItem>
-          ))}
-        </Accordion>
-
-      </div>
-
-      <div>
-
-<DropdownListItem
-  text="Default Item"
-  showLeftIcon={true}
-  leftIcon={<UserAdd />}
-  showRightIcon={true}
-  rightIcon={<AngleRight />}
-/>
-
-
-<DropdownListItem
-  text="Secondary Text Item"
-  secondaryText="(456)"
-  showLeftIcon={true}
-  leftIcon={<UserAdd />}
-/>
-
-
-<DropdownListItem
-  text="Two Icons Item"
-  showLeftIcon={true}
-  leftIcon={<UserAdd />}
-  showRightIcon={true}
-  rightIcon={<AngleRight />}
-/>
-
-
-<DropdownListItem
-  text="Left Form Item"
-  secondaryText="(456)"
-  checkbox={true}
-  checked={isChecked}
-  onCheckboxChange={setIsChecked}
-/>
-
-
-<DropdownListItem
-  text="With Flag Item"
-  flagImage="/image/navLinkCard/mock-img.png"
-/>
-      
-      {/* <div>
-        <Modal
-          open={true}
-          theme="popup"
-          description="It provides more details about the content  of the modal. "
-          confirmText="Confirm"
-          cancelText="Close"
-          icon={<ExclamationCircle size={40}/>}
-          onClose={() => { }}
-        />
-      </div> */}
-
     </div>
       </div>
    
