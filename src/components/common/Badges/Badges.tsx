@@ -2,7 +2,7 @@
 import { Close } from "flowbite-react-icons/outline";
 import { ReactNode } from "react";
 
-type BadgeSize = "sm" | "lg";
+type BadgeSize = "sm" | "lg" ;
 type BadgeTheme = "gray" | "white" | "brand" | "danger" | "warning" | "success";
 type BadgeType = "default" | "pill";
 

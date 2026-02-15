@@ -60,9 +60,10 @@ export function Input({
       {variant === "innerButton" && innerButton && (
         <span className="input-addon">{innerButton}</span>
       )}
-
+      
+      {/* RIGHT ICON */}
       {rightIcon && (
-        <span className=" rounded-r-full">{rightIcon}</span>
+        <span className="input-right-icon-btn top-1/2 -translate-y-1/2">{rightIcon}</span>
       )}
 
       {/* CLEAR BUTTON */}

@@ -1,31 +1,39 @@
 export interface User {
-  id: string;
-  name: string;
+  id?: string;
   email: string;
-  avatar?: string;
+  name?: string;
   surname?: string;
-  balance?: number;
-  epPoints?: number
 }
 
-export interface AuthResponse {
-  user: User;
-  token: string;
-}
-
-export interface LoginCredentials {
+export interface RegisterFormData {
   email: string;
   password: string;
+  passwordAgain: string;
+  name?: string;
+  surname?: string;
+  referal?: string;
+  rememberMe?: boolean; 
 }
 
-export interface LoginFormData {
+export interface LoginFormState {
   email: string;
   password: string;
   rememberMe: boolean;
 }
 
-export interface LoginError {
-  email?: string;
-  password?: string;
-  form?: string;
+export interface AuthResponse {
+  success: boolean;
+  message?: string;
+  token?: string;
+  user?: User;
 }
+
+export interface ValidationRules {
+  minLength: boolean;
+  hasNumber: boolean;
+  hasLowerCase: boolean;
+  hasUpperCase: boolean;
+  hasSymbol: boolean;
+}
+
+export type AuthStep = 'form' | 'otp';
