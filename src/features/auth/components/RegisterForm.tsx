@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Input } from '@/components/common/Form/Input/Input';
-import { Button } from '@/components/common/Button/Button';
 import Image from "next/image";
 import { Google } from 'flowbite-react-icons/solid';
 import { Envelope, Lock, Eye, EyeSlash, Check, Close } from 'flowbite-react-icons/outline';
@@ -10,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useRegister } from '../hooks/useRegister';
 import { ProgressBar } from '@/components/common/ProgressBar/ProgressBar';
 import { VerifyOtpForm } from './VerifyOtpForm';
+import { Button, Input } from '@/components/common';
 
 export function RegisterForm() {
   const router = useRouter();

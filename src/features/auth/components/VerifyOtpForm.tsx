@@ -1,12 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Input } from '@/components/common/Form/Input/Input';
-import { Button } from '@/components/common/Button/Button';
 import { useRegisterStore } from '../store/useRegisterStore';
 import { OtpInput } from '@/components/common/Form/OtpInput.tsx/OtpInput';
-
-import Badges from '@/components/common/Badges/Badges';
+import { Button, Input, Badge } from '@/components/common';
 
 interface Props {
   email: string;
@@ -55,7 +52,7 @@ export function VerifyOtpForm({ email, onVerify, isLoading, serverError }: Props
 
         {/* Hata Mesajı */}
         {serverError && (
-          <Badges text={serverError} theme='danger' className='w-full py-3 justify-center'/>
+          <Badge text={serverError} theme='danger' className='w-full py-3 justify-center'/>
         )}
 
         <Button 

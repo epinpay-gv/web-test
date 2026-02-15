@@ -2,12 +2,11 @@
 
 import { useState } from 'react';
 import { useLogin } from '../hooks/useLogin'; // Hook yolunu kontrol et
-import { Input } from '@/components/common/Form/Input/Input';
-import { Button } from '@/components/common/Button/Button';
 import Image from "next/image";
 import { Google } from 'flowbite-react-icons/solid';
 import { Envelope, Lock, Eye, EyeSlash } from 'flowbite-react-icons/outline';
 import { useRouter } from 'next/navigation';
+import { Button, Input } from '@/components/common';
 
 export function LoginForm() {
   const {
