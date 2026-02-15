@@ -2,12 +2,13 @@ import { baseFetcher } from "@/lib/api/baseFetcher";
 import { ProductPageResponse, CategoriesPageResponse } from "./catalog.types";
 import { FilterGroupConfig } from "./components/filters/Filters/types";
 
+// RESPONSE TYPES
 export interface ProductsApiResponse extends ProductPageResponse {
   filters: FilterGroupConfig[];
 }
-
 export type CategoriesApiResponse = CategoriesPageResponse
 
+// REQUESTS
 export const getProducts = (query: URLSearchParams) => {
   return baseFetcher<ProductsApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/products?${query.toString()}`

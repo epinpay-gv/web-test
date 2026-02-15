@@ -8,6 +8,7 @@ import { IconShape } from "./IconShape/IconShape";
 import { FeatureItem, SectionHeader } from "./Label";
 import Pagination from "./Paginate/Pagination";
 import Toggle from "./Toggle/Toggle";
+import { NavCard, NavTab, NavItems } from "./NavLinks";
 
 export {
   Badge,
@@ -23,4 +24,7 @@ export {
   SectionHeader,
   Pagination,
   Toggle,
+  NavCard,
+  NavTab,
+  NavItems,
 };

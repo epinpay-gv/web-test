@@ -9,7 +9,7 @@ import {
 import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { getProducts } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
+import NavTabs from "@/components/common/NavLinks/NavTabs/NavTab";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
@@ -17,7 +17,6 @@ import {
 import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { Badge, Pagination } from "@/components/common";
-import { Clock } from "lucide-react";
 
 export default function ProductsClient({
   initialProducts,
