@@ -1,7 +1,6 @@
 "use client";
-
 import { Search } from "flowbite-react-icons/outline";
-import { Input } from "@/components/common/Form/Input/Input";
+import { Input } from "@/components/common";
 
 interface FilterSearchProps {
   value: string;

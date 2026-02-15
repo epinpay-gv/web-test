@@ -21,9 +21,15 @@ import {
 } from "flowbite-react-icons/outline";
 
 import NavItems from "@/components/common/NavLinks/NavTabs/NavItems";
+<<<<<<< HEAD
 import { IconShape } from "@/components/common/IconSahpe/IconShape";
 import { Flame, Clock, HelpCircle, ChevronDown, Badge, ChevronRight, Trash } from "lucide-react";
 import Badges from "@/components/common/Badges/Badges";
+=======
+import { IconShape } from "@/components/common/IconShape/IconShape";
+import { Flame, Clock } from "lucide-react";
+import Badges from "@/components/common/Badges/Badge";
+>>>>>>> feature/catalog
 import Pagination from "@/components/common/Paginate/Pagination";
 import Accordion from "@/components/common/Accordion/Accordion";
 import AccordionItem from "@/components/common/Accordion/AccordionItem";

@@ -1,31 +1,38 @@
 import { createSeo } from "@/lib/seo";
 import { CategorySchema } from "@/components/seo/CategorySchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
-import { PageTitle } from "@/features/catalog/components";
+import { getCategories } from "@/features/catalog/service";
+import CategoriesClient from "./categories-client";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
   return createSeo({
-    title: params.locale === "en" ? "All Categories" : "Tüm Kategoriler",
+    title: locale === "en" ? "All Categories" : "Tüm Kategoriler",
     description:
-      params.locale === "en"
+      locale === "en"
         ? "Browse all categories"
         : "Tüm kategorileri keşfedin",
     canonical: "/categories",
-    locale: params.locale,
+    locale: locale,
   });
 }
 
-export default function CategoriesPage({
+export default async function CategoriesPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   const baseUrl = "https://www.epinpay.com";
+
+  const res = await getCategories(new URLSearchParams());
+
+
   return (
     <>
       {/* SEO Content */}
@@ -43,20 +50,7 @@ export default function CategoriesPage({
       />
 
       {/* Page Content */}
-      <div className="container max-w-7xl mx-auto pb-12">
-        <PageTitle
-          data={{
-            title: "Kategoriler ",
-            totalProductAmount: 2173,
-          }}
-          changeOrder={function (order: string): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
-        <div className="flex gap-4">
-          {/* <CategoryGrid data={mockProducts} /> */}
-        </div>
-      </div>
+      <CategoriesClient data={res.data} pagination={res.pagination}/>
     </>
   );
 }

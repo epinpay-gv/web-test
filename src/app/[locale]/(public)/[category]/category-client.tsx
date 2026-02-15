@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { Badge, Pagination } from "@/components/common";
 import { Clock } from "lucide-react";
 
-export default function ProductsClient({
+export default function CategoryClient({
   initialProducts,
   initialFilters,
   pagination,
@@ -57,7 +57,6 @@ export default function ProductsClient({
 
   const activeFilters = getActiveFilterLabels(filters, groups);
 
-  const handleFilterLabelClose = () => {};
 
   /**
    * PAGE → FETCH
@@ -95,7 +94,7 @@ export default function ProductsClient({
   }, [filters, router]);
 
   return (
-    <div className="container max-w-7xl mx-auto space-y-4">
+    <div className="container max-w-7xl mx-auto py-12 space-y-4">
       {productTypeTabItems.length > 0 && (
         <NavTabs
           items={productTypeTabItems}

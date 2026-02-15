@@ -37,7 +37,7 @@ export default function NavLinkCards() {
   ];
 
   return (
-    <Section backgroundClassName="bg-(--bg-neutral-primary-soft) border-b">
+    <Section backgroundClassName="bg-(--bg-neutral-primary-soft) border-b mb-4">
       <div className="w-full flex items-center justify-center">
         <div className="flex items-center justify-center gap-2 max-md:overflow-x-auto">
           {mockNavLinkCards.map((navLink) => (

@@ -1,9 +1,7 @@
 "use client";
 import { FilterElementConfig, ToggleKeyMap } from "./types";
-import { Input } from "@/components/common/Form/Input/Input";
-import { Checkbox } from "@/components/common/CheckBox/CheckBox";
+import { Input, CheckBox, Toggle } from "@/components/common";
 import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
-import { Toggle } from "@/components/common/Toggle/Toggle";
 import { FilterSearch } from "./FilterSearch";
 import { useMemo, useState } from "react";
 
@@ -137,7 +135,7 @@ export default function FilterElement({
                   mappedKey !== null && filters[mappedKey].includes(opt.value);
                 return (
                   <div key={opt.value} className="flex items-center gap-2">
-                    <Checkbox
+                    <CheckBox
                       variant="square"
                       value={opt.value}
                       label={opt.label}

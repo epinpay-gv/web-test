@@ -1,21 +1,19 @@
 import React from 'react';
-import { Button } from '../Button/Button';
 import { AngleLeft, AngleRight } from 'flowbite-react-icons/outline';
+import { PaginationData } from '@/types/types';
+import { Button } from '../Button';
 
 interface PaginationProps {
-  count: number;
-  current_page: number;
-  has_more: boolean;
-  per_page: number;
-  total_page: number;
+  pagination: PaginationData;
   onPageChange: (page: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  current_page,
-  total_page,
+  pagination,
   onPageChange,
 }) => {
+
+  const {total_page, current_page} = pagination;
   const getPageNumbers = (): (number | string)[] => {
     const pages: (number | string)[] = [];
     

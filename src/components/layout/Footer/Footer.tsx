@@ -6,7 +6,7 @@ import Image from "next/image"
 import { X, Youtube, Facebook, Instagram } from "flowbite-react-icons/solid"
 import { FooterColumn } from "./components/FooterColumn"
 import { FooterLink } from "./types"
-import { IconShape } from "@/components/common/IconSahpe/IconShape"
+import { IconShape } from "@/components/common/IconShape/IconShape"
 
 export const Footer = () => {
   const supportLinks : FooterLink[] = [

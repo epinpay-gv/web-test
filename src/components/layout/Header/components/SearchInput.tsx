@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from 'react';
 import { useSearch } from '@/features/search/fetcher/services';
-import { Input } from '../../../common/Form/Input/Input';
 import { Search } from 'flowbite-react-icons/outline';
+import { Input } from '@/components/common';
 
 export function SearchInput() {
   const { query, setQuery, results, isLoading, isOpen, setIsOpen } = useSearch();

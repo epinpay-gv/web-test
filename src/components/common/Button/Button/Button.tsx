@@ -92,7 +92,7 @@ const VARIANT_CLASSES: Record<
   }
 };
 
-export function Button({
+export default function Button({
   text,
   icon,
   textSize = "base",

@@ -1,5 +1,4 @@
-import Breadcrumb from "@/components/common/Breadcrumb/Breadcrumb";
-import { Button } from "@/components/common/Button/Button";
+import { Button, Breadcrumb } from "@/components/common";
 import { Sort } from "flowbite-react-icons/outline";
 
 interface PageTitleProps {
@@ -7,7 +6,7 @@ interface PageTitleProps {
     title: string;
     totalProductAmount: number;
   };
-  changeOrder: (order: string) => void;
+  changeOrder?: (order: string) => void;
 }
 
 export default function PageTitle({ data, changeOrder }: PageTitleProps) {

@@ -7,7 +7,7 @@ interface FavButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   addToFavorites?: (payload: NotifyWhenAvailablePayload) => void;
 }
 
-export function FavButton({
+export default function FavButton({
   isFavorite = false,
   addToFavorites,
   ...props
@@ -17,6 +17,7 @@ export function FavButton({
       {...props}
       onClick={() => addToFavorites?.({ productId: 0, userId: 0 })}
       className="rounded-full bg-[#1E293999]/80 w-6.5 h-6.5 p-1.5 cursor-pointer hover:bg-[#1E293999] transition-colors"
+      aria-label="Fav-Button"
     >
       <Heart size={14} className={isFavorite ? "fill-red-500 text-red-500" : ""} />
     </button>

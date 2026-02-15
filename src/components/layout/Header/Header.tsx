@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/features/theme/components/ThemeToggle";
-import { Button } from "@/components/common/Button/Button";
+import { Button, IconShape } from "@/components/common";
 import Image from "next/image";
 import { SearchInput } from "@/features/search/index";
 import { LocaleDropdown } from "./components/LocaleDropdown";

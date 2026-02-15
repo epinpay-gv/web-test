@@ -28,7 +28,7 @@ export default async function ProductsPage({
   const { locale } = await params;
   const baseUrl = "https://www.epinpay.com";
 
- const res = await getProducts(new URLSearchParams());
+  const res = await getProducts(new URLSearchParams());
 
   return (
     <>
@@ -50,8 +50,7 @@ export default async function ProductsPage({
       <ProductsClient
         initialProducts={res.data}
         initialFilters={res.filters}
-        // total={res.pagination.count}
-        total={2000}
+        pagination={res.pagination}
       />
     </>
   );

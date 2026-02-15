@@ -2,7 +2,7 @@ import Section from "@/components/layout/Section/Section";
 import TabPlans from "@/features/mainpage/premium/components/TabPlans";
 import { useState } from "react";
 import Image from "next/image";
-import { Button } from "@/components/common/Button/Button";
+import { Button } from "@/components/common";
 
 // Backend'den gelecek type tanımlamalrı 
 interface PremiumPlan {

@@ -1,8 +1,8 @@
 "use client";
-import { Button } from "../../../Button/Button";
 import { TrashBin } from "flowbite-react-icons/outline";
 import { ChangeQuantityPayload } from "../types";
 import { Product } from "@/types/types";
+import { Button } from "@/components/common";
 
 interface CartActionButtonsProps {
   product: Product;

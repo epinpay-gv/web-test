@@ -1,4 +1,3 @@
-// features/bestsellers/components/ProductCarousel.tsx
 "use client";
 
 import {
@@ -9,7 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Product } from "@/types/types";
-import { ProductCard } from "@/components/common/Cards/ProductCard/ProductCard";
+import { ProductCard } from "@/components/common";
 import { AddToCartPayload, ChangeQuantityPayload, NotifyWhenAvailablePayload } from "@/components/common/Cards/ProductCard/types";
 
 interface ProductCarouselProps {

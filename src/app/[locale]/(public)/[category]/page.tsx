@@ -1,36 +1,45 @@
 import { createSeo } from "@/lib/seo";
 import { CategorySchema } from "@/components/seo/CategorySchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { getCategory } from "@/features/catalog/service";
+import CategoryClient from "./category-client";
+
+type Params = {
+  locale: string;
+  category: string;
+};
 
 type Props = {
-  params: {
-    locale: string
-    category: string
-  }
-}
+  params: Promise<Params>;
+};
+
 
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string; category: string };
+  params: Promise<Params>;
 }) {
-  const name = params.category.replace(/-/g, " ");
+  const { locale, category } = await params;
+  const name = category.replace(/-/g, " ");
 
   return createSeo({
-    title: params.locale === "en" ? `${name} Products` : `${name} Ürünleri`,
+    title: locale === "en" ? `${name} Products` : `${name} Ürünleri`,
     description:
-      params.locale === "en"
+      locale === "en"
         ? `${name} category products`
         : `${name} kategorisindeki ürünler`,
-    canonical: `/${params.category}`,
-    locale: params.locale,
+    canonical: `/${locale}/${category}`,
+    locale: locale,
   });
 }
 
-export default function CategoryPage({ params }: Props) {
-  const { locale, category } = params;
+export default async function CategoryPage({ params }: Props) {
+  const { locale, category } = await params;
+  
   const baseUrl = "https://www.epinpay.com";
   const categoryUrl = `${baseUrl}/${locale}/categories/${category}`;
+
+  const res = await getCategory(new URLSearchParams(), category);
 
   return (
     <>
@@ -56,9 +65,11 @@ export default function CategoryPage({ params }: Props) {
       />
 
       {/* Page Content */}
-      <div>
-        <h1>category</h1>
-      </div>
+      <CategoryClient
+        initialProducts={res.data}
+        initialFilters={res.filters}
+        pagination={res.pagination}
+      />
     </>
   );
 }

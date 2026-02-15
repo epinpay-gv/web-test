@@ -14,7 +14,7 @@ export interface CheckboxProps extends React.ComponentPropsWithoutRef<
   secondaryText?: string;
 }
 
-const Checkbox = React.forwardRef<
+const CheckBox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   CheckboxProps
 >(
@@ -124,5 +124,6 @@ const Checkbox = React.forwardRef<
   },
 );
 
-Checkbox.displayName = "Checkbox";
-export { Checkbox };
+CheckBox.displayName = "Checkbox";
+
+export  {CheckBox};

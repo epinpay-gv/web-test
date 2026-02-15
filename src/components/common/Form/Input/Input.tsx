@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { InputProps } from "./types";
 import { Close } from "flowbite-react-icons/outline";
 
-export function Input({
+export default function Input({
   inputSize = "base",
   variant = "default",
   leftIcon,

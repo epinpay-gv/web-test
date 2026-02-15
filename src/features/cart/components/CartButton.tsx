@@ -1,9 +1,7 @@
 "use client";
-
 import { useCartStore } from "../store/cart.store";
 import { Cart } from "flowbite-react-icons/outline";
-import { Button } from "@/components/common/Button/Button";
-import { IconShape } from "@/components/common/IconSahpe/IconShape";
+import { Button } from "@/components/common";
 
 export function CartButton() {
   const items = useCartStore((state) => state.items);

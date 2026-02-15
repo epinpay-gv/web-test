@@ -81,10 +81,10 @@ export interface Category {
 
 export interface CategoryTranslation extends Translation {
   slug: string;
-  description: string;
-  bannerImageUrl: string;
-  bannerImageAlt: string;
-  bannerImageStatus: string;
+  // description: string; // ! yeni yapıda buna gerek olmayabilir
+  // bannerImageUrl: string; // ! yeni yapıda buna gerek olmayabilir
+  // bannerImageAlt: string; // ! yeni yapıda buna gerek olmayabilir
+  // bannerImageStatus: string; // ! yeni yapıda buna gerek olmayabilir
   imgUrl: string;
   imgAlt: string;
   metaTitle: string;

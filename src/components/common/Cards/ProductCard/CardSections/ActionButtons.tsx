@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "../../../Button/Button";
 import { CartPlusAlt } from "flowbite-react-icons/outline";
 import { AddToCartPayload } from "../types";
+import { Button } from "@/components/common";
 
 interface ActionButtonsProps {
   isHorizontal : boolean;
