@@ -104,7 +104,7 @@ export default function ProductsClient({
   }, [filters, router]);
 
   return (
-    <div className="container max-w-7xl mx-auto space-y-4">
+    <div className="container max-w-7xl mx-auto space-y-4 px-4 md:px-0 pb-12">
       {productTypeTabItems.length > 0 && (
         <NavTabs
           items={productTypeTabItems}

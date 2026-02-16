@@ -18,45 +18,31 @@ export default function Title({
 }: TitleProps) {
   return (
     <>
-      <div
-        className={`flex flex-col gap-4 ${
-          data.isUnderlined ? "border-b border-border-default pb-3" : ""
-        }`}
-      >
-        <div className="flex items-center justify-between">
-          <span className="text-xl flex items-center gap-2">
-            <h2 className={data.titleColor ? data.titleColor : "white"}>
-              {data.title}
-            </h2>
-            {activeCount > 0 && (
-              <span className="text-(--text-body)">({activeCount})</span>
-            )}
-            <p className="text-body text-[14px] my-0">{data.secondaryTitle}</p>
-          </span>
-          {data.actionLink && (
-            <Link
-              className="text-sm text-(--text-fg-brand)"
-              href={data.actionLink}
-            >
-              {data.actionLinkText}
-            </Link>
+      <div className="flex items-center justify-between md:border-b border-border-default">
+        <span className="text-xl flex items-center gap-2">
+          <h2 className={data.titleColor ? data.titleColor : "white"}>
+            {data.title}
+          </h2>
+          {activeCount > 0 && (
+            <span className="text-(--text-body)">({activeCount})</span>
           )}
-          {actionBtn && activeCount > 0 && (
-            <button
-              onClick={onAction}
-              className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"
-            >
-              Temizle
-            </button>
-          )}
-        </div>
-        {data.isBreadcrumb && (
-          <Breadcrumb
-            data={{
-              currentPage: "Ürünler",
-              currentPageLink: "/products",
-            }}
-          />
+          <p className="text-body text-[14px] my-0">{data.secondaryTitle}</p>
+        </span>
+        {data.actionLink && (
+          <Link
+            className="text-sm text-(--text-fg-brand)"
+            href={data.actionLink}
+          >
+            {data.actionLinkText}
+          </Link>
+        )}
+        {actionBtn && activeCount > 0 && (
+          <button
+            onClick={onAction}
+            className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"
+          >
+            Temizle
+          </button>
         )}
       </div>
     </>
