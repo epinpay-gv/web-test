@@ -38,6 +38,8 @@ export default function ProductsClient({
   const router = useRouter();
   const isFirstRender = useRef(true);
 
+  const pageTitle = breadcrumbItems[2] ? `${breadcrumbItems[2]?.name} ürünleri` : "Tüm ürünler ";
+
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
   const resetFilters = useCatalogFilters((s) => s.reset);
@@ -115,7 +117,7 @@ export default function ProductsClient({
 
       <PageTitle
         data={{
-          title: "Tüm ürünler",
+          title: `${pageTitle}`,
           totalProductAmount: pagination.count,
         }}
         changeOrder={() => {}}

@@ -38,6 +38,8 @@ export default function CategoryClient({
   const router = useRouter();
   const isFirstRender = useRef(true);
 
+  const pageTitle = breadcrumbItems[2].name;
+
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
   const resetFilters = useCatalogFilters((s) => s.reset);
@@ -100,7 +102,7 @@ export default function CategoryClient({
   }, [filters, router]);
 
   return (
-    <div className="container max-w-7xl mx-auto py-12 space-y-4">
+    <div className="container max-w-7xl mx-auto pb-12 space-y-4">
       {productTypeTabItems.length > 0 && (
         <NavTabs
           items={productTypeTabItems}
@@ -113,7 +115,7 @@ export default function CategoryClient({
 
       <PageTitle
         data={{
-          title: "Tüm ürünler",
+          title:`${pageTitle} ürünleri`,
           totalProductAmount: pagination.count,
         }}
         changeOrder={() => {}}
@@ -144,15 +146,17 @@ export default function CategoryClient({
           )}
 
           <ProductGrid data={products} />
-          <div className="mx-auto">
-            <Pagination
-              pagination={paginationState}
-              onPageChange={(page) => {
-                setPage(page);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            />
-          </div>
+          {products.length > 0 && (
+            <div className="mx-auto">
+              <Pagination
+                pagination={paginationState}
+                onPageChange={(page) => {
+                  setPage(page);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ type Params = {
 
 type Props = {
   params: Promise<Params>;
+  searchParams: Promise<{ productType?: string }>;
 };
 
 export async function generateMetadata({
@@ -32,12 +33,31 @@ export async function generateMetadata({
   });
 }
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params, searchParams }: Props) {
   const { locale, category } = await params;
+  const { productType } = await searchParams;
 
   const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories/${category}`;
 
   const res = await getCategory(new URLSearchParams(), category);
+
+  const productTypeGroup = res.filters.find(
+    (group) => group.elements?.[0]?.key === "productType",
+  );
+
+  let productTypeOptions: { label: string; value: string }[] = [];
+
+  const element = productTypeGroup?.elements.find(
+    (el) => el.key === "productType",
+  );
+
+  if (element && element.type === "checkbox") {
+    productTypeOptions = element.options;
+  }
+
+  const selectedProductType = productTypeOptions.find(
+    (opt) => opt.value === productType,
+  );
 
   const breadcrumbItems = [
     {
@@ -54,21 +74,26 @@ export default async function CategoryPage({ params }: Props) {
     },
   ];
 
+  if (selectedProductType) {
+    breadcrumbItems.push({
+      name: selectedProductType.label,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products?productType=${productType}`,
+    });
+  }
+
   return (
     <>
       {/* SEO Content */}
       <BreadcrumbSchema items={breadcrumbItems} />
-
       <CategorySchema
         name={category}
         description={`${category} kategorisindeki ürünler`}
         url={categoryUrl}
         locale={locale}
-        items={[
-          // TODO : şimdilik fetch yok bunlar placeholder
-          { name: "Sample Item 1", url: `${categoryUrl}/item-1` },
-          { name: "Sample Item 2", url: `${categoryUrl}/item-2` },
-        ]}
+        items={res.data.map((item) => ({
+          name: item.translation.name,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${categoryUrl}/${item.translation.slug}`,
+        }))}
       />
 
       {/* Page Content */}
