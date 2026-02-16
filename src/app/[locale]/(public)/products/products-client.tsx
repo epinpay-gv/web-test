@@ -16,18 +16,25 @@ import {
 } from "@/features/catalog/utils";
 import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { Badge, Pagination } from "@/components/common";
-import { Clock } from "lucide-react";
+import { Breadcrumb, Pagination } from "@/components/common";
+import { Home } from "flowbite-react-icons/outline";
+
+interface ProductsClientProps {
+  initialProducts: Product[];
+  initialFilters: FilterGroupConfig[];
+  pagination: PaginationData;
+  breadcrumbItems: {
+    name: string;
+    url: string;
+  }[];
+}
 
 export default function ProductsClient({
   initialProducts,
   initialFilters,
   pagination,
-}: {
-  initialProducts: Product[];
-  initialFilters: FilterGroupConfig[];
-  pagination: PaginationData;
-}) {
+  breadcrumbItems,
+}: ProductsClientProps) {
   const router = useRouter();
   const isFirstRender = useRef(true);
 
@@ -112,6 +119,12 @@ export default function ProductsClient({
           totalProductAmount: pagination.count,
         }}
         changeOrder={() => {}}
+      />
+      <Breadcrumb
+        items={breadcrumbItems.map((item, index) => ({
+          ...item,
+          icon: index === 0 ? <Home size={14} /> : undefined,
+        }))}
       />
 
       <div className="flex md:flex-row flex-col items-start gap-4">

@@ -13,7 +13,6 @@ type Props = {
   params: Promise<Params>;
 };
 
-
 export async function generateMetadata({
   params,
 }: {
@@ -35,22 +34,31 @@ export async function generateMetadata({
 
 export default async function CategoryPage({ params }: Props) {
   const { locale, category } = await params;
-  
+
   const baseUrl = "https://www.epinpay.com";
   const categoryUrl = `${baseUrl}/${locale}/categories/${category}`;
 
   const res = await getCategory(new URLSearchParams(), category);
 
+  const breadcrumbItems = [
+    {
+      name: "Home",
+      url: `${baseUrl}/${locale}`,
+    },
+    {
+      name: "Categories",
+      url: `${baseUrl}/${locale}/categories`,
+    },
+    {
+      name: category,
+      url: categoryUrl,
+    },
+  ];
+
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema
-        items={[
-          { name: "Home", url: `${baseUrl}/${locale}` },
-          { name: "Categories", url: `${baseUrl}/${locale}/categories` },
-          { name: category, url: categoryUrl },
-        ]}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
 
       <CategorySchema
         name={category}
@@ -66,6 +74,7 @@ export default async function CategoryPage({ params }: Props) {
 
       {/* Page Content */}
       <CategoryClient
+        breadcrumbItems={breadcrumbItems}
         initialProducts={res.data}
         initialFilters={res.filters}
         pagination={res.pagination}

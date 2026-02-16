@@ -30,12 +30,7 @@ export default function PageTitle({ data, changeOrder }: PageTitleProps) {
             />
           </div>
         </div>
-        <Breadcrumb
-          data={{
-            currentPage: "Ürünler",
-            currentPageLink: "/products",
-          }}
-        />
+
       </div>
     </>
   );

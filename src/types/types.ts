@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 /* COMMON */
 export interface PaginationData{
   count: number;
@@ -6,6 +8,13 @@ export interface PaginationData{
   total_page: number;
   has_more: boolean;
 }
+
+export type BreadcrumbItemType = {
+  name: string;
+  url: string;
+  icon?: ReactNode;
+};
+
 
 /* PRODUCT */
 export enum PRODUCT_STATUS {
