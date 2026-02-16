@@ -3,16 +3,23 @@ import { useEffect, useState } from "react";
 import { Category, PaginationData } from "@/types/types";
 import { getCategories } from "@/features/catalog/service";
 import { CategoryGrid, PageTitle } from "@/features/catalog/components";
-import { Pagination } from "@/components/common";
+import { Breadcrumb, Pagination } from "@/components/common";
+import { Home } from "flowbite-react-icons/outline";
+
+interface ProductsClientProps {
+  data: Category[];
+  pagination: PaginationData;
+  breadcrumbItems: {
+    name: string;
+    url: string;
+  }[];
+}
 
 export default function CategoriessClient({
   data,
   pagination,
-}: {
-  data: Category[];
-  pagination: PaginationData;
-}) {
-
+  breadcrumbItems,
+}: ProductsClientProps) {
   const [paginationState, setPaginationState] =
     useState<PaginationData>(pagination);
   const [page, setPage] = useState(1);
@@ -46,6 +53,12 @@ export default function CategoriessClient({
           title: "Kategoriler ",
           totalProductAmount: pagination.count,
         }}
+      />
+      <Breadcrumb
+        items={breadcrumbItems.map((item, index) => ({
+          ...item,
+          icon: index === 0 ? <Home size={14} /> : undefined,
+        }))}
       />
       <div className="flex flex-col items-center gap-4">
         <CategoryGrid data={data} pagination={pagination} />

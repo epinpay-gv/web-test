@@ -14,9 +14,7 @@ export async function generateMetadata({
   return createSeo({
     title: locale === "en" ? "All Categories" : "Tüm Kategoriler",
     description:
-      locale === "en"
-        ? "Browse all categories"
-        : "Tüm kategorileri keşfedin",
+      locale === "en" ? "Browse all categories" : "Tüm kategorileri keşfedin",
     canonical: "/categories",
     locale: locale,
   });
@@ -28,29 +26,33 @@ export default async function CategoriesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const baseUrl = "https://www.epinpay.com";
 
   const res = await getCategories(new URLSearchParams());
 
+  const breadcrumbItems = [
+    {
+      name: "Home",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
+    },
+    {
+      name: "Categories",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
+    },
+  ];
 
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema
-        items={[
-          { name: "Home", url: `${baseUrl}/${locale}` },
-          { name: "Categories", url: `${baseUrl}/${locale}/categories` },
-        ]}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <CategorySchema
         name="Epinpay Categories"
         description="Dijital oyun, epin ve servis kategorileri"
-        url={`${baseUrl}/${locale}/categories`}
+        url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`}
         locale={locale}
       />
 
       {/* Page Content */}
-      <CategoriesClient data={res.data} pagination={res.pagination}/>
+      <CategoriesClient data={res.data} pagination={res.pagination} breadcrumbItems={breadcrumbItems} />
     </>
   );
 }

@@ -35,19 +35,18 @@ export async function generateMetadata({
 export default async function CategoryPage({ params }: Props) {
   const { locale, category } = await params;
 
-  const baseUrl = "https://www.epinpay.com";
-  const categoryUrl = `${baseUrl}/${locale}/categories/${category}`;
+  const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories/${category}`;
 
   const res = await getCategory(new URLSearchParams(), category);
 
   const breadcrumbItems = [
     {
       name: "Home",
-      url: `${baseUrl}/${locale}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
     },
     {
       name: "Categories",
-      url: `${baseUrl}/${locale}/categories`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
     },
     {
       name: category,
