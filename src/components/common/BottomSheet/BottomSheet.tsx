@@ -4,7 +4,6 @@ import React, { useEffect } from "react"
 import { Close, AngleLeft } from "flowbite-react-icons/outline"
 import { Button } from "../Button/Button" 
 import { IconShape } from "../IconSahpe/IconShape"
-import { cn } from "@/lib/utils"
 
 interface BottomSheetProps {
   isOpen: boolean
