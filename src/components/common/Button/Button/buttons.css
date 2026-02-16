@@ -82,7 +82,9 @@
 
   .btn-secondary-filled {
     background-color: var(--bg-neutral-secondary-medium);
-    color: var(--text-body)
+    color: var(--text-body);
+    border-width: 2px;
+    border-color: var(--border-default-medium);
   }
 
   .btn-secondary-filled:hover:not(:disabled) {

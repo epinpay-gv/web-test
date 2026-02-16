@@ -1,41 +1,83 @@
-import { RegisterFormData, AuthResponse } from './auth.types';
+import { baseFetcher } from '@/lib/api/baseFetcher';
+import { 
+  RegisterFormData, 
+  AuthResponse, 
+  VerifyOtpRequest,
+  FirebaseTokenResponse,
+  LoginWithFirebaseRequest,
+  LoginFormData
+} from './auth.types';
 
 const BASE_URL = "/api/auth";
 
 export const authService = {
-  // Kayıt Başlat (OTP Gönder)
+  /**
+   * Kayıt Başlat (OTP Gönder)
+   */
   async initiateRegister(data: RegisterFormData): Promise<AuthResponse> {
-    const res = await fetch(`${BASE_URL}/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, action: 'initiate' }),
-    });
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.message);
-    return result;
+    return baseFetcher<AuthResponse, RegisterFormData>(
+      `${BASE_URL}/register/initiate`,
+      {
+        method: 'POST',
+        body: data,
+      },
+      'Kayıt başlatılamadı'
+    );
   },
 
-  // OTP Doğrula ve Kaydı Bitir
+  /**
+   * OTP Doğrula ve Kaydı Bitir
+   */
   async verifyOtp(email: string, otpCode: string): Promise<AuthResponse> {
-    const res = await fetch(`${BASE_URL}/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, otpCode, action: 'verify' }),
-    });
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.message);
-    return result;
+    return baseFetcher<AuthResponse, VerifyOtpRequest>(
+      `${BASE_URL}/register/verify`,
+      {
+        method: 'POST',
+        body: { email, otpCode },
+      },
+      'OTP doğrulama başarısız'
+    );
   },
 
-  // Login
-  async login(email: string, password: string): Promise<AuthResponse> {
-    const res = await fetch(`${BASE_URL}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.message);
-    return result;
+  /**
+   * Tekrar OTP Gönder
+   */
+  async resendOtp(email: string): Promise<AuthResponse> {
+    return baseFetcher<AuthResponse, { email: string }>(
+      `${BASE_URL}/register/resend`,
+      {
+        method: 'POST',
+        body: { email },
+      },
+      'OTP tekrar gönderilemedi'
+    );
+  },
+
+  /**
+   * Firebase Token Al (1. Adım)
+   */
+  async getFirebaseToken(credentials: LoginFormData): Promise<FirebaseTokenResponse> {
+    return baseFetcher<FirebaseTokenResponse, LoginFormData>(
+      `${BASE_URL}/login/firebase-token`,
+      {
+        method: 'POST',
+        body: credentials,
+      },
+      'Firebase token alınamadı'
+    );
+  },
+
+  /**
+   * Firebase Token ile Backend Login (2. Adım)
+   */
+  async loginWithFirebaseToken(firebaseToken: string): Promise<AuthResponse> {
+    return baseFetcher<AuthResponse, LoginWithFirebaseRequest>(
+      `${BASE_URL}/login`,
+      {
+        method: 'POST',
+        body: { firebaseToken },
+      },
+      'Giriş başarısız'
+    );
   }
 };

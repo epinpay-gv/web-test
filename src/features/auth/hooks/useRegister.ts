@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useMemo, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { useRegisterStore } from '../store/useRegisterStore';
+import { useRegisterStore } from '../store/register.store';
 import { authService } from '../authService';
 import { useLogin } from './useLogin';
 import { ValidationRules } from '../auth.types';
@@ -11,11 +10,7 @@ import { ValidationRules } from '../auth.types';
 export function useRegister() {
   const router = useRouter();
   const store = useRegisterStore();
-  
-  // useLogin içindeki fonksiyonu alıyoruz ki kayıt sonrası otomatik giriş yapabilelim
   const { fullLogin } = useLogin();
-
-  // Şifre Gücü Hesaplamaları
   const validationRules = useMemo((): ValidationRules => {
     const pass = store.formData.password || '';
     return {
@@ -35,20 +30,14 @@ export function useRegister() {
     Object.values(validationRules).filter(Boolean).length * 20, 
   [validationRules]);
 
-  // Input Değişim Yönetimi
   const handleChange = (field: keyof typeof store.formData) => (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     store.updateFormData({ [field]: e.target.value });
   };
 
-  /**
-   * ADIM 1: Kaydı Başlat (OTP Gönderme)
-   */
   const handleInitiate = async (e: FormEvent) => {
     e.preventDefault();
-    
-    // Şifreler eşleşmiyor veya zayıfsa durdur
     if (store.formData.password !== store.formData.passwordAgain) {
       store.setError("Şifreler birbiriyle eşleşmiyor.");
       return;
@@ -63,10 +52,21 @@ export function useRegister() {
     store.setError(null);
 
     try {
-      await authService.initiateRegister(store.formData);
-      store.setStep('otp'); // OTP ekranına geç
-    } catch (err: any) {
-      store.setError(err.message || "Kayıt başlatılamadı.");
+      const response = await authService.initiateRegister(store.formData);
+      
+      if (response.expiresIn) {
+        store.setOtpExpiresIn(response.expiresIn);
+      }
+      
+      store.setStep('otp');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : typeof error === 'object' && error !== null && 'message' in error
+        ? String((error as { message: string }).message)
+        : "Kayıt başlatılamadı.";
+      
+      store.setError(errorMessage);
     } finally {
       store.setIsLoading(false);
     }
@@ -80,27 +80,55 @@ export function useRegister() {
     store.setError(null);
 
     try {
-      // 1. Önce OTP'yi doğrula (Fake API verify aksiyonu)
-      await authService.verifyOtp(store.formData.email, otpCode);
-      
-      // 2. Başarılıysa, useLogin'deki fullLogin'i tetikle.
-      // Bu fonksiyon token'ı localStorage'a yazar ve Header'ı günceller.
+      const response = await authService.verifyOtp(store.formData.email, otpCode);          
+      if (response.token) {
+        localStorage.setItem('authToken', response.token);
+      }    
       await fullLogin();
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : typeof error === 'object' && error !== null && 'message' in error
+        ? String((error as { message: string }).message)
+        : "Doğrulama kodu hatalı.";
       
-      // Not: fullLogin zaten router.push('/') ve refresh işlemlerini yapıyor.
-    } catch (err: any) {
-      store.setError(err.message || "Doğrulama kodu hatalı.");
+      store.setError(errorMessage);
     } finally {
       store.setIsLoading(false);
     }
   };
 
-  // Inputları temizlemek için (Login formundaki gibi)
+  /**
+   * OTP Tekrar Gönder
+   */
+  const handleResendOtp = async () => {
+    store.setIsLoading(true);
+    store.setError(null);
+
+    try {
+      const response = await authService.resendOtp(store.formData.email);
+      if (response.expiresIn) {
+        store.setOtpExpiresIn(response.expiresIn);
+      }
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : typeof error === 'object' && error !== null && 'message' in error
+        ? String((error as { message: string }).message)
+        : "OTP tekrar gönderilemedi.";
+      
+      store.setError(errorMessage);
+    } finally {
+      store.setIsLoading(false);
+    }
+  };
+
+  // Inputları temizlemek için
   const handleClear = (field: keyof typeof store.formData) => () => {
     store.updateFormData({ [field]: '' });
   };
 
-  // Blur fonksiyonu (Hataları önlemek için)
+  // Blur fonksiyonu
   const handleBlur = (field: string) => () => {
     console.log(`${field} focus lost`);
   };
@@ -110,7 +138,7 @@ export function useRegister() {
     step: store.step,
     isLoading: store.isLoading,
     error: store.error,
-    // RegisterForm'un beklediği errors objesi yapısı
+    otpExpiresIn: store.otpExpiresIn,
     errors: {
       form: store.error,
     },
@@ -122,6 +150,7 @@ export function useRegister() {
     handleClear,
     handleInitiate,
     handleVerifyOtp,
+    handleResendOtp,
     setStep: store.setStep,
   };
 }

@@ -1,18 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService } from '../authService';
-import { useRegisterStore } from '../store/useRegisterStore';
+import { useLoginStore } from '../store/login.store';
 import { useAuthStore } from '@/features/auth/store/auth.store';
-import { LoginFormState } from '../auth.types';
+import { LoginFormData } from '../auth.types';
 
 export function useLogin() {
   const router = useRouter();
-  
-  // Register store'dan form verilerini ve durumları alıyoruz
-  const { formData, setIsLoading, setError, updateFormData, isLoading, error } = useRegisterStore();
+  const store = useLoginStore();
   
   // Ana auth store'dan login fonksiyonunu alıyoruz (Header'ı günceller)
   const loginToGlobalStore = useAuthStore((state) => state.login);
@@ -20,69 +17,98 @@ export function useLogin() {
   /**
    * Input değişimlerini yönetir
    */
-  const handleChange = (field: keyof LoginFormState) => (
+  const handleChange = (field: keyof LoginFormData) => (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    updateFormData({ [field]: value } as any);
+    store.updateFormData({ [field]: value });
   };
 
   /**
-   * Input odak dışı kaldığında çalışır (Hata almamak için eklendi)
+   * Input odak dışı kaldığında çalışır
    */
-  const handleBlur = (field: keyof LoginFormState) => () => {
-    // İleride validation eklemek istersen burayı kullanabilirsin
-    console.log(`${field} alanı blur edildi.`);
+  const handleBlur = (field: keyof LoginFormData) => () => {
+    store.setTouched(field);
   };
 
   /**
    * Input içeriğini temizler
    */
-  const handleClear = (field: keyof LoginFormState) => () => {
-    updateFormData({ [field]: '' } as any);
+  const handleClear = (field: keyof LoginFormData) => () => {
+    store.updateFormData({ [field]: '' });
   };
 
   /**
    * Beni Hatırla checkbox kontrolü
    */
   const handleRememberMe = () => {
-    updateFormData({ rememberMe: !formData.rememberMe } as any);
+    store.updateFormData({ rememberMe: !store.formData.rememberMe });
   };
 
   /**
-   * Ana Giriş Fonksiyonu
-   * @param manualData - Eğer dışarıdan veri gönderilirse (Kayıt sonrası gibi) onu kullanır
+   * Ana Giriş Fonksiyonu (2 Adımlı: Firebase Token + Backend Login)
    */
-  const fullLogin = async (manualData?: LoginFormState) => {
-    setIsLoading(true);
-    setError(null);
+  const fullLogin = async (manualData?: LoginFormData) => {
+    store.setIsLoading(true);
+    store.setError(null);
     
-    const loginEmail = manualData?.email || formData.email;
-    const loginPassword = manualData?.password || formData.password;
+    const credentials = manualData || store.formData;
 
     try {
-      // 1. API İsteği (Mock veya Gerçek)
-      const response = await authService.login(loginEmail, loginPassword);
+      // ADIM 1: Firebase Token Al
+      console.log('[Login] 1. Firebase token alınıyor...');
+      const firebaseResponse = await authService.getFirebaseToken(credentials);
       
-      // 2. LocalStorage'a token kaydı
-      if (response.token) {
-        localStorage.setItem('auth_token', response.token);
+      if (!firebaseResponse.firebaseToken) {
+        throw new Error('Firebase token alınamadı');
       }
 
-      // 3. Global Auth Store Güncelleme (Header'daki "Giriş Yap" butonunu "Profil" yapar)
-      if (response.user) {
-        loginToGlobalStore(response.user);
+      console.log('[Login] 2. Firebase token alındı:', firebaseResponse.firebaseToken.substring(0, 20) + '...');
+
+      // ADIM 2: Firebase Token ile Backend Login
+      console.log('[Login] 3. Backend login yapılıyor...');
+      const loginResponse = await authService.loginWithFirebaseToken(firebaseResponse.firebaseToken);
+      
+      if (!loginResponse.success) {
+        throw new Error(loginResponse.message || 'Giriş başarısız');
       }
+
+      console.log('[Login] 4. Login başarılı:', loginResponse);
+
+      // Token'ı localStorage'a kaydet
+      if (loginResponse.token) {
+        localStorage.setItem('authToken', loginResponse.token);
+      }
+
+      // Global Auth Store Güncelleme (Header'daki "Giriş Yap" → "Profil")
+      if (loginResponse.user) {
+        loginToGlobalStore(loginResponse.user);
+      }
+
+      // Remember Me işlemi
+      if (credentials.rememberMe) {
+        localStorage.setItem('rememberedEmail', credentials.email);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+
+      console.log('[Login] 5. Yönlendiriliyor...');
       
-      console.log("Giriş Başarılı:", response);
-      
-      // 4. Yönlendirme ve Sayfa Yenileme
+      // Yönlendirme
       router.push('/');
-      router.refresh(); 
-    } catch (err: any) {
-      setError(err.message || "Giriş yapılırken bir hata oluştu.");
+      router.refresh();
+      
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : typeof error === 'object' && error !== null && 'message' in error
+        ? String((error as { message: string }).message)
+        : "Giriş yapılırken bir hata oluştu.";
+      
+      console.error('[Login] Hata:', errorMessage);
+      store.setError(errorMessage);
     } finally {
-      setIsLoading(false);
+      store.setIsLoading(false);
     }
   };
 
@@ -91,25 +117,38 @@ export function useLogin() {
    */
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    
+    // Basit validasyon
+    if (!store.formData.email || !store.formData.password) {
+      store.setError('Email ve şifre gereklidir');
+      return;
+    }
+
     fullLogin();
   };
 
+  // Errors objesi oluştur (component beklediği format)
+  const errors = {
+    email: store.touched.email && store.error?.toLowerCase().includes('email') 
+      ? store.error 
+      : undefined,
+    password: store.touched.password && store.error?.toLowerCase().includes('şifre') 
+      ? store.error 
+      : undefined,
+    form: store.error,
+  };
+
   return {
-    formData,
-    isLoading,
-    error, // Bu genel form hatası için (Zustand'dan gelen)
-    errors: { 
-      email: error?.includes('email') ? error : undefined, 
-      password: error?.includes('şifre') ? error : undefined,
-      form: error // Bileşen errors.form bekliyorsa burası kurtarır
-    }, 
+    formData: store.formData,
+    isLoading: store.isLoading,
+    error: store.error,
+    errors,
+    touched: store.touched,
     handleChange,
     handleBlur,
     handleClear,
     handleRememberMe,
     handleSubmit,
     fullLogin,
-    updateFormData,
-    touched: {} as any // Eğer LoginForm 'touched' bekliyorsa hata vermesin
   };
 }

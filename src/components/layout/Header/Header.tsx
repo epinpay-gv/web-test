@@ -26,8 +26,7 @@ export function Header() {
 
   // Auth Store'dan verileri alıyoruz
   const user = useAuthStore((state) => state.user);
-  const isLogin = useAuthStore((state) => state.isLogin);
-  const logout = useAuthStore((state) => state.logout);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated); // ✅ isLogin yerine isAuthenticated
 
   // Hydration hatasını önlemek için mounted kontrolü
   useEffect(() => {
@@ -58,7 +57,7 @@ export function Header() {
             <Image
               src={logoSrc}
               alt="Epinpay"
-              width={160} // Mobil ve desktop için dengeli bir default
+              width={160}
               height={40}
               className="h-6 md:h-10 w-auto object-contain cursor-pointer"
               priority
@@ -94,7 +93,8 @@ export function Header() {
             </div>
 
             {/* GİRİŞ DURUMU KONTROLÜ */}
-            {!isLogin ? (
+            {!isAuthenticated ? (
+              // ✅ Giriş yapılmamışsa
               <div className="flex items-center lg:gap-2">
                 <Button
                   variant="secondary"
@@ -111,13 +111,14 @@ export function Header() {
                 />
               </div>
             ) : (
+              // ✅ Giriş yapılmışsa
               <div className="flex items-center gap-1 md:gap-3">
                 <div className="hidden md:block">
                   <NotificationDropdown />
                 </div>
                 <div className="relative">
-                  {/* UserDropdown'a user verisini ve logout fonksiyonunu geçiyoruz */}
-                  <UserDropdown user={user!} onLogout={logout} />
+                  {/* ✅ UserDropdown'a sadece user gönder, onLogout kaldırıldı */}
+                  <UserDropdown user={user} />
                 </div>
               </div>
             )}

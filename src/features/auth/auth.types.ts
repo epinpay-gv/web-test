@@ -1,21 +1,14 @@
-export interface User {
-  id?: string;
-  email: string;
-  name?: string;
-  surname?: string;
-}
-
 export interface RegisterFormData {
   email: string;
   password: string;
   passwordAgain: string;
+  rememberMe: boolean;
   name?: string;
   surname?: string;
   referal?: string;
-  rememberMe?: boolean; 
 }
 
-export interface LoginFormState {
+export interface LoginFormData {
   email: string;
   password: string;
   rememberMe: boolean;
@@ -23,9 +16,24 @@ export interface LoginFormState {
 
 export interface AuthResponse {
   success: boolean;
-  message?: string;
+  message: string;
   token?: string;
-  user?: User;
+  expiresIn?: number; // OTP süresi (saniye)
+  user?: UserProfile;
+}
+
+export interface UserProfile {
+  epPoints: number;
+  balance: number;
+  id: string;
+  email: string;
+  name?: string;
+  surname?: string;
+}
+
+export interface VerifyOtpRequest {
+  email: string;
+  otpCode: string;
 }
 
 export interface ValidationRules {
@@ -36,4 +44,16 @@ export interface ValidationRules {
   hasSymbol: boolean;
 }
 
-export type AuthStep = 'form' | 'otp';
+export interface FirebaseTokenResponse {
+  success: boolean;
+  firebaseToken: string;
+  expiresIn?: number;
+}
+
+export interface LoginWithFirebaseRequest {
+  firebaseToken: string;
+}
+
+export type RegisterStep = 'form' | 'otp';
+
+export type LoginFormState = LoginFormData;
