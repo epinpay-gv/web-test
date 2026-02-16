@@ -1,7 +1,7 @@
 import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { Product, PRODUCT_STATUS } from "@/types/types";
 
-export const mockProducts: Product[] = [
+export const mockCategory: Product[] = [
   // Pubg Mobile UC - 7 tane epin
   {
     id: 99,
@@ -979,10 +979,11 @@ export const mockProducts: Product[] = [
   },
 ];
 
-export const filterGroups: FilterGroupConfig[] = [
+export const categoryFilterGroups: FilterGroupConfig[] = [
   {
     titleData: {
       title: "Fiyat",
+      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [{ type: "range", key: "price", min: 0, max: 10000 }],
@@ -1010,50 +1011,8 @@ export const filterGroups: FilterGroupConfig[] = [
   },
   {
     titleData: {
-      title: "Oyunlar",
-      isUnderlined: true,
-      titleColor: "text-body",
-    },
-    elements: [
-      {
-        type: "checkbox",
-        key: "games",
-        options: [
-          { label: "League of Legends (LoL RP)", value: "10", count: 128 },
-          { label: "Steam Cüzdan Kodu", value: "11", count: 42 },
-          { label: "PUBG Mobile", value: "9", count: 76 },
-          { label: "Free Fire Elmas", value: "free-fire-elmas", count: 33 },
-          { label: "Pasha Fencer", value: "pasha-fencer", count: 9 },
-          { label: "Point Blank", value: "point-blank", count: 18 },
-          { label: "Zula Altın", value: "zula-altin", count: 64 },
-          { label: "Xbox", value: "xbox", count: 90 },
-          {
-            label: "The Lord of the Rings: Rise to War",
-            value: "the-lord-of-the-rings-rise-to-war-degerli-tas",
-            count: 5,
-          },
-          {
-            label: "Google Play Hediye Kartı",
-            value: "google-play-hediye-karti",
-            count: 154,
-          },
-          {
-            label: "Playstation Hediye Kartı",
-            value: "playstation-hediye-karti",
-            count: 203,
-          },
-          { label: "Razer Gold", value: "razer-gold", count: 47 },
-        ],
-        search: {
-          placeholder: "Ara",
-        },
-      },
-    ],
-    isTab: false,
-  },
-  {
-    titleData: {
       title: "Platform",
+      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [
@@ -1078,6 +1037,7 @@ export const filterGroups: FilterGroupConfig[] = [
   {
     titleData: {
       title: "Bölge",
+      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [
@@ -1123,6 +1083,7 @@ export const filterGroups: FilterGroupConfig[] = [
   {
     titleData: {
       title: "Ürün Tipi",
+      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [

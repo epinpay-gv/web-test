@@ -22,27 +22,57 @@ export async function generateMetadata({
 
 export default async function ProductsPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ productType?: string }>;
 }) {
   const { locale } = await params;
-  const baseUrl = "https://www.epinpay.com";
+  const { productType } = await searchParams;
 
   const res = await getProducts(new URLSearchParams());
+
+  const productTypeGroup = res.filters.find(
+    (group) => group.elements?.[0]?.key === "productType",
+  );
+
+  let productTypeOptions: { label: string; value: string }[] = [];
+
+  const element = productTypeGroup?.elements.find(
+    (el) => el.key === "productType",
+  );
+
+  if (element && element.type === "checkbox") {
+    productTypeOptions = element.options;
+  }
+
+  const selectedProductType = productTypeOptions.find(
+    (opt) => opt.value === productType,
+  );
+
+  const breadcrumbItems = [
+    { name: "Home", url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}` },
+    {
+      name: "Products",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products`,
+    },
+  ];
+
+  if (selectedProductType) {
+    breadcrumbItems.push({
+      name: selectedProductType.label,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products?productType=${productType}`,
+    });
+  }
 
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema
-        items={[
-          { name: "Home", url: `${baseUrl}/${locale}` },
-          { name: "Products", url: `${baseUrl}/${locale}/products` },
-        ]}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <ProductsSchema
         name="Epinpay Products"
         description="Epinpay ürünleri"
-        url={`${baseUrl}/${locale}/products`}
+        url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products`}
         locale={locale}
       />
 
@@ -51,6 +81,7 @@ export default async function ProductsPage({
         initialProducts={res.data}
         initialFilters={res.filters}
         pagination={res.pagination}
+        breadcrumbItems={breadcrumbItems}
       />
     </>
   );

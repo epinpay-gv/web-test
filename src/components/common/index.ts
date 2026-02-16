@@ -8,6 +8,7 @@ import { IconShape } from "./IconShape/IconShape";
 import { FeatureItem, SectionHeader } from "./Label";
 import Pagination from "./Paginate/Pagination";
 import Toggle from "./Toggle/Toggle";
+import { BottomSheet } from "./BottomSheet/BottomSheet";
 
 export {
   Badge,
@@ -23,4 +24,5 @@ export {
   SectionHeader,
   Pagination,
   Toggle,
+  BottomSheet,
 };

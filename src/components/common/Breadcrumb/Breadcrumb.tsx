@@ -1,23 +1,20 @@
-import { Home, AngleRight } from "flowbite-react-icons/outline";
-import Link from "next/link";
+import BreadCrumbItem from "./BreadCrumbItem";
+import { BreadcrumbItemType } from "@/types/types";
 
-// TODO : BreadvrumbItem bileşeni oluşturulacak, bu bileşen itemları mapleyecek.
 interface BreadcrumbProps {
-  data: {
-    currentPage: string;
-    currentPageLink: string;
-  };
+  items: BreadcrumbItemType[];
 }
 
-export default function Breadcrumb({ data }: BreadcrumbProps) {
+export default function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <>
-      <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-        <Home size={14}/>
-        <span>Ana Sayfa</span>
-        <AngleRight size={14}/>
-        <Link href={data.currentPageLink}>{data.currentPage}</Link>
-      </div>
-    </>
+    <div className="flex items-center gap-2 mb-4">
+      {items.map((item, index) => (
+        <BreadCrumbItem
+          key={item.url}
+          isLast={index === items.length - 1}
+          data={item}
+        />
+      ))}
+    </div>
   );
 }

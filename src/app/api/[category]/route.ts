@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockProducts, filterGroups } from "@/mocks";
+import { mockCategory, categoryFilterGroups } from "@/mocks";
 import { PaginationData } from "@/types/types";
 
 type Params = {
@@ -25,7 +25,7 @@ export async function GET(
   const page = Number(searchParams.get("page") ?? 1);
   const perPage = Number(searchParams.get("perPage") ?? 16);
 
-  let data = [...mockProducts];
+  let data = [...mockCategory];
 
   data = data.filter((p) => p.translation.category_slug === category);
 
@@ -71,6 +71,6 @@ export async function GET(
       total_page: totalPage,
       has_more: page < totalPage,
     } as PaginationData,
-    filters: filterGroups,
+    filters: categoryFilterGroups,
   });
 }
