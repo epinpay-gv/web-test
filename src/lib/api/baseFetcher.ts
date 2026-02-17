@@ -26,6 +26,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     headers: finalHeaders,
     body: options.body ? JSON.stringify(options.body) : undefined,
     cache: options.cache,
+    credentials: 'include', 
   });
 
   if (!res.ok) {

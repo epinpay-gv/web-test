@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { ThemeProvider } from '@/features/theme/components/ThemeProvider';
 import '@/styles/global.css';
+import { SessionProvider } from '@/features/auth/components/SessionProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.epinpay.com'),
@@ -94,9 +95,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* --- SCRİPTLER SONU --- */}
 
         <ThemeProvider>
+          <SessionProvider>
             <main className="min-h-screen">
               {children}
-            </main>
+            </main>          
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

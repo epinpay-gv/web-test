@@ -18,6 +18,7 @@ export interface AuthResponse {
   success: boolean;
   message: string;
   token?: string;
+  refreshToken: string;
   expiresIn?: number; // OTP süresi (saniye)
   user?: UserProfile;
 }
