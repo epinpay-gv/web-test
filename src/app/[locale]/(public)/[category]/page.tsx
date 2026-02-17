@@ -37,8 +37,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const { productType } = await searchParams;
 
   const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
-
-  console.log(category);
   const res = await getCategory(new URLSearchParams(), category);
 
   // BREADCRUMB DATA
@@ -70,7 +68,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
     },
     {
-      name: category,
+      name: res.category.translation.name,
       url: categoryUrl,
     },
   ];

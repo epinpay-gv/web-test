@@ -145,7 +145,7 @@ export const mockCategories: Category[] = [
     translation: {
       id: 2,
       locale: "tr",
-      slug: "pubg-mobile",
+      slug: "pubg-mobile-uc",
       name: "PUBG Mobile",
       imgUrl:
         "https://cdn.epinpay.com/image/ep/2025/1/category/pubg-mobile-90.webp",
@@ -169,17 +169,6 @@ export const mockCategories: Category[] = [
           description:
             "PUBG ’de 90 FPS desteği sunan telefonlar, yüksek yenileme hızına sahip ekranları ve güçlü donanımlarıyla öne çıkar. İşte bazı modeller:\n\nSamsung Galaxy S23 Ultra, S22 Plus, A52s 5G\nXiaomi Mi 11, Poco X3 GT, Redmi Note 10 Pro\nOnePlus 9 Pro, OnePlus 8T\nAsus ROG Phone 5, ZenFone 8\nRealme GT Neo 2, X50 Pro\nBu cihazlar yüksek kare hızı ve akıcı oyun deneyimi için uygundur. Telefonunuzda 90 FPS seçeneğinin açık olduğundan emin olmak için oyun içi ayarları kontrol edebilirsiniz.",
           id: 19,
-        },
-      ],
-      comments: [
-        {
-          id: 0,
-          name: "",
-          surname: "",
-          rate: 0,
-          comment: "",
-          store_name: "",
-          createdAt: "",
         },
       ],
     },

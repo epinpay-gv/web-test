@@ -14,7 +14,8 @@ export default function RatingCard({ comment }: RatingCardProps) {
       <p>
         <span className="text-(--text-heading) font-semibold">
           {comment.name} {comment.surname}
-        </span>{" "}
+        </span>
+        
         {formatDateTR(comment.createdAt)}
       </p>
       <div className="flex items-center gap-1">

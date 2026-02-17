@@ -52,6 +52,7 @@ export interface Product {
 
   isFavorite?: boolean;
 }
+
 export interface Translation {
   id: number;
   // typeId: number; // ! bu bana lazım değil
@@ -94,7 +95,7 @@ export interface CategoryTranslation extends Translation {
   activation?: string; // ! bu backende eklenmeli
   faq?: { id: number; name: string; description: string }[]; // ! bu backende eklenmeli
   comments?: Comment[]; // ! bu backende eklenmeli
-  
+
   // bannerImageUrl: string; // ! yeni yapıda buna gerek olmayabilir
   // bannerImageAlt: string; // ! yeni yapıda buna gerek olmayabilir
   // bannerImageStatus: string; // ! yeni yapıda buna gerek olmayabilir

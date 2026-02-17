@@ -37,7 +37,7 @@ export default function ProductGrid({ data }: ProductGridProps) {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4 min-h-screen">
           <Image
             src="/illustrations/gaming-controller-ghosts-dark.svg"
             alt="product-not-found"

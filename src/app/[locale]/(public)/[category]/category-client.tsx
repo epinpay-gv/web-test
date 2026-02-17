@@ -5,6 +5,7 @@ import {
   FilterLabels,
   PageTitle,
   ProductGrid,
+  SeoSection,
 } from "@/features/catalog/components";
 import { getCategory } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
@@ -52,16 +53,6 @@ export default function CategoryClient({
   const isFirstRender = useRef(true);
 
   const pageTitle = breadcrumbItems[2].name;
-
-  const categoryDescription = useMemo(
-    () => DOMPurify.sanitize(initialCategory.translation.description),
-    [initialCategory.translation.description],
-  );
-
-  const activationDescription = useMemo(
-    () => DOMPurify.sanitize(initialCategory.translation.activation ?? ""),
-    [initialCategory.translation.activation],
-  );
 
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
@@ -179,45 +170,7 @@ export default function CategoryClient({
               />
             </div>
           )}
-          {initialCategory.translation.description && (
-            <BoxWrapper title="Ürün Açıklaması">
-              <ExpandableContent maxHeight={400}>
-                <div
-                  dangerouslySetInnerHTML={{ __html: categoryDescription }}
-                />
-              </ExpandableContent>
-            </BoxWrapper>
-          )}
-          {initialCategory.translation.activation && (
-            <BoxWrapper title="Nasıl Aktif Edilir">
-              <ExpandableContent maxHeight={400}>
-                <div
-                  dangerouslySetInnerHTML={{ __html: activationDescription }}
-                />
-              </ExpandableContent>
-            </BoxWrapper>
-          )}
-          {initialCategory.translation.faq && (
-            <BoxWrapper title="Sık Sorulan Sorular">
-              {initialCategory.translation.faq.map((item) => (
-                <AccordionItem key={item.id} title={item.name}>
-                  {item.description}
-                </AccordionItem>
-              ))}
-            </BoxWrapper>
-          )}
-          {initialCategory.translation.comments && (
-            <BoxWrapper title="Değerlendirmeler">
-              <ExpandableContent maxHeight={400}>
-                <div></div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {initialCategory.translation.comments.map((item) => (
-                    <RatingCard key={item.id} comment={item} />
-                  ))}
-                </div>
-              </ExpandableContent>
-            </BoxWrapper>
-          )}
+          <SeoSection initialCategory={initialCategory}/>
         </div>
       </div>
     </div>

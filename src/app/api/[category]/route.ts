@@ -23,7 +23,7 @@ export async function GET(
 
   // pagination
   const page = Number(searchParams.get("page") ?? 1);
-  const perPage = Number(searchParams.get("perPage") ?? 16);
+  const perPage = Number(searchParams.get("perPage") ?? 12);
 
   const productData = mockProducts.filter((item) => item.translation.category_slug === category); 
 
