@@ -1,5 +1,5 @@
 "use client";
-import { FilterElementConfig, ToggleKeyMap } from "./types";
+import { FilterElementConfig, ToggleKeyMap } from "@/features/catalog/catalog.types";
 import { Input, CheckBox, Toggle } from "@/components/common";
 import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
 import { FilterSearch } from "./FilterSearch";

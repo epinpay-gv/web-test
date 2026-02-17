@@ -1,13 +1,12 @@
 "use client";
 import Title from "@/components/common/Title/Title";
 import { TitleData } from "@/components/common/Title/types";
-import { FilterGroupConfig } from "./types";
 import FilterGroup from "./FilterGroup";
-import { ActiveFilterChip } from "@/features/catalog/utils/getActiveFilterLabels";
 import { countActiveFiltersByGroup } from "@/features/catalog/utils";
 import { BottomSheet, Button } from "@/components/common";
 import { useState } from "react";
 import { Sort, Filter } from "flowbite-react-icons/outline";
+import { FilterGroupConfig, ActiveFilterChip } from "@/features/catalog/catalog.types";
 
 interface FiltersProps {
   titleData: TitleData;

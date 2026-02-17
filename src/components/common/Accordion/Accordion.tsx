@@ -47,7 +47,7 @@ export default function Accordion({
       `}
     >
       {Children.map(children, (child, index) =>
-        cloneElement(child as any, {
+        cloneElement(child, {
           index,
           isOpen:
             type === "single"

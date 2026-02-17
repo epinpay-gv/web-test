@@ -6,7 +6,6 @@ import {
   PageTitle,
   ProductGrid,
 } from "@/features/catalog/components";
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { getProducts } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
 import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
@@ -18,6 +17,7 @@ import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { Breadcrumb, Pagination } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 
 interface ProductsClientProps {
   initialProducts: Product[];
@@ -66,8 +66,6 @@ export default function ProductsClient({
 
   const activeFilters = getActiveFilterLabels(filters, groups);
 
-  const handleFilterLabelClose = () => {};
-
   /**
    * PAGE → FETCH
    */
@@ -114,7 +112,6 @@ export default function ProductsClient({
           onChange={(value) => setProductType(value)}
         />
       )}
-
       <PageTitle
         data={{
           title: `${pageTitle}`,
@@ -128,7 +125,6 @@ export default function ProductsClient({
           icon: index === 0 ? <Home size={14} /> : undefined,
         }))}
       />
-
       <div className="flex md:flex-row flex-col items-start gap-4">
         <FilterContainer
           titleData={{ title: "Filtrele", isUnderlined: true }}

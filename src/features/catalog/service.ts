@@ -1,12 +1,5 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
-import { ProductPageResponse, CategoriesPageResponse } from "./catalog.types";
-import { FilterGroupConfig } from "./components/filters/Filters/types";
-
-export interface ProductsApiResponse extends ProductPageResponse {
-  filters: FilterGroupConfig[];
-}
-
-export type CategoriesApiResponse = CategoriesPageResponse
+import { ProductsApiResponse, CategoriesApiResponse, CategoryApiResponse } from "./catalog.types";
 
 export const getProducts = (query: URLSearchParams) => {
   return baseFetcher<ProductsApiResponse>(
@@ -21,7 +14,7 @@ export const getCategories = (query: URLSearchParams) => {
 };
 
 export const getCategory = (query: URLSearchParams, category: string) => {
-  return baseFetcher<ProductsApiResponse>(
+  return baseFetcher<CategoryApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/${category}?${query.toString()}`
   );
 };

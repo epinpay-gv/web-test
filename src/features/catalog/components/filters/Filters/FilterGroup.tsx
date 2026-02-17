@@ -1,9 +1,9 @@
 "use client";
 import Title from "@/components/common/Title/Title";
-import { FilterGroupConfig } from "./types";
 import FilterElement from "./FilterElement";
 import { useState } from "react";
 import { ChevronRight } from "flowbite-react-icons/outline";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 
 interface FilterGroupProps {
   config: FilterGroupConfig;

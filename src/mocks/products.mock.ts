@@ -1,4 +1,5 @@
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
+
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 import { Product, PRODUCT_STATUS } from "@/types/types";
 
 export const mockProducts: Product[] = [

@@ -1,4 +1,4 @@
-import { Button, Breadcrumb } from "@/components/common";
+import { Button } from "@/components/common";
 import { Sort } from "flowbite-react-icons/outline";
 
 interface PageTitleProps {

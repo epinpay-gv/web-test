@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockCategory, categoryFilterGroups } from "@/mocks";
+import { mockCategories, categoryFilterGroups, mockProducts } from "@/mocks";
 import { PaginationData } from "@/types/types";
 
 type Params = {
@@ -25,7 +25,9 @@ export async function GET(
   const page = Number(searchParams.get("page") ?? 1);
   const perPage = Number(searchParams.get("perPage") ?? 16);
 
-  let data = [...mockCategory];
+  const productData = mockProducts.filter((item) => item.translation.category_slug === category); 
+
+  let data = [...productData];
 
   data = data.filter((p) => p.translation.category_slug === category);
 
@@ -59,11 +61,15 @@ export async function GET(
 
   const paginatedData = data.slice(start, end);
 
+  // CATEGORY
+  const categoryData = mockCategories.find((item) => item.translation.slug === category);
+
   // FAKE LATENCY
   await new Promise((r) => setTimeout(r, 300));
 
   return NextResponse.json({
     data: paginatedData,
+    category: categoryData,
     pagination: {
       count: totalCount,
       per_page: perPage,

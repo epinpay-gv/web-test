@@ -1,64 +1,61 @@
 import { createSeo } from "@/lib/seo";
-import { CategorySchema } from "@/components/seo/CategorySchema";
-import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/seo";
+
+type Params = {
+  locale: string;
+  category: string;
+};
 
 type Props = {
-  params: {
-    locale: string
-    category: string
-  }
+  params: Promise<Params>;
+  searchParams: Promise<{ productType?: string }>;
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { locale, category } = await params;
+  const name = category.replace(/-/g, " ");
+
+  return createSeo({
+    title: locale === "en" ? `${name} Products` : `${name} Ürünleri`,
+    description:
+      locale === "en"
+        ? `${name} category products`
+        : `${name} kategorisindeki ürünler`,
+    canonical: `/${locale}/${category}`,
+    locale: locale,
+  });
 }
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { locale: string; category: string };
-// }) {
-//   const name = params.category.replace(/-/g, " ");
+export default async function ProductPage({ params, searchParams }: Props) {
+  const { locale, category } = await params;
+  const { productType } = await searchParams;
 
-//   return createSeo({
-//     title: params.locale === "en" ? `${name} Products` : `${name} Ürünleri`,
-//     description:
-//       params.locale === "en"
-//         ? `${name} category products`
-//         : `${name} kategorisindeki ürünler`,
-//     canonical: `/${params.category}`,
-//     locale: params.locale,
-//   });
-// }
+  const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
 
-export default function ProductPage({ params }: Props) {
-  const { locale, category } = params;
-  const baseUrl = "https://www.epinpay.com";
-  const categoryUrl = `${baseUrl}/${locale}/categories/${category}`;
+
+  
 
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema
-        items={[
-          { name: "Home", url: `${baseUrl}/${locale}` },
-          { name: "Categories", url: `${baseUrl}/${locale}/categories` },
-          { name: category, url: categoryUrl },
-        ]}
-      />
-
-      <CategorySchema
+      {/* <BreadcrumbSchema items={breadcrumbItems} />
+      <ProductSchema
         name={category}
         description={`${category} kategorisindeki ürünler`}
         url={categoryUrl}
         locale={locale}
-        items={[
-          // TODO : şimdilik fetch yok bunlar placeholder
-          { name: "Sample Item 1", url: `${categoryUrl}/item-1` },
-          { name: "Sample Item 2", url: `${categoryUrl}/item-2` },
-        ]}
-      />
+        items={res.data.map((item) => ({
+          name: item.translation.name,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${categoryUrl}/${item.translation.slug}`,
+        }))}
+      /> */}
 
       {/* Page Content */}
-      <div>
-        <h1>product detail</h1>
-      </div>
+
     </>
   );
 }

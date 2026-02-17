@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 /* COMMON */
-export interface PaginationData{
+export interface PaginationData {
   count: number;
   per_page: number;
   current_page: number;
@@ -14,7 +14,6 @@ export type BreadcrumbItemType = {
   url: string;
   icon?: ReactNode;
 };
-
 
 /* PRODUCT */
 export enum PRODUCT_STATUS {
@@ -43,9 +42,9 @@ export interface Product {
 
   translation: ProductTranslation;
 
-  genres: {id: number; name: string;}[];
+  genres: { id: number; name: string }[];
 
-  cheapestOffer? : Offer | null;
+  cheapestOffer?: Offer | null;
   basePrice: number | null;
   epPrice: number | null;
   discountRate?: number;
@@ -82,6 +81,7 @@ export interface ProductType {
   translation: Translation;
 }
 
+/* CATEGORY */
 export interface Category {
   id: number;
   status: CATEGORY_STATUS;
@@ -90,7 +90,11 @@ export interface Category {
 
 export interface CategoryTranslation extends Translation {
   slug: string;
-  // description: string; // ! yeni yapıda buna gerek olmayabilir
+  description: string;
+  activation?: string; // ! bu backende eklenmeli
+  faq?: { id: number; name: string; description: string }[]; // ! bu backende eklenmeli
+  comments?: Comment[]; // ! bu backende eklenmeli
+  
   // bannerImageUrl: string; // ! yeni yapıda buna gerek olmayabilir
   // bannerImageAlt: string; // ! yeni yapıda buna gerek olmayabilir
   // bannerImageStatus: string; // ! yeni yapıda buna gerek olmayabilir
@@ -102,4 +106,14 @@ export interface CategoryTranslation extends Translation {
 
 export interface Offer {
   id: number;
+}
+
+export interface Comment {
+  id: number;
+  name: string;
+  surname: string;
+  rate: number;
+  comment: string;
+  store_name: string;
+  createdAt: string;
 }

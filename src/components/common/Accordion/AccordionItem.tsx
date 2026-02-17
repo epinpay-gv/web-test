@@ -1,47 +1,43 @@
 "use client";
+
+import { useState } from "react";
+import { AngleRight } from "flowbite-react-icons/outline";
 import { ReactNode } from "react";
 
-type AccordionStyle = "default";
-
 interface AccordionItemProps {
-  index?: number;  
-  isOpen?: boolean;  
-  onToggle?: (index: number) => void;  
   title: string;
   children: ReactNode;
   defaultOpen?: boolean;
   leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
-  style?: AccordionStyle;
-  className?: string;
 }
 
-const BASE_ITEM_CLASS = "border-b border-(--border-default)";
+const BASE_ITEM_CLASS = "border-b border-(--border-default) ";
 const TRIGGER_CLASS =
   "w-full flex items-center justify-between gap-4 py-4 text-left text-(--text-body) hover:text-(--text-brand-strong) transition-colors";
-const CONTENT_CLASS = "pb-4 text-(--text-body) text-sm leading-relaxed";
-const ICON_CLASS = "w-5 h-5 shrink-0 transition-transform duration-200";
+const CONTENT_CLASS =
+  "text-(--text-body) text-sm leading-relaxed overflow-hidden transition-all duration-300";
+const ICON_CLASS = "w-5 h-5 shrink-0 transition-transform duration-300";
 
 export default function AccordionItem({
-index = 0,  
-  isOpen = false,  
-  onToggle = () => {},  
   title,
   children,
+  defaultOpen = false,
   leftIcon,
-  rightIcon,
   showLeftIcon = true,
   showRightIcon = true,
-  className,
 }: AccordionItemProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
   return (
-    <div className={`${BASE_ITEM_CLASS} ${className ?? ""}`}>
+    <div className={`${BASE_ITEM_CLASS} `}>
       <button
         type="button"
-        onClick={() => onToggle(index)}
-        className={`${TRIGGER_CLASS} ${isOpen ? "text-(--text-brand-strong)" : ""}`}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={`cursor-pointer ${TRIGGER_CLASS} ${
+          isOpen ? "text-(--text-brand-strong)" : ""
+        }`}
         aria-expanded={isOpen}
       >
         <span className="flex items-center gap-3 font-medium">
@@ -49,14 +45,23 @@ index = 0,
           {title}
         </span>
 
-        {showRightIcon && rightIcon && (
-          <span className={`${ICON_CLASS} ${isOpen ? "rotate-180" : ""}`}>
-            {rightIcon}
-          </span>
+        {showRightIcon && (
+          <AngleRight
+            size={20}
+            className={`${ICON_CLASS} ${isOpen ? "rotate-90" : ""}`}
+          />
         )}
       </button>
 
-      {isOpen && <div className={CONTENT_CLASS}>{children}</div>}
+      <div
+        className={`grid transition-all duration-300 ${
+          isOpen
+            ? "grid-rows-[1fr] opacity-100 pb-4"
+            : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className={CONTENT_CLASS}>{children}</div>
+      </div>
     </div>
   );
 }

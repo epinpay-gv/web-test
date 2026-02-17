@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ReactNode } from "react";
 
 type DropdownItemSize = "sm" | "md";
@@ -92,7 +93,7 @@ export default function DropdownListItem({
 
         {/* Flag Image */}
         {flagImage && (
-          <img
+          <Image
             src={flagImage}
             alt=""
             className="w-[12.5px] h-[13.33px] rounded-full object-cover shrink-0"

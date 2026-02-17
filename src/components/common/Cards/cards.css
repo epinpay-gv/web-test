@@ -4,6 +4,7 @@
   border-radius: var(--radius-base);
 }
 
+
 .cart-card-container {
   background-color: var(--bg-neutral-primary);
 }
@@ -15,15 +16,14 @@
 .text-fg-brand-strong {
   color: var(--text-fg-brand-strong);
 }
-.text-fg-success-strong{
-    
+.text-fg-success-strong {
   color: var(--text-fg-success-strong);
 }
 
-.text-fg-danger-strong{
+.text-fg-danger-strong {
   color: var(--text-fg-danger-strong);
 }
 
-.border-default{
+.border-default {
   color: var(--border-default);
 }

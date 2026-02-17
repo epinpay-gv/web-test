@@ -1,6 +1,5 @@
 import { createSeo } from "@/lib/seo";
-import { CategorySchema } from "@/components/seo/CategorySchema";
-import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { CategorySchema, BreadcrumbSchema } from "@/components/seo";
 import { getCategory } from "@/features/catalog/service";
 import CategoryClient from "./category-client";
 
@@ -37,10 +36,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const { locale, category } = await params;
   const { productType } = await searchParams;
 
-  const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories/${category}`;
+  const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
 
+  console.log(category);
   const res = await getCategory(new URLSearchParams(), category);
 
+  // BREADCRUMB DATA
   const productTypeGroup = res.filters.find(
     (group) => group.elements?.[0]?.key === "productType",
   );
@@ -48,7 +49,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   let productTypeOptions: { label: string; value: string }[] = [];
 
   const element = productTypeGroup?.elements.find(
-    (el) => el.key === "productType",
+    (el: { key: string }) => el.key === "productType",
   );
 
   if (element && element.type === "checkbox") {
@@ -102,6 +103,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         initialProducts={res.data}
         initialFilters={res.filters}
         pagination={res.pagination}
+        initialCategory={res.category}
+        categorySlug={category}
       />
     </>
   );

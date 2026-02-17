@@ -32,6 +32,7 @@ export default async function ProductsPage({
 
   const res = await getProducts(new URLSearchParams());
 
+  // BREADCRUMB DATA
   const productTypeGroup = res.filters.find(
     (group) => group.elements?.[0]?.key === "productType",
   );
