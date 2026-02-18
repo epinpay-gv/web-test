@@ -1,14 +1,27 @@
 "use client";
-import { Button } from "@/components/common";
 import { ActionButtons } from "@/components/common/Cards/ProductCard/CardSections";
 import { AddToCartPayload } from "@/components/common/Cards/ProductCard/types";
 import { Product } from "@/types/types";
+import InfoContainer from "./InfoContainer";
+import { QuestionCircle } from "flowbite-react-icons/solid";
+import { ShieldCheck } from "flowbite-react-icons/outline";
+import PaymentProviderCard from "./PaymentProviderCard";
 
 interface BasketSectionProps {
   data: Product;
 }
 
 export default function BasketSection({ data }: BasketSectionProps) {
+  const paymentProviders = [
+    { image: "/image/paymentProviders/applepay-white-logo.png", imageAlt: "Apple Pay" },
+    { image: "/image/paymentProviders/gpay-white-logo.png", imageAlt: "Google Pay" },
+    { image: "/image/paymentProviders/mastercard-white-logo.png", imageAlt: "Mastercard" },
+    { image: "/image/paymentProviders/paypal-white-logo.png", imageAlt: "Paypal" },
+    { image: "/image/paymentProviders/visa-white-logo.png", imageAlt: "Visa" },
+    { image: "/image/paymentProviders/applepay-white-logo.png", imageAlt: "Apple Pay" },
+    { image: "/image/paymentProviders/gpay-white-logo.png", imageAlt: "Google Pay" },
+    { image: "/image/paymentProviders/mastercard-white-logo.png", imageAlt: "Mastercard" },
+  ];
   return (
     <div className="flex flex-col gap-4 w-60">
       {/* PRICE */}
@@ -24,25 +37,35 @@ export default function BasketSection({ data }: BasketSectionProps) {
         }}
       />
       {/* EP POINT INFO */}
-      <div className="card-container py-6 px-4 ">
-        <p className="text-sm font-semimbold text-(--text-fg-yellow)">
-          Ep Puan ne işe yarar?
-        </p>
-        <ul className="text-xs font-normal">
+      <InfoContainer
+        title="Ep Puan ne işe yarar?"
+        titleColor="text-(--text-fg-yellow)"
+        titleIcon={<QuestionCircle size={24} />}
+      >
+        <ul className="list-disc pl-4 text-xs font-normal space-y-2">
           <li>Ep puan ile satılan özel ürünleri alabilirsiniz</li>
           <li>Harcadığınız tutarda ep puan kazanırsınız</li>
         </ul>
-      </div>
+      </InfoContainer>
       {/* SECURE PAYMENT */}
-      <div className="card-container py-6 px-4 ">
-        <p className="text-sm font-semimbold text-(--text-fg-yellow)">
-          Ep Puan ne işe yarar?
+      <InfoContainer
+        title="Güvenli alışveriş"
+        titleColor="text-(--text-fg-success)"
+        titleIcon={<ShieldCheck size={24} />}
+      >
+        <p className="text-xs text-(--text-body)">
+          Güvenilir +200 ödeme yöntemi
         </p>
-        <ul className="text-xs font-normal">
-          <li>Ep puan ile satılan özel ürünleri alabilirsiniz</li>
-          <li>Harcadığınız tutarda ep puan kazanırsınız</li>
-        </ul>
-      </div>
+        <div className="flex flex-wrap gap-1">
+          {paymentProviders.map((item, index) => (
+            <PaymentProviderCard
+              image={item.image}
+              imageAlt={item.imageAlt}
+              key={index}
+            />
+          ))}
+        </div>
+      </InfoContainer>
     </div>
   );
 }

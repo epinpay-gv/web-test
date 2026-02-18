@@ -18,15 +18,15 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }) {
-  const { locale, category } = await params;
-  const name = category.replace(/-/g, " ");
+  const { locale, category, product } = await params;
+  const name = product.replace(/-/g, " ");
 
   return createSeo({
-    title: locale === "en" ? `${name} Products` : `${name} Ürünleri`,
+    title: locale === "en" ? `${name} Products` : `${name}`,
     description:
       locale === "en"
-        ? `${name} category products`
-        : `${name} kategorisindeki ürünler`,
+        ? `${name} product detailı`
+        : `${name} ürün detayı`,
     canonical: `/${locale}/${category}`,
     locale: locale,
   });
