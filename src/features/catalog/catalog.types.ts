@@ -71,6 +71,13 @@ export type ActiveFilterChip = {
   label: string;
 };
 
+/* PRODUCT DETAIL TYPES */
+export interface ProductOptions{
+  variantions: [];
+  platform: [];
+  region: [];
+}
+
 /* RESPONSE & PAYLOAD TYPES */
 
 export interface ProductsApiResponse {
@@ -86,4 +93,10 @@ export interface CategoryApiResponse{
   category: Category;
   pagination: PaginationData;
   filters: FilterGroupConfig[];
+}
+
+export interface ProductDetailApiResponse{
+  data: Product;
+  category: Category;
+  options: ProductOptions;
 }

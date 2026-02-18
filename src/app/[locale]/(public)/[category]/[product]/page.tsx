@@ -1,14 +1,16 @@
 import { createSeo } from "@/lib/seo";
-import { BreadcrumbSchema } from "@/components/seo";
+import { BreadcrumbSchema, ProductSchema } from "@/components/seo";
+import ProductClient from "./product-client";
+import { getProduct } from "@/features/catalog/service";
 
 type Params = {
   locale: string;
   category: string;
+  product: string;
 };
 
 type Props = {
   params: Promise<Params>;
-  searchParams: Promise<{ productType?: string }>;
 };
 
 export async function generateMetadata({
@@ -30,32 +32,50 @@ export async function generateMetadata({
   });
 }
 
-export default async function ProductPage({ params, searchParams }: Props) {
-  const { locale, category } = await params;
-  const { productType } = await searchParams;
+export default async function ProductPage({ params }: Props) {
+  const { locale, category, product } = await params;
 
+  const productUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}/${product}`;
   const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
 
+  const res = await getProduct(new URLSearchParams(), category, product);
 
-  
+  const breadcrumbItems = [
+    {
+      name: "Home",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
+    },
+    {
+      name: "Categories",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
+    },
+    {
+      name: res.category.translation.name,
+      url: categoryUrl,
+    },
+    {
+      name: res.data.translation.name,
+      url: productUrl,
+    },
+  ];
 
   return (
     <>
       {/* SEO Content */}
-      {/* <BreadcrumbSchema items={breadcrumbItems} />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <ProductSchema
         name={category}
-        description={`${category} kategorisindeki ürünler`}
-        url={categoryUrl}
+        description={product}
+        url={productUrl}
         locale={locale}
-        items={res.data.map((item) => ({
-          name: item.translation.name,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${categoryUrl}/${item.translation.slug}`,
-        }))}
-      /> */}
+      />
 
       {/* Page Content */}
-
+      <ProductClient
+        breadcrumbItems={breadcrumbItems}
+        initialProduct={res.data}
+        initialCategory={res.category}
+      />
     </>
   );
 }

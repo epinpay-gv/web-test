@@ -68,7 +68,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
     },
     {
-      name: res.category.translation.name,
+      name: res.category?.translation?.name,
       url: categoryUrl,
     },
   ];

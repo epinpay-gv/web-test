@@ -14,14 +14,17 @@ interface SeoSectionProps {
 }
 
 export default function SeoSection({ initialCategory }: SeoSectionProps) {
+  const description = initialCategory?.translation?.description ?? "";
+  const activation = initialCategory?.translation?.activation ?? "";
+
   const categoryDescription = useMemo(
-    () => DOMPurify.sanitize(initialCategory.translation.description),
-    [initialCategory.translation.description],
+    () => DOMPurify.sanitize(description),
+    [description],
   );
 
   const activationDescription = useMemo(
-    () => DOMPurify.sanitize(initialCategory.translation.activation ?? ""),
-    [initialCategory.translation.activation],
+    () => DOMPurify.sanitize(activation),
+    [activation],
   );
 
   return (

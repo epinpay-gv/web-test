@@ -67,6 +67,10 @@ export interface ProductTranslation extends Translation {
   metaDescription: string;
   imgUrl: string;
   imgAlt: string;
+
+  activation?: string; // ! bu backende eklenmeli
+  faq?: { id: number; name: string; description: string }[]; // ! bu backende eklenmeli
+  comments?: Comment[]; // ! bu backende eklenmeli
 }
 export interface ProductRegion {
   id: number;
