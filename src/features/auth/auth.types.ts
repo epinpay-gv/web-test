@@ -19,11 +19,14 @@ export interface AuthResponse {
   message: string;
   token?: string;
   refreshToken: string;
-  expiresIn?: number; // OTP süresi (saniye)
+  expiresIn?: number; 
   user?: UserProfile;
 }
 
 export interface UserProfile {
+  role: string;
+  displayName: string;
+  uid: string;
   epPoints: number;
   balance: number;
   id: string;
@@ -58,3 +61,27 @@ export interface LoginWithFirebaseRequest {
 export type RegisterStep = 'form' | 'otp';
 
 export type LoginFormState = LoginFormData;
+
+export interface ForgotPasswordFormData {
+  email: string;
+}
+
+export interface ForgotPasswordResponse {
+  success: boolean;
+  message: string;
+}
+
+export type AuthView = 'login' | 'forgot-password';
+
+export interface ResetPasswordFormData {
+  password: string;
+  confirmPassword: string;
+}
+
+export interface ResetPasswordResponse {
+  success: boolean;
+  message: string;
+}
+
+export type ResetPasswordView = 'form' | 'success' | 'invalid-link';
+

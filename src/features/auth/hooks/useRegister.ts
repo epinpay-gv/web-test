@@ -10,7 +10,8 @@ import { ValidationRules } from '../auth.types';
 export function useRegister() {
   const router = useRouter();
   const store = useRegisterStore();
-  const { fullLogin } = useLogin();
+  const { performLogin } = useLogin();
+
   const validationRules = useMemo((): ValidationRules => {
     const pass = store.formData.password || '';
     return {
@@ -60,47 +61,35 @@ export function useRegister() {
       
       store.setStep('otp');
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : typeof error === 'object' && error !== null && 'message' in error
-        ? String((error as { message: string }).message)
-        : "Kayıt başlatılamadı.";
-      
+      const errorMessage = error instanceof Error ? error.message : "Kayıt başlatılamadı.";
       store.setError(errorMessage);
     } finally {
       store.setIsLoading(false);
     }
   };
 
-  /**
-   * ADIM 2: OTP Doğrula ve Otomatik Giriş Yap
-   */
   const handleVerifyOtp = async (otpCode: string) => {
     store.setIsLoading(true);
     store.setError(null);
 
     try {
       const response = await authService.verifyOtp(store.formData.email, otpCode);          
-      if (response.token) {
-        localStorage.setItem('authToken', response.token);
-      }    
-      await fullLogin();
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : typeof error === 'object' && error !== null && 'message' in error
-        ? String((error as { message: string }).message)
-        : "Doğrulama kodu hatalı.";
       
+      // Tip güvenli kontrol: response.user varsa performLogin'e gönder
+      if (response.user) {
+        performLogin(response.user, store.formData.rememberMe, response.token);
+      } else {
+        router.push('/login');
+      }
+
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Doğrulama kodu hatalı.";
       store.setError(errorMessage);
     } finally {
       store.setIsLoading(false);
     }
   };
 
-  /**
-   * OTP Tekrar Gönder
-   */
   const handleResendOtp = async () => {
     store.setIsLoading(true);
     store.setError(null);
@@ -111,26 +100,19 @@ export function useRegister() {
         store.setOtpExpiresIn(response.expiresIn);
       }
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : typeof error === 'object' && error !== null && 'message' in error
-        ? String((error as { message: string }).message)
-        : "OTP tekrar gönderilemedi.";
-      
+      const errorMessage = error instanceof Error ? error.message : "OTP tekrar gönderilemedi.";
       store.setError(errorMessage);
     } finally {
       store.setIsLoading(false);
     }
   };
 
-  // Inputları temizlemek için
   const handleClear = (field: keyof typeof store.formData) => () => {
     store.updateFormData({ [field]: '' });
   };
 
-  // Blur fonksiyonu
   const handleBlur = (field: string) => () => {
-    console.log(`${field} focus lost`);
+    // Audit/Logging için kullanılabilir
   };
 
   return {

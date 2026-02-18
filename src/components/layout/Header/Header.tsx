@@ -26,12 +26,14 @@ export function Header() {
 
   // Auth Store'dan verileri alıyoruz
   const user = useAuthStore((state) => state.user);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated); // ✅ isLogin yerine isAuthenticated
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const hydrate = useAuthStore((state) => state.hydrate); // ✅ hydrate fonksiyonu
 
-  // Hydration hatasını önlemek için mounted kontrolü
+  // ✅ Component mount olduğunda localStorage'dan store'u yeniden yükle
   useEffect(() => {
+    hydrate();
     setMounted(true);
-  }, []);
+  }, [hydrate]);
 
   // Tema ve cihaz suffixleri
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
@@ -117,7 +119,6 @@ export function Header() {
                   <NotificationDropdown />
                 </div>
                 <div className="relative">
-                  {/* ✅ UserDropdown'a sadece user gönder, onLogout kaldırıldı */}
                   <UserDropdown user={user} />
                 </div>
               </div>

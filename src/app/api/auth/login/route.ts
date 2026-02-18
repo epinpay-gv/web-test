@@ -1,106 +1,60 @@
+// app/api/auth/login/route.ts
+//
+// Firebase token'ı alır, mock kullanıcı datasını döner.
+// Gerçek projede: token verify edilir, DB'den user çekilir, JWT session token üretilir.
+
 import { NextRequest, NextResponse } from 'next/server';
-import { AuthResponse } from '@/features/auth/auth.types';
+import { getUserFromFirebaseToken, generateMockSessionToken } from '@/mocks/user';
 
-/**
- * POST /api/auth/login
- * Firebase token ile backend login (Mock)
- */
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await req.json().catch(() => null);
 
-    // Validasyon
-    if (!body.firebaseToken) {
+    if (!body || typeof body.email !== 'string') {
       return NextResponse.json(
-        { 
-          success: false, 
-          message: 'Firebase token gereklidir' 
-        } as AuthResponse,
+        { success: false, message: 'Geçersiz istek formatı.' },
         { status: 400 }
       );
     }
 
-    console.log('🔐 [Backend Login] Firebase token alındı:', body.firebaseToken.substring(0, 30) + '...');
+    const { email, firebaseToken } = body;
 
-    // Simüle edilmiş gecikme
-    await new Promise(resolve => setTimeout(resolve, 700));
+    // Yapay gecikme (loading state test için)
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-    // Mock: Token doğrulaması - test_token veya firebase_token ile başlıyorsa geçerli
-    const isValidToken = body.firebaseToken.startsWith('test_token_') || 
-                        body.firebaseToken.startsWith('firebase_token_');
+    // Mock: email ile user datası bul
+    // Gerçek projede: firebaseToken verify edilir, içinden uid çıkarılır,
+    // DB'den user çekilir
+    const user = getUserFromFirebaseToken(email);
 
-    if (!isValidToken) {
-      console.log('❌ [Backend Login] Geçersiz token:', {
-        token: body.firebaseToken.substring(0, 30) + '...',
-        timestamp: new Date().toISOString(),
-      });
-
+    if (!user) {
       return NextResponse.json(
-        { 
-          success: false, 
-          message: 'Geçersiz Firebase token' 
-        } as AuthResponse,
-        { status: 401 }
+        { success: false, message: 'Kullanıcı bulunamadı.' },
+        { status: 404 }
       );
     }
 
-    // Mock: User bilgileri oluştur
-    const userId = `user_${Date.now()}`;
-    const mockBackendToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(JSON.stringify({ 
-      userId, 
-      email: 'test@test.com',
-      iat: Date.now() 
-    }))}.mock_backend_signature`;
+    // Mock session token üret
+    const sessionToken = generateMockSessionToken(user);
 
-    console.log('✅ [Backend Login] Login başarılı:', {
-      userId,
-      email: 'test@test.com',
-      timestamp: new Date().toISOString(),
-    });
-
-    // Backend geldiğinde burası kullanılacak:
-    /*
-    const backendResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${body.firebaseToken}`
-      },
-    });
-
-    if (!backendResponse.ok) {
-      const errorData = await backendResponse.json();
-      return NextResponse.json(errorData, { status: backendResponse.status });
-    }
-
-    const data = await backendResponse.json();
-    return NextResponse.json(data, { status: 200 });
-    */
-
-    const response: AuthResponse = {
-      success: true,
-      message: 'Giriş başarılı',
-      token: mockBackendToken,
-      user: {
-        id: userId,
-        email: 'test@test.com',
-        name: 'Test',
-        surname: 'User',
-        balance: 35,
-        epPoints: 35,
-      },
-    };
-
-    return NextResponse.json(response, { status: 200 });
-
-  } catch (error) {
-    console.error('❌ [Backend Login] Error:', error);
-    
     return NextResponse.json(
-      { 
-        success: false, 
-        message: 'Bir hata oluştu. Lütfen tekrar deneyin.' 
-      } as AuthResponse,
+      {
+        success: true,
+        message: 'Giriş başarılı.',
+        token: sessionToken,
+        user: {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          role: user.role,
+        },
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('[login] Unexpected error:', error);
+    return NextResponse.json(
+      { success: false, message: 'Sunucu hatası.' },
       { status: 500 }
     );
   }

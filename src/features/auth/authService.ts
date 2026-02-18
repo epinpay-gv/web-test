@@ -1,83 +1,128 @@
+// authService.ts
+
 import { baseFetcher } from '@/lib/api/baseFetcher';
-import { 
-  RegisterFormData, 
-  AuthResponse, 
+import {
+  RegisterFormData,
+  AuthResponse,
   VerifyOtpRequest,
-  FirebaseTokenResponse,
-  LoginWithFirebaseRequest,
-  LoginFormData
+  LoginFormData,
+  ForgotPasswordFormData,
+  ForgotPasswordResponse,
+  ResetPasswordResponse,
 } from './auth.types';
 
-const BASE_URL = "/api/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail as firebaseSendPasswordResetEmail,
+  confirmPasswordReset as firebaseConfirmPasswordReset,
+} from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+
+const BASE_URL = '/api/auth';
 
 export const authService = {
-  /**
-   * Kayıt Başlat (OTP Gönder)
-   */
+
+  // ── Register ───────────────────────────────────────────────────────────────
+
   async initiateRegister(data: RegisterFormData): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, RegisterFormData>(
       `${BASE_URL}/register/initiate`,
-      {
-        method: 'POST',
-        body: data,
-      },
+      { method: 'POST', body: data },
       'Kayıt başlatılamadı'
     );
   },
 
-  /**
-   * OTP Doğrula ve Kaydı Bitir
-   */
   async verifyOtp(email: string, otpCode: string): Promise<AuthResponse> {
-    return baseFetcher<AuthResponse, VerifyOtpRequest>(
+    return baseFetcher<AuthResponse, { email: string; otpCode: string }>(
       `${BASE_URL}/register/verify`,
-      {
-        method: 'POST',
-        body: { email, otpCode },
-      },
+      { method: 'POST', body: { email, otpCode } },
       'OTP doğrulama başarısız'
     );
   },
 
-  /**
-   * Tekrar OTP Gönder
-   */
   async resendOtp(email: string): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, { email: string }>(
       `${BASE_URL}/register/resend`,
-      {
-        method: 'POST',
-        body: { email },
-      },
+      { method: 'POST', body: { email } },
       'OTP tekrar gönderilemedi'
     );
   },
 
-  /**
-   * Firebase Token Al (1. Adım)
-   */
-  async getFirebaseToken(credentials: LoginFormData): Promise<FirebaseTokenResponse> {
-    return baseFetcher<FirebaseTokenResponse, LoginFormData>(
-      `${BASE_URL}/login/firebase-token`,
-      {
-        method: 'POST',
-        body: credentials,
-      },
-      'Firebase token alınamadı'
-    );
-  },
+  // ── Login ──────────────────────────────────────────────────────────────────
 
   /**
-   * Firebase Token ile Backend Login (2. Adım)
+   * Firebase ile email/password login yapar, ardından backend'e token gönderir.
+   * 
+   * Akış:
+   * 1. Firebase → signInWithEmailAndPassword → Firebase ID token al
+   * 2. Backend mock → token ile kullanıcı datası + session token dön
    */
-  async loginWithFirebaseToken(firebaseToken: string): Promise<AuthResponse> {
-    return baseFetcher<AuthResponse, LoginWithFirebaseRequest>(
+  async login(credentials: LoginFormData): Promise<AuthResponse> {
+    // Step 1: Firebase'de email/password doğrulaması
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      credentials.email,
+      credentials.password
+    );
+
+    // Firebase ID token al
+    const firebaseToken = await userCredential.user.getIdToken();
+
+    // Step 2: Mock backend'e token gönder, kullanıcı datası + session token al
+    // Gerçek projede bu endpoint token'ı verify eder, DB'den user datasını çeker
+    const response = await baseFetcher<AuthResponse, { firebaseToken: string; email: string }>(
       `${BASE_URL}/login`,
       {
         method: 'POST',
-        body: { firebaseToken },
+        body: { firebaseToken, email: credentials.email },
       },
-      'Giriş başarısız'
+      'Backend login başarısız'
     );
-  }
+
+    return response;
+  },
+
+  // ── Forgot Password ────────────────────────────────────────────────────────
+
+  /**
+   * Şifre sıfırlama e-postası gönderir.
+   *
+   * continueUrl: Kullanıcı maildeki linke tıklayınca Firebase oobCode'u
+   * doğrular, ardından bu URL'e yönlendirir → bizim /reset-password sayfamız.
+   */
+  async sendPasswordResetEmail(
+    data: ForgotPasswordFormData,
+    locale: string = 'tr'
+  ): Promise<ForgotPasswordResponse> {
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+
+    auth.languageCode = locale;
+
+    await firebaseSendPasswordResetEmail(auth, data.email, {
+      url: `${appUrl}/reset-password`,
+      handleCodeInApp: false,
+    });
+
+    return {
+      success: true,
+      message: 'Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.',
+    };
+  },
+
+  // ── Reset Password ─────────────────────────────────────────────────────────
+
+  /**
+   * Yeni şifreyi kaydeder.
+   */
+  async confirmPasswordReset(
+    oobCode: string,
+    newPassword: string
+  ): Promise<ResetPasswordResponse> {
+    await firebaseConfirmPasswordReset(auth, oobCode, newPassword);
+
+    return {
+      success: true,
+      message: 'Şifreniz başarıyla güncellendi.',
+    };
+  },
 };
