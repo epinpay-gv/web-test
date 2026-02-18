@@ -16,7 +16,12 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import NavLinkCards from "@/components/common/NavLinks/NavLinkCards";
 
-export function Header() {
+interface HeaderProps {
+  variant?: "public" | "private";
+}
+
+export function Header({ variant = "public" }: HeaderProps) {
+
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
@@ -131,7 +136,7 @@ export function Header() {
               <SearchInput />
             </div>
             <button
-              onClick={() => setIsSearchOpen(false)}
+            onClick={() => setIsSearchOpen(false)}
               className="ml-4 p-2 text-red-500"
             >
               <X className="w-6 h-6" />
@@ -139,7 +144,7 @@ export function Header() {
           </div>
         )}
       </header>
-      <NavLinkCards />
+      {variant === "public" && <NavLinkCards />}
     </>
   );
 }
