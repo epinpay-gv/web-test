@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="tr" suppressHydrationWarning>
       <body suppressHydrationWarning>
         {/* --- ORİJİNAL SCRİPTLERİN (Bozmadan Geri Getirildi) --- */}
-        <Script
+        {/* <Script
           id="gtm"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -81,16 +81,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               url: 'https://www.epinpay.com',
             }),
           }}
-        />
+        /> */}
 
-        <noscript>
+        {/* <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-WKCNWN7N"
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
-        </noscript>
+        </noscript> */}
         {/* --- SCRİPTLER SONU --- */}
 
         <ThemeProvider>

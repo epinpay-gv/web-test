@@ -10,6 +10,7 @@ type ButtonArrow = {
   right?: boolean;
 };
 
+
 type ButtonPadding = "rounded" | "xs" | "sm" | "base" | "lg" | "xl";
 
 type ButtonVariant = "brand" | "secondary" | "tertiatry" | "success" | "danger" | "warning" | "dark" | "ghost";
@@ -25,6 +26,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   padding?: ButtonPadding;
   variant?: ButtonVariant;
   appearance?: ButtonAppearance;
+  arrowSize?: string;
 }
 
 const TEXT_SIZE_CLASSES: Record<ButtonTextSize, string> = {
@@ -102,6 +104,7 @@ export default function Button({
   appearance = "filled",
   className,
   size = "full",
+  arrowSize = "16",
   ...props
 }: ButtonProps) {
   return (
@@ -116,10 +119,10 @@ export default function Button({
         ${className ?? ""}
       `}
     >
-      {arrows?.left && <ArrowLeft />}
+      {arrows?.left && <ArrowLeft size={arrowSize}/>}
       {text && <span>{text}</span>}
       {icon}
-      {arrows?.right && <ArrowRight />}
+      {arrows?.right && <ArrowRight size={arrowSize}/>}
     </button>
   );
 }
