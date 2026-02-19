@@ -23,6 +23,7 @@ export function LoginForm() {
     handleBlur,
     handleRememberMe,
     handleSubmit,
+    handleGoogleLogin
   } = useLogin();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -186,7 +187,8 @@ export function LoginForm() {
         <button
           type="button"
           disabled={isLoading}
-          className="flex items-center justify-center gap-2 w-full py-3 rounded-(--radius-base) border border-(--border-default-medium) bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-colors disabled:opacity-50"
+          onClick={handleGoogleLogin}
+          className="flex items-center justify-center gap-2 w-full py-3 rounded-(--radius-base) border border-(--border-default-medium) bg-white/5 hover:bg-white/10 text-(--text-body) text-sm font-medium transition-colors disabled:opacity-50"
         >
           <Google className="w-5 h-5" />
           Google ile Giriş Yap

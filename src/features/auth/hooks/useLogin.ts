@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService } from '../authService';
-import { LoginFormData, UserProfile } from '../auth.types';
+import { AuthResponse, LoginFormData, UserProfile } from '../auth.types';
 import { useAuthStore } from '../store/auth.store';
 
 interface LoginState {
@@ -44,9 +44,6 @@ export function useLogin() {
     isLoading: false,
   });
 
-  /**
-   * performLogin artık 'any' yerine 'UserProfile' tipini bekliyor.
-   */
   const performLogin = useCallback((user: UserProfile, rememberMe: boolean, token?: string) => {
     login(
       {
@@ -167,6 +164,29 @@ export function useLogin() {
     [state.formData, performLogin]
   );
 
+  const handleGoogleLogin = useCallback(async (): Promise<void> => {
+    setState((prev) => ({ ...prev, isLoading: true, errors: {} }));
+    
+    try {
+      // Fonksiyon tam olarak AuthResponse tipinde dönüyor
+      const response: AuthResponse = await authService.loginWithGoogle();
+      
+      if (response.user) {
+        // useLogin içindeki performLogin'i çağırıyoruz
+        performLogin(response.user, true, response.token);
+      }
+    } catch (err: unknown) {
+      const code = err instanceof Error ? err.message : 'UNKNOWN_ERROR';
+      setState((prev) => ({
+        ...prev,
+        isLoading: false,
+        errors: { form: mapFirebaseError(code) },
+      }));
+    } finally {
+      setState((prev) => ({ ...prev, isLoading: false }));
+    }
+  }, [performLogin]);
+
   return {
     ...state,
     handleChange,
@@ -175,6 +195,7 @@ export function useLogin() {
     handleRememberMe,
     handleSubmit,
     performLogin,
+    handleGoogleLogin
   };
 }
 

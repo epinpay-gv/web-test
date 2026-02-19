@@ -9,10 +9,14 @@ import {
   ForgotPasswordFormData,
   ForgotPasswordResponse,
   ResetPasswordResponse,
+  UserProfile,
 } from './auth.types';
 
 import {
   signInWithEmailAndPassword,
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  UserCredential,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   confirmPasswordReset as firebaseConfirmPasswordReset,
 } from 'firebase/auth';
@@ -22,7 +26,9 @@ const BASE_URL = '/api/auth';
 
 export const authService = {
 
-  // ── Register ───────────────────────────────────────────────────────────────
+  /* =======================================
+                    REGISTER
+     ======================================= */
 
   async initiateRegister(data: RegisterFormData): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, RegisterFormData>(
@@ -48,28 +54,17 @@ export const authService = {
     );
   },
 
-  // ── Login ──────────────────────────────────────────────────────────────────
+  /* =======================================
+                  LOGIN
+     ======================================= */
 
-  /**
-   * Firebase ile email/password login yapar, ardından backend'e token gönderir.
-   * 
-   * Akış:
-   * 1. Firebase → signInWithEmailAndPassword → Firebase ID token al
-   * 2. Backend mock → token ile kullanıcı datası + session token dön
-   */
   async login(credentials: LoginFormData): Promise<AuthResponse> {
-    // Step 1: Firebase'de email/password doğrulaması
     const userCredential = await signInWithEmailAndPassword(
       auth,
       credentials.email,
       credentials.password
     );
-
-    // Firebase ID token al
     const firebaseToken = await userCredential.user.getIdToken();
-
-    // Step 2: Mock backend'e token gönder, kullanıcı datası + session token al
-    // Gerçek projede bu endpoint token'ı verify eder, DB'den user datasını çeker
     const response = await baseFetcher<AuthResponse, { firebaseToken: string; email: string }>(
       `${BASE_URL}/login`,
       {
@@ -82,14 +77,10 @@ export const authService = {
     return response;
   },
 
-  // ── Forgot Password ────────────────────────────────────────────────────────
+  /* =======================================
+                FORGOT PASSWORD
+     ======================================= */
 
-  /**
-   * Şifre sıfırlama e-postası gönderir.
-   *
-   * continueUrl: Kullanıcı maildeki linke tıklayınca Firebase oobCode'u
-   * doğrular, ardından bu URL'e yönlendirir → bizim /reset-password sayfamız.
-   */
   async sendPasswordResetEmail(
     data: ForgotPasswordFormData,
     locale: string = 'tr'
@@ -109,11 +100,10 @@ export const authService = {
     };
   },
 
-  // ── Reset Password ─────────────────────────────────────────────────────────
+  /* =======================================
+                RESET PASSWORD
+    ======================================= */
 
-  /**
-   * Yeni şifreyi kaydeder.
-   */
   async confirmPasswordReset(
     oobCode: string,
     newPassword: string
@@ -124,5 +114,37 @@ export const authService = {
       success: true,
       message: 'Şifreniz başarıyla güncellendi.',
     };
+  },
+
+  /* =======================================
+              GOOGLE LOGIN             
+    ======================================= */
+    async loginWithGoogle(): Promise<AuthResponse> {
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      const result: UserCredential = await signInWithPopup(auth, provider);
+      const token = await result.user.getIdToken();
+      const user: UserProfile = {
+        uid: result.user.uid,
+        email: result.user.email || '',
+        displayName: result.user.displayName || '',
+        role: 'user', 
+        epPoints: 0,
+        balance: 0,
+        id: result.user.uid
+      };
+
+      return {
+        success: true,
+        user,
+        token,
+        refreshToken: result.user.refreshToken,
+        message: 'Google ile giriş başarılı.'
+      };
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "GOOGLE_AUTH_ERROR";
+      throw new Error(errorMessage);
+    }
   },
 };

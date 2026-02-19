@@ -15,32 +15,28 @@ import { X, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import NavLinkCards from "@/components/common/NavLinks/NavLinkCards";
+// ✅ Yeni AuthDropdown bileşenini import ediyoruz
+import { AuthDropdown } from "@/features/auth/components/AuthDropdown"; 
 
 export function Header() {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
-  // State'ler
   const [mounted, setMounted] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // Auth Store'dan verileri alıyoruz
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const hydrate = useAuthStore((state) => state.hydrate); // ✅ hydrate fonksiyonu
+  const hydrate = useAuthStore((state) => state.hydrate);
 
-  // ✅ Component mount olduğunda localStorage'dan store'u yeniden yükle
   useEffect(() => {
     hydrate();
     setMounted(true);
   }, [hydrate]);
 
-  // Tema ve cihaz suffixleri
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
   const logoSrc = `/image/logos/epinpay-${themeSuffix}-lg.png`;
 
-  // Sayfa sunucuda render edilirken login durumunu henüz bilmediğimiz için
-  // butonu göstermeden önce istemciye geçişi (mounted) bekliyoruz.
   if (!mounted) {
     return (
       <header className="h-16 md:h-22 border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft)" />
@@ -50,11 +46,9 @@ export function Header() {
   return (
     <>
       <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50 overflow-visible">
-        {/* Arka Plan Parlama Efekti */}
         <div className="absolute max-lg:hidden w-193.5 h-166 -left-60.5 -top-76 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />
 
         <div className="max-w-7xl w-full mx-auto px-4 flex justify-between items-center gap-4 md:gap-8 z-10">
-          {/* LOGO */}
           <button onClick={() => router.push("/")} className="shrink-0">
             <Image
               src={logoSrc}
@@ -66,14 +60,11 @@ export function Header() {
             />
           </button>
 
-          {/* MASAÜSTÜ ARAMA */}
           <div className="hidden md:block max-w-lg flex-1">
             <SearchInput />
           </div>
 
-          {/* AKSİYON ALANI */}
           <div className="flex items-center justify-end md:gap-4">
-            {/* Mobil Arama İkonu */}
             <IconShape
               icon={Search}
               color="custom"
@@ -84,7 +75,6 @@ export function Header() {
               className="md:hidden"
             />
 
-            {/* Masaüstü Dil Seçimi */}
             <div className="hidden lg:flex items-center gap-4">
               <LocaleDropdown />
             </div>
@@ -94,17 +84,10 @@ export function Header() {
               <CartButton />
             </div>
 
-            {/* GİRİŞ DURUMU KONTROLÜ */}
             {!isAuthenticated ? (
-              // ✅ Giriş yapılmamışsa
-              <div className="flex items-center lg:gap-2">
-                <Button
-                  variant="secondary"
-                  text="Giriş Yap"
-                  appearance="filled"
-                  padding="sm"
-                  onClick={() => router.push("/login")}
-                />
+              <div className="flex items-center gap-2 lg:gap-3">
+                <AuthDropdown />
+                
                 <Button
                   variant="brand"
                   text="Satıcı ol"
@@ -113,7 +96,6 @@ export function Header() {
                 />
               </div>
             ) : (
-              // ✅ Giriş yapılmışsa
               <div className="flex items-center gap-1 md:gap-3">
                 <div className="hidden md:block">
                   <NotificationDropdown />
@@ -126,7 +108,6 @@ export function Header() {
           </div>
         </div>
 
-        {/* MOBİL ARAMA OVERLAY */}
         {isSearchOpen && (
           <div className="absolute inset-0 z-50 bg-white dark:bg-(--bg-neutral-primary-soft) flex items-center px-4 md:hidden animate-in fade-in slide-in-from-top-2">
             <div className="flex-1">
