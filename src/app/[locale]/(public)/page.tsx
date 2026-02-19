@@ -86,7 +86,7 @@ export default async function Home({
         locale={locale}
       />
       {/* Page Content */}
-      <PromotedSection promoted={res.promoted} />
+      {/* <PromotedSection promoted={res.promoted} /> */}
       <MasterMenu />
       <BestSellers />
       <Campaigns />

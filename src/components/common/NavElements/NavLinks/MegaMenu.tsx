@@ -33,7 +33,7 @@ export default function MegaMenu({
     }`}
     >
       {/* LEFT SIDE */}
-      <div className="w-[384px] flex flex-col p-6 gap-3 mega-menu-left-bg ">
+      <div className="w-[384px] flex flex-col p-6 gap-3 mega-menu-left-bg">
         {mainLinks.map((item, index) => (
           <NavLink
             key={index}

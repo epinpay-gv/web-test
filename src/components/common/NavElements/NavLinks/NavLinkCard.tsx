@@ -1,92 +1,83 @@
+"use client";
+
 import Link from "next/link";
-import Image from 'next/image'
-import { cn } from '@/lib/utils'
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+interface NavCardVariant {
+  hoverBg: string;
+  hoverBorder?: string;
+  hoverInsetShadow?: string;
+}
 
 interface NavLinkCardProps {
   title: string;
-  backgroundImage: string;
+  variant: NavCardVariant;
   href?: string;
-  onClick?: () => void;
-  variant?: "centered" | "corner";
-  decorImage?: string;
+  decorImage: string;
   className?: string;
 }
 
 export default function NavLinkCard({
   title,
-  backgroundImage,
+  variant,
   href,
-  onClick,
-  variant = "centered",
   decorImage,
   className,
 }: NavLinkCardProps) {
   const content = (
-    <div
-      onClick={!href ? onClick : undefined}
+    <motion.div
+      initial={false}
+      whileHover={{
+        backgroundColor: variant.hoverBg,
+        borderColor: variant.hoverBorder,
+        boxShadow: variant.hoverInsetShadow,
+      }}
+      transition={{
+        type: "spring",
+        mass: 1,
+        stiffness: 300,
+        damping: 20,
+      }}
       className={cn(
-        "relative rounded-3xl overflow-hidden group",
-        "transition-transform duration-300 transform-gpu",
-        variant === "centered" && "hover:scale-105",
-        !href && onClick && "cursor-pointer",
+        "group relative overflow-hidden",
+        "w-31.5 h-18 rounded-lg",
+        "border border-transparent",
+        "bg-[#1D303A]",
         className,
       )}
     >
-      {/* Background */}
-      <Image
-        src={backgroundImage}
-        alt={title}
-        fill
-        sizes="(max-width:768px) 100vw, 124px"
-        className="object-cover"
-      />
+      {/* BG Image */}
+      <div className="absolute inset-0 overflow-hidden">
+        <Image
+          src="/navMenu/bg-image.png"
+          alt=""
+          fill
+          className=" object-cover rotate-2 scale-125 mix-blend-luminosity opacity-60 pointer-events-none"
+        />
+      </div>
 
-      {/* Inner shadow */}
-      <div
-        className="
-          absolute inset-0 pointer-events-none opacity-0
-          group-hover:opacity-100 transition-opacity duration-300
-          shadow-[inset_0_0_40px_10px_rgba(255,255,255,0.6)]
-        "
-      />
+      {/* Title */}
+      <span className="absolute top-3 left-3 text-white font-semibold text-sm z-10">
+        {title}
+      </span>
 
-      {/* Content */}
-      {variant === "centered" && (
-        <span className="relative z-10 flex items-center justify-center h-full text-white font-semibold text-sm text-center px-2">
-          {title}
-        </span>
-      )}
-
-      {variant === "corner" && (
-        <>
-          <span className="absolute top-3 left-3 z-10 text-white font-semibold text-sm">
-            {title}
-          </span>
-
-          {decorImage && (
-            <Image
-              src={decorImage}
-              alt=""
-              width={48}
-              height={48}
-              className="
-                absolute bottom-2 right-2 z-10
-                transition-transform duration-300
-                group-hover:-translate-y-1
-              "
-            />
-          )}
-        </>
-      )}
-    </div>
+      {/* Decor */}
+      <div className="absolute bottom-2 right-2 z-10">
+        <Image
+          src={decorImage}
+          alt=""
+          width={48}
+          height={48}
+          className="pointer-events-none"
+        />
+      </div>
+    </motion.div>
   );
 
   if (href) {
-    return (
-      <Link href={href} className="block">
-        {content}
-      </Link>
-    );
+    return <Link href={href}>{content}</Link>;
   }
 
   return content;

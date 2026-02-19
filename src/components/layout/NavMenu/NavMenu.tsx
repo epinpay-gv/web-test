@@ -1,93 +1,66 @@
 "use client";
 
-import BaseCard from "@/components/common/NavLinks/NavCards/BaseCard";
-import Link from "next/link";
-import Image from "next/image";
+import { NavLinkCard } from "@/components/common";
 
 export function NavMenu() {
-  const navMenuData = [
+  const navCards = [
     {
-      id: 1,
       title: "Ürünler",
-      slug: "products",
-      image: "/image/navLinks-img-mock.png",
-      bgImage: "/image/navLinks-bg-mock.png",
+      href: "/categories/games",
+      decorImage: "/navMenu/card-1.png",
+      variant: {
+        hoverBg: "rgba(0, 187, 167, 1)",
+        hoverBorder: "#fff",
+        hoverInsetShadow: "inset 0 0 10px rgba(255,255,255,1)",
+      },
     },
     {
-      id: 2,
-      title: "Çekilişler",
-      slug: "raffles",
-      image: "/image/navLinks-img-mock.png",
-      bgImage: "/image/navLinks-bg-mock.png",
-    },
-    {
-      id: 3,
       title: "Yayıncılarımız",
-      slug: "streamers",
-      image: "/image/navLinks-img-mock.png",
-      bgImage: "/image/navLinks-bg-mock.png",
+      href: "/categories/gift-card",
+      decorImage: "/navMenu/card-2.png",
+      variant: {
+        hoverBg: "rgba(255, 95, 95, 1)",
+        hoverBorder: "#fff",
+        hoverInsetShadow: "inset 0 0 10px rgba(255,255,255,1)",
+      },
     },
     {
-      id: 4,
-      title: "EP Oyunları",
-      slug: "mini-games",
-      image: "/image/navLinks-img-mock.png",
-      bgImage: "/image/navLinks-bg-mock.png",
+      title: "Çekilişler",
+      href: "/premium",
+      decorImage: "/navMenu/card-3.png",
+      variant: {
+        hoverBg: "rgba(120, 90, 255, 1)",
+        hoverBorder: "#fff",
+        hoverInsetShadow: "inset 0 0 10px rgba(255,255,255,1)",
+      },
     },
-    { id: 5, title: "Premium", slug: "premium", isPremium: true },
+    {
+      title: "EP Oyunları",
+      href: "/streamers",
+      decorImage: "/navMenu/card-4.png",
+      variant: {
+        hoverBg: "rgba(255, 180, 0, 1)",
+        hoverBorder: "#fff",
+        hoverInsetShadow: "inset 0 0 10px rgba(255,255,255,1)",
+      },
+    },
+    {
+      title: "Premium",
+      href: "/mini-games",
+      decorImage: "/navMenu/card-5.png",
+      variant: {
+        hoverBg: "",
+        hoverBorder: "#FFE893",
+        hoverInsetShadow: "inset 0 0 10px rgba(255,255,255,1)",
+      },
+    },
   ];
 
   return (
-    <nav className="w-full flex items-center justify-center bg-(--bg-neutral-primary-soft) border-b mb-4">
-      <div className="flex items-center justify-center gap-2 max-md:overflow-x-auto">
-        {navMenuData.map((navLink) => (
-          <Link
-            key={navLink.id}
-            href={`/${navLink.slug}`}
-            className="block group"
-          >
-            <BaseCard
-              onClick={() => console.log(navLink.title)}
-              className={`relative w-31.5 h-18 my-3 rounded-lg overflow-hidden flex text-center ${
-                navLink.isPremium
-                  ? "items-center justify-center border-none"
-                  : "items-s tart justify-start"
-              }`}
-            >
-              {!navLink.isPremium && navLink.bgImage && navLink.image && (
-                <>
-                  {/* Background Image */}
-                  <Image
-                    src={navLink.bgImage}
-                    alt={`${navLink.title} background`}
-                    fill
-                    className="object-cover"
-                  />
-                  {/* Overlay */}
-                  {/* <div className="absolute inset-0 bg-black/40 z-1" /> */}
-
-                  {/* Image */}
-                  <Image
-                    src={navLink.image}
-                    alt={navLink.title}
-                    fill
-                    className="object-cover translate-x-1/3 translate-y-1/3 group-hover:translate-y-0  transition-all duration-300"
-                  />
-                </>
-              )}
-
-              {/* Title */}
-              <span
-                className={`relative z-10 font-inter text-sm font-semibold ${
-                  navLink.isPremium ? "text-[#FDC700]" : "text-white p-2"
-                }`}
-              >
-                {navLink.title}
-              </span>
-            </BaseCard>
-          </Link>
-        ))}
-      </div>
+    <nav className="w-full flex items-center justify-center bg-(--bg-neutral-primary-soft) border-b mb-4 py-4 gap-4">
+      {navCards.map((card) => (
+        <NavLinkCard key={card.title} {...card} />
+      ))}
     </nav>
   );
 }
