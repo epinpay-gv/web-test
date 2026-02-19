@@ -166,13 +166,9 @@ export function useLogin() {
 
   const handleGoogleLogin = useCallback(async (): Promise<void> => {
     setState((prev) => ({ ...prev, isLoading: true, errors: {} }));
-    
     try {
-      // Fonksiyon tam olarak AuthResponse tipinde dönüyor
       const response: AuthResponse = await authService.loginWithGoogle();
-      
       if (response.user) {
-        // useLogin içindeki performLogin'i çağırıyoruz
         performLogin(response.user, true, response.token);
       }
     } catch (err: unknown) {
