@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/common";
-import { ActiveFilterChip } from "@/features/catalog/utils/getActiveFilterLabels";
+import { ActiveFilterChip } from "@/features/catalog/catalog.types";
 
 type FilterKey = "category" | "region" | "platform";
 

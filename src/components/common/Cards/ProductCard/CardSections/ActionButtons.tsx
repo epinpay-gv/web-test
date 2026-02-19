@@ -5,12 +5,13 @@ import { Button } from "@/components/common";
 
 interface ActionButtonsProps {
   isHorizontal : boolean;
+  orientation?: "horizontal" | "vertical";
   addToCart: (payload: AddToCartPayload) => void;
 }
 
-export function ActionButtons({ isHorizontal, addToCart }: ActionButtonsProps) {
+export function ActionButtons({ isHorizontal, orientation = "horizontal", addToCart }: ActionButtonsProps) {
   return (
-    <div className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""}`}>
+    <div className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${orientation === "horizontal" ? "flex-row" : "flex-col"}`}>
       <Button
         padding="sm"
         textSize="xs"
@@ -27,8 +28,8 @@ export function ActionButtons({ isHorizontal, addToCart }: ActionButtonsProps) {
         }
       />
       <Button
-        padding="xs"
-        textSize="sm"
+        padding="sm"
+        textSize="xs"
         variant="secondary"
         icon={<CartPlusAlt />}
         className="block md:hidden"

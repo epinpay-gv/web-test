@@ -1,4 +1,5 @@
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
+
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 import { Product, PRODUCT_STATUS } from "@/types/types";
 
 export const mockProducts: Product[] = [
@@ -983,7 +984,6 @@ export const filterGroups: FilterGroupConfig[] = [
   {
     titleData: {
       title: "Fiyat",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [{ type: "range", key: "price", min: 0, max: 10000 }],
@@ -1055,7 +1055,6 @@ export const filterGroups: FilterGroupConfig[] = [
   {
     titleData: {
       title: "Platform",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [
@@ -1080,7 +1079,6 @@ export const filterGroups: FilterGroupConfig[] = [
   {
     titleData: {
       title: "Bölge",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [
@@ -1126,7 +1124,6 @@ export const filterGroups: FilterGroupConfig[] = [
   {
     titleData: {
       title: "Ürün Tipi",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [

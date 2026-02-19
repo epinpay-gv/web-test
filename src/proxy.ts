@@ -2,11 +2,10 @@ import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextRequest, NextResponse } from 'next/server';
 
-// Token'ın süresi dolmuş mu kontrol et
 function isTokenExpired(token: string): boolean {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    return Date.now() >= payload.exp;
+    return Math.floor(Date.now() / 1000) >= payload.exp;
   } catch {
     return true;
   }
@@ -15,13 +14,15 @@ function isTokenExpired(token: string): boolean {
 const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/.well-known")) {
+    return NextResponse.json({}, { status: 404 });
+  }
+
   const accessToken = request.cookies.get('accessToken')?.value;
   const refreshToken = request.cookies.get('refreshToken')?.value;
-
   if (!accessToken || !isTokenExpired(accessToken)) {
     return intlMiddleware(request);
   }
-
   if (refreshToken) {
     try {
       const refreshResponse = await fetch(
@@ -35,23 +36,20 @@ export default async function middleware(request: NextRequest) {
 
       if (refreshResponse.ok) {
         const data = await refreshResponse.json();
-
         const response = intlMiddleware(request);
-
         response.cookies.set('accessToken', data.accessToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
-          maxAge: 15 * 60,
+          maxAge: 15 * 60, 
           path: '/',
         });
-
         if (data.refreshToken) {
           response.cookies.set('refreshToken', data.refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
-            maxAge: 30 * 24 * 60 * 60,
+            maxAge: 30 * 24 * 60 * 60, 
             path: '/',
           });
         }
@@ -59,7 +57,7 @@ export default async function middleware(request: NextRequest) {
         return response;
       }
     } catch (error) {
-      console.error('[Proxy] Refresh başarısız:', error);
+      console.error('[Middleware] Refresh Token işlemi başarısız:', error);
     }
   }
 

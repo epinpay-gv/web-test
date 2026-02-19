@@ -1,35 +1,58 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import {
   FilterContainer,
   FilterLabels,
   PageTitle,
   ProductGrid,
+  SeoSection,
 } from "@/features/catalog/components";
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
-import { getProducts } from "@/features/catalog/service";
+import { getCategory } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
 import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
-import { PaginationData, Product } from "@/types/types";
+import { Category, PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { Badge, Pagination } from "@/components/common";
-import { Clock } from "lucide-react";
+import {
+  Accordion,
+  AccordionItem,
+  Breadcrumb,
+  ExpandableContent,
+  Pagination,
+  RatingCard,
+} from "@/components/common";
+import { Home } from "flowbite-react-icons/outline";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import BoxWrapper from "@/components/common/Wrappers/BoxWrapper";
+import DOMPurify from "dompurify";
+
+interface CategoryClientProps {
+  initialProducts: Product[];
+  initialFilters: FilterGroupConfig[];
+  pagination: PaginationData;
+  breadcrumbItems: {
+    name: string;
+    url: string;
+  }[];
+  initialCategory: Category;
+  categorySlug: string;
+}
 
 export default function CategoryClient({
   initialProducts,
   initialFilters,
   pagination,
-}: {
-  initialProducts: Product[];
-  initialFilters: FilterGroupConfig[];
-  pagination: PaginationData;
-}) {
+  breadcrumbItems,
+  categorySlug,
+  initialCategory,
+}: CategoryClientProps) {
   const router = useRouter();
   const isFirstRender = useRef(true);
+
+  const pageTitle = breadcrumbItems[2].name;
 
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
@@ -57,7 +80,6 @@ export default function CategoryClient({
 
   const activeFilters = getActiveFilterLabels(filters, groups);
 
-
   /**
    * PAGE → FETCH
    */
@@ -69,7 +91,7 @@ export default function CategoryClient({
       params.set("page", String(page));
       params.set("perPage", "16");
 
-      const res = await getProducts(params);
+      const res = await getCategory(params, categorySlug);
 
       setProducts(res.data);
       setGroups(res.filters);
@@ -94,7 +116,7 @@ export default function CategoryClient({
   }, [filters, router]);
 
   return (
-    <div className="container max-w-7xl mx-auto py-12 space-y-4">
+    <div className="container max-w-7xl mx-auto pb-12 space-y-4">
       {productTypeTabItems.length > 0 && (
         <NavTabs
           items={productTypeTabItems}
@@ -107,10 +129,16 @@ export default function CategoryClient({
 
       <PageTitle
         data={{
-          title: "Tüm ürünler",
+          title: `${pageTitle} ürünleri`,
           totalProductAmount: pagination.count,
         }}
         changeOrder={() => {}}
+      />
+      <Breadcrumb
+        items={breadcrumbItems.map((item, index) => ({
+          ...item,
+          icon: index === 0 ? <Home size={14} /> : undefined,
+        }))}
       />
 
       <div className="flex md:flex-row flex-col items-start gap-4">
@@ -130,17 +158,19 @@ export default function CategoryClient({
               toggleFilter={toggleFilter}
             />
           )}
-
           <ProductGrid data={products} />
-          <div className="mx-auto">
-            <Pagination
-              pagination={paginationState}
-              onPageChange={(page) => {
-                setPage(page);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            />
-          </div>
+          {products.length > 0 && (
+            <div className="mx-auto">
+              <Pagination
+                pagination={paginationState}
+                onPageChange={(page) => {
+                  setPage(page);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </div>
+          )}
+          <SeoSection initialCategory={initialCategory}/>
         </div>
       </div>
     </div>

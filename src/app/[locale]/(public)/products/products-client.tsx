@@ -6,7 +6,6 @@ import {
   PageTitle,
   ProductGrid,
 } from "@/features/catalog/components";
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { getProducts } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
 import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
@@ -16,20 +15,30 @@ import {
 } from "@/features/catalog/utils";
 import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { Badge, Pagination } from "@/components/common";
-import { Clock } from "lucide-react";
+import { Breadcrumb, Pagination } from "@/components/common";
+import { Home } from "flowbite-react-icons/outline";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+
+interface ProductsClientProps {
+  initialProducts: Product[];
+  initialFilters: FilterGroupConfig[];
+  pagination: PaginationData;
+  breadcrumbItems: {
+    name: string;
+    url: string;
+  }[];
+}
 
 export default function ProductsClient({
   initialProducts,
   initialFilters,
   pagination,
-}: {
-  initialProducts: Product[];
-  initialFilters: FilterGroupConfig[];
-  pagination: PaginationData;
-}) {
+  breadcrumbItems,
+}: ProductsClientProps) {
   const router = useRouter();
   const isFirstRender = useRef(true);
+
+  const pageTitle = breadcrumbItems[2] ? `${breadcrumbItems[2]?.name} ürünleri` : "Tüm ürünler ";
 
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
@@ -56,8 +65,6 @@ export default function ProductsClient({
       : [];
 
   const activeFilters = getActiveFilterLabels(filters, groups);
-
-  const handleFilterLabelClose = () => {};
 
   /**
    * PAGE → FETCH
@@ -95,7 +102,7 @@ export default function ProductsClient({
   }, [filters, router]);
 
   return (
-    <div className="container max-w-7xl mx-auto space-y-4">
+    <div className="container max-w-7xl mx-auto space-y-4 px-4 md:px-0 pb-12">
       {productTypeTabItems.length > 0 && (
         <NavTabs
           items={productTypeTabItems}
@@ -105,15 +112,19 @@ export default function ProductsClient({
           onChange={(value) => setProductType(value)}
         />
       )}
-
       <PageTitle
         data={{
-          title: "Tüm ürünler",
+          title: `${pageTitle}`,
           totalProductAmount: pagination.count,
         }}
         changeOrder={() => {}}
       />
-
+      <Breadcrumb
+        items={breadcrumbItems.map((item, index) => ({
+          ...item,
+          icon: index === 0 ? <Home size={14} /> : undefined,
+        }))}
+      />
       <div className="flex md:flex-row flex-col items-start gap-4">
         <FilterContainer
           titleData={{ title: "Filtrele", isUnderlined: true }}
