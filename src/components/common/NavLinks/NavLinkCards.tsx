@@ -1,4 +1,4 @@
-import BaseCard from "@/components/common/NavLinks/BaseCard";
+import BaseCard from "@/components/common/NavLinks/NavCards/BaseCard";
 import Section from "@/components/layout/Section/Section";
 import Image from "next/image";
 import Link from "next/link";

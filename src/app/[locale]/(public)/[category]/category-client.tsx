@@ -9,7 +9,7 @@ import {
 } from "@/features/catalog/components";
 import { getCategory } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
+import NavTabs from "@/components/common/NavLinks/NavTabs/NavTab";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,

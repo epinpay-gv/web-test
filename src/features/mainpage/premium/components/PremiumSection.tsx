@@ -1,3 +1,4 @@
+"use client"
 import Section from "@/components/layout/Section/Section";
 import TabPlans from "@/features/mainpage/premium/components/TabPlans";
 import { useState } from "react";

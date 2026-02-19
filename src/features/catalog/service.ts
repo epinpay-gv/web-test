@@ -1,6 +1,7 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
 import { ProductsApiResponse, CategoriesApiResponse, CategoryApiResponse, ProductDetailApiResponse } from "./catalog.types";
 
+// REQUESTS
 export const getProducts = (query: URLSearchParams) => {
   return baseFetcher<ProductsApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${query.toString()}`

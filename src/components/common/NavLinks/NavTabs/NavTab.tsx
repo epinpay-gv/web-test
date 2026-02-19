@@ -3,7 +3,7 @@
 import { ComponentType } from "react";
 import NavItem from "./NavItems";
 
-export type NavigationTabItem = {
+export type NavTabItem = {
   label: string;
   value: string;
   icon?: ComponentType<{ className?: string }>;
@@ -13,8 +13,8 @@ type TabSize = "sm" | "base" | "lg";
 type TabVariant = "default" | "pill" | "bordered" | "borderBottom" | "segmented";
 type IconPosition = "left" | "right";
 
-interface NavigationTabsProps {
-  items: NavigationTabItem[];
+interface NavTabProps {
+  items: NavTabItem[];
   activeValue: string;
   onChange: (value: string) => void;
   size?: TabSize;
@@ -76,7 +76,7 @@ const CONTAINER_VARIANT_CLASSES: Record<
   },
 };
 
-export default function NavigationTabs({
+export default function NavTab({
   items,
   activeValue,
   onChange,
@@ -84,7 +84,7 @@ export default function NavigationTabs({
   variant = "default",
   iconPosition = "left",
   containerClassName,
-}: NavigationTabsProps) {
+}: NavTabProps) {
   const variantClasses = CONTAINER_VARIANT_CLASSES[variant];
   const containerClasses = `${variantClasses.base} ${variantClasses.size[size]}`;
 
