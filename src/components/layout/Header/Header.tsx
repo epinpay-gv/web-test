@@ -14,14 +14,13 @@ import { NotificationDropdown } from "@/features/notifications/components/Notifi
 import { X, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import NavLinkCards from "@/components/common/NavLinks/NavLinkCards";
 
 export function Header() {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
   // State'ler
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Auth Store'dan verileri alıyoruz
@@ -30,9 +29,9 @@ export function Header() {
   const logout = useAuthStore((state) => state.logout);
 
   // Hydration hatasını önlemek için mounted kontrolü
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
 
   // Tema ve cihaz suffixleri
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
@@ -40,17 +39,17 @@ export function Header() {
 
   // Sayfa sunucuda render edilirken login durumunu henüz bilmediğimiz için
   // butonu göstermeden önce istemciye geçişi (mounted) bekliyoruz.
-  if (!mounted) {
-    return (
-      <header className="h-16 md:h-22 border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft)" />
-    );
-  }
+  // if (!mounted) {
+  //   return (
+  //     <header className="h-16 md:h-22 border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft)" />
+  //   );
+  // }
 
   return (
     <>
       <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50 overflow-visible">
         {/* Arka Plan Parlama Efekti */}
-        <div className="absolute max-lg:hidden w-193.5 h-166 -left-60.5 -top-76 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />
+        {/* <div className="absolute max-lg:hidden w-193.5 h-166 -left-60.5 -top-76 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" /> */}
 
         <div className="max-w-7xl w-full mx-auto px-4 flex justify-between items-center gap-4 md:gap-8 z-10">
           {/* LOGO */}
@@ -139,7 +138,6 @@ export function Header() {
           </div>
         )}
       </header>
-      <NavLinkCards />
     </>
   );
 }

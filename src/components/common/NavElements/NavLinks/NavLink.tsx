@@ -5,7 +5,7 @@ type NavLinkTitleTypes = "default" | "header";
 
 const CONTAINER_CLASSES: Record<NavLinkTypes, string> = {
   default: "text-xs",
-  withBg: "flex rounded-lg hover:bg-(--bg-neutral-secondary-medium)",
+  withBg: "flex p-2 gap-2.5 rounded-lg hover:bg-(--bg-neutral-secondary-medium)",
 };
 
 const TITLE_CLASSES: Record<NavLinkTitleTypes, string> = {
@@ -13,7 +13,7 @@ const TITLE_CLASSES: Record<NavLinkTitleTypes, string> = {
   header: "text-base font-semibold text-(--text-heading) group-hover:text-(--text-fg-brand)",
 };
 
-interface NavlinkProps {
+interface NavLinkProps {
   type?: NavLinkTypes;
   titleType?: NavLinkTitleTypes;
   className?: string;
@@ -25,7 +25,7 @@ interface NavlinkProps {
   url: string;
 }
 
-export default function Navlink({
+export default function NavLink({
   type = "default",
   titleType = "default",
   className,
@@ -35,10 +35,10 @@ export default function Navlink({
   leftIcon,
   withIconCircle = false,
   url,
-}: NavlinkProps) {
+}: NavLinkProps) {
   return (
     <Link
-      className={`${className} group flex items-center p-2 gap-2.5 rounded-lg hover:text-(--text-fg-brand) ${CONTAINER_CLASSES[type]} `}
+      className={`${className} group flex items-center rounded-lg hover:text-(--text-fg-brand) ${CONTAINER_CLASSES[type]} `}
       href={url}
     >
       {rigthIcon &&

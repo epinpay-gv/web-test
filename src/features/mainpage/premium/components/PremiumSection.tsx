@@ -1,5 +1,4 @@
 "use client"
-import Section from "@/components/layout/Section/Section";
 import TabPlans from "@/features/mainpage/premium/components/TabPlans";
 import { useState } from "react";
 import Image from "next/image";
@@ -66,7 +65,7 @@ export default function PremiumSection({ plans = MOCK_PREMIUM_PLANS }: PremiumSe
     const currentPlan = plans.find(plan => plan.id === selectedPlan);
 
     return (
-        <Section backgroundClassName="hidden md:block py-8 bg-[linear-gradient(263.8deg,#F9D697_0.55%,#FFE7DD_24.87%,#BFC3D2_89.38%,#FFDBAD_97.8%)]">
+        <div className="hidden md:block py-8 bg-[linear-gradient(263.8deg,#F9D697_0.55%,#FFE7DD_24.87%,#BFC3D2_89.38%,#FFDBAD_97.8%)]">
             <div className="">
                 <TabPlans
                     plans={plans}
@@ -116,6 +115,6 @@ export default function PremiumSection({ plans = MOCK_PREMIUM_PLANS }: PremiumSe
                     />
                 </div>
             </div>
-        </Section>
+        </div>
     );
 }

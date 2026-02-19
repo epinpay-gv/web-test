@@ -3,6 +3,10 @@ import { getMainPageData } from "@/features/mainpage/service";
 import PromotedSection from "@/features/mainpage/promoted/components/PromotedSection";
 import { MainPageSchema } from "@/components/seo";
 import { MegaMenu } from "@/components/common";
+import BestSellers from "@/features/mainpage/bestsellers/components/BestSellers";
+import Campaigns from "@/features/mainpage/components/Campaings";
+import MasterMenu from "@/features/mainpage/components/MasterMenu";
+import PremiumSection from "@/features/mainpage/premium/components/PremiumSection";
 
 export async function generateMetadata({
   params,
@@ -34,8 +38,7 @@ export default async function Home({
       {
         icon: "",
         title: "Cüzdan Kodları ve Hediye Kartları",
-        description:
-          "Cüzdan kodları ve hediye kartlarını anında satın alın.",
+        description: "Cüzdan kodları ve hediye kartlarını anında satın alın.",
         url: "/products?productType=2",
       },
 
@@ -82,21 +85,12 @@ export default async function Home({
         url={`${baseUrl}/${locale}/`}
         locale={locale}
       />
-
-      <div className="mx-auto w-full pl-24">
-        <MegaMenu
-          mainLinks={megaMock.mainLinks}
-          productLinks={megaMock.productinks}
-        />
-      </div>
-
       {/* Page Content */}
       <PromotedSection promoted={res.promoted} />
-
-      {/* <MasterMenu />
-      <BestSellers /> 
-      <Campaigns /> 
-       <PremiumSection /> */}
+      <MasterMenu />
+      <BestSellers />
+      <Campaigns />
+      <PremiumSection />
     </>
   );
 }

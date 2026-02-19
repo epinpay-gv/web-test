@@ -1,5 +1,5 @@
+import { NavCard } from "@/components/common/NavLinks";
 import { PromotedCategory } from "../../../mainpage.types";
-import { NavCard } from "@/components/common";
 
 interface PromotedCategoriesProps {
   categories: PromotedCategory[];

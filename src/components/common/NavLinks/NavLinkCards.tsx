@@ -1,5 +1,5 @@
+"use client"
 import BaseCard from "@/components/common/NavLinks/NavCards/BaseCard";
-import Section from "@/components/layout/Section/Section";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -37,7 +37,7 @@ export default function NavLinkCards() {
   ];
 
   return (
-    <Section backgroundClassName="bg-(--bg-neutral-primary-soft) border-b mb-4">
+    <div className="bg-(--bg-neutral-primary-soft) border-b mb-4">
       <div className="w-full flex items-center justify-center">
         <div className="flex items-center justify-center gap-2 max-md:overflow-x-auto">
           {mockNavLinkCards.map((navLink) => (
@@ -89,6 +89,6 @@ export default function NavLinkCards() {
           ))}
         </div>
       </div>
-    </Section>
+    </div>
   );
 }

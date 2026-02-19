@@ -9,11 +9,8 @@ import { FeatureItem, SectionHeader } from "./Label";
 import Pagination from "./Paginate/Pagination";
 import Toggle from "./Toggle/Toggle";
 import { BottomSheet } from "./BottomSheet/BottomSheet";
-import Accordion from "./Accordion/Accordion";
-import AccordionItem from "./Accordion/AccordionItem";
-import ExpandableContent from "./Accordion/ExpandableContent"
-import { NavCard, NavTab, NavItems } from "./NavLinks";
-import MegaMenu from "./Navbar/MegaMenu";
+import { Accordion, AccordionItem, ExpandableContent } from "./Accordion";
+import { MegaMenu, NavLink, NavLinkCard, NavItem, NavTab } from "./NavElements";
 
 export {
   Badge,
@@ -34,8 +31,9 @@ export {
   Accordion,
   AccordionItem,
   ExpandableContent,
-  NavCard,
+  MegaMenu,
+  NavLink,
+  NavLinkCard,
+  NavItem,
   NavTab,
-  NavItems,
-  MegaMenu
 };
