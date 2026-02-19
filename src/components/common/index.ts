@@ -13,6 +13,7 @@ import Accordion from "./Accordion/Accordion";
 import AccordionItem from "./Accordion/AccordionItem";
 import ExpandableContent from "./Accordion/ExpandableContent"
 import { NavCard, NavTab, NavItems } from "./NavLinks";
+import MegaMenu from "./Navbar/MegaMenu";
 
 export {
   Badge,
@@ -32,8 +33,9 @@ export {
   BottomSheet,
   Accordion,
   AccordionItem,
-  ExpandableContent
+  ExpandableContent,
   NavCard,
   NavTab,
   NavItems,
+  MegaMenu
 };

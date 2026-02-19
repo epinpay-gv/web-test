@@ -2,6 +2,7 @@ import { createSeo } from "@/lib/seo";
 import { getMainPageData } from "@/features/mainpage/service";
 import PromotedSection from "@/features/mainpage/promoted/components/PromotedSection";
 import { MainPageSchema } from "@/components/seo";
+import { MegaMenu } from "@/components/common";
 
 export async function generateMetadata({
   params,
@@ -28,6 +29,50 @@ export default async function Home({
 
   const res = await getMainPageData();
 
+  const megaMock = {
+    mainLinks: [
+      {
+        icon: "",
+        title: "Cüzdan Kodları ve Hediye Kartları",
+        description:
+          "Cüzdan kodları ve hediye kartlarını anında satın alın.",
+        url: "/products?productType=2",
+      },
+
+      {
+        icon: "",
+        title: "Konsol ve Abonelik Hizmetleri",
+        description:
+          "Konsol üyelikleri ve abonelik paketlerine kolayca erişin.",
+        url: "/products?productType=4",
+      },
+
+      {
+        icon: "",
+        title: "Yazılım ve Lisanslar",
+        description:
+          "Orijinal yazılım lisanslarını hızlı teslimat avantajıyla edinin.",
+        url: "/products?productType=1",
+      },
+      {
+        icon: "",
+        title: "Oyun Pinleri",
+        description:
+          "Kodlarla hesabınızı hızlı ve güvenli şekilde güçlendirin.",
+        url: "/products?productType=3",
+      },
+    ],
+    productinks: [
+      { name: "Valorant", url: "" },
+      { name: "LOL", url: "" },
+      { name: "CS:GO", url: "" },
+      { name: "Pubg Mobile", url: "" },
+      { name: "Pubg Mobile 1", url: "" },
+      { name: "Pubg Mobile 2", url: "" },
+      { name: "Pubg Mobile 3", url: "" },
+    ],
+  };
+
   return (
     <>
       {/* SEO Content */}
@@ -37,6 +82,13 @@ export default async function Home({
         url={`${baseUrl}/${locale}/`}
         locale={locale}
       />
+
+      <div className="mx-auto w-full pl-24">
+        <MegaMenu
+          mainLinks={megaMock.mainLinks}
+          productLinks={megaMock.productinks}
+        />
+      </div>
 
       {/* Page Content */}
       <PromotedSection promoted={res.promoted} />

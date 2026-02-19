@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 
 import { Close } from "flowbite-react-icons/outline";
-import { Button } from "@/components/common/Button/Button";
+import { Button } from "../Button";
 
 type ModalTheme = "info" | "popup";
 type ModalSize = "sm" | "md" | "lg";
