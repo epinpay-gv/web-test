@@ -4,36 +4,28 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { NavCardConfig } from "@/components/layout/NavMenu/types/navmenu.types";
 
-interface NavCardVariant {
-  hoverBg: string;
-  hoverBorder?: string;
-  hoverInsetShadow?: string;
-}
-
-interface NavLinkCardProps {
-  title: string;
-  variant: NavCardVariant;
-  href?: string;
-  decorImage: string;
+interface Props {
+  card: NavCardConfig;
   className?: string;
 }
 
-export default function NavLinkCard({
-  title,
-  variant,
-  href,
-  decorImage,
-  className,
-}: NavLinkCardProps) {
+export default function NavLinkCard({ card, className }: Props) {
+  const {
+    title,
+    href,
+    variant,
+    decor,
+    isBgImage = true,
+    titleLocation = "top-left",
+    titleColor,
+  } = card;
+
   const content = (
     <motion.div
-      initial={false}
-      whileHover={{
-        backgroundColor: variant.hoverBg,
-        borderColor: variant.hoverBorder,
-        boxShadow: variant.hoverInsetShadow,
-      }}
+      initial="initial"
+      whileHover="hover"
       transition={{
         type: "spring",
         mass: 1,
@@ -41,44 +33,72 @@ export default function NavLinkCard({
         damping: 20,
       }}
       className={cn(
-        "group relative overflow-hidden",
-        "w-31.5 h-18 rounded-lg",
-        "border border-transparent",
-        "bg-[#1D303A]",
+        "relative overflow-hidden",
+        "w-31.5 h-18 rounded-xl py-2 px-3",
+        isBgImage && "bg-[#1D303A]",
         className,
       )}
+      variants={{
+        initial: {
+          backgroundColor: isBgImage ? variant.hoverBg : "transparent",
+          border: "none",
+          borderColor: "transparent",
+        },
+        hover: {
+          backgroundColor: variant.hoverBg,
+          border: "border border-2",
+          borderColor: variant.hoverBorder,
+          boxShadow: variant.hoverInsetShadow,
+        },
+      }}
     >
-      {/* BG Image */}
-      <div className="absolute inset-0 overflow-hidden">
-        <Image
-          src="/navMenu/bg-image.png"
-          alt=""
-          fill
-          className=" object-cover rotate-2 scale-125 mix-blend-luminosity opacity-60 pointer-events-none"
-        />
-      </div>
+      {/* Pattern */}
+      {isBgImage && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none overflow-hidden"
+          variants={{
+            initial: { opacity: 0.6 },
+            hover: { opacity: 0 },
+          }}
+        >
+          <div
+            className="
+              absolute -inset-[50%]
+              bg-[url('/bg-image.png')]
+              bg-repeat bg-center
+              bg-size-[150px_170px]
+              rotate-60 
+              contrast-125 brightness-105
+              "
+          />
+        </motion.div>
+      )}
 
       {/* Title */}
-      <span className="absolute top-3 left-3 text-white font-semibold text-sm z-10">
+      <span
+        className={`absolute  ${titleColor ? `text-[${titleColor}]` : "text-white"} font-semibold text-sm z-10 ${titleLocation === "center" ? "top-6 left-8" : "top-3 left-3"}`}
+      >
         {title}
       </span>
 
       {/* Decor */}
-      <div className="absolute bottom-2 right-2 z-10">
+      <motion.div
+        className="absolute z-10"
+        variants={{
+          initial: decor.animation.initial,
+          hover: decor.animation.hover,
+        }}
+      >
         <Image
-          src={decorImage}
-          alt=""
-          width={48}
-          height={48}
+          src={decor.decorImage}
+          alt={decor.decorImageAlt || ""}
+          width={decor.width}
+          height={decor.height}
           className="pointer-events-none"
         />
-      </div>
+      </motion.div>
     </motion.div>
   );
 
-  if (href) {
-    return <Link href={href}>{content}</Link>;
-  }
-
-  return content;
+  return <Link href={href}>{content}</Link>;
 }
