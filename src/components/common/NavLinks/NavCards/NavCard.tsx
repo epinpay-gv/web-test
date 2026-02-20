@@ -5,8 +5,9 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 interface NavCardProps {
-  title: string
-  backgroundImage: string
+  title: string;
+  backgroundImage: string;
+  slug?: string;
   href?: string
   onClick?: () => void
   variant?: 'centered' | 'corner'

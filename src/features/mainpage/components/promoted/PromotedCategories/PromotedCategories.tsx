@@ -1,5 +1,5 @@
-import { NavCard } from "@/components/common/NavLinks";
 import { PromotedCategory } from "../../../mainpage.types";
+import { CategoryCard } from "./CategoryCard";
 
 interface PromotedCategoriesProps {
   categories: PromotedCategory[];
@@ -15,23 +15,19 @@ export default function PromotedCategories({
       style={{ rowGap: "8px", columnGap: "8px" }}
     >
       {categories.map((category) => (
-        <NavCard
+        <CategoryCard
           key={category.id}
           title={category.title}
           backgroundImage={category.image}
-          href={`/categories/${category.slug}`}
-          variant="centered"
-          className="aspect-[123.5/86.66]"
+          slug={`/categories/${category.slug}`}
         />
       ))}
 
       {/* 12. Kart : Explore All */}
-      <NavCard
+      <CategoryCard
         title="Tüm Oyunları Keşfet"
         backgroundImage="/image/brand-bg.png"
-        href="/categories"
-        variant="centered"
-        className="aspect-[123.5/86.66]"
+        slug="/categories"
       />
     </div>
   );

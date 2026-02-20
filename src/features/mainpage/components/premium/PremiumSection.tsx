@@ -1,5 +1,5 @@
 "use client";
-import TabPlans from "@/features/mainpage/premium/components/TabPlans";
+import TabPlans from "@/features/mainpage/components/premium/TabPlans";
 import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/common";

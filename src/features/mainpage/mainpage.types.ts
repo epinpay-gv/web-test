@@ -32,3 +32,11 @@ export interface PremiumPlan {
     description: string;
     features: string[];
 }
+
+/* RESPONSE & PAYLOAD TYPES */
+
+export interface MainPageApiResponse {
+  promoted: Promoted;
+  bestsellers: Bestsellers;
+  premium: PremiumPlan[];
+}

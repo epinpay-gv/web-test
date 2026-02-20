@@ -1,7 +1,7 @@
 import { getLegalDocumentByType } from "@/features/legal/service/service";
 import { notFound } from "next/navigation";
 import { LegalDocumentType } from "@/features/legal/types";
-import BestSellers from "@/features/mainpage/bestsellers/components/BestSellers";
+import BestSellers from "@/features/mainpage/components/bestsellers/BestSellers";
 import Section from "@/components/layout/Section/Section";
 
 
