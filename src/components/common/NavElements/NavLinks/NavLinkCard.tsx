@@ -34,7 +34,7 @@ export default function NavLinkCard({ card, className }: Props) {
       }}
       className={cn(
         "relative overflow-hidden",
-        "w-31.5 h-18 rounded-xl py-2 px-3",
+        "w-31.5 h-18 rounded-2xl py-2 px-3",
         isBgImage && "bg-[#1D303A]",
         className,
       )}
@@ -57,7 +57,7 @@ export default function NavLinkCard({ card, className }: Props) {
         <motion.div
           className="absolute inset-0 pointer-events-none overflow-hidden"
           variants={{
-            initial: { opacity: 0.6 },
+            initial: { opacity: 0.5 },
             hover: { opacity: 0 },
           }}
         >
@@ -66,9 +66,9 @@ export default function NavLinkCard({ card, className }: Props) {
               absolute -inset-[50%]
               bg-[url('/bg-image.png')]
               bg-repeat bg-center
-              bg-size-[150px_170px]
+              bg-size-[120px_300px]
               rotate-60 
-              contrast-125 brightness-105
+              contrast-200 brightness-180
               "
           />
         </motion.div>
