@@ -5,7 +5,7 @@ import { ProductCard, CategoryCard, RatingCard } from "./Cards";
 import { CheckBox } from "./CheckBox/CheckBox";
 import { Input } from "./Form";
 import { IconShape } from "./IconShape/IconShape";
-import { FeatureItem, SectionHeader } from "./Label";
+import { FeatureItem, SectionHeader, TrustLabels } from "./Label";
 import Pagination from "./Paginate/Pagination";
 import Toggle from "./Toggle/Toggle";
 import { BottomSheet } from "./BottomSheet/BottomSheet";
@@ -25,6 +25,7 @@ export {
   IconShape,
   FeatureItem,
   SectionHeader,
+  TrustLabels,
   Pagination,
   Toggle,
   BottomSheet,

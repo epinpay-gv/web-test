@@ -21,7 +21,7 @@ export function CategoryCard({
       className={cn(
         "relative block rounded-3xl overflow-hidden group",
         "transition-transform duration-300 hover:scale-105",
-        "w-[123.5px] h-[86.7px]",
+        "w-20.25 h-[56.8px] md:w-[123.5px] md:h-[86.7px]",
       )}
     >
       {/* Background Image */}

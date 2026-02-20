@@ -7,7 +7,7 @@ interface PromotedSectionProps {
 }
 export default function PromotedSection({ promoted }: PromotedSectionProps) {
   return (
-    <div className="max-w-5xl mx-auto hidden md:grid md:grid-cols-2 gap-6 py-20">
+    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 px-4 md:px-0 py-6 md:py-20">
       <PromotedProduct
         product={promoted.product}
         productVariants={promoted.productVariants}

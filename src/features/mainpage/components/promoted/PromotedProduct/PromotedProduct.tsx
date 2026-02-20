@@ -1,5 +1,4 @@
-import { BadgeCheck, ChevronDoubleRight, Wallet } from "flowbite-react-icons/outline";
-import FeatureItem from "@/components/common/Label/FeatureItem";
+import { TrustLabels } from "@/components/common";
 import SectionHeader from "@/components/common/Label/SectionHeader";
 import ProductCard from "@/components/common/NavLinks/NavCards/ProductCard";
 
@@ -24,41 +23,21 @@ export default function PromotedProduct({
   product,
   productVariants,
 }: PromotedProductProps) {
-  const infoItems = [
-    { icon: ChevronDoubleRight, title: "Anında Teslimat" },
-    { icon: BadgeCheck, title: "Lisanslı Epinler" },
-    { icon: Wallet, title: "Güvenli Ödeme" },
-  ];
-
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       {/* Heading */}
-      {(section === "top" || section === "all") && (
-        <div className="text-3xl font-bold">
-          <p className="bg-linear-to-r from-white to-[#24d7ff] bg-clip-text text-transparent">
-            Oyun paranı anında yükle
-          </p>
-          <p className="bg-linear-to-r from-white to-[#24d7ff] bg-clip-text text-transparent">
-            oyundan hiç kopma
-          </p>
-        </div>
-      )}
+      <h1 className="max-w-92.75 text-3xl font-bold bg-linear-to-r from-white to-[#24d7ff] bg-clip-text text-transparent">
+        Oyun paranı anında yükle oyundan hiç kopma
+      </h1>
 
       {/* Info icons */}
-      {(section === "top" || section === "all") && (
-        <div className="mt-3 flex gap-6">
-          {infoItems.map((item, index) => (
-            <FeatureItem key={index} icon={item.icon} title={item.title} />
-          ))}
-        </div>
-      )}
+      <TrustLabels
+        labelList={["instantDelivery", "licencedEpins", "securePayment"]} type="colorful"
+      />
 
       {(section === "bottom" || section === "all") && (
         <>
-          <SectionHeader
-            title={product.name}
-            actionLabel="Tüm Ürünleri Gör"
-          />
+          <SectionHeader title={product.name} actionLabel="Tüm Ürünleri Gör" />
 
           <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
             {productVariants.map((item, index) => (
