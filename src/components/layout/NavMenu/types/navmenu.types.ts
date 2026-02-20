@@ -19,7 +19,7 @@ export interface DecorVariant {
   animation: DecorAnimation;
 }
 
-export interface NavCardConfig {
+export interface BaseNavItem {
   title: string;
   titleLocation: "top-left" | "center";
   isBgImage?: boolean;
@@ -28,3 +28,14 @@ export interface NavCardConfig {
   variant: NavCardVariant;
   decor: DecorVariant;
 }
+
+export type LinkNavItem = BaseNavItem & {
+  type: "link";
+};
+
+export type MegaMenuNavItem = BaseNavItem & {
+  type: "mega";
+  megaMenuKey: string; 
+};
+
+export type NavCardConfig = LinkNavItem | MegaMenuNavItem;

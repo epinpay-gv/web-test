@@ -87,10 +87,9 @@ export default async function Home({
       />
       {/* Page Content */}
       {/* <PromotedSection promoted={res.promoted} /> */}
-      <MasterMenu />
-      <BestSellers />
-      <Campaigns />
-      <PremiumSection />
+        <MasterMenu />
+        <BestSellers />
+        <PremiumSection />
     </>
   );
 }

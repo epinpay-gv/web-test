@@ -19,7 +19,7 @@ export default function BestSellers({ hideTimeRanges = false }: BestSellersProps
 
   return (
     <div className="bg-(--bg-brand-softer)">
-      <div>
+      <div className="max-w-5xl mx-auto">
         <h1 className="text-(--text-heading) text-[24px] font-semibold py-4">
           En Çok Satanlar
         </h1>
