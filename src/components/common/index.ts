@@ -11,6 +11,7 @@ import Toggle from "./Toggle/Toggle";
 import { BottomSheet } from "./BottomSheet/BottomSheet";
 import { Accordion, AccordionItem, ExpandableContent } from "./Accordion";
 import { MegaMenu, NavLink, NavLinkCard, NavItem, NavTab } from "./NavElements";
+import DropdownMenu from "./Dropdown/DropdownMenu";
 
 export {
   Badge,
@@ -37,4 +38,5 @@ export {
   NavLinkCard,
   NavItem,
   NavTab,
+  DropdownMenu,
 };

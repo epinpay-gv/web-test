@@ -50,7 +50,7 @@ export default async function ProductPage({ params }: Props) {
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
     },
     {
-      name: res.category.translation.name,
+      name: "",
       url: categoryUrl,
     },
     {

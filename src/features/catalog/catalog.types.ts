@@ -1,4 +1,4 @@
-import { Product, PaginationData, Category } from "@/types/types";
+import { Product, PaginationData, Category, ProductPlatform, ProductRegion } from "@/types/types";
 import { TitleData } from "@/components/common/Title/types";
 
 /* CATEGORY TYPES */
@@ -72,10 +72,11 @@ export type ActiveFilterChip = {
 };
 
 /* PRODUCT DETAIL TYPES */
-export interface ProductOptions{
-  variantions: [];
-  platform: [];
-  region: [];
+export interface CategoryWithProductDetail{
+  variants: Product[];
+  regions: ProductRegion[];
+  platforms: ProductPlatform[];
+  category: Category;
 }
 
 /* RESPONSE & PAYLOAD TYPES */
@@ -97,6 +98,6 @@ export interface CategoryApiResponse{
 
 export interface ProductDetailApiResponse{
   data: Product;
-  category: Category;
-  options: ProductOptions;
+  category: CategoryWithProductDetail;
 }
+

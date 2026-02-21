@@ -25,7 +25,7 @@ export default function MegaMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={`w-152 flex rounded-lg border border-(--border-light) overflow-hidden items-stretch absolute top-full left-0
-    transition-all duration-200 z-50
+    transition-all duration-200 z-100
     ${
       open
         ? "opacity-100 visible translate-y-0"
@@ -33,7 +33,7 @@ export default function MegaMenu({
     }`}
     >
       {/* LEFT SIDE */}
-      <div className="w-[384px] flex flex-col p-6 gap-3 mega-menu-left-bg">
+      <div className="w-[384px] flex flex-col p-6 gap-3 mega-menu-left-bg z-100">
         {mainLinks.map((item, index) => (
           <NavLink
             key={index}
