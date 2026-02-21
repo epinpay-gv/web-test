@@ -7,8 +7,8 @@ import {
   ProductInfo,
   SeoSectionWithTab,
 } from "@/features/catalog/components";
-import { useRouter, useParams } from "next/navigation";
 import { CategoryWithProductDetail } from "@/features/catalog/catalog.types";
+import { useProductSearch } from "@/features/catalog/hooks";
 
 interface ProductClientProps {
   initialProduct: Product;
@@ -24,38 +24,8 @@ export default function ProductClient({
   initialCategory,
   breadcrumbItems,
 }: ProductClientProps) {
-  const router = useRouter();
-  const params = useParams();
-
-  const handleVariantChange = (newSlug: string) => {
-    const { locale, category } = params as {
-      locale: string;
-      category: string;
-    };
-
-    router.push(`/${locale}/${category}/${newSlug}`);
-  };
-
-  const handlePlatformChange = (id: number) => {
-    const { locale, category, product } = params as {
-      locale: string;
-      category: string;
-      product: string;
-    };
-
-    router.push(`/${locale}/${category}/${product}?platform=${id}`);
-  };
-
-  const handleRegionChange = (id: number) => {
-    const { locale, category, product } = params as {
-      locale: string;
-      category: string;
-      product: string;
-    };
-
-    router.push(`/${locale}/${category}/${product}?region=${id}`);
-  };
-
+  const { changeVariant, changePlatform, changeRegion } = useProductSearch();
+  
   return (
     <div className="container max-w-5xl mx-auto pb-12 py-6 space-y-4">
       <Breadcrumb
@@ -75,9 +45,9 @@ export default function ProductClient({
             }))}
             regions={initialCategory.regions}
             platforms={initialCategory.platforms}
-            onVariantChange={handleVariantChange}
-            onRegionChange={handleRegionChange}
-            onPlatformChange={handlePlatformChange}
+            onVariantChange={changeVariant}
+            onPlatformChange={changePlatform}
+            onRegionChange={changeRegion}
           />
           <SeoSectionWithTab
             initialCategory={initialCategory.categoryData}

@@ -3,6 +3,7 @@ import { CategorySchema } from "@/components/seo/CategorySchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { getCategories } from "@/features/catalog/service";
 import CategoriesClient from "./categories-client";
+import { createCategoriesBreadcrumb } from "@/features/catalog/utils";
 
 export async function generateMetadata({
   params,
@@ -29,16 +30,7 @@ export default async function CategoriesPage({
 
   const res = await getCategories(new URLSearchParams());
 
-  const breadcrumbItems = [
-    {
-      name: "Home",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
-    },
-    {
-      name: "Categories",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
-    },
-  ];
+  const breadcrumbItems = createCategoriesBreadcrumb(locale);
 
   return (
     <>

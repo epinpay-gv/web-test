@@ -88,13 +88,14 @@ export const Footer = () => {
                 
                 <div className="flex gap-2">
                   {[
-                    { icon: X, href: "#" },
-                    { icon: Youtube, href: "#" },
-                    { icon: Facebook, href: "#" },
-                    { icon: Instagram, href: "#" }
+                    { icon: X, name: "X/Twitter", href: "#" },
+                    { icon: Youtube, name: "Youtube", href: "#" },
+                    { icon: Facebook, name: "Facebook", href: "#" },
+                    { icon: Instagram,name: "Instagram",  href: "#" }
                   ].map((social, idx) => (
                     <a 
                       key={idx} 
+                      aria-label={social.name}
                       href={social.href} 
                       className="block outline-none"
                     >

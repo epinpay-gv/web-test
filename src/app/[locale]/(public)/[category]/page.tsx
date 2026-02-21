@@ -2,6 +2,7 @@ import { createSeo } from "@/lib/seo";
 import { CategorySchema, BreadcrumbSchema } from "@/components/seo";
 import { getCategory } from "@/features/catalog/service";
 import CategoryClient from "./category-client";
+import { createCategoryBreadcrumb } from "@/features/catalog/utils";
 
 type Params = {
   locale: string;
@@ -58,20 +59,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     (opt) => opt.value === productType,
   );
 
-  const breadcrumbItems = [
-    {
-      name: "Home",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
-    },
-    {
-      name: "Categories",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
-    },
-    {
-      name: res.category?.translation?.name,
-      url: categoryUrl,
-    },
-  ];
+  const breadcrumbItems = createCategoryBreadcrumb(
+    locale,
+    res.category?.translation?.name,
+    category,
+    selectedProductType,
+  );
 
   if (selectedProductType) {
     breadcrumbItems.push({
