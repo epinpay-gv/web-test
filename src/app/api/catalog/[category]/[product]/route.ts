@@ -79,6 +79,15 @@ export async function GET(
   }
 
   const platforms = Array.from(platformMap.values());
+  console.log({
+    data: productData,
+    category: {
+      variants,
+      regions,
+      platforms,
+      categoryData,
+    },
+  });
 
   // FAKE LATENCY
   await new Promise((r) => setTimeout(r, 300));

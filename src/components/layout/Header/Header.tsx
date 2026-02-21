@@ -35,7 +35,7 @@ export function Header() {
 
   // Tema ve cihaz suffixleri
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
-  const logoSrc = `/image/logos/epinpay-${themeSuffix}-lg.png`;
+  const logoSrc = `/logos/epinpay-${themeSuffix}-lg.png`;
 
   // Sayfa sunucuda render edilirken login durumunu henüz bilmediğimiz için
   // butonu göstermeden önce istemciye geçişi (mounted) bekliyoruz.

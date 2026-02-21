@@ -76,7 +76,7 @@ export interface CategoryWithProductDetail{
   variants: Product[];
   regions: ProductRegion[];
   platforms: ProductPlatform[];
-  category: Category;
+  categoryData: Category;
 }
 
 /* RESPONSE & PAYLOAD TYPES */

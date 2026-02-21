@@ -79,7 +79,7 @@ export default function ProductInfo({
         </div>
 
         {/* Dropdown Section */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="flex item-center gap-4">
           {/* Points / Variant */}
           <div className="col-span-2">
             <FilterDropdownContainer

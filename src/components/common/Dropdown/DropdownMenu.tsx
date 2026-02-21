@@ -74,13 +74,13 @@ export default function DropdownMenu({
         <div
           style={{ width }}
           className={clsx(
-            "absolute z-20 mt-2 rounded-md shadow-lg border border-(--border-default-medium)",
+            "absolute z-50 mt-2 rounded-md shadow-lg border border-(--border-default-medium)",
             "bg-(--bg-neutral-primary-medium) p-2",
             align === "right" ? "right-0" : "left-0",
             className,
           )}
         >
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1.5 max-h-60 overflow-y-auto pr-1">
             {items.map((item) => (
               <DropdownListItem
                 key={item.id}

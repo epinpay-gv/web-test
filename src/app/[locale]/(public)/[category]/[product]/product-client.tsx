@@ -80,7 +80,7 @@ export default function ProductClient({
             onPlatformChange={handlePlatformChange}
           />
           <SeoSectionWithTab
-            initialCategory={initialCategory.category}
+            initialCategory={initialCategory.categoryData}
             initialProduct={initialProduct}
           />
         </div>
