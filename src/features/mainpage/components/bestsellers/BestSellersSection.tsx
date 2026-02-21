@@ -1,41 +1,39 @@
 "use client";
-import { mockProducts } from "@/mocks";
+
 import { useState } from "react";
 import { ProductCarousel } from "./ProductCarousel";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTab";
-
-const TIME_RANGES = [
-  { label: "Son 24 Saat", value: "24h" },
-  { label: "Son 7 Gün", value: "7d" },
-  { label: "Son 30 Gün", value: "30d" },
-];
+import { NavTab } from "@/components/common";
+import { Bestsellers } from "../../mainpage.types";
 
 interface BestSellersProps {
-  hideTimeRanges?: boolean;
+  data: Bestsellers;
 }
 
-export default function BestSellers({ hideTimeRanges = false }: BestSellersProps) {
+export default function BestSellers({ data }: BestSellersProps) {
   const [range, setRange] = useState("24h");
 
   return (
-    <div className="bg-(--bg-brand-softer)">
+    <div className="p-6 bg-(--bg-brand-softer)">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-(--text-heading) text-[24px] font-semibold py-4">
           En Çok Satanlar
         </h1>
 
-        {!hideTimeRanges && (
-          <NavTabs
-            items={TIME_RANGES}
+        <div className="max-w-87.5">
+          <NavTab
+            items={data.tabInfo.map((tab) => ({
+              label: tab.label,
+              value: tab.value,
+            }))}
             activeValue={range}
-            onChange={setRange}
+            onChange={(value) => setRange(value)}
             variant="segmented"
             size="base"
           />
-        )}
+        </div>
 
         <ProductCarousel
-          products={mockProducts}
+          products={data.products[range] || []}
           showControls={false}
           loop={false}
         />

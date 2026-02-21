@@ -8,14 +8,13 @@ import {
 } from "@/features/catalog/components";
 import { getProducts } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTab";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
 import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { Breadcrumb, Pagination } from "@/components/common";
+import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
 import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 
@@ -104,7 +103,7 @@ export default function ProductsClient({
   return (
     <div className="container max-w-7xl mx-auto space-y-4 px-4 md:px-0 pb-12">
       {productTypeTabItems.length > 0 && (
-        <NavTabs
+        <NavTab
           items={productTypeTabItems}
           activeValue={filters.productType[0] ?? "all"}
           variant="segmented"

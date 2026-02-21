@@ -23,7 +23,7 @@ export interface PromotedCategory {
 
 export interface Bestsellers {
   tabInfo: { label: string; value: string }[];
-  products: Product[];
+  products: { [key: string]: Product[] };
 }
 
 export interface PremiumPlan {

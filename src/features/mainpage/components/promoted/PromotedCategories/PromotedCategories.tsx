@@ -26,7 +26,6 @@ export default function PromotedCategories({
       {/* 12. Kart : Explore All */}
       <CategoryCard
         title="Tüm Oyunları Keşfet"
-        backgroundImage="/image/brand-bg.png"
         slug="/categories"
       />
     </div>

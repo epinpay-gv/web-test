@@ -1,11 +1,6 @@
-import { TrustLabels } from "@/components/common";
-import SectionHeader from "@/components/common/Label/SectionHeader";
-import ProductCard from "@/components/common/NavLinks/NavCards/ProductCard";
-
-type PromotedProductSection = "top" | "bottom" | "all";
+import { NavLink, TrustLabels } from "@/components/common";
 
 interface PromotedProductProps {
-  section?: PromotedProductSection;
   product: {
     name: string;
     slug: string;
@@ -19,33 +14,48 @@ interface PromotedProductProps {
 }
 
 export default function PromotedProduct({
-  section = "all",
   product,
   productVariants,
 }: PromotedProductProps) {
   return (
-    <div className="flex flex-col gap-3">
-      {/* Heading */}
-      <h1 className="max-w-92.75 text-3xl font-bold bg-linear-to-r from-white to-[#24d7ff] bg-clip-text text-transparent">
-        Oyun paranı anında yükle oyundan hiç kopma
-      </h1>
+    <div className="flex flex-col justify-between">
+      <div className="flex flex-col gap-3">
+        {/* Heading */}
+        <h1 className="leading-[150%] max-w-92.75 text-3xl font-bold bg-linear-to-r from-white to-[#24d7ff] bg-clip-text text-transparent">
+          Oyun paranı anında yükle oyundan hiç kopma
+        </h1>
 
-      {/* Info icons */}
-      <TrustLabels
-        labelList={["instantDelivery", "licencedEpins", "securePayment"]} type="colorful"
-      />
+        {/* Trust Labels */}
+        <TrustLabels
+          labelList={["instantDelivery", "licencedEpins", "securePayment"]}
+          type="colorful"
+        />
+      </div>
 
-      {(section === "bottom" || section === "all") && (
-        <>
-          <SectionHeader title={product.name} actionLabel="Tüm Ürünleri Gör" />
+      {/* Promoted Product */}
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-2">
+          <p>{product.name}</p>
+          <NavLink
+            title="Tüm Ürünleri Gör"
+            url={product.slug}
+            titleType="highlight"
+          />
+        </div>
 
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
-            {productVariants.map((item, index) => (
-              <ProductCard key={index} title={item.name} price={item.price} />
-            ))}
-          </div>
-        </>
-      )}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {productVariants.map((item, index) => (
+            <NavLink
+              key={index}
+              title={item.name}
+              url={item.slug}
+              type="withContainer"
+              helper={`$ ${item.price}`}
+              helperType="green"
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
