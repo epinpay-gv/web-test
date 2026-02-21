@@ -84,17 +84,18 @@ export const Footer = () => {
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-8">
               
               <div className="space-y-6">
-                <Image src="/image/logos/epinpay-white-lg.png" width={200} height={48} alt="Epinpay" className="h-10 w-auto" />
+                <Image src="/logos/epinpay-white-lg.png" width={200} height={48} alt="Epinpay" className="h-10 w-auto" />
                 
                 <div className="flex gap-2">
                   {[
-                    { icon: X, href: "#" },
-                    { icon: Youtube, href: "#" },
-                    { icon: Facebook, href: "#" },
-                    { icon: Instagram, href: "#" }
+                    { icon: X, name: "X/Twitter", href: "#" },
+                    { icon: Youtube, name: "Youtube", href: "#" },
+                    { icon: Facebook, name: "Facebook", href: "#" },
+                    { icon: Instagram,name: "Instagram",  href: "#" }
                   ].map((social, idx) => (
                     <a 
                       key={idx} 
+                      aria-label={social.name}
                       href={social.href} 
                       className="block outline-none"
                     >

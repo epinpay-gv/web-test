@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   FilterContainer,
   FilterLabels,
@@ -9,25 +9,15 @@ import {
 } from "@/features/catalog/components";
 import { getCategory } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
 import { Category, PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import {
-  Accordion,
-  AccordionItem,
-  Breadcrumb,
-  ExpandableContent,
-  Pagination,
-  RatingCard,
-} from "@/components/common";
+import { Breadcrumb, NavTab, Pagination } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
 import { FilterGroupConfig } from "@/features/catalog/catalog.types";
-import BoxWrapper from "@/components/common/Wrappers/BoxWrapper";
-import DOMPurify from "dompurify";
 
 interface CategoryClientProps {
   initialProducts: Product[];
@@ -118,7 +108,7 @@ export default function CategoryClient({
   return (
     <div className="container max-w-7xl mx-auto pb-12 space-y-4">
       {productTypeTabItems.length > 0 && (
-        <NavTabs
+        <NavTab
           items={productTypeTabItems}
           activeValue={filters.productType[0] ?? "all"}
           variant="segmented"
@@ -170,7 +160,7 @@ export default function CategoryClient({
               />
             </div>
           )}
-          <SeoSection initialCategory={initialCategory}/>
+          <SeoSection initialCategory={initialCategory} />
         </div>
       </div>
     </div>

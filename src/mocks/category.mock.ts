@@ -1,7 +1,5 @@
 
 import { FilterGroupConfig } from "@/features/catalog/catalog.types";
-import { Product, PRODUCT_STATUS } from "@/types/types";
-
 
 export const categoryFilterGroups: FilterGroupConfig[] = [
   {

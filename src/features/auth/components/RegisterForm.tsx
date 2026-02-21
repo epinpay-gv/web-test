@@ -46,7 +46,7 @@ export function RegisterForm() {
   return (
     <div className="w-full max-w-96 mx-auto animate-in fade-in duration-500">
       <div className="mb-10">
-        <Image src="/image/logos/epinpay-white-lg.png" height={30} width={132} alt='Epinpay' priority />
+        <Image src="/logos/epinpay-white-lg.png" height={30} width={132} alt='Epinpay' priority />
       </div>
 
       <div className="mb-8">

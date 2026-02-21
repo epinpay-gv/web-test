@@ -43,12 +43,12 @@ export function LoginForm() {
       {/* Logo */}
       {/* TODO: Logonun sağına dil dropdownu gelecek */}
       <div className="mb-10">
-        <Image
-          src="/image/logos/epinpay-white-lg.png"
-          height={30}
-          width={132}
-          alt="Epinpay"
-          priority
+        <Image 
+          src="/logos/epinpay-white-lg.png" 
+          height={30} 
+          width={132} 
+          alt='Epinpay' 
+          priority 
         />
       </div>
 

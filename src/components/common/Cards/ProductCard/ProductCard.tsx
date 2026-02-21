@@ -1,11 +1,6 @@
 "use client";
 import { Product } from "@/types/types";
-import {
-  AddToCartPayload,
-  ChangeQuantityPayload,
-  NotifyWhenAvailablePayload,
-  ProductCardOrientation,
-} from "./types";
+import { ProductCardOrientation } from "./types";
 import {
   ImageSection,
   ProductInfo,
@@ -15,13 +10,19 @@ import {
   CartActionButtons,
 } from "./CardSections";
 import Link from "next/link";
+import {
+  AddToFavoritesPayload,
+  AddToCartPayload,
+  NotifyWhenAvailablePayload,
+  ChangeQuantityPayload,
+} from "@/features/catalog/catalog.types";
 interface ProductCardProps {
   product: Product;
   orientation?: ProductCardOrientation;
   isInCart?: boolean;
   addToCart: (payload: AddToCartPayload) => void;
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
-  addToFavorites: (payload: NotifyWhenAvailablePayload) => void;
+  addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
@@ -78,6 +79,7 @@ export default function ProductCard({
               <ActionButtons
                 isHorizontal={isHorizontal}
                 addToCart={addToCart}
+                product={product}
               />
             </>
           ) : (

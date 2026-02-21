@@ -1,0 +1,106 @@
+"use client";
+import { useMemo, useState } from "react";
+import { Category, Product } from "@/types/types";
+import { ExpandableContent, NavTab, RatingCard } from "@/components/common";
+import BoxWrapper from "@/components/common/Wrappers/BoxWrapper";
+import DOMPurify from "dompurify";
+
+interface SeoSectionWithTabProps {
+  initialCategory: Category;
+  initialProduct: Product;
+}
+
+export default function SeoSectionWithTab({
+  initialCategory,
+  initialProduct,
+}: SeoSectionWithTabProps) {
+  const tabs = [
+    { label: "Ürün Açıklaması", value: "product-description" },
+    { label: "Oyun Hakkında", value: "about-game" },
+    { label: "Nasıl Aktif Edilir", value: "activation" },
+    { label: "Değerlendirmeler", value: "reviews" },
+  ];
+
+  const [activeTab, setActiveTab] = useState(tabs[0].value);
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+
+    const element = document.getElementById(value);
+    if (!element) return;
+
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const aboutGame = initialCategory?.translation?.description ?? "";
+  const description = initialProduct?.translation?.description ?? "";
+  const activation = initialCategory?.translation?.activation ?? "";
+
+  const categoryDescription = useMemo(
+    () => DOMPurify.sanitize(aboutGame),
+    [aboutGame],
+  );
+
+  const productDescription = useMemo(
+    () => DOMPurify.sanitize(description),
+    [description],
+  );
+
+  const activationDescription = useMemo(
+    () => DOMPurify.sanitize(activation),
+    [activation],
+  );
+
+  return (
+    <div className="flex flex-col gap-10">
+      <div className="sticky top-0 z-20 py-2 bg-(--bg-variants-gray)">
+        <NavTab
+          items={tabs}
+          activeValue={activeTab}
+          onChange={handleTabChange}
+          variant="borderBottom"
+        />
+      </div>
+      <div className="flex flex-col gap-10 pb-10 px-4 md:px-0">
+        {initialCategory.translation.description && (
+          <BoxWrapper id="product-description" title="Ürün Açıklaması" className="scroll-mt-32">
+            <ExpandableContent maxHeight={300}>
+              <div dangerouslySetInnerHTML={{ __html: productDescription }} />
+            </ExpandableContent>
+          </BoxWrapper>
+        )}
+        {initialCategory.translation.description && (
+          <BoxWrapper id="about-game" title="Oyun Hakkında" className="scroll-mt-32">
+            <ExpandableContent maxHeight={300}>
+              <div dangerouslySetInnerHTML={{ __html: categoryDescription }} />
+            </ExpandableContent>
+          </BoxWrapper>
+        )}
+        {initialCategory.translation.activation && (
+          <BoxWrapper id="activation" title="Nasıl Aktif Edilir" className="scroll-mt-32">
+            <ExpandableContent maxHeight={300}>
+              <div
+                dangerouslySetInnerHTML={{ __html: activationDescription }}
+              />
+            </ExpandableContent>
+          </BoxWrapper>
+        )}
+        {initialCategory.translation.comments && (
+          <BoxWrapper id="reviews" title="Değerlendirmeler" className="scroll-mt-32">
+            <ExpandableContent maxHeight={300}>
+              <div></div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {initialCategory.translation.comments.map((item) => (
+                  <RatingCard key={item.id} comment={item} />
+                ))}
+              </div>
+            </ExpandableContent>
+          </BoxWrapper>
+        )}
+      </div>
+    </div>
+  );
+}

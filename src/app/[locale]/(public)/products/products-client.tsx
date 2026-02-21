@@ -8,16 +8,16 @@ import {
 } from "@/features/catalog/components";
 import { getProducts } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
 import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { Breadcrumb, Pagination } from "@/components/common";
+import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
 import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface ProductsClientProps {
   initialProducts: Product[];
@@ -38,7 +38,9 @@ export default function ProductsClient({
   const router = useRouter();
   const isFirstRender = useRef(true);
 
-  const pageTitle = breadcrumbItems[2] ? `${breadcrumbItems[2]?.name} ürünleri` : "Tüm ürünler ";
+  const pageTitle = breadcrumbItems[2]
+    ? `${breadcrumbItems[2]?.name} ürünleri`
+    : "Tüm ürünler ";
 
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
@@ -65,6 +67,9 @@ export default function ProductsClient({
       : [];
 
   const activeFilters = getActiveFilterLabels(filters, groups);
+
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
 
   /**
    * PAGE → FETCH
@@ -103,15 +108,17 @@ export default function ProductsClient({
 
   return (
     <div className="container max-w-7xl mx-auto space-y-4 px-4 md:px-0 pb-12">
-      {productTypeTabItems.length > 0 && (
-        <NavTabs
-          items={productTypeTabItems}
-          activeValue={filters.productType[0] ?? "all"}
-          variant="segmented"
-          size="base"
-          onChange={(value) => setProductType(value)}
-        />
-      )}
+      <div className="py-6">
+        {productTypeTabItems.length > 0 && (
+          <NavTab
+            items={productTypeTabItems}
+            activeValue={filters.productType[0] ?? "all"}
+            variant="segmented"
+            size="base"
+            onChange={(value) => setProductType(value)}
+          />
+        )}
+      </div>
       <PageTitle
         data={{
           title: `${pageTitle}`,
@@ -143,7 +150,13 @@ export default function ProductsClient({
             />
           )}
 
-          <ProductGrid data={products} />
+          <ProductGrid
+            data={products}
+            addToCart={addToCart}
+            changeQuantity={changeQuantity}
+            addToFavorites={addToFavorites}
+            notifyWhenAvailable={notifyWhenAvailable}
+          />
           <div className="mx-auto">
             <Pagination
               pagination={paginationState}
