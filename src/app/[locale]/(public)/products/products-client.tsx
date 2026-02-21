@@ -37,7 +37,9 @@ export default function ProductsClient({
   const router = useRouter();
   const isFirstRender = useRef(true);
 
-  const pageTitle = breadcrumbItems[2] ? `${breadcrumbItems[2]?.name} ürünleri` : "Tüm ürünler ";
+  const pageTitle = breadcrumbItems[2]
+    ? `${breadcrumbItems[2]?.name} ürünleri`
+    : "Tüm ürünler ";
 
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
@@ -102,15 +104,17 @@ export default function ProductsClient({
 
   return (
     <div className="container max-w-7xl mx-auto space-y-4 px-4 md:px-0 pb-12">
-      {productTypeTabItems.length > 0 && (
-        <NavTab
-          items={productTypeTabItems}
-          activeValue={filters.productType[0] ?? "all"}
-          variant="segmented"
-          size="base"
-          onChange={(value) => setProductType(value)}
-        />
-      )}
+      <div className="py-6">
+        {productTypeTabItems.length > 0 && (
+          <NavTab
+            items={productTypeTabItems}
+            activeValue={filters.productType[0] ?? "all"}
+            variant="segmented"
+            size="base"
+            onChange={(value) => setProductType(value)}
+          />
+        )}
+      </div>
       <PageTitle
         data={{
           title: `${pageTitle}`,

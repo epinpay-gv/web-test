@@ -16,7 +16,7 @@ export default function InfoContainer({
       <div className={`flex gap-2 items-center ${titleColor}`}>
         {titleIcon && <div>{titleIcon}</div>}
         {title && (
-          <p className="text-sm font-semibold">
+          <p className="text-sm font-semibold leading-[150%]">
             {title}
           </p>
         )}

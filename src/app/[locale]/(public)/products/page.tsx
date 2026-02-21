@@ -52,9 +52,9 @@ export default async function ProductsPage({
   );
 
   const breadcrumbItems = [
-    { name: "Home", url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}` },
+    { name: "Anasayfa", url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}` },
     {
-      name: "Products",
+      name: "Ürünler",
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products`,
     },
   ];

@@ -58,7 +58,7 @@ const CONTAINER_VARIANT_CLASSES: Record<
   },
 
   borderBottom: {
-    base: "flex border-b border-(--border-secondary)",
+    base: "flex border-b border-(--border-default)",
     size: {
       sm: "gap-4",
       base: "gap-6",

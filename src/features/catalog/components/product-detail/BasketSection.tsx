@@ -6,6 +6,7 @@ import InfoContainer from "./InfoContainer";
 import { QuestionCircle } from "flowbite-react-icons/solid";
 import { ShieldCheck } from "flowbite-react-icons/outline";
 import PaymentProviderCard from "./PaymentProviderCard";
+import { TrustLabels } from "@/components/common";
 
 interface BasketSectionProps {
   data: Product;
@@ -65,6 +66,7 @@ export default function BasketSection({ data }: BasketSectionProps) {
             />
           ))}
         </div>
+        <TrustLabels labelList={["instantDeliverySecond", "support", "verifiedStores"]} orientation="vertical"/>
       </InfoContainer>
     </div>
   );

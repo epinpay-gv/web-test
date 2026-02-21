@@ -42,11 +42,11 @@ export default async function ProductPage({ params }: Props) {
 
   const breadcrumbItems = [
     {
-      name: "Home",
+      name: "Anasayfa",
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
     },
     {
-      name: "Categories",
+      name: "Kategoriler",
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
     },
     {

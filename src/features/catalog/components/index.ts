@@ -6,6 +6,7 @@ import CategoryGrid from "./categories/CategoryGrid";
 import SeoSection from "./category/SeoSection";
 import ProductInfo from "./product-detail/ProductInfo";
 import BasketSection from "./product-detail/BasketSection";
+import SeoSectionWithTab from "./product-detail/SeoSectionWithTab";
 
 export {
   FilterContainer,
@@ -15,5 +16,6 @@ export {
   CategoryGrid,
   SeoSection,
   ProductInfo,
-  BasketSection
+  BasketSection,
+  SeoSectionWithTab,
 };
