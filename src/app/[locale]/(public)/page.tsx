@@ -1,8 +1,7 @@
 import { createSeo } from "@/lib/seo";
 import { getMainPageData } from "@/features/mainpage/service";
 import { MainPageSchema } from "@/components/seo";
-import PremiumSection from "@/features/mainpage/components/premium/PremiumSection";
-import { BestSellersSection, PromotedSection } from "@/features/mainpage/components";
+import { BestSellersSection, PromotedSection, PremiumSection } from "@/features/mainpage/components";
 
 export async function generateMetadata({
   params,
@@ -41,7 +40,7 @@ export default async function Home({
       {/* Page Content */}
       <PromotedSection data={res.promoted} />
       <BestSellersSection data={res.bestsellers} />
-      <PremiumSection />
+      <PremiumSection data={res.premium} />
     </>
   );
 }
