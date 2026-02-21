@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
 import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface ProductsClientProps {
   initialProducts: Product[];
@@ -66,6 +67,9 @@ export default function ProductsClient({
       : [];
 
   const activeFilters = getActiveFilterLabels(filters, groups);
+
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
 
   /**
    * PAGE → FETCH
@@ -146,7 +150,13 @@ export default function ProductsClient({
             />
           )}
 
-          <ProductGrid data={products} />
+          <ProductGrid
+            data={products}
+            addToCart={addToCart}
+            changeQuantity={changeQuantity}
+            addToFavorites={addToFavorites}
+            notifyWhenAvailable={notifyWhenAvailable}
+          />
           <div className="mx-auto">
             <Pagination
               pagination={paginationState}

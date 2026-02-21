@@ -7,8 +7,14 @@ import {
   ProductInfo,
   SeoSectionWithTab,
 } from "@/features/catalog/components";
-import { CategoryWithProductDetail } from "@/features/catalog/catalog.types";
+import {
+  AddToFavoritesPayload,
+  CategoryWithProductDetail,
+  ChangeQuantityPayload,
+  NotifyWhenAvailablePayload,
+} from "@/features/catalog/catalog.types";
 import { useProductSearch } from "@/features/catalog/hooks";
+import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface ProductClientProps {
   initialProduct: Product;
@@ -25,7 +31,9 @@ export default function ProductClient({
   breadcrumbItems,
 }: ProductClientProps) {
   const { changeVariant, changePlatform, changeRegion } = useProductSearch();
-  
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
+
   return (
     <div className="container max-w-5xl mx-auto pb-12 py-6 space-y-4">
       <Breadcrumb
@@ -54,7 +62,13 @@ export default function ProductClient({
             initialProduct={initialProduct}
           />
         </div>
-        <BasketSection data={initialProduct} />
+        <BasketSection
+          data={initialProduct}
+          addToCart={addToCart}
+          notifyWhenAvailable={notifyWhenAvailable}
+          addToFavorites={addToFavorites}
+          changeQuantity={changeQuantity}
+        />
       </div>
     </div>
   );

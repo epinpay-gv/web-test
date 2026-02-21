@@ -12,6 +12,7 @@ import { BottomSheet } from "./BottomSheet/BottomSheet";
 import { Accordion, AccordionItem, ExpandableContent } from "./Accordion";
 import { MegaMenu, NavLink, NavLinkCard, NavItem, NavTab } from "./NavElements";
 import DropdownMenu from "./Dropdown/DropdownMenu";
+import { ActionButtons } from "./Cards/ProductCard/CardSections";
 
 export {
   Badge,
@@ -39,4 +40,5 @@ export {
   NavItem,
   NavTab,
   DropdownMenu,
+  ActionButtons,
 };

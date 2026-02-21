@@ -101,3 +101,22 @@ export interface ProductDetailApiResponse{
   category: CategoryWithProductDetail;
 }
 
+export interface AddToCartPayload {
+  productId: number;
+  offerId: number;
+  quantity: number;
+}
+
+export interface AddToFavoritesPayload {
+  productId: number;
+}
+
+export interface ChangeQuantityPayload {
+  productId: number;
+  offerId: number;
+  quantity: number;
+  action: "add" | "remove";
+}
+export interface NotifyWhenAvailablePayload {
+  productId: number;
+}

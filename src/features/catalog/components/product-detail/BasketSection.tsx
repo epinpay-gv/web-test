@@ -1,27 +1,62 @@
 "use client";
-import { ActionButtons } from "@/components/common/Cards/ProductCard/CardSections";
-import { AddToCartPayload } from "@/components/common/Cards/ProductCard/types";
 import { Product } from "@/types/types";
 import InfoContainer from "./InfoContainer";
 import { QuestionCircle } from "flowbite-react-icons/solid";
 import { ShieldCheck } from "flowbite-react-icons/outline";
 import PaymentProviderCard from "./PaymentProviderCard";
-import { TrustLabels } from "@/components/common";
+import { TrustLabels, ActionButtons } from "@/components/common";
+import {
+  AddToCartPayload,
+  NotifyWhenAvailablePayload,
+  AddToFavoritesPayload,
+  ChangeQuantityPayload,
+} from "../../catalog.types";
 
 interface BasketSectionProps {
   data: Product;
+  addToCart: (payload: AddToCartPayload) => void;
+  notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
+  addToFavorites: (payload: AddToFavoritesPayload) => void;
+  changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
-export default function BasketSection({ data }: BasketSectionProps) {
+export default function BasketSection({
+  data,
+  addToCart,
+  notifyWhenAvailable,
+  addToFavorites,
+  changeQuantity,
+}: BasketSectionProps) {
   const paymentProviders = [
-    { image: "/image/paymentProviders/applepay-white-logo.png", imageAlt: "Apple Pay" },
-    { image: "/image/paymentProviders/gpay-white-logo.png", imageAlt: "Google Pay" },
-    { image: "/image/paymentProviders/mastercard-white-logo.png", imageAlt: "Mastercard" },
-    { image: "/image/paymentProviders/paypal-white-logo.png", imageAlt: "Paypal" },
+    {
+      image: "/image/paymentProviders/applepay-white-logo.png",
+      imageAlt: "Apple Pay",
+    },
+    {
+      image: "/image/paymentProviders/gpay-white-logo.png",
+      imageAlt: "Google Pay",
+    },
+    {
+      image: "/image/paymentProviders/mastercard-white-logo.png",
+      imageAlt: "Mastercard",
+    },
+    {
+      image: "/image/paymentProviders/paypal-white-logo.png",
+      imageAlt: "Paypal",
+    },
     { image: "/image/paymentProviders/visa-white-logo.png", imageAlt: "Visa" },
-    { image: "/image/paymentProviders/applepay-white-logo.png", imageAlt: "Apple Pay" },
-    { image: "/image/paymentProviders/gpay-white-logo.png", imageAlt: "Google Pay" },
-    { image: "/image/paymentProviders/mastercard-white-logo.png", imageAlt: "Mastercard" },
+    {
+      image: "/image/paymentProviders/applepay-white-logo.png",
+      imageAlt: "Apple Pay",
+    },
+    {
+      image: "/image/paymentProviders/gpay-white-logo.png",
+      imageAlt: "Google Pay",
+    },
+    {
+      image: "/image/paymentProviders/mastercard-white-logo.png",
+      imageAlt: "Mastercard",
+    },
   ];
   return (
     <div className="flex flex-col gap-4 w-60">
@@ -33,9 +68,8 @@ export default function BasketSection({ data }: BasketSectionProps) {
       <ActionButtons
         isHorizontal={false}
         orientation="vertical"
-        addToCart={function (payload: AddToCartPayload): void {
-          throw new Error("Function not implemented.");
-        }}
+        addToCart={addToCart}
+        product={data}
       />
       {/* EP POINT INFO */}
       <InfoContainer
@@ -66,7 +100,10 @@ export default function BasketSection({ data }: BasketSectionProps) {
             />
           ))}
         </div>
-        <TrustLabels labelList={["instantDeliverySecond", "support", "verifiedStores"]} orientation="vertical"/>
+        <TrustLabels
+          labelList={["instantDeliverySecond", "support", "verifiedStores"]}
+          orientation="vertical"
+        />
       </InfoContainer>
     </div>
   );
