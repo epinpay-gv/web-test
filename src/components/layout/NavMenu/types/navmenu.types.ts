@@ -1,4 +1,5 @@
 import { TargetAndTransition } from "framer-motion";
+import { megaMenus } from "../data/megamenu.mock";
 
 export interface NavCardVariant {
   hoverBg?: string;
@@ -33,9 +34,12 @@ export type LinkNavItem = BaseNavItem & {
   type: "link";
 };
 
+export type MegaMenuKey = keyof typeof megaMenus;
+
 export type MegaMenuNavItem = BaseNavItem & {
   type: "mega";
-  megaMenuKey: string; 
+  megaMenuKey: MegaMenuKey; 
 };
 
 export type NavCardConfig = LinkNavItem | MegaMenuNavItem;
+

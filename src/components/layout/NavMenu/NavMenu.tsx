@@ -1,5 +1,4 @@
 "use client";
-
 import { MegaMenu, NavLinkCard } from "@/components/common";
 import { navCards } from "./data/navmenu.mock";
 import { megaMenus } from "./data/megamenu.mock";
@@ -10,7 +9,6 @@ export function NavMenu() {
 
   return (
     <nav className="relative w-full border-b bg-(--bg-neutral-primary-soft)">
-      {/* width constraint burada */}
       <div className="max-w-7xl mx-auto">
         
         {/* scroll container */}

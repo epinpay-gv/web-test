@@ -1,17 +1,16 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { NavCardConfig } from "@/components/layout/NavMenu/types/navmenu.types";
 
-interface Props {
+interface NavLinkCardProps {
   card: NavCardConfig;
   className?: string;
 }
 
-export default function NavLinkCard({ card, className }: Props) {
+export default function NavLinkCard({ card, className }: NavLinkCardProps) {
   const {
     title,
     href,

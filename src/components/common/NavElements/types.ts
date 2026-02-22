@@ -1,5 +1,5 @@
 export interface MegaMenuLink {
-  icon: string;
+  icon?: string;
   title: string;
   description: string;
   url: string;
