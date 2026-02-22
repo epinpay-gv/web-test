@@ -36,7 +36,7 @@ export default function ProductInfo({
         id: v.slug,
         text: v.name,
       })),
-    [variants]
+    [variants],
   );
 
   const regionItems = useMemo(
@@ -45,7 +45,7 @@ export default function ProductInfo({
         id: String(r.id),
         text: r.translation.name,
       })),
-    [regions]
+    [regions],
   );
 
   const platformItems = useMemo(
@@ -54,7 +54,7 @@ export default function ProductInfo({
         id: String(p.id),
         text: p.translation.name,
       })),
-    [platforms]
+    [platforms],
   );
 
   return (
@@ -66,20 +66,20 @@ export default function ProductInfo({
         width={224}
         height={224}
         priority
-        className="rounded-lg object-cover"
+        className="rounded-lg object-cover w-29 h-29 md:w-56 md:h-56"
       />
 
       <div className="flex flex-col gap-6 flex-1">
         {/* Header */}
-        <div className="flex items-center gap-2">
-          <Badge text={data.type} theme="success" />
+        <div className="flex md:flex-row flex-col md:items-center gap-2">
+          <Badge text={data.type} theme="success" className="max-w-12"/>
           <h1 className="font-semibold text-xl text-(--text-heading)">
             {data.translation.name}
           </h1>
         </div>
 
         {/* Dropdown Section */}
-        <div className="flex item-center gap-4">
+        <div className="hidden md:flex item-center gap-4">
           {/* Points / Variant */}
           <div className="col-span-2">
             <FilterDropdownContainer

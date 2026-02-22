@@ -56,7 +56,7 @@ export default function SeoSectionWithTab({
 
   return (
     <div className="flex flex-col gap-10">
-      <div className="sticky top-0 z-20 py-2 bg-(--bg-variants-gray)">
+      <div className="sticky top-0 z-20 py-2 bg-(--bg-variants-gray) w-full">
         <NavTab
           items={tabs}
           activeValue={activeTab}
@@ -64,23 +64,35 @@ export default function SeoSectionWithTab({
           variant="borderBottom"
         />
       </div>
-      <div className="flex flex-col gap-10 pb-10 px-4 md:px-0">
+      <div className="flex flex-col gap-10 pb-10">
         {initialCategory.translation.description && (
-          <BoxWrapper id="product-description" title="Ürün Açıklaması" className="scroll-mt-32">
+          <BoxWrapper
+            id="product-description"
+            title="Ürün Açıklaması"
+            className="scroll-mt-32"
+          >
             <ExpandableContent maxHeight={300}>
               <div dangerouslySetInnerHTML={{ __html: productDescription }} />
             </ExpandableContent>
           </BoxWrapper>
         )}
         {initialCategory.translation.description && (
-          <BoxWrapper id="about-game" title="Oyun Hakkında" className="scroll-mt-32">
+          <BoxWrapper
+            id="about-game"
+            title="Oyun Hakkında"
+            className="scroll-mt-32"
+          >
             <ExpandableContent maxHeight={300}>
               <div dangerouslySetInnerHTML={{ __html: categoryDescription }} />
             </ExpandableContent>
           </BoxWrapper>
         )}
         {initialCategory.translation.activation && (
-          <BoxWrapper id="activation" title="Nasıl Aktif Edilir" className="scroll-mt-32">
+          <BoxWrapper
+            id="activation"
+            title="Nasıl Aktif Edilir"
+            className="scroll-mt-32"
+          >
             <ExpandableContent maxHeight={300}>
               <div
                 dangerouslySetInnerHTML={{ __html: activationDescription }}
@@ -89,7 +101,11 @@ export default function SeoSectionWithTab({
           </BoxWrapper>
         )}
         {initialCategory.translation.comments && (
-          <BoxWrapper id="reviews" title="Değerlendirmeler" className="scroll-mt-32">
+          <BoxWrapper
+            id="reviews"
+            title="Değerlendirmeler"
+            className="scroll-mt-32"
+          >
             <ExpandableContent maxHeight={300}>
               <div></div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

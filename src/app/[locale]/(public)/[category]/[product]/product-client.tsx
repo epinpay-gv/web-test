@@ -35,7 +35,7 @@ export default function ProductClient({
     useBasketActions();
 
   return (
-    <div className="container max-w-5xl mx-auto pb-12 py-6 space-y-4">
+    <div className="container max-w-5xl mx-auto pb-12 py-6 space-y-4 px-4 md:px-0">
       <Breadcrumb
         items={breadcrumbItems.map((item, index) => ({
           ...item,
@@ -43,8 +43,8 @@ export default function ProductClient({
         }))}
       />
 
-      <div className="flex md:flex-row flex-col items-start gap-4">
-        <div className="flex-1 flex flex-col gap-10 ">
+      <div className="flex md:flex-row flex-col gap-4">
+        <div className="flex flex-col gap-10 flex-1 min-w-0">
           <ProductInfo
             data={initialProduct}
             variants={initialCategory.variants.map((p) => ({
@@ -62,13 +62,15 @@ export default function ProductClient({
             initialProduct={initialProduct}
           />
         </div>
-        <BasketSection
-          data={initialProduct}
-          addToCart={addToCart}
-          notifyWhenAvailable={notifyWhenAvailable}
-          addToFavorites={addToFavorites}
-          changeQuantity={changeQuantity}
-        />
+        <div className="hidden md:block">
+          <BasketSection
+            data={initialProduct}
+            addToCart={addToCart}
+            notifyWhenAvailable={notifyWhenAvailable}
+            addToFavorites={addToFavorites}
+            changeQuantity={changeQuantity}
+          />
+        </div>
       </div>
     </div>
   );

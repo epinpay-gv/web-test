@@ -21,7 +21,7 @@ export default function TrustLabels({
 
   return (
     <div
-      className={`flex ${orientation === "horizontal" ? "w-full items-center" : "flex-col"} ${type === "colorful" ? "gap-3" : "gap-2"}`}
+      className={`flex  ${orientation === "horizontal" ? "w-full items-center" : "flex-col"} ${type === "colorful" ? "gap-3" : "gap-2"}`}
     >
       {labelList.map((key) => {
         const { icon: Icon, iconColor, title } = TRUST_LABEL_DATA[key];

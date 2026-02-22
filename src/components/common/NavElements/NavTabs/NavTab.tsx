@@ -10,7 +10,12 @@ export type NavTabItem = {
 };
 
 type TabSize = "sm" | "base" | "lg";
-type TabVariant = "default" | "pill" | "bordered" | "borderBottom" | "segmented";
+type TabVariant =
+  | "default"
+  | "pill"
+  | "bordered"
+  | "borderBottom"
+  | "segmented";
 type IconPosition = "left" | "right";
 
 interface NavTabProps {
@@ -58,7 +63,7 @@ const CONTAINER_VARIANT_CLASSES: Record<
   },
 
   borderBottom: {
-    base: "flex border-b border-(--border-default)",
+    base: "min-w-max flex items-end border-b border-(--border-default)",
     size: {
       sm: "gap-4",
       base: "gap-6",
@@ -67,7 +72,7 @@ const CONTAINER_VARIANT_CLASSES: Record<
   },
 
   segmented: {
-    base: "inline-flex items-center bg-(--bg-neutral-primary-soft) font-semibold overflow-hidden",
+    base: "min-w-max inline-flex items-center bg-(--bg-neutral-primary-soft) font-semibold overflow-hidden",
     size: {
       sm: "w-[280px] h-[48px] gap-2 p-1.5 rounded-[14px]",
       base: "w-[341px] h-[56px] gap-3 p-2 rounded-[16px] font-semibold",
@@ -89,21 +94,23 @@ export default function NavTab({
   const containerClasses = `${variantClasses.base} ${variantClasses.size[size]}`;
 
   return (
-    <nav className={`${containerClasses} ${containerClassName ?? ""} w-full`}>
-      {items.map((item) => (
-        <NavItem
-          key={item.value}
-          label={item.label}
-          value={item.value}
-          icon={item.icon}
-          isActive={item.value === activeValue}
-          onClick={() => onChange(item.value)}
-          size={size}
-          variant={variant}
-          iconPosition={iconPosition}
-          className="w-full"
-        />
-      ))}
+    <nav className="w-full overflow-x-auto scrollbar-hide">
+      <div className={`${containerClasses} ${containerClassName ?? ""} `}>
+        {items.map((item) => (
+          <NavItem
+            key={item.value}
+            label={item.label}
+            value={item.value}
+            icon={item.icon}
+            isActive={item.value === activeValue}
+            onClick={() => onChange(item.value)}
+            size={size}
+            variant={variant}
+            iconPosition={iconPosition}
+            className="w-full"
+          />
+        ))}
+      </div>
     </nav>
   );
 }

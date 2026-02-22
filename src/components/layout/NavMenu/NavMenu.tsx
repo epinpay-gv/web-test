@@ -10,21 +10,11 @@ export function NavMenu() {
   return (
     <nav className="relative w-full border-b bg-(--bg-neutral-primary-soft)">
       <div className="max-w-7xl mx-auto">
-        
         {/* scroll container */}
-        <div className="
-          overflow-x-auto 
-          md:overflow-visible
-          scrollbar-hide
-        ">
+        <div className="overflow-x-auto md:overflow-visible scrollbar-hide">
           {/* flex container */}
-          <div className="
-            flex gap-2
-            min-w-max
-            md:min-w-0
-            md:justify-center
-            px-4 pt-4
-          ">
+          <div
+            className="flex gap-2 md:justify-center px-4 pt-4">
             {navCards.map((card) => {
               const isMega = card.type === "mega";
 
@@ -38,12 +28,14 @@ export function NavMenu() {
                   <NavLinkCard card={card} />
 
                   {isMega && (
-                    <MegaMenu
-                      {...megaMenus[card.megaMenuKey]}
-                      open={activeMenu === card.title}
-                      onMouseEnter={() => setActiveMenu(card.title)}
-                      onMouseLeave={() => setActiveMenu(null)}
-                    />
+                    <div className="hidden md:block">
+                      <MegaMenu
+                        {...megaMenus[card.megaMenuKey]}
+                        open={activeMenu === card.title}
+                        onMouseEnter={() => setActiveMenu(card.title)}
+                        onMouseLeave={() => setActiveMenu(null)}
+                      />
+                    </div>
                   )}
                 </div>
               );
