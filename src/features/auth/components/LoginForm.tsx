@@ -1,7 +1,4 @@
 'use client';
-
-// components/LoginForm.tsx
-
 import { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
 import Image from 'next/image';
