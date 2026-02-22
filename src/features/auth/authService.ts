@@ -85,7 +85,7 @@ export const authService = {
     data: ForgotPasswordFormData,
     locale: string = 'tr'
   ): Promise<ForgotPasswordResponse> {
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+    const appUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
     auth.languageCode = locale;
 
