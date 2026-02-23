@@ -7,3 +7,11 @@ export interface CartItem {
   image: string;
   quantity: number;
 }
+
+export interface CartResponse {
+  items: CartItem[];
+  totalQuantity: number;
+  totalPrice: number;
+  step: CartStep;
+  guestId?: string;
+}
