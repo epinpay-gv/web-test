@@ -1,8 +1,14 @@
 "use client";
-import { cloneElement, Children, ReactNode, useState} from "react";
+import { cloneElement, Children, ReactNode, useState, isValidElement, ReactElement } from "react";
 
 type AccordionType = "single" | "multiple";
 type AccordionTheme = "light" | "dark";
+
+interface AccordionItemInjectedProps {
+  index: number;
+  isOpen: boolean;
+  onToggle: (index: number) => void;
+}
 
 interface AccordionProps {
   children: ReactNode;
@@ -28,12 +34,12 @@ export default function Accordion({
 
   const toggleItem = (index: number) => {
     if (type === "single") {
-      setOpenIndex(prev => (prev === index ? null : index));
+      setOpenIndex((prev) => (prev === index ? null : index));
     } else {
-      setOpenIndexes(prev =>
+      setOpenIndexes((prev) =>
         prev.includes(index)
-          ? prev.filter(i => i !== index)
-          : [...prev, index]
+          ? prev.filter((i) => i !== index)
+          : [...prev, index],
       );
     }
   };
@@ -46,16 +52,18 @@ export default function Accordion({
         ${className ?? ""}
       `}
     >
-      {Children.map(children, (child, index) =>
-        cloneElement(child, {
+      {Children.map(children, (child, index) => {
+        if (!isValidElement(child)) return child;
+
+        return cloneElement(child as ReactElement<AccordionItemInjectedProps>, {
           index,
           isOpen:
             type === "single"
               ? openIndex === index
               : openIndexes.includes(index),
           onToggle: toggleItem,
-        })
-      )}
+        });
+      })}
     </div>
   );
 }

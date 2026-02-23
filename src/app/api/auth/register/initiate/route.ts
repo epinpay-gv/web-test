@@ -75,6 +75,7 @@ export async function POST(request: NextRequest) {
     const response: AuthResponse = {
       success: true,
       message: 'Doğrulama kodu email adresinize gönderildi',
+      refreshToken: ''
     };
 
     return NextResponse.json(response, { status: 200 });

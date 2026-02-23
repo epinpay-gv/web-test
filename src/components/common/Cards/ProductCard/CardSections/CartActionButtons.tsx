@@ -1,8 +1,8 @@
 "use client";
 import { TrashBin } from "flowbite-react-icons/outline";
-import { ChangeQuantityPayload } from "../types";
 import { Product } from "@/types/types";
 import { Button } from "@/components/common";
+import { ChangeQuantityPayload } from "@/features/catalog/catalog.types";
 
 interface CartActionButtonsProps {
   product: Product;
@@ -41,8 +41,10 @@ export function CartActionButtons({
           className="rounded-full w-full h-full"
           onClick={() =>
             changeQuantity?.({
-              action: "---",
-              offerId: 0,
+              productId: product.id,
+              offerId: product.cheapestOffer?.id ?? 0,
+              quantity: 1,
+              action: "remove"
             })
           }
         />

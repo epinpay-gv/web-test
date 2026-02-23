@@ -1,1 +1,3 @@
-// useAboutPageMeta() kulllanılmış
+export default function AboutPage() {
+  return <></>;
+}

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { FavButton } from "@/components/common";
 import { Product } from "@/types/types";
-import { NotifyWhenAvailablePayload } from "../types";
+import { AddToFavoritesPayload } from "@/features/catalog/catalog.types";
 
 const sizeClasses = {
   vertical: "aspect-square w-36.5 h-36.5 md:w-50 md:h-50",
@@ -16,7 +16,7 @@ interface ImageSectionProps {
   product: Product;
   isHorizontal: boolean;
   isInCart?: boolean;
-  addToFavorites: (payload: NotifyWhenAvailablePayload) => void;
+  addToFavorites: (payload: AddToFavoritesPayload) => void;
 }
 
 export function ImageSection({
@@ -43,8 +43,7 @@ export function ImageSection({
           isFavorite={product.isFavorite}
           addToFavorites={() =>
             addToFavorites?.({
-              productId: product.id,
-              userId: 0,
+              productId: product.id
             })
           }
         />

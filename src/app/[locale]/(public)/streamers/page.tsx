@@ -1,3 +1,3 @@
-// useStreamersPageMeta()
-// Kullanıldığı sayfalar (1 adet):
-// streamers/index.vue
+export default function StreamersPage() {
+  return <></>;
+}

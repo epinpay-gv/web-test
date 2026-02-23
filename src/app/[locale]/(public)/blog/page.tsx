@@ -1,1 +1,3 @@
-// useBlogMeta() kullanılmış
+export default function BlogPage() {
+  return <></>;
+}
