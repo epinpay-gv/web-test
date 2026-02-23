@@ -21,7 +21,7 @@ export function AuthDropdown() {
   return (
     <Popover onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
-        <Button variant='secondary' text='Giriş Yap' padding='xs' />        
+        <Button variant='secondary' text='Giriş Yap' padding='xs' className='text-sm md:text-base' />        
       </PopoverTrigger>
 
       <PopoverContent className="w-60 bg-(--bg-neutral-primary-medium) border-(--border-default-medium) border p-4 overflow-hidden shadow-2xl rounded-xl">

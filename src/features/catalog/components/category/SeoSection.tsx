@@ -52,7 +52,7 @@ export default function SeoSection({ initialCategory }: SeoSectionProps) {
           ))}
         </BoxWrapper>
       )}
-      {initialCategory.translation.comments && (
+      {/* {initialCategory.translation.comments && (
         <BoxWrapper title="Değerlendirmeler">
           <ExpandableContent maxHeight={400}>
             <div></div>
@@ -63,7 +63,7 @@ export default function SeoSection({ initialCategory }: SeoSectionProps) {
             </div>
           </ExpandableContent>
         </BoxWrapper>
-      )}
+      )} */}
     </div>
   );
 }

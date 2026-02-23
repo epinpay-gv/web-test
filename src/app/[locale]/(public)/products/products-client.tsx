@@ -108,7 +108,7 @@ export default function ProductsClient({
 
   return (
     <div className="container max-w-7xl mx-auto space-y-4 pb-12">
-      <div className="pl-4 md:pl-0 py-4 md:py-6">
+      <div className="pl-4 md:pl-0 py-4 md:py-6 w-full">
         {productTypeTabItems.length > 0 && (
           <NavTab
             items={productTypeTabItems}
