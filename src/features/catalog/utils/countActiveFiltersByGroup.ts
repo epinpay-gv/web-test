@@ -1,5 +1,4 @@
-import { ActiveFilterChip } from "@/features/catalog/utils/getActiveFilterLabels";
-import { FilterGroupConfig } from "../components/filters/Filters/types";
+import { ActiveFilterChip, FilterGroupConfig,} from "@/features/catalog/catalog.types";
 
 export const countActiveFiltersByGroup = (
   activeFilters: ActiveFilterChip[],

@@ -1,15 +1,17 @@
 "use client";
 import { CartPlusAlt } from "flowbite-react-icons/outline";
-import { AddToCartPayload } from "../types";
 import { Button } from "@/components/common";
+import { AddToCartPayload } from "@/features/catalog/catalog.types";
+import { Product } from "@/types/types";
 
 interface ActionButtonsProps {
+  product: Product;
   isHorizontal : boolean;
   orientation?: "horizontal" | "vertical";
   addToCart: (payload: AddToCartPayload) => void;
 }
 
-export function ActionButtons({ isHorizontal, orientation = "horizontal", addToCart }: ActionButtonsProps) {
+export function ActionButtons({ product, isHorizontal, orientation = "horizontal", addToCart }: ActionButtonsProps) {
   return (
     <div className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${orientation === "horizontal" ? "flex-row" : "flex-col"}`}>
       <Button
@@ -20,10 +22,9 @@ export function ActionButtons({ isHorizontal, orientation = "horizontal", addToC
         className="hidden md:block w-full font-medium"
         onClick={() =>
           addToCart?.({
-            action: "string",
-            offerId: 0,
-            count: 0,
-            isBuyNow: false,
+            productId: product.id,
+            offerId: product.cheapestOffer?.id || 0,
+            quantity: 1
           })
         }
       />
@@ -35,10 +36,9 @@ export function ActionButtons({ isHorizontal, orientation = "horizontal", addToC
         className="block md:hidden"
         onClick={() =>
           addToCart?.({
-            action: "string",
-            offerId: 0,
-            count: 0,
-            isBuyNow: true,
+            productId: product.id,
+            offerId: product.cheapestOffer?.id || 0,
+            quantity: 1
           })
         }
       />
@@ -50,10 +50,9 @@ export function ActionButtons({ isHorizontal, orientation = "horizontal", addToC
         className="w-full font-medium"
         onClick={() =>
           addToCart?.({
-            action: "string",
-            offerId: 0,
-            count: 0,
-            isBuyNow: true,
+            productId: product.id,
+            offerId: product.cheapestOffer?.id || 0,
+            quantity: 1
           })
         }
       />

@@ -36,5 +36,5 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   await params
-  return <><div>{children}</div></>
+  return <>{children}</>
 }

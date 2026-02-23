@@ -1,10 +1,10 @@
-'use client'
+"use client";
+import GameCategoryCards from "@/components/common/NavLinks/GameCategoryCards";
 
-import GameCategoryCards from '@/components/common/NavLinks/GameCategoryCards'
 export default function MasterMenuRight() {
   return (
-    <div >
-  <GameCategoryCards/>
+    <div>
+      <GameCategoryCards />
     </div>
-  )
+  );
 }

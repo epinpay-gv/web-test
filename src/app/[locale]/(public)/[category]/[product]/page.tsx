@@ -2,6 +2,7 @@ import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema, ProductSchema } from "@/components/seo";
 import ProductClient from "./product-client";
 import { getProduct } from "@/features/catalog/service";
+import { createProductBreadcrumb } from "@/features/catalog/utils";
 
 type Params = {
   locale: string;
@@ -18,15 +19,13 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }) {
-  const { locale, category } = await params;
-  const name = category.replace(/-/g, " ");
+  const { locale, category, product } = await params;
+  const name = product.replace(/-/g, " ");
 
   return createSeo({
-    title: locale === "en" ? `${name} Products` : `${name} Ürünleri`,
+    title: locale === "en" ? `${name} Products` : `${name}`,
     description:
-      locale === "en"
-        ? `${name} category products`
-        : `${name} kategorisindeki ürünler`,
+      locale === "en" ? `${name} product detailı` : `${name} ürün detayı`,
     canonical: `/${locale}/${category}`,
     locale: locale,
   });
@@ -36,28 +35,16 @@ export default async function ProductPage({ params }: Props) {
   const { locale, category, product } = await params;
 
   const productUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}/${product}`;
-  const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
 
   const res = await getProduct(new URLSearchParams(), category, product);
 
-  const breadcrumbItems = [
-    {
-      name: "Home",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
-    },
-    {
-      name: "Categories",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
-    },
-    {
-      name: res.category.translation.name,
-      url: categoryUrl,
-    },
-    {
-      name: res.data.translation.name,
-      url: productUrl,
-    },
-  ];
+  const breadcrumbItems = createProductBreadcrumb(
+    locale,
+    res.category.categoryData.translation.name,
+    category,
+    res.data.translation.name,
+    product,
+  );
 
   return (
     <>

@@ -2,6 +2,10 @@ import { createSeo } from "@/lib/seo";
 import { CategorySchema, BreadcrumbSchema } from "@/components/seo";
 import { getCategory } from "@/features/catalog/service";
 import CategoryClient from "./category-client";
+import {
+  createCategoryBreadcrumb,
+  extractSelectedFilterOption,
+} from "@/features/catalog/utils";
 
 type Params = {
   locale: string;
@@ -39,46 +43,18 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const categoryUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
   const res = await getCategory(new URLSearchParams(), category);
 
-  // BREADCRUMB DATA
-  const productTypeGroup = res.filters.find(
-    (group) => group.elements?.[0]?.key === "productType",
+  const selectedProductType = extractSelectedFilterOption(
+    res.filters,
+    "productType",
+    productType,
   );
 
-  let productTypeOptions: { label: string; value: string }[] = [];
-
-  const element = productTypeGroup?.elements.find(
-    (el: { key: string }) => el.key === "productType",
+  const breadcrumbItems = createCategoryBreadcrumb(
+    locale,
+    res.category?.translation?.name,
+    category,
+    selectedProductType,
   );
-
-  if (element && element.type === "checkbox") {
-    productTypeOptions = element.options;
-  }
-
-  const selectedProductType = productTypeOptions.find(
-    (opt) => opt.value === productType,
-  );
-
-  const breadcrumbItems = [
-    {
-      name: "Home",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
-    },
-    {
-      name: "Categories",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`,
-    },
-    {
-      name: res.category?.translation?.name,
-      url: categoryUrl,
-    },
-  ];
-
-  if (selectedProductType) {
-    breadcrumbItems.push({
-      name: selectedProductType.label,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products?productType=${productType}`,
-    });
-  }
 
   return (
     <>

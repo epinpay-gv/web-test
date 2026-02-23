@@ -3,6 +3,10 @@ import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ProductsSchema } from "@/components/seo/ProductsSchema";
 import ProductsClient from "./products-client";
 import { getProducts } from "@/features/catalog/service";
+import {
+  createProductsBreadcrumb,
+  extractSelectedFilterOption,
+} from "@/features/catalog/utils";
 
 export async function generateMetadata({
   params,
@@ -33,38 +37,13 @@ export default async function ProductsPage({
   const res = await getProducts(new URLSearchParams());
 
   // BREADCRUMB DATA
-  const productTypeGroup = res.filters.find(
-    (group) => group.elements?.[0]?.key === "productType",
+  const selectedProductType = extractSelectedFilterOption(
+    res.filters,
+    "productType",
+    productType,
   );
 
-  let productTypeOptions: { label: string; value: string }[] = [];
-
-  const element = productTypeGroup?.elements.find(
-    (el) => el.key === "productType",
-  );
-
-  if (element && element.type === "checkbox") {
-    productTypeOptions = element.options;
-  }
-
-  const selectedProductType = productTypeOptions.find(
-    (opt) => opt.value === productType,
-  );
-
-  const breadcrumbItems = [
-    { name: "Home", url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}` },
-    {
-      name: "Products",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products`,
-    },
-  ];
-
-  if (selectedProductType) {
-    breadcrumbItems.push({
-      name: selectedProductType.label,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products?productType=${productType}`,
-    });
-  }
+  const breadcrumbItems = createProductsBreadcrumb(locale, selectedProductType);
 
   return (
     <>

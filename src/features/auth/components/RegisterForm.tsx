@@ -16,9 +16,11 @@ export function RegisterForm() {
     formData,
     error,
     isLoading,
+    otpExpiresIn,
     handleChange,
     handleInitiate,
     handleVerifyOtp,
+    handleResendOtp,
     validationRules,
     isPasswordSecure,
     strength,
@@ -32,9 +34,11 @@ export function RegisterForm() {
     return (
       <VerifyOtpForm 
         email={formData.email} 
-        onVerify={handleVerifyOtp} 
-        isLoading={isLoading} 
-        serverError={error || undefined} 
+        onVerify={handleVerifyOtp}
+        onResend={handleResendOtp}
+        isLoading={isLoading}
+        serverError={error || undefined}
+        expiresIn={otpExpiresIn}
       />
     );
   }
@@ -42,7 +46,7 @@ export function RegisterForm() {
   return (
     <div className="w-full max-w-96 mx-auto animate-in fade-in duration-500">
       <div className="mb-10">
-        <Image src="/image/logos/epinpay-white-lg.png" height={30} width={132} alt='Epinpay' priority />
+        <Image src="/logos/epinpay-white-lg.png" height={30} width={132} alt='Epinpay' priority />
       </div>
 
       <div className="mb-8">
@@ -61,7 +65,9 @@ export function RegisterForm() {
       <form onSubmit={handleInitiate} className="space-y-5 bg-(--bg-neutral-primary-soft) p-6 rounded-(--radius-base) border border-(--border-default)">
         {/* Email */}
         <div className="flex flex-col gap-1.5 w-full">
-          <label className="text-(--text-heading) text-sm font-medium">Email <span className="text-red-500">*</span></label>
+          <label className="text-(--text-heading) text-sm font-medium">
+            Email <span className="text-red-500">*</span>
+          </label>
           <Input
             type="email"
             placeholder="Email adresinizi girin"
@@ -75,7 +81,9 @@ export function RegisterForm() {
 
         {/* Password */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Şifre <span className="text-red-500">*</span></label>
+          <label className="text-(--text-heading) text-sm font-medium">
+            Şifre <span className="text-red-500">*</span>
+          </label>
           <Input
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
@@ -111,7 +119,9 @@ export function RegisterForm() {
 
         {/* Password Again */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Şifre Tekrar <span className="text-red-500">*</span></label>
+          <label className="text-(--text-heading) text-sm font-medium">
+            Şifre Tekrar <span className="text-red-500">*</span>
+          </label>
           <Input
             type={showPasswordAgain ? 'text' : 'password'}
             placeholder="••••••••"
@@ -152,7 +162,10 @@ export function RegisterForm() {
           disabled={isLoading || !isPasswordSecure || formData.password !== formData.passwordAgain}
         />
 
-        <button type="button" className="flex items-center text-(--text-body) justify-center gap-2 w-full py-3 rounded-(--radius-base) border border-(--border-default-medium) bg-white/5 text-sm font-medium hover:bg-white/10 transition-colors">
+        <button 
+          type="button" 
+          className="flex items-center text-(--text-body) justify-center gap-2 w-full py-3 rounded-(--radius-base) border border-(--border-default-medium) bg-white/5 text-sm font-medium hover:bg-white/10 transition-colors"
+        >
           <Google className="w-5 h-5" /> Google ile Kaydol
         </button>
       </form>

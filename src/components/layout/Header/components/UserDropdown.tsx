@@ -21,6 +21,7 @@ import {
   QuestionCircle 
 } from "flowbite-react-icons/outline";
 import { useRouter } from "next/navigation";
+import { useLogout } from "@/features/auth/hooks/useLogout";
 
 const MENU_ITEMS = [
   { id: "account", label: "Hesap Bilgilerim", icon: UserIcon, href: "/profile" },
@@ -31,14 +32,14 @@ const MENU_ITEMS = [
 ];
 
 interface UserDropdownProps {
-  user: UserProfile | null | undefined; // user undefined gelebilir
-  onLogout: () => void;
+  user: UserProfile | null | undefined;
 }
 
-export function UserDropdown({ user, onLogout }: UserDropdownProps) {
+export function UserDropdown({ user }: UserDropdownProps) {
   const router = useRouter();
-
-  // Kullanıcı henüz yüklenmemişse iskelet veya boş bir tetikleyici dönerek hatayı engelle
+  const { handleLogout } = useLogout(); // ✅ useLogout hook'undan al
+  
+  // Kullanıcı henüz yüklenmemişse iskelet döndür
   if (!user) {
     return (
       <div className="w-8 h-8 rounded-full bg-(--bg-neutral-secondary-medium) animate-pulse" />
@@ -46,7 +47,6 @@ export function UserDropdown({ user, onLogout }: UserDropdownProps) {
   }
 
   const getInitials = () => {
-    // Optional chaining (?) ve fallback values kullanarak undefined hatasını kökten çözeriz
     const firstInitial = user?.name?.charAt(0).toUpperCase() || "";
     const lastInitial = user?.surname?.charAt(0).toUpperCase() || "";
     return `${firstInitial}${lastInitial}` || "??";
@@ -122,8 +122,9 @@ export function UserDropdown({ user, onLogout }: UserDropdownProps) {
 
             <DropdownMenuSeparator className="my-1 bg-(--border-default-medium) h-[1px]" />
 
+            {/* ✅ Logout - handleLogout kullan */}
             <DropdownMenuItem
-              onClick={onLogout}
+              onClick={handleLogout}
               className="cursor-pointer gap-3 p-3 text-(--text-fg-danger) rounded-md focus:bg-red-500/10 outline-none transition-colors"
             >
               <ArrowRightToBracket className="w-4.5 h-4.5 flex-shrink-0" />
