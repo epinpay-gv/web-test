@@ -38,3 +38,4 @@ export default async function LocaleLayout({
   await params
   return <>{children}</>
 }
+

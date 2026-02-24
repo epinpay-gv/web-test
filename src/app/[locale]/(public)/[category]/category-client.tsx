@@ -134,7 +134,9 @@ export default function CategoryClient({
             title: `${pageTitle} ürünleri`,
             totalProductAmount: pagination.count,
           }}
-          changeOrder={() => {}}
+          onSelect={function (id: string): void {
+            throw new Error("Function not implemented.");
+          }}
         />
         <Breadcrumb
           items={breadcrumbItems.map((item, index) => ({
@@ -181,7 +183,6 @@ export default function CategoryClient({
             <SeoSection initialCategory={initialCategory} />
           </div>
         </div>
-
       </div>
     </div>
   );
