@@ -10,7 +10,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
     <div className="card-container w-42.5 h-48.75 md:w-56 md:h-62.25 p-3 gap-1 items-end">
       <Link href={category.translation.slug} className="block h-full">
         {/* Image  */}
-        <div className="relative w-full h-50 overflow-hidden rounded-xs">
+        <div className="relative w-full h-36.5 md:h-50 overflow-hidden rounded-xs">
           <Image
             src={category.translation.imgUrl}
             alt={category.translation.imgAlt}
@@ -21,7 +21,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
         </div>
 
         {/* Content  */}
-        <p className="text-sm text-start font-medium">
+        <p className="text-sm text-start font-medium truncate">
           {category.translation.name}
         </p>
       </Link>
