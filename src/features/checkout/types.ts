@@ -1,11 +1,9 @@
-export type CartStep = 'empty' | 'items' | 'delivery' | 'payment' | 'success';
+import { Product } from "@/types/types";
 
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
+export type CartStep = 'empty' | 'items' | 'delivery' | 'payment' | 'success';
+export interface CartItem extends Product {
   quantity: number;
+  seller?: string;
 }
 
 export interface CartResponse {
@@ -13,5 +11,4 @@ export interface CartResponse {
   totalQuantity: number;
   totalPrice: number;
   step: CartStep;
-  guestId?: string;
 }

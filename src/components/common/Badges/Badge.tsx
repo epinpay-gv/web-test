@@ -3,7 +3,7 @@ import { Close } from "flowbite-react-icons/outline";
 import { ReactNode } from "react";
 
 type BadgeSize = "sm" | "lg" ;
-type BadgeTheme = "gray" | "white" | "brand" | "danger" | "warning" | "success";
+type BadgeTheme = "gray" | "white" | "brand" | "danger" | "warning" | "success" | "success_outline" | "gray_unborder";
 type BadgeType = "default" | "pill";
 
 interface BadgeProps {
@@ -40,8 +40,9 @@ const BADGE_THEME_CLASSES: Record<BadgeTheme, string> = {
     "bg-(--bg-danger-soft)  border border-(--border-danger-subtle) text-(--text-fg-danger-strong)",
   warning:
     "bg-(--bg-warning-soft) border border-(--border-warning-subtle) text-(--text-fg-warning)",
-  success:
-    "bg-(--bg-success-strong) border border-(--border-success-subtle) text-(--text-fg-success)",
+  success: "bg-(--bg-success-strong) border border-(--border-success-subtle) text-(--text-fg-success)",
+  success_outline: "bg-(--bg-neutral-primary-soft) border border-(--border-success) text-(--text-fg-success-strong)",
+  gray_unborder: "bg-(--bg-neutral-secondary) text-(--text-body)"
 };
 
 const BADGE_TYPE_CLASSES: Record<BadgeType, string> = {

@@ -1,4 +1,4 @@
-
+// features/cart/hooks/useCart.ts
 import { useState, useEffect, useCallback } from "react";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { cartService } from "../service";
@@ -6,9 +6,9 @@ import { CartItem, CartStep } from "../types";
 
 export function useCart() {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const [step, setStep] = useState<CartStep>("empty");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const user = useAuthStore((state) => state.user);
 
@@ -16,30 +16,28 @@ export function useCart() {
     setIsLoading(true);
     try {
       const guestId = cartService.getOrCreateGuestId();
-      const data = await cartService.getCart(user?.id, guestId);
+      const data = await cartService.getCart(user?.uid || user?.id, guestId);
       
       setItems(data.items);
       setTotalPrice(data.totalPrice);
-      setStep(data.items.length > 0 ? (data.step || "items") : "empty");
+      setStep(data.items.length > 0 ? "items" : "empty");
     } catch (err) {
-      console.error("Cart loading error:", err);
+      console.error("Cart fetch error:", err);
     } finally {
       setIsLoading(false);
     }
-  }, [user?.id]);
+  }, [user?.uid, user?.id]);
 
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
-  const updateQuantity = async (id: string, newQuantity: number) => {
-    // Burada mock bir update isteği atılabilir veya local state güncellenebilir
+  const updateQuantity = (id: string, newQuantity: number) => {
     setItems(prev => prev.map(item => 
-      item.id === id ? { ...item, quantity: newQuantity } : item
+      String(item.id) === id ? { ...item, quantity: newQuantity } : item
     ));
-    // Toplam fiyatı yeniden hesapla (Mock)
-    setTotalPrice(prev => prev); 
+    const newTotal = items.reduce((acc, curr) => acc + (curr.basePrice ?? 0) * curr.quantity, 0);
+    setTotalPrice(newTotal);
   };
-
-  return { items, totalPrice, step, setStep, isLoading, updateQuantity, refreshCart: fetchCart };
+  return { items, totalPrice, step, setStep, isLoading, updateQuantity };
 }

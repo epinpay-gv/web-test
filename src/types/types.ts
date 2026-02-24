@@ -79,6 +79,7 @@ export interface ProductRegion {
 export interface ProductPlatform {
   id: number;
   translation: Translation;
+  icon: string;
 }
 
 export interface ProductType {

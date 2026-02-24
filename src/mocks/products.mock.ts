@@ -143,7 +143,7 @@ export const mockProducts: Product[] = [
     isFavorite: false,
     genres: [],
     region: "Turkey",
-    platform: "Mobile Games",
+    platform: "",
     type: "Epin",
     platform_icon: "",
   },
