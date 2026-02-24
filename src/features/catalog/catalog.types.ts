@@ -7,17 +7,23 @@ export interface CategoriesPageResponse {
   pagination: PaginationData;
 }
 
+
+/* FILTER TYPES */
+
+export type FilterKey = "category" | "region" | "platform";
+export type ToggleBooleanKey = "inTr" | "inStock";
+export type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc";
+
 export type CatalogFilterState = {
   category: string[];
   region: string[];
   platform: string[];
-  productType: string[]; // TAB + checkbox ortak
+  productType: string[]; 
   price?: { min?: number; max?: number };
   inTr?: boolean;
   inStock?: boolean;
+  sort?: SortOption;
 };
-
-/* FILTER TYPES */
 
 export type FilterElementConfig =
   | {

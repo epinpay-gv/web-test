@@ -75,21 +75,27 @@ export default function ProductsClient({
    * PAGE → FETCH
    */
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       if (isLoading) return;
-      setIsLoading(true);
-      const params = buildCatalogSearchParams(filters);
-      params.set("page", String(page));
-      params.set("perPage", "16");
 
-      const res = await getProducts(params);
+      try {
+        setIsLoading(true);
 
-      setProducts(res.data);
-      setGroups(res.filters);
-      setPaginationState(res.pagination);
+        const params = buildCatalogSearchParams(filters);
+        params.set("page", String(page));
+        params.set("perPage", "12");
+
+        const res = await getProducts(params);
+
+        setProducts(res.data);
+        setGroups(res.filters);
+        setPaginationState(res.pagination);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    fetch();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, filters]);
 
@@ -125,7 +131,10 @@ export default function ProductsClient({
             title: `${pageTitle}`,
             totalProductAmount: pagination.count,
           }}
-          changeOrder={() => {}}
+          onSelect={function (id: string): void {
+            throw new Error("Function not implemented.");
+          }}
+          isLoading={isLoading}
         />
         <Breadcrumb
           items={breadcrumbItems.map((item, index) => ({

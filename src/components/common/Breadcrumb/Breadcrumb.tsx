@@ -7,7 +7,7 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <div className="inline-flex items-center gap-2 mb-4 overflow-x-auto scrollbar-hide">
+    <div className="inline-flex items-center gap-2 my-4 overflow-x-auto scrollbar-hide">
       {items.map((item, index) => (
         <BreadCrumbItem
           key={item.url}

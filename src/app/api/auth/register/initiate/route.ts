@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Simüle edilmiş gecikme (gerçek API gibi)
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 200));
 
     // Backend geldiğinde bu kısım kullanılacak:
     /*

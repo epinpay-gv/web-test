@@ -9,7 +9,7 @@ interface PromotedSectionProps {
 }
 export default function PromotedSection({ data }: PromotedSectionProps) {
   return (
-    <div className="max-w-5xl mx-auto overflow-hidden rounded-b-2xl md:rounded-b-none grid md:grid-cols-2 gap-6 px-4 md:px-0 py-6 md:py-20">
+    <div className="max-w-5xl mx-auto overflow-hidden rounded-b-2xl md:rounded-b-none flex gap-6 px-4 md:px-0 py-6 md:py-20">
       <div className="flex flex-col gap-6">
         {/* Heading */}
         <PromotedHeading/>

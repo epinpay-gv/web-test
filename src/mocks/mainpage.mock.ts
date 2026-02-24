@@ -4,45 +4,45 @@ import { PRODUCT_STATUS } from "@/types/types";
 export const mockMainPage: MainPageApiResponse = {
   promoted: {
     product: {
-      name: "Apex Legends",
-      slug: "/apex-legends",
+      name: "Pubg Mobile Uc",
+      slug: "/pubg-mobile-uc",
     },
     productVariants: [
       {
         id: 1,
-        name: "2150 Coins",
+        name: "660 UC",
         price: 599,
-        slug: "/apex-legends/2150-coins",
+        slug: "/pubg-mobile-uc/pubg-mobile-660-uc-tr",
       },
       {
         id: 2,
-        name: "4300 Coins",
+        name: "1800 UC",
         price: 1099,
-        slug: "/apex-legends/4300-coins",
+        slug: "/pubg-mobile-uc/pubg-mobile-1800-uc-tr",
       },
       {
         id: 3,
-        name: "8700 Coins",
+        name: "3850 UC",
         price: 1999,
-        slug: "/apex-legends/8700-coins",
+        slug: "/pubg-mobile-uc/pubg-mobile-3850-uc-tr",
       },
       {
         id: 4,
-        name: "8700 Coins",
+        name: "8100 UC",
         price: 1999,
-        slug: "/apex-legends/8700-coins",
+        slug: "/pubg-mobile-uc/pubg-mobile-8100-uc-tr",
       },
       {
         id: 5,
-        name: "8700 Coins",
+        name: "3850 UC",
         price: 1999,
-        slug: "/apex-legends/8700-coins",
+        slug: "/pubg-mobile-uc/pubg-mobile-3850-uc-tr",
       },
       {
         id: 6,
-        name: "8700 Coins",
+        name: "8100 UC",
         price: 1999,
-        slug: "/apex-legends/8700-coins",
+        slug: "/pubg-mobile-uc/pubg-mobile-8100-uc-tr",
       },
     ],
     categories: [

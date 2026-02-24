@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useMemo } from "react";
 import { Product, ProductPlatform, ProductRegion } from "@/types/types";
 import { Badge } from "@/components/common";
-import FilterDropdownContainer from "./FilterDropdownContainer";
+import FilterDropdownContainer from "../../filters/Filters/FilterDropdownContainer";
 
 interface VariantOption {
   slug: string;

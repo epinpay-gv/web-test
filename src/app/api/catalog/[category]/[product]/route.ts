@@ -19,7 +19,6 @@ export async function GET(
   const categoryData = mockCategories.find(
     (item) => item.translation.slug === category,
   );
-  console.log(resolvedParams);
 
   if (!categoryData) {
     return NextResponse.json(
@@ -79,18 +78,9 @@ export async function GET(
   }
 
   const platforms = Array.from(platformMap.values());
-  console.log({
-    data: productData,
-    category: {
-      variants,
-      regions,
-      platforms,
-      categoryData,
-    },
-  });
 
   // FAKE LATENCY
-  await new Promise((r) => setTimeout(r, 300));
+  await new Promise((r) => setTimeout(r, 200));
 
   return NextResponse.json({
     data: productData,

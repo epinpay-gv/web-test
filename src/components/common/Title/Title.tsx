@@ -1,5 +1,3 @@
-"use client";
-import Breadcrumb from "@/components/common/Breadcrumb/Breadcrumb";
 import Link from "next/link";
 import { TitleData } from "./types";
 
@@ -18,7 +16,7 @@ export default function Title({
 }: TitleProps) {
   return (
     <>
-      <div className="flex items-center justify-between md:border-b border-border-default">
+      <div className="flex items-center w-full justify-between md:border-b border-(--border-default)">
         <span className="text-xl flex items-center gap-2">
           <h2 className={data.titleColor ? data.titleColor : "white"}>
             {data.title}
