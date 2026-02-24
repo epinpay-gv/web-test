@@ -1,6 +1,7 @@
-import { Header, Footer } from "@/components/layout/Header/Header";
+import { Header, Footer } from "@/components/layout";
 import PageAnimate from "@/components/common/PageAnimate/PageAnimate";
 import UserSidebar from "@/features/user/components/UserSidebar";
+import "@/styles/global.css";
 
 interface PrivateLayoutProps {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ interface PrivateLayoutProps {
 export default function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
     <div className="min-h-screen bg-muted/20">
-      <Header variant="private" />
+      <Header  />
 
       <div className="mx-auto flex max-w-322 gap-6 py-8 px-4">
         {/* SOL PANEL */}
@@ -21,8 +22,8 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
         <main className="w-full rounded-2xl bg-(--bg-neutral-primary-soft) p-6 lg:w-239">
           <PageAnimate>{children}</PageAnimate>
         </main>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }
