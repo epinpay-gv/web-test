@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
 import { Heart } from "flowbite-react-icons/outline";
-import { NotifyWhenAvailablePayload } from "../../Cards/ProductCard/types";
+import { NotifyWhenAvailablePayload } from "@/features/catalog/catalog.types";
 
 interface FavButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isFavorite?: boolean;
@@ -15,7 +15,9 @@ export default function FavButton({
   return (
     <button
       {...props}
-      onClick={() => addToFavorites?.({ productId: 0, userId: 0 })}
+      onClick={() => addToFavorites?.({
+        productId: 0
+      })}
       className="rounded-full bg-[#1E293999]/80 w-6.5 h-6.5 p-1.5 cursor-pointer hover:bg-[#1E293999] transition-colors"
       aria-label="Fav-Button"
     >

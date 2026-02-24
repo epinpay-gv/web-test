@@ -1,11 +1,6 @@
 "use client";
 import { Product } from "@/types/types";
-import {
-  AddToCartPayload,
-  ChangeQuantityPayload,
-  NotifyWhenAvailablePayload,
-  ProductCardOrientation,
-} from "./types";
+import { ProductCardOrientation } from "./types";
 import {
   ImageSection,
   ProductInfo,
@@ -14,13 +9,20 @@ import {
   OutOfStockSection,
   CartActionButtons,
 } from "./CardSections";
+import Link from "next/link";
+import {
+  AddToFavoritesPayload,
+  AddToCartPayload,
+  NotifyWhenAvailablePayload,
+  ChangeQuantityPayload,
+} from "@/features/catalog/catalog.types";
 interface ProductCardProps {
   product: Product;
   orientation?: ProductCardOrientation;
   isInCart?: boolean;
   addToCart: (payload: AddToCartPayload) => void;
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
-  addToFavorites: (payload: NotifyWhenAvailablePayload) => void;
+  addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
@@ -54,10 +56,9 @@ export default function ProductCard({
     : "flex flex-col justify-between";
 
   return (
-    <div
-      className={`gap-1 flex ${isInCart ? "cart-card-container" : "card-container p-3"} ${
-        isHorizontal ? "flex-row gap-4" : "flex-col justify-start"
-      } ${cardSizeClass}`}
+    <Link
+      className={`hover:scale-102 gap-1 flex ${isInCart ? "cart-card-container" : "card-container p-3"} ${isHorizontal ? "flex-row gap-4" : "flex-col justify-start"} ${cardSizeClass}`}
+      href={`${product.translation.category_slug}/${product.translation.slug}`}
     >
       {/* Image Section */}
       <ImageSection
@@ -78,10 +79,14 @@ export default function ProductCard({
               <ActionButtons
                 isHorizontal={isHorizontal}
                 addToCart={addToCart}
+                product={product}
               />
             </>
           ) : (
-            <OutOfStockSection isHorizontal={isHorizontal} notifyWhenAvailable={notifyWhenAvailable} />
+            <OutOfStockSection
+              isHorizontal={isHorizontal}
+              notifyWhenAvailable={notifyWhenAvailable}
+            />
           ))}
 
         {isInCart && (
@@ -94,6 +99,6 @@ export default function ProductCard({
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 }

@@ -1,14 +1,18 @@
 "use client";
 import Image from "next/image";
 import { Button, ProductCard } from "@/components/common";
-import { AddToCartPayload, ChangeQuantityPayload, NotifyWhenAvailablePayload } from "@/components/common/Cards/ProductCard/types";
 import { Product } from "@/types/types";
+import { AddToFavoritesPayload, AddToCartPayload, ChangeQuantityPayload, NotifyWhenAvailablePayload } from "../../catalog.types";
 
 interface ProductGridProps {
   data: Product[];
+  addToCart: (payload: AddToCartPayload) => void;
+  notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
+  addToFavorites: (payload: AddToFavoritesPayload) => void;
+  changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
-export default function ProductGrid({ data }: ProductGridProps) {
+export default function ProductGrid({ data, addToCart, notifyWhenAvailable, addToFavorites, changeQuantity }: ProductGridProps) {
   return (
     <>
       {data.length > 0 ? (
@@ -17,27 +21,15 @@ export default function ProductGrid({ data }: ProductGridProps) {
             <ProductCard
               product={productCard}
               key={index}
-              addToCart={function (payload: AddToCartPayload): void {
-                throw new Error("Function not implemented.");
-              }}
-              notifyWhenAvailable={function (
-                payload: NotifyWhenAvailablePayload,
-              ): void {
-                throw new Error("Function not implemented.");
-              }}
-              addToFavorites={function (
-                payload: NotifyWhenAvailablePayload,
-              ): void {
-                throw new Error("Function not implemented.");
-              }}
-              changeQuantity={function (payload: ChangeQuantityPayload): void {
-                throw new Error("Function not implemented.");
-              }}
+              addToCart={addToCart}
+              notifyWhenAvailable={notifyWhenAvailable}
+              addToFavorites={addToFavorites}
+              changeQuantity={changeQuantity}
             />
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4 min-h-screen">
           <Image
             src="/illustrations/gaming-controller-ghosts-dark.svg"
             alt="product-not-found"
@@ -46,7 +38,9 @@ export default function ProductGrid({ data }: ProductGridProps) {
             height={300}
           />
           <div className="text-xl font-semibold">Ürün bulunamadı</div>
-          <div className="text-sm font-normal">Arama kriterlerinize göre ürün bulunamadı.</div>
+          <div className="text-sm font-normal">
+            Arama kriterlerinize göre ürün bulunamadı.
+          </div>
           <Button
             padding="sm"
             textSize="sm"

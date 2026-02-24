@@ -1,1 +1,3 @@
-// useArticleMeta() kullanılmış
+export default function ArticlePage() {
+  return <></>;
+}

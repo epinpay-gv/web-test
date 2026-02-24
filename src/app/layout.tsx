@@ -1,37 +1,50 @@
-import type { Metadata } from 'next'
-import Script from 'next/script'
-import { ThemeProvider } from '@/features/theme/components/ThemeProvider';
-import '@/styles/global.css';
+import type { Metadata } from "next";
+import Script from "next/script";
+import { ThemeProvider } from "@/features/theme/components/ThemeProvider";
+import { SessionProvider } from '@/features/auth/components/SessionProvider';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.epinpay.com'),
+  metadataBase: new URL("https://www.epinpay.com"),
   title: {
-    default: 'Epinpay',
-    template: '%s | Epinpay',
+    default: "Epinpay",
+    template: "%s | Epinpay",
   },
-  description: 'Güvenli ve hızlı alışverişin tek adresi',
+  description: "Güvenli ve hızlı alışverişin tek adresi",
   robots: { index: true, follow: true },
-  referrer: 'no-referrer-when-downgrade',
+  referrer: "no-referrer-when-downgrade",
   openGraph: {
-    type: 'website',
-    siteName: 'Epinpay',
-    title: 'Epinpay',
-    description: 'Güvenli ve hızlı alışverişin tek adresi',
-    images: [{ url: 'https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp', width: 1200, height: 630 }],
+    type: "website",
+    siteName: "Epinpay",
+    title: "Epinpay",
+    description: "Güvenli ve hızlı alışverişin tek adresi",
+    images: [
+      {
+        url: "https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
-    card: 'summary_large_image',
-    images: ['https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp'],
+    card: "summary_large_image",
+    images: ["https://cdn.epinpay.com/image/ep/logo/white/horizontal.webp"],
   },
-}
+};
 
-export const viewport = { themeColor: '#2a2b2c' }
+export const viewport = { themeColor: "#2a2b2c" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="tr" suppressHydrationWarning>
       <body suppressHydrationWarning>
+<<<<<<< HEAD
         {/* --- ORİJİNAL SCRİPTLERİN (Bozmadan Geri Getirildi) --- */}
+=======
+>>>>>>> development
         {/* <Script
           id="gtm"
           strategy="afterInteractive"
@@ -81,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               url: 'https://www.epinpay.com',
             }),
           }}
-        />
+        /> 
 
         <noscript>
           <iframe
@@ -90,15 +103,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
+<<<<<<< HEAD
         </noscript> */}
         {/* --- SCRİPTLER SONU --- */}
+=======
+        </noscript>*/}
+>>>>>>> development
 
         <ThemeProvider>
+          <SessionProvider>
             <main className="min-h-screen">
               {children}
-            </main>
+            </main>          
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

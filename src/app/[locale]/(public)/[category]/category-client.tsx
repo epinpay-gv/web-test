@@ -5,19 +5,26 @@ import {
   FilterLabels,
   PageTitle,
   ProductGrid,
+  SeoSection,
 } from "@/features/catalog/components";
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
-import { getProducts } from "@/features/catalog/service";
+import { getCategory } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
-import { PaginationData, Product } from "@/types/types";
+import { Category, PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { Breadcrumb, Pagination } from "@/components/common";
+import { Breadcrumb, NavTab, Pagination } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
+import {
+  AddToCartPayload,
+  AddToFavoritesPayload,
+  ChangeQuantityPayload,
+  FilterGroupConfig,
+  NotifyWhenAvailablePayload,
+} from "@/features/catalog/catalog.types";
+import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface CategoryClientProps {
   initialProducts: Product[];
@@ -27,6 +34,8 @@ interface CategoryClientProps {
     name: string;
     url: string;
   }[];
+  initialCategory: Category;
+  categorySlug: string;
 }
 
 export default function CategoryClient({
@@ -34,6 +43,8 @@ export default function CategoryClient({
   initialFilters,
   pagination,
   breadcrumbItems,
+  categorySlug,
+  initialCategory,
 }: CategoryClientProps) {
   const router = useRouter();
   const isFirstRender = useRef(true);
@@ -77,7 +88,7 @@ export default function CategoryClient({
       params.set("page", String(page));
       params.set("perPage", "16");
 
-      const res = await getProducts(params);
+      const res = await getCategory(params, categorySlug);
 
       setProducts(res.data);
       setGroups(res.filters);
@@ -101,63 +112,76 @@ export default function CategoryClient({
     router.replace(`?${params.toString()}`, { scroll: false });
   }, [filters, router]);
 
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
+
   return (
-    <div className="container max-w-7xl mx-auto pb-12 space-y-4">
-      {productTypeTabItems.length > 0 && (
-        <NavTabs
-          items={productTypeTabItems}
-          activeValue={filters.productType[0] ?? "all"}
-          variant="segmented"
-          size="base"
-          onChange={(value) => setProductType(value)}
+    <div className="container max-w-7xl mx-auto space-y-4 pb-12">
+      <div className="pl-4 md:pl-0 py-4 md:py-6">
+        {productTypeTabItems.length > 0 && (
+          <NavTab
+            items={productTypeTabItems}
+            activeValue={filters.productType[0] ?? "all"}
+            variant="segmented"
+            size="base"
+            onChange={(value) => setProductType(value)}
+          />
+        )}
+      </div>
+      <div className="px-4 md:px-0">
+        <PageTitle
+          data={{
+            title: `${pageTitle} ürünleri`,
+            totalProductAmount: pagination.count,
+          }}
+          changeOrder={() => {}}
         />
-      )}
-
-      <PageTitle
-        data={{
-          title:`${pageTitle} ürünleri`,
-          totalProductAmount: pagination.count,
-        }}
-        changeOrder={() => {}}
-      />
-      <Breadcrumb
-        items={breadcrumbItems.map((item, index) => ({
-          ...item,
-          icon: index === 0 ? <Home size={14} /> : undefined,
-        }))}
-      />
-
-      <div className="flex md:flex-row flex-col items-start gap-4">
-        <FilterContainer
-          titleData={{ title: "Filtrele", isUnderlined: true }}
-          filters={columnFilters}
-          activeFilters={activeFilters}
-          resetFilters={resetFilters}
+        <Breadcrumb
+          items={breadcrumbItems.map((item, index) => ({
+            ...item,
+            icon: index === 0 ? <Home size={14} /> : undefined,
+          }))}
         />
 
-        <div className="flex-1 flex flex-col gap-4 ">
-          {activeFilters.length > 0 && (
-            <FilterLabels
-              activeFilters={activeFilters}
-              resetFilters={resetFilters}
-              setPriceRange={setPriceRange}
-              toggleFilter={toggleFilter}
-            />
-          )}
+        <div className="flex md:flex-row flex-col items-start gap-4">
+          <FilterContainer
+            titleData={{ title: "Filtrele", isUnderlined: true }}
+            filters={columnFilters}
+            activeFilters={activeFilters}
+            resetFilters={resetFilters}
+          />
 
-          <ProductGrid data={products} />
-          {products.length > 0 && (
-            <div className="mx-auto">
-              <Pagination
-                pagination={paginationState}
-                onPageChange={(page) => {
-                  setPage(page);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
+          <div className="flex-1 flex flex-col gap-4 ">
+            {activeFilters.length > 0 && (
+              <FilterLabels
+                activeFilters={activeFilters}
+                resetFilters={resetFilters}
+                setPriceRange={setPriceRange}
+                toggleFilter={toggleFilter}
               />
-            </div>
-          )}
+            )}
+            <ProductGrid
+              data={products}
+              addToCart={addToCart}
+              notifyWhenAvailable={notifyWhenAvailable}
+              addToFavorites={addToFavorites}
+              changeQuantity={changeQuantity}
+            />
+            {products.length > 0 && (
+              <div className="mx-auto">
+                <Pagination
+                  pagination={paginationState}
+                  onPageChange={(page) => {
+                    setPage(page);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                />
+              </div>
+            )}
+            <SeoSection initialCategory={initialCategory} />
+          </div>
         </div>
+
       </div>
     </div>
   );

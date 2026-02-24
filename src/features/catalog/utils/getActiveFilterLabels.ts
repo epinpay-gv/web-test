@@ -1,16 +1,14 @@
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
-import { CatalogFilterState } from "@/features/catalog/catalog.types";
-
-export type ActiveFilterChip = {
-  key: string;
-  value: string;
-  label: string;
-};
+import {
+  ActiveFilterChip,
+  CatalogFilterState,
+  FilterGroupConfig,
+} from "@/features/catalog/catalog.types";
 
 export function getActiveFilterLabels(
   filters: CatalogFilterState,
   groups: FilterGroupConfig[],
 ): ActiveFilterChip[] {
+  
   const chips: ActiveFilterChip[] = [];
 
   groups.forEach((group) => {
@@ -19,8 +17,7 @@ export function getActiveFilterLabels(
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const selectedValues = (filters as any)[el.key];
-      if (!Array.isArray(selectedValues) || selectedValues.length === 0)
-        return;
+      if (!Array.isArray(selectedValues) || selectedValues.length === 0) return;
 
       el.options.forEach((opt) => {
         if (selectedValues.includes(opt.value)) {

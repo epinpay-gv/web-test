@@ -5,3 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function formatDateTR(dateString: string) {
+  return new Intl.DateTimeFormat("tr-TR").format(new Date(dateString));
+}

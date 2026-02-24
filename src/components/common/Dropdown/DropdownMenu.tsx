@@ -1,85 +1,105 @@
 "use client";
 
-import { useState, useRef, useEffect, ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 import DropdownListItem from "./DropdownListItem";
-
-interface DropdownOption {
-  label: string;
-  value: string;
+import { DropdownMenuItem } from "./dropdown.types";
+interface DropdownMenuProps {
+  trigger: React.ReactNode;
+  items: DropdownMenuItem[];
+  align?: "left" | "right";
+  width?: number | string;
+  onSelect?: (item: DropdownMenuItem) => void;
+  closeOnSelect?: boolean;
+  className?: string;
 }
 
-interface DropdownProps {
-  options: DropdownOption[];
-  value?: string;
-  placeholder?: string;
-  icon?: ReactNode;
-  onChange?: (value: string) => void;
-}
+export default function DropdownMenu({
+  trigger,
+  items,
+  align = "left",
+  width = 240,
+  onSelect,
+  closeOnSelect = true,
+  className,
+}: DropdownMenuProps) {
+  const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-export default function Dropdown({
-  options,
-  value,
-  placeholder = "Seçiniz",
-  icon,
-  onChange,
-}: DropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const toggle = () => setOpen((prev) => !prev);
+  const close = () => setOpen(false);
 
-  const selectedOption = options.find((opt) => opt.value === value);
-
-  const handleSelect = (val: string) => {
-    onChange?.(val);
-    setIsOpen(false);
-  };
-
+  // Outside click
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    function handleClickOutside(e: MouseEvent) {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
       ) {
-        setIsOpen(false);
+        close();
       }
-    };
+    }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () =>
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    };
+  }, [open]);
+
+  // ESC close
+  useEffect(() => {
+    function handleEsc(e: KeyboardEvent) {
+      if (e.key === "Escape") close();
+    }
+
+    if (open) {
+      document.addEventListener("keydown", handleEsc);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+    };
+  }, [open]);
 
   return (
-    <div className="relative w-full" ref={dropdownRef}>
-      {/* Trigger */}
-      <button
-        type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full border rounded-md px-3 py-2 text-sm bg-(--bg-neutral-secondary-medium)"
-      >
-        <div className="flex items-center justify-between w-full">
-          <span className="truncate">
-            {selectedOption?.label || placeholder}
-          </span>
+    <div ref={wrapperRef} className="relative inline-block">
+      <div onClick={toggle} className="cursor-pointer">
+        {trigger}
+      </div>
 
-          {icon && (
-            <span className="ml-2 flex items-center shrink-0 text-(--text-body-subtle) w-[10.67px] h-1.5">
-              {icon}
-            </span>
+      {open && (
+        <div
+          style={{ width }}
+          className={clsx(
+            "absolute z-50 mt-2 rounded-md shadow-lg border border-(--border-default-medium)",
+            "bg-(--bg-neutral-primary-medium) p-2",
+            align === "right" ? "right-0" : "left-0",
+            className,
           )}
-        </div>
-      </button>
+        >
+          <div className="flex flex-col gap-1.5 max-h-60 overflow-y-auto pr-1">
+            {items.map((item) => (
+              <DropdownListItem
+                key={item.id}
+                text={item.text}
+                secondaryText={item.secondaryText}
+                leftIcon={item.leftIcon}
+                rightIcon={item.rightIcon}
+                checkbox={item.checkbox}
+                checked={item.checked}
+                state={item.disabled ? "disabled" : "initial"}
+                onClick={() => {
+                  if (item.disabled) return;
 
-      {/* Menu */}
-      {isOpen && (
-        <div className="absolute z-50 mt-2 w-full rounded-md border bg-(--bg-neutral-secondary-medium) p-1 space-y-1">
-          {options.map((option) => (
-            <DropdownListItem
-              key={option.value}
-              text={option.label}
-              state={value === option.value ? "active" : "initial"}
-              onClick={() => handleSelect(option.value)}
-            />
-          ))}
+                  onSelect?.(item);
+                  if (closeOnSelect && !item.checkbox) close();
+                }}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

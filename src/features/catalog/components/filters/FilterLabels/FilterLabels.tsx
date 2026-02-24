@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/common";
-import { ActiveFilterChip } from "@/features/catalog/utils/getActiveFilterLabels";
+import { ActiveFilterChip } from "@/features/catalog/catalog.types";
 
 type FilterKey = "category" | "region" | "platform";
 
@@ -19,7 +19,7 @@ export default function FilterLabels({
   resetFilters,
 }: FilterLabelsProps) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="hidden md:flex flex-wrap items-center gap-2">
       <button
         onClick={resetFilters}
         className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"

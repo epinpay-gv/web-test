@@ -1,64 +1,68 @@
 import { createSeo } from "@/lib/seo";
-import { CategorySchema } from "@/components/seo/CategorySchema";
-import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { BreadcrumbSchema, ProductSchema } from "@/components/seo";
+import ProductClient from "./product-client";
+import { getProduct } from "@/features/catalog/service";
+import { createProductBreadcrumb } from "@/features/catalog/utils";
+
+type Params = {
+  locale: string;
+  category: string;
+  product: string;
+};
 
 type Props = {
-  params: {
-    locale: string
-    category: string
-  }
+  params: Promise<Params>;
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { locale, category, product } = await params;
+  const name = product.replace(/-/g, " ");
+
+  return createSeo({
+    title: locale === "en" ? `${name} Products` : `${name}`,
+    description:
+      locale === "en" ? `${name} product detailı` : `${name} ürün detayı`,
+    canonical: `/${locale}/${category}`,
+    locale: locale,
+  });
 }
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { locale: string; category: string };
-// }) {
-//   const name = params.category.replace(/-/g, " ");
+export default async function ProductPage({ params }: Props) {
+  const { locale, category, product } = await params;
 
-//   return createSeo({
-//     title: params.locale === "en" ? `${name} Products` : `${name} Ürünleri`,
-//     description:
-//       params.locale === "en"
-//         ? `${name} category products`
-//         : `${name} kategorisindeki ürünler`,
-//     canonical: `/${params.category}`,
-//     locale: params.locale,
-//   });
-// }
+  const productUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}/${product}`;
 
-export default function ProductPage({ params }: Props) {
-  const { locale, category } = params;
-  const baseUrl = "https://www.epinpay.com";
-  const categoryUrl = `${baseUrl}/${locale}/categories/${category}`;
+  const res = await getProduct(new URLSearchParams(), category, product);
+
+  const breadcrumbItems = createProductBreadcrumb(
+    locale,
+    res.category.categoryData.translation.name,
+    category,
+    res.data.translation.name,
+    product,
+  );
 
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema
-        items={[
-          { name: "Home", url: `${baseUrl}/${locale}` },
-          { name: "Categories", url: `${baseUrl}/${locale}/categories` },
-          { name: category, url: categoryUrl },
-        ]}
-      />
-
-      <CategorySchema
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <ProductSchema
         name={category}
-        description={`${category} kategorisindeki ürünler`}
-        url={categoryUrl}
+        description={product}
+        url={productUrl}
         locale={locale}
-        items={[
-          // TODO : şimdilik fetch yok bunlar placeholder
-          { name: "Sample Item 1", url: `${categoryUrl}/item-1` },
-          { name: "Sample Item 2", url: `${categoryUrl}/item-2` },
-        ]}
       />
 
       {/* Page Content */}
-      <div>
-        <h1>product detail</h1>
-      </div>
+      <ProductClient
+        breadcrumbItems={breadcrumbItems}
+        initialProduct={res.data}
+        initialCategory={res.category}
+      />
     </>
   );
 }

@@ -6,18 +6,18 @@ import {
   PageTitle,
   ProductGrid,
 } from "@/features/catalog/components";
-import { FilterGroupConfig } from "@/features/catalog/components/filters/Filters/types";
 import { getProducts } from "@/features/catalog/service";
 import { useCatalogFilters } from "@/features/catalog/store";
-import NavTabs from "@/components/common/NavLinks/NavTabs/NavTabs";
 import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
 import { PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { Breadcrumb, Pagination } from "@/components/common";
+import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface ProductsClientProps {
   initialProducts: Product[];
@@ -38,7 +38,9 @@ export default function ProductsClient({
   const router = useRouter();
   const isFirstRender = useRef(true);
 
-  const pageTitle = breadcrumbItems[2] ? `${breadcrumbItems[2]?.name} ürünleri` : "Tüm ürünler ";
+  const pageTitle = breadcrumbItems[2]
+    ? `${breadcrumbItems[2]?.name} ürünleri`
+    : "Tüm ürünler ";
 
   const filters = useCatalogFilters((s) => s.filters);
   const setProductType = useCatalogFilters((s) => s.setProductType);
@@ -66,7 +68,8 @@ export default function ProductsClient({
 
   const activeFilters = getActiveFilterLabels(filters, groups);
 
-  const handleFilterLabelClose = () => {};
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
 
   /**
    * PAGE → FETCH
@@ -104,58 +107,66 @@ export default function ProductsClient({
   }, [filters, router]);
 
   return (
-    <div className="container max-w-7xl mx-auto space-y-4 px-4 md:px-0 pb-12">
-      {productTypeTabItems.length > 0 && (
-        <NavTabs
-          items={productTypeTabItems}
-          activeValue={filters.productType[0] ?? "all"}
-          variant="segmented"
-          size="base"
-          onChange={(value) => setProductType(value)}
+    <div className="container max-w-7xl mx-auto space-y-4 pb-12">
+      <div className="pl-4 md:pl-0 py-4 md:py-6">
+        {productTypeTabItems.length > 0 && (
+          <NavTab
+            items={productTypeTabItems}
+            activeValue={filters.productType[0] ?? "all"}
+            variant="segmented"
+            size="base"
+            onChange={(value) => setProductType(value)}
+          />
+        )}
+      </div>
+      <div className="px-4 md:px-0">
+        <PageTitle
+          data={{
+            title: `${pageTitle}`,
+            totalProductAmount: pagination.count,
+          }}
+          changeOrder={() => {}}
         />
-      )}
-
-      <PageTitle
-        data={{
-          title: `${pageTitle}`,
-          totalProductAmount: pagination.count,
-        }}
-        changeOrder={() => {}}
-      />
-      <Breadcrumb
-        items={breadcrumbItems.map((item, index) => ({
-          ...item,
-          icon: index === 0 ? <Home size={14} /> : undefined,
-        }))}
-      />
-
-      <div className="flex md:flex-row flex-col items-start gap-4">
-        <FilterContainer
-          titleData={{ title: "Filtrele", isUnderlined: true }}
-          filters={columnFilters}
-          activeFilters={activeFilters}
-          resetFilters={resetFilters}
+        <Breadcrumb
+          items={breadcrumbItems.map((item, index) => ({
+            ...item,
+            icon: index === 0 ? <Home size={14} /> : undefined,
+          }))}
         />
+        <div className="flex md:flex-row flex-col items-start gap-4">
+          <FilterContainer
+            titleData={{ title: "Filtrele", isUnderlined: true }}
+            filters={columnFilters}
+            activeFilters={activeFilters}
+            resetFilters={resetFilters}
+          />
 
-        <div className="flex-1 flex flex-col gap-4 ">
-          {activeFilters.length > 0 && (
-            <FilterLabels
-              activeFilters={activeFilters}
-              resetFilters={resetFilters}
-              setPriceRange={setPriceRange}
-              toggleFilter={toggleFilter}
-            />
-          )}
+          <div className="flex-1 flex flex-col gap-4 ">
+            {activeFilters.length > 0 && (
+              <FilterLabels
+                activeFilters={activeFilters}
+                resetFilters={resetFilters}
+                setPriceRange={setPriceRange}
+                toggleFilter={toggleFilter}
+              />
+            )}
 
-          <ProductGrid data={products} />
-          <div className="mx-auto">
-            <Pagination
-              pagination={paginationState}
-              onPageChange={(page) => {
-                setPage(page);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+            <ProductGrid
+              data={products}
+              addToCart={addToCart}
+              changeQuantity={changeQuantity}
+              addToFavorites={addToFavorites}
+              notifyWhenAvailable={notifyWhenAvailable}
             />
+            <div className="mx-auto">
+              <Pagination
+                pagination={paginationState}
+                onPageChange={(page) => {
+                  setPage(page);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
