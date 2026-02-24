@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 
 import { Close } from "flowbite-react-icons/outline";
-import { Button } from "@/components/common/Button/Button";
+import { Button } from "@/components/common";
 
 type ModalTheme = "info" | "popup";
 type ModalSize = "sm" | "md" | "lg";
@@ -126,11 +126,11 @@ export function Modal({
             {confirmText && (
               <Button
                 text={confirmText}
-                variant="brand"
+                variant="dark"
                 appearance="filled"
                 padding="xl"
                 size="base"
-                textSize="sm"
+                textSize="xs"
                 onClick={onConfirm}
               />
             )}

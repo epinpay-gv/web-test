@@ -10,17 +10,17 @@ interface PrivateLayoutProps {
 export default function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
     <div className="min-h-screen bg-muted/20">
-      <Header variant="private"/>
+      <Header variant="private" />
 
-      <div className="mx-auto flex max-w-5xl gap-4 py-8">
-        
-        {/* Sol Panel */}
-        <aside className="w-77 rounded-xl bg-(--bg-neutral-primary-soft) p-5">
+      <div className="mx-auto flex max-w-322 gap-6 py-8 px-4">
+
+        {/* SOL PANEL */}
+        <aside className="hidden w-77 rounded-2xl bg-(--bg-neutral-primary-soft) p-5 lg:block">
           <UserSidebar />
         </aside>
 
-        {/* Sağ İçerik */}
-        <main className="flex-1 rounded-xl bg-(--bg-neutral-primary-soft) p-6">
+        {/* SAĞ İÇERİK */}
+        <main className="w-full rounded-2xl bg-(--bg-neutral-primary-soft) p-6 lg:w-239">
           <PageAnimate>
             {children}
           </PageAnimate>

@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="tr" suppressHydrationWarning>
       <body suppressHydrationWarning>
         {/* --- ORİJİNAL SCRİPTLERİN (Bozmadan Geri Getirildi) --- */}
-        <Script
+        {/* <Script
           id="gtm"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -90,7 +90,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
-        </noscript>
+        </noscript> */}
         {/* --- SCRİPTLER SONU --- */}
 
         <ThemeProvider>

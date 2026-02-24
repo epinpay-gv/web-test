@@ -16,6 +16,8 @@
 //     }
 // }
 
+import { PaginationData } from "@/types/types";
+
 
 export type UserRole = "USER"
 
@@ -35,4 +37,19 @@ export interface User {
 export interface GetMeResponse {
   success: boolean;
   data: User;
+}
+
+export interface Order{
+  id: number;
+  order_no: string;
+  items: [];
+  status: "" | "";
+  product_amount: number;
+  total_amount: number;
+  created_at: string;
+}
+
+export interface OrdersPageApiResponse{
+    data: Order[];
+    pagination: PaginationData;
 }

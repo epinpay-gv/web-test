@@ -1,7 +1,7 @@
 import { User, ShoppingBag, Receipt, Heart, SalePercent, Messages, Bell, Star, Cog } from "flowbite-react-icons/outline"
 
 export const userMenu = [
-    {icon: User, label: "Kullanıcı Bilgilerim", url: "/"},
+    {icon: User, label: "Kullanıcı Bilgilerim", url: "/user"},
     {icon: ShoppingBag, label: "Siparişlerim", url: "/user/orders"},
     {icon: Receipt, label: "Çekilişlerim", url: "/user/raffles"},
     {icon: Heart, label: "Favorilerim", url: "/user/favorites"},

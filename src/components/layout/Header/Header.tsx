@@ -59,7 +59,7 @@ export function Header({ variant = "public" }: HeaderProps) {
 
         <div className="max-w-7xl w-full mx-auto px-4 flex justify-between items-center gap-4 md:gap-8 z-10">
           {/* LOGO */}
-          <button onClick={() => router.push("/")} className="shrink-0">
+          {/* <button onClick={() => router.push("/")} className="shrink-0">
             <Image
               src={logoSrc}
               alt="Epinpay"
@@ -68,7 +68,7 @@ export function Header({ variant = "public" }: HeaderProps) {
               className="h-6 md:h-10 w-auto object-contain cursor-pointer"
               priority
             />
-          </button>
+          </button> */}
 
           {/* MASAÜSTÜ ARAMA */}
           <div className="hidden md:block max-w-lg flex-1">
@@ -145,6 +145,7 @@ export function Header({ variant = "public" }: HeaderProps) {
         )}
       </header>
       {variant === "public" && <NavLinkCards />}
+      {/* <Button text="Deneme button" className="max-w-10"/> */}
     </>
   );
 }

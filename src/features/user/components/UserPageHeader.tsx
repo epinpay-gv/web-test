@@ -4,7 +4,7 @@ interface UserPageHeaderprops {
 
 export default function UserPageHeader({title}: UserPageHeaderprops) {
     return(
-         <h1 className="text-(--text-body) text-[16px] pb-2 border-b border-gray-300">
+         <h1 className="text-(--text-body) text-[16px] pb-2 border-b border-(--border-default)">
        {title}
       </h1>
     )
