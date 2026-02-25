@@ -15,17 +15,21 @@ interface OrdersClientProps {
 }
 
 export default function OrdersClient({ data, pagination }: OrdersClientProps) {
+  
+  const [orders, setOrders] = useState<Order[]>(data);
   const [paginationState, setPaginationState] =
-    useState<PaginationData>(pagination);
+  useState<PaginationData>(pagination);
   const [page, setPage] = useState(1);
+  console.log("data:", data, "orders:", orders);
 
   return (
+    
     <div>
       {/* <User /> */}
       {data && (
         <>
           <FiltersSection />
-          <OrdersSection orders={[]} />
+          <OrdersSection orders={orders} />
           <div className="mx-auto">
             <Pagination
               pagination={paginationState}

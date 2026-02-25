@@ -1,7 +1,9 @@
+"use client";
 import { Header, Footer } from "@/components/layout";
 import PageAnimate from "@/components/common/PageAnimate/PageAnimate";
-import UserSidebar from "@/features/user/components/UserSidebar";
 import "@/styles/global.css";
+import { userMenu } from "@/features/user/user-menu";
+import { Sidebar } from "@/components/layout/Sidebar/Sidebar";
 
 interface PrivateLayoutProps {
   children: React.ReactNode;
@@ -15,7 +17,7 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
       <div className="mx-auto flex max-w-322 gap-6 py-8 px-4">
         {/* SOL PANEL */}
         <aside className="hidden w-77 rounded-2xl bg-(--bg-neutral-primary-soft) p-5 lg:block">
-          <UserSidebar />
+        <Sidebar data={userMenu}/>
         </aside>
 
         {/* SAĞ İÇERİK */}

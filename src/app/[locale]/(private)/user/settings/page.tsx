@@ -3,8 +3,8 @@
 import { useState } from "react";
 import UserPageHeader from "@/features/user/components/UserPageHeader";
 import { mockUserSettings, countryOptions, currencyOptions, UserSettingsDTO } from "@/features/user/mocks/settings.mock";
-import Dropdown from "@/components/common/Dropdown/DropdownMenu";
 import { AngleDown } from "flowbite-react-icons/outline";
+import DropdownMenu from "@/components/common/Dropdown/DropdownMenu";
 
 export default function SettingsPage() {
     const [settings, setSettings] =
@@ -51,25 +51,54 @@ export default function SettingsPage() {
                         </p>
                     </div>
 
-                    <div className="flex flex-col gap-4 w-[384px]"> 
+                    <div className="flex flex-col gap-4 w-[384px]">
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Ülke</label>
-                            <Dropdown
-                                options={countryOptions}
-                                value={settings.system.country}
-                                onChange={handleCountryChange}
-                                icon={<AngleDown />}
+                            <DropdownMenu
+                                trigger={
+                                    <div className="flex items-center justify-between border border-(--border-default-medium) rounded-md px-3 py-2 w-full cursor-pointer">
+                                        <span>
+                                            {
+                                                countryOptions.find(
+                                                    (c) => c.value === settings.system.country
+                                                )?.label
+                                            }
+                                        </span>
+                                        <AngleDown className="w-4 h-4" />
+                                    </div>
+                                }
+                                items={countryOptions.map((option) => ({
+                                    id: option.value,
+                                    text: option.label,
+                                }))}
+                                onSelect={(item) => handleCountryChange(item.id)}
+                                width="100%"
                             />
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Para Birimi</label>
-                            <Dropdown
-                                options={currencyOptions}
-                                value={settings.system.currency}
-                                onChange={handleCurrencyChange}
-                                icon={<AngleDown />}
+                            <DropdownMenu
+                                trigger={
+                                    <div className="flex items-center justify-between border border-(--border-default-medium) rounded-md px-3 py-2 w-full cursor-pointer">
+                                        <span>
+                                            {
+                                                currencyOptions.find(
+                                                    (c) => c.value === settings.system.currency
+                                                )?.label
+                                            }
+                                        </span>
+                                        <AngleDown className="w-4 h-4" />
+                                    </div>
+                                }
+                                items={currencyOptions.map((option) => ({
+                                    id: option.value,
+                                    text: option.label,
+                                }))}
+                                onSelect={(item) => handleCurrencyChange(item.id)}
+                                width="100%"
                             />
+
                         </div>
                     </div>
                 </section>

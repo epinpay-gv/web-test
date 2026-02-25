@@ -1,11 +1,13 @@
 import { Order } from "@/features/user/user.types";
-import OrderCard from "./OrderCard";
+import { OrderCard } from "./OrderCard";
+
 
 interface OrdersSectionProps {
   orders: Order[];
 }
 
-export default function OrdersSection({ orders }: OrdersSectionProps) {
+export const OrdersSection = ({ orders }: OrdersSectionProps) => {
+
   return (
     <div className="flex flex-col gap-4">
       {orders.map((order) => (
@@ -13,4 +15,4 @@ export default function OrdersSection({ orders }: OrdersSectionProps) {
       ))}
     </div>
   );
-}
+};

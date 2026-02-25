@@ -1,125 +1,95 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
+import Link from "next/link";
+import { Order, ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/features/user/user.types";
 import { Button } from "@/components/common";
-import { Order } from "@/features/user/user.types";
+import { AngleRight } from "flowbite-react-icons/outline";
 
-type Props = {
+interface OrderCardProps {
   order: Order;
-};
+}
 
-export default function OrderCard({ order }: Props) {
-  const router = useRouter();
+export const OrderCard = ({ order }: OrderCardProps) => {
+  const statusLabel = ORDER_STATUS_LABELS[order.status];
+  const statusColor = ORDER_STATUS_COLORS[order.status];
 
-  const handleNavigate = () => {
-    router.push(`/user/orders/${order.id}`);
-  };
-
-  const handleInvoiceRequest = (e: React.MouseEvent) => {
-    e.stopPropagation();
-
-  };
-
-  const productCount = order.products.length;
+  const createdAt = new Date(order.createdAt);
+  const formattedDate = createdAt.toLocaleDateString("tr-TR");
+  const formattedTime = createdAt.toLocaleTimeString("tr-TR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return (
-    <div
-      onClick={handleNavigate}
-      className="bg-(--bg-neutral-primary) border border-[#1D303A] rounded-2xl w-full h-26 cursor-pointer transition hover:border-[#1D303A]/10 flex items-center px-2 mt-2">
-      <div className="flex items-center justify-between gap-6 w-full">
+    <div className="flex items-center justify-between rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) p-5">
 
-        {/* LEFT */}
-        <div className="">
-          <span className="text-white font-semibold ml-1">
-            Sipariş numarası: {order.orderNumber}
+      {/* SOL */}
+      <div className="flex flex-col gap-2">
+        {/* Sipariş No */}
+        <span className="text-[16px] font-semibold text-(--text-white)">
+          Sipariş numarası: {order.orderNumber}
+        </span>
+
+        {/* Alt Bilgi */}
+        <div className="flex items-center gap-2 text-sm text-(--text-body)">
+          <span className="border-r pr-1">
+            {order.products.length} Ürün
           </span>
-
-
-       <div className="text-xs text-(--text-body) mt-1 flex items-center gap-2">
-  <span className="border-r pr-2">{productCount} Ürün</span>
-
-  <span className="flex items-center gap-1 min-w-0">
-    <span className="border-r pr-2">Satıcı</span>
-    <span
-      className="
-        underline
-        truncate
-        max-w-15
-        inline-block
-        text-(--text-body)
-      "
-      title={order.sellerName}
-    >
-      {order.sellerName}
-    </span>
-  </span>
-
-  <span className="whitespace-nowrap">
-    {order.createdAt.toLocaleDateString("tr-TR")}{" "}
-    {order.createdAt.toLocaleTimeString("tr-TR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })}
-  </span>
-</div>
+          <span className="border-r pr-1 max-w-27.5 truncate">
+            Satıcı {order.sellerName}
+          </span>
+          <span>
+            {formattedDate} {formattedTime}
+          </span>
         </div>
+      </div>
 
-        {/* MIDDLE */}
+      {/* SAĞ */}
 
-        <div className="flex flex-col gap-3 min-w-50">
+      <div className="flex items-center flex-1">
 
-          <div className="flex justify-between text-sm">
+        {/* ORTA BİLGİ */}
+        <div className="flex-1 flex justify-center">
+          <div className="grid grid-cols-[auto_auto] gap-x-6 gap-y-1 text-sm">
+
             <span className="text-(--text-body)">
-              Sipariş durumu:
+              Sipariş Durumu:
             </span>
-            <span className="text-emerald-400 font-medium">
-              {order.status === "COMPLETED"
-                ? "Tamamlandı"
-                : order.status}
+            <span className={`font-medium ${statusColor}`}>
+              {statusLabel}
             </span>
-          </div>
 
-          <div className="flex justify-between text-sm">
             <span className="text-(--text-body)">
               Toplam tutar:
             </span>
-            <span className="text-gray-200 font-semibold">
-              {order.currency}{order.totalAmount}
+            <span className="font-semibold">
+              {order.currency}
+              {order.totalAmount}
             </span>
-          </div>
 
+          </div>
         </div>
 
-        {/* RIGHT */}
-        <div className="flex items-center gap-3 whitespace-nowrap">
-          {order.invoiceStatus === "NONE" && (
+        {/* BUTONLAR */}
+        <div className="flex items-center gap-2 text-(--text-body) whitespace-nowrap">
+          {order.invoiceStatus !== "NONE" && (
             <Button
               text="Fatura talep et"
-              variant="dark"
               textSize="sm"
-              padding="sm"
-              size="full"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleInvoiceRequest(e);
-              }}
+              variant="dark"
             />
           )}
- 
-          <Button
-            text="Detay gör"
-            variant="dark"
-            textSize="sm"
-            arrows={{ right: true }}
-            padding="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleNavigate();
-            }}
-          />
+
+          <Link href={`/user/orders/${order.id}`}>
+            <Button
+              text="Detay gör"
+              textSize="sm"
+              variant="dark"
+              icon={<AngleRight className="w-4 h-4" />}
+            />
+          </Link>
         </div>
       </div>
     </div>
   );
-}
+};
