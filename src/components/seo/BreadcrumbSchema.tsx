@@ -1,31 +1,38 @@
-import Script from 'next/script'
+import { BreadcrumbItem } from "@/types/types"
 
-type BreadcrumbItem = {
-  name: string
-  url: string
+type BreadcrumbSchemaProps = {
+  baseUrl: string
+  locale: string
+  items: BreadcrumbItem[]
 }
 
 export function BreadcrumbSchema({
+  baseUrl,
+  locale,
   items,
-}: {
-  items: BreadcrumbItem[]
-}) {
+}: BreadcrumbSchemaProps) {
+  const absoluteBase = `${baseUrl}/${locale}`
+
+  const itemListElement = items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: `${absoluteBase}${item.href}`,
+  }))
+
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: item.url,
-    })),
+    '@id': `${absoluteBase}${items[items.length - 1].href}#breadcrumb`,
+    itemListElement,
   }
 
   return (
-    <Script
-      id="breadcrumb-schema"
+    <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema),
+      }}
     />
   )
 }

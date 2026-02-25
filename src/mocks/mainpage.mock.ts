@@ -1,7 +1,7 @@
-import { MainPageApiResponse } from "@/features/mainpage/mainpage.types";
+import { MainPageData } from "@/features/mainpage/mainpage.types";
 import { PRODUCT_STATUS } from "@/types/types";
 
-export const mockMainPage: MainPageApiResponse = {
+export const mockMainPage: MainPageData = {
   promoted: {
     product: {
       name: "Pubg Mobile Uc",

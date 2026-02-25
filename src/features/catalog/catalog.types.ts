@@ -1,4 +1,4 @@
-import { Product, PaginationData, Category, ProductPlatform, ProductRegion } from "@/types/types";
+import { Product, PaginationData, Category, ProductPlatform, ProductRegion, PageMetadata } from "@/types/types";
 import { TitleData } from "@/components/common/Title/types";
 
 /* CATEGORY TYPES */
@@ -85,12 +85,18 @@ export interface CategoryWithProductDetail{
   categoryData: Category;
 }
 
-/* RESPONSE & PAYLOAD TYPES */
-
-export interface ProductsApiResponse {
+/* PAGE DATA */
+export interface ProductsData {
   data: Product[];
   pagination: PaginationData;
   filters: FilterGroupConfig[];
+}
+
+/* RESPONSE & PAYLOAD TYPES */
+
+export interface ProductsApiResponse {
+  metadata: PageMetadata;
+  data: ProductsData;
 }
 
 export type CategoriesApiResponse = CategoriesPageResponse;

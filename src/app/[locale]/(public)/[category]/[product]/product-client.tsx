@@ -1,5 +1,5 @@
 "use client";
-import { Product } from "@/types/types";
+import { BreadcrumbItem, Product } from "@/types/types";
 import { Breadcrumb } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
 import {
@@ -7,22 +7,14 @@ import {
   ProductInfo,
   SeoSectionWithTab,
 } from "@/features/catalog/components";
-import {
-  AddToFavoritesPayload,
-  CategoryWithProductDetail,
-  ChangeQuantityPayload,
-  NotifyWhenAvailablePayload,
-} from "@/features/catalog/catalog.types";
+import { CategoryWithProductDetail } from "@/features/catalog/catalog.types";
 import { useProductSearch } from "@/features/catalog/hooks";
 import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface ProductClientProps {
   initialProduct: Product;
   initialCategory: CategoryWithProductDetail;
-  breadcrumbItems: {
-    name: string;
-    url: string;
-  }[];
+  breadcrumbItems: BreadcrumbItem[];
 }
 
 export default function ProductClient({

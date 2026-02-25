@@ -12,7 +12,7 @@ import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
-import { PaginationData, Product } from "@/types/types";
+import { BreadcrumbItem, PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
@@ -23,10 +23,7 @@ interface ProductsClientProps {
   initialProducts: Product[];
   initialFilters: FilterGroupConfig[];
   pagination: PaginationData;
-  breadcrumbItems: {
-    name: string;
-    url: string;
-  }[];
+  breadcrumbItems: BreadcrumbItem[];
 }
 
 export default function ProductsClient({
@@ -87,9 +84,12 @@ export default function ProductsClient({
 
         const res = await getProducts(params);
 
-        setProducts(res.data);
-        setGroups(res.filters);
-        setPaginationState(res.pagination);
+      setProducts(res.data.data);
+      setGroups(res.data.filters);
+      setPaginationState(res.data.pagination);
+        setProducts(res.data.data);
+        setGroups(res.data.filters);
+        setPaginationState(res.data.pagination);
       } finally {
         setIsLoading(false);
       }

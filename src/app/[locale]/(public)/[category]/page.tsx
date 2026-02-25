@@ -1,5 +1,5 @@
 import { createSeo } from "@/lib/seo";
-import { CategorySchema, BreadcrumbSchema } from "@/components/seo";
+import { BreadcrumbSchema } from "@/components/seo";
 import { getCategory } from "@/features/catalog/service";
 import CategoryClient from "./category-client";
 import {
@@ -59,17 +59,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema items={breadcrumbItems} />
-      <CategorySchema
-        name={category}
-        description={`${category} kategorisindeki ürünler`}
-        url={categoryUrl}
-        locale={locale}
-        items={res.data.map((item) => ({
-          name: item.translation.name,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${categoryUrl}/${item.translation.slug}`,
-        }))}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} baseUrl={""} locale={""} />
 
       {/* Page Content */}
       <CategoryClient

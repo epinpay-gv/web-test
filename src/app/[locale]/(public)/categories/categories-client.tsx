@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Category, PaginationData } from "@/types/types";
+import { BreadcrumbItem, Category, PaginationData } from "@/types/types";
 import { getCategories } from "@/features/catalog/service";
 import { CategoryGrid, PageTitle } from "@/features/catalog/components";
 import { Breadcrumb, Pagination } from "@/components/common";
@@ -9,10 +9,7 @@ import { Home } from "flowbite-react-icons/outline";
 interface ProductsClientProps {
   data: Category[];
   pagination: PaginationData;
-  breadcrumbItems: {
-    name: string;
-    url: string;
-  }[];
+  breadcrumbItems: BreadcrumbItem[];
 }
 
 export default function CategoriessClient({
