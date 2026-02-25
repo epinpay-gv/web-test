@@ -1,4 +1,5 @@
 "use client";
+import React, { ElementType } from "react"; // React eklendi
 import { Product } from "@/types/types";
 import { ProductCardOrientation } from "./types";
 import {
@@ -10,7 +11,6 @@ import {
   CartActionButtons,
 } from "./CardSections";
 import Link from "next/link";
-import ProductCardWrapper from "../../Wrappers/ProductCardWrapper";
 import { cn } from "@/lib/utils";
 import {
   AddToFavoritesPayload,
@@ -47,7 +47,8 @@ export default function ProductCard({
   changeQuantity,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
-
+  const Component: ElementType = isInCart ? "div" : Link;
+  
   const cardSizeClass = isHorizontal
     ? isInCart
       ? sizeClasses.horizontal.cart
@@ -60,10 +61,12 @@ export default function ProductCard({
 
   const productHref = `/${product.translation.category_slug}/${product.translation.slug}`;
 
+  // Link veya Div için gerekli proplar
+  const componentProps = !isInCart ? { href: productHref } : {};
+
   return (
-    <ProductCardWrapper      
-      as={isInCart ? "div" : Link}
-      {...(!isInCart ? { href: productHref } : {})}
+    <Component
+      {...componentProps}
       className={cn(
         "gap-1 flex transition-transform duration-200",
         !isInCart ? "hover:scale-102 card-container p-3" : "cart-card-container",
@@ -114,6 +117,6 @@ export default function ProductCard({
           </div>
         )}
       </div>
-    </ProductCardWrapper>
+    </Component>
   );
 }

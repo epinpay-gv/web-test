@@ -32,8 +32,7 @@ export function ProductInfo({ product, isHorizontal }: ProductInfoProps) {
         <div className="text-xs flex gap-2 items-center">
           {isHorizontal && <Badge text={product.type} theme="success_outline" type="default"/>}                            
           <span> {renderPlatformIcon()} </span>
-          <Badge text={product.region} theme="gray_unborder"/>
-    
+          <Badge text={product.region} theme="gray_unborder"/>    
         </div>
       </Link>
     </>

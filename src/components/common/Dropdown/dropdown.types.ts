@@ -1,4 +1,5 @@
 export interface DropdownMenuItem {
+  value: unknown;
   id: string;
   text: string;
   secondaryText?: string;

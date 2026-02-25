@@ -35,7 +35,7 @@ const CheckBox = React.forwardRef<
     const finalId = id ?? reactId;
 
     return (
-      <div className={cn("flex items-start gap-3", disabled && "opacity-50")}>
+      <div className={cn("flex items-center gap-3 ", disabled && "opacity-50")}>
         <div className="relative flex items-center justify-center h-6 w-6">
           <CheckboxPrimitive.Root
             ref={ref}
@@ -106,7 +106,7 @@ const CheckBox = React.forwardRef<
               {label && (
                 <label
                   htmlFor={finalId}
-                  className="text-sm font-medium text-slate-200 cursor-pointer"
+                  className="text-xs  text-(--text-heading) cursor-pointer"
                 >
                   {label} {secondaryText && (
                 <span className="text-sm text-body">{secondaryText}</span>

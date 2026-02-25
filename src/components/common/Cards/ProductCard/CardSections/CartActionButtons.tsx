@@ -1,51 +1,65 @@
 "use client";
-import { TrashBin } from "flowbite-react-icons/outline";
-import { ChangeQuantityPayload } from "../types";
+
+import { TrashBin, AngleDown } from "flowbite-react-icons/outline";
+import { ChangeQuantityPayload } from "@/features/catalog/catalog.types";
 import { Product } from "@/types/types";
 import { Button } from "@/components/common";
+import DropdownMenu from "@/components/common/Dropdown/DropdownMenu";
 
 interface CartActionButtonsProps {
   product: Product;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
-export function CartActionButtons({
-  product,
-  changeQuantity,
-}: CartActionButtonsProps) {
-  const options = [
-    { value: 1, label: "1 Adet" },
-    { value: 2, label: "2 Adet" },
-    { value: 3, label: "3 Adet" },
-    { value: 4, label: "4 Adet" },
-    { value: 5, label: "5 Adet" },
-  ];
+export function CartActionButtons({ product, changeQuantity }: CartActionButtonsProps) {
+  const quantityItems = [1, 2, 3, 4, 5].map((num) => ({
+    id: String(num),
+    text: `${num} Adet`,
+    value: num,
+    checked: product.quantity === num
+  }));
 
+  const currentQuantityLabel = `${product.quantity || 1} Adet`;
   return (
-    <div className="flex items-center justify-start gap-2 w-80 h-6">
-      <div>
-        <select className="w-full rounded-full border-2 px-4 py-1 text-body text-xs">
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="w-5.5 h-5.5">
-        <Button
-          padding="rounded"
-          textSize="sm"
-          variant="secondary"
-          icon={<TrashBin className="w-3.5 h-3.5" />}
-          className="rounded-full w-full h-full"
-          onClick={() =>
-            changeQuantity?.({
-              action: "---",
-              offerId: 0,
-            })
+    <div className="flex items-center justify-start gap-3 h-8">
+      <div className="w-32">
+        <DropdownMenu
+          title="Adet Seçin"
+          width="100%"
+          items={quantityItems}
+          onSelect={(item) => {
+            changeQuantity({
+              productId: Number(product.id),
+              offerId: Number(product.cheapestOffer),
+              action: "update",
+              quantity: Number(item.value)
+            });
+          }}
+          trigger={
+            <div className="flex items-center justify-between w-full border border-(--border-default) rounded-full px-4 py-1.5 text-xs text-(--text-body) bg-(--bg-neutral-primary-soft) hover:border-cyan-500/50 transition-colors">
+              <span>{currentQuantityLabel}</span>
+              <AngleDown className="w-4 h-4 text-gray-400" />
+            </div>
           }
         />
+      </div>
+
+      {/* Silme Butonu */}
+      <div>
+        <Button          
+          className="rounded-full p-1!"
+          variant="secondary" 
+          size="xs"
+          icon={<TrashBin size={14} className="text-(--text-body)" />}
+          onClick={() =>
+            changeQuantity({
+              productId: Number(product.id),
+              offerId: Number(product.cheapestOffer),
+              action: "remove",
+              quantity: Number(product.quantity)
+            })
+          }
+        ></Button>
       </div>
     </div>
   );
