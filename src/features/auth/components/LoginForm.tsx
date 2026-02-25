@@ -77,7 +77,7 @@ export function LoginForm() {
         {/* Email Field */}
         <div className="flex flex-col gap-1.5 w-full">
           <label className="text-(--text-heading) text-sm font-medium">
-            Email <span className="text-(--text-fg-danger)">*</span>
+            Email 
           </label>
           <Input
             type="text"
@@ -102,7 +102,7 @@ export function LoginForm() {
         {/* Password Field */}
         <div className="flex flex-col gap-1.5">
           <label className="text-(--text-heading) text-sm font-medium">
-            Şifre <span className="text-(--text-fg-danger)">*</span>
+            Şifre 
           </label>
           <Input
             type={showPassword ? 'text' : 'password'}

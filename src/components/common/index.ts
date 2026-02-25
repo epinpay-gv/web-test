@@ -13,6 +13,7 @@ import { Accordion, AccordionItem, ExpandableContent } from "./Accordion";
 import { MegaMenu, NavLink, NavLinkCard, NavItem, NavTab } from "./NavElements";
 import DropdownMenu from "./Dropdown/DropdownMenu";
 import { ActionButtons } from "./Cards/ProductCard/CardSections";
+import { Modal } from "./Modal/Modal";
 
 export {
   Badge,
@@ -41,4 +42,5 @@ export {
   NavTab,
   DropdownMenu,
   ActionButtons,
+  Modal
 };

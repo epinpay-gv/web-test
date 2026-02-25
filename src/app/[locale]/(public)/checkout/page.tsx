@@ -4,10 +4,11 @@ import { EmptyCart } from '@/features/checkout/components/EmptyCart';
 import { FilledCart } from '@/features/checkout/components/FilledCart';
 import { PaymentCart } from '@/features/checkout/components/PaymentCart';
 import { useCart } from '@/features/checkout/hooks/useCart';
+import { useState } from 'react';
 
 export default function CartPage() {
   const { items, totalPrice, step, setStep, isLoading, updateQuantity } = useCart();
-  
+  const [wantsInvoice, setWantsInvoice] = useState(false);
   // const user = useAuthStore((state) => state.user);
   // const isAuthenticated = useAuthStore((state) => state.user);
 
@@ -38,13 +39,20 @@ export default function CartPage() {
               <FilledCart 
               items={items} 
               totalPrice={totalPrice} 
-              step={step}
-              onStepChange={setStep}
+              step={step}              
               onQuantityChange={updateQuantity}
+              onStepChange={(nextStep, invoicePreference) => {
+                  if (invoicePreference !== undefined) setWantsInvoice(invoicePreference);
+                  setStep(nextStep);
+                }}
               />
             }
             {step === "delivery" &&
-              <PaymentCart />
+              <PaymentCart 
+                totalPrice={totalPrice} 
+                initialWantsInvoice={wantsInvoice} 
+                currentStep={step}
+              />
             } 
           </div>
         )}

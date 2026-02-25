@@ -11,7 +11,7 @@ interface FilledCartProps {
   items: CartItem[];
   totalPrice: number;
   step: CartStep;
-  onStepChange: (step: CartStep) => void;
+  onStepChange: (step: CartStep, wantsInvoice: boolean) => void;
   onQuantityChange: (id: string, quantity: number) => void;
 }
 
@@ -63,7 +63,7 @@ export function FilledCart({
             <div className="sticky top-28">
               <OrderSummary 
                 totalPrice={totalPrice} 
-                onNext={() => onStepChange('delivery')} 
+                onNext={(wantsInvoice) => onStepChange("delivery", wantsInvoice)}
               />
             </div>
           </aside>

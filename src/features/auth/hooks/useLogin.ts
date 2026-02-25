@@ -33,7 +33,8 @@ function validateAll(formData: LoginFormData): Partial<LoginFormData> {
   };
 }
 
-export function useLogin() {
+// ✅ onSuccess parametresi eklendi (Opsiyonel)
+export function useLogin(onSuccess?: () => void) {
   const router = useRouter();
   const login = useAuthStore((state) => state.login); 
   
@@ -61,9 +62,15 @@ export function useLogin() {
     if (token) {
       localStorage.setItem('sessionToken', token);
     }
-
-    router.push('/');
-  }, [login, router]);
+    
+    // Eğer dışarıdan bir başarı callback'i verilmişse onu çalıştır
+    // Yoksa varsayılan olarak ana sayfaya yönlendir
+    if (onSuccess) {
+      onSuccess();
+    } else {
+      router.push('/');
+    }
+  }, [login, router, onSuccess]);
 
   const handleChange = useCallback(
     (field: keyof LoginFormData) =>
@@ -127,7 +134,8 @@ export function useLogin() {
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
-      e.preventDefault();
+      if (e) e.preventDefault(); // Event opsiyonel kontrolü
+
       const errors = validateAll(state.formData);
       setState((prev) => ({
         ...prev,
