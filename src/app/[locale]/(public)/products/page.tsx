@@ -1,5 +1,5 @@
 import { createSeo } from "@/lib/seo";
-import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
 import ProductsClient from "./products-client";
 import { getProducts } from "@/features/catalog/service";
 import {
@@ -15,10 +15,14 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const res = await getProducts(new URLSearchParams());
+  const metadata = res.metadata.find((m) => m.pageId === 2) || {
+    title: "Ürünler",
+    metaDescription: "Epinpay ürünlerini keşfedin",
+  };
 
   return createSeo({
-    title: res.metadata.title,
-    description: res.metadata.metaDescription,
+    title: metadata.title,
+    description: metadata.metaDescription,
     canonical: `/${locale}/products`,
     locale: locale,
   });
@@ -36,6 +40,14 @@ export default async function ProductsPage({
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.epinpay.com";
 
   const res = await getProducts(new URLSearchParams());
+  const metadata = res.metadata.find((m) => m.pageId === 1) || {
+    title: "Ürünler",
+    metaDescription: "Epinpay ürünlerini keşfedin",
+  };
+  const productsMetadata = res.metadata.find((m) => m.pageId === 2) || {
+    title: "Ürünler",
+    metaDescription: "Epinpay ürünlerini keşfedin",
+  };
 
   // BREADCRUMB DATA
   const selectedProductType = extractSelectedFilterOption(
@@ -52,14 +64,18 @@ export default async function ProductsPage({
       <OrganizationSchema
         baseUrl={baseUrl}
         locale={locale}
-        description={res.metadata.title}
+        description={metadata.title}
       />
       <WebsiteSchema
         baseUrl={baseUrl}
         locale={locale}
-        description={res.metadata.title}
+        description={metadata.title}
       />
-      <BreadcrumbSchema items={breadcrumbItems} baseUrl={baseUrl} locale={locale} />
+      <BreadcrumbSchema
+        items={breadcrumbItems}
+        baseUrl={baseUrl}
+        locale={locale}
+      />
 
       {/* Page Content */}
       <ProductsClient

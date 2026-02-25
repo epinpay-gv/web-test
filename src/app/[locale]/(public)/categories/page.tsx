@@ -1,5 +1,5 @@
 import { createSeo } from "@/lib/seo";
-import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
 import { getCategories } from "@/features/catalog/service";
 import CategoriesClient from "./categories-client";
 import { createCategoriesBreadcrumb } from "@/features/catalog/utils";

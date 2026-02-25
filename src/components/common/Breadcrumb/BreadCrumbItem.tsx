@@ -11,7 +11,7 @@ export default function BreadCrumbItem({ data, isLast }: BreadCrumbItemProps) {
   return (
     <div className="flex items-center gap-1.5 text-xs md:text-sm text-(--text-body)">
       <Link
-        href={data.url}
+        href={data.href}
         className="flex items-center gap-1.5 hover:text-(--text-fg-brand)"
       >
         {data.icon && <span>{data.icon}</span>}
