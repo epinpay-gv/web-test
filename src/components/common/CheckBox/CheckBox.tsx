@@ -35,8 +35,8 @@ const CheckBox = React.forwardRef<
     const finalId = id ?? reactId;
 
     return (
-      <div className={cn("flex items-center gap-3 ", disabled && "opacity-50")}>
-        <div className="relative flex items-center justify-center h-6 w-6">
+      <div className={cn("flex items-start gap-3 ", disabled && "opacity-50")}>
+        <div className="relative flex items-start justify-center h-6 w-6">
           <CheckboxPrimitive.Root
             ref={ref}
             id={finalId}
@@ -60,7 +60,7 @@ const CheckBox = React.forwardRef<
 
               // SQUARE
               variant === "square" && [
-                "!rounded-[4px]",
+                "rounded-[4px]!",
                 "bg-(--bg-neutral-secondary-strong)",
                 "border-(--border-default-strong)",
                 "data-[state=checked]:bg-(--bg-brand)",
