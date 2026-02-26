@@ -1,4 +1,11 @@
-import { Product, PaginationData, Category, ProductPlatform, ProductRegion } from "@/types/types";
+import {
+  Product,
+  PaginationData,
+  Category,
+  ProductPlatform,
+  ProductRegion,
+  PageMetadata,
+} from "@/types/types";
 import { TitleData } from "@/components/common/Title/types";
 
 /* CATEGORY TYPES */
@@ -6,7 +13,6 @@ export interface CategoriesPageResponse {
   data: Category[];
   pagination: PaginationData;
 }
-
 
 /* FILTER TYPES */
 
@@ -18,7 +24,7 @@ export type CatalogFilterState = {
   category: string[];
   region: string[];
   platform: string[];
-  productType: string[]; 
+  productType: string[];
   price?: { min?: number; max?: number };
   inTr?: boolean;
   inStock?: boolean;
@@ -78,33 +84,39 @@ export type ActiveFilterChip = {
 };
 
 /* PRODUCT DETAIL TYPES */
-export interface CategoryWithProductDetail{
+export interface CategoryWithProductDetail {
   variants: Product[];
   regions: ProductRegion[];
   platforms: ProductPlatform[];
   categoryData: Category;
 }
 
-/* RESPONSE & PAYLOAD TYPES */
-
-export interface ProductsApiResponse {
+/* PAGE DATA */
+export interface ProductsData {
   data: Product[];
   pagination: PaginationData;
   filters: FilterGroupConfig[];
 }
 
+/* RESPONSE & PAYLOAD TYPES */
+
+export interface ProductsApiResponse {
+  metadata: PageMetadata[];
+  data: ProductsData;
+}
+
 export type CategoriesApiResponse = CategoriesPageResponse;
 
-export interface CategoryApiResponse{
+export interface CategoryApiResponse {
   data: Product[];
   category: Category;
   pagination: PaginationData;
   filters: FilterGroupConfig[];
 }
 
-export interface ProductDetailApiResponse{
-  data: Product;
-  category: CategoryWithProductDetail;
+export interface ProductDetailApiResponse {
+  data: { data: Product; category: CategoryWithProductDetail };
+  metadata: PageMetadata;
 }
 
 export interface AddToCartPayload {

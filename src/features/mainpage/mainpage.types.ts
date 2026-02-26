@@ -1,4 +1,4 @@
-import { Product } from "@/types/types";
+import { PageMetadata, Product } from "@/types/types";
 
 export interface Promoted {
   product: {
@@ -33,10 +33,16 @@ export interface PremiumPlan {
     features: string[];
 }
 
-/* RESPONSE & PAYLOAD TYPES */
-
-export interface MainPageApiResponse {
+export interface MainPageData {
   promoted: Promoted;
   bestsellers: Bestsellers;
   premium: PremiumPlan[];
+}
+
+
+/* RESPONSE & PAYLOAD TYPES */
+
+export interface MainPageApiResponse {
+  metadata: PageMetadata;
+  data: MainPageData;
 }

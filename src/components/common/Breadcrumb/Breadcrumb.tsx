@@ -10,7 +10,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
     <div className="inline-flex items-center gap-2 my-4 overflow-x-auto scrollbar-hide">
       {items.map((item, index) => (
         <BreadCrumbItem
-          key={item.url}
+          key={item.href}
           isLast={index === items.length - 1}
           data={item}
         />
