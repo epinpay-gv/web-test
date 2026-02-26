@@ -145,10 +145,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-660-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 660 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
             imgAlt: "PUBG Mobile 660 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -168,6 +166,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 105,
@@ -181,10 +180,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-1800-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 1800 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
             imgAlt: "PUBG Mobile 1800 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -204,6 +201,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 2139,
@@ -217,10 +215,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-3850-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 3850 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
             imgAlt: "PUBG Mobile 3850 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -239,6 +235,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 213,
@@ -252,10 +249,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-8100-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
             imgAlt: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -274,6 +269,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 139,
@@ -287,10 +283,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-3850-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 3850 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
             imgAlt: "PUBG Mobile 3850 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -309,6 +303,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 113,
@@ -322,10 +317,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-8100-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
             imgAlt: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -344,6 +337,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 97,
@@ -357,10 +351,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-325-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 325 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
             imgAlt: "PUBG Mobile 325 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -379,6 +371,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
       ],
       "7d": [
@@ -394,10 +387,8 @@ export const mockMainPage: MainPageData = {
             slug: "1005-league-of-legends-rp",
             description: "",
             metaTitle: "1005 LoL RP (TR) | Uygun Fiyat ve Hızlı Teslimat",
-            metaDescription:
-              "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
+            metaDescription: "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
             imgAlt: "1005 LoL RP (TR) | Uygun Fiyat ve Hızlı Teslimat",
             id: 1,
             locale: "tr",
@@ -415,6 +406,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 54,
@@ -427,12 +419,9 @@ export const mockMainPage: MainPageData = {
             category_slug: "league-of-legends-lol-rp",
             slug: "2105-league-of-legends-rp",
             description: "",
-            metaTitle:
-              "2105 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
-            metaDescription:
-              "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/2105-league-of-legends-rp-18.webp",
+            metaTitle: "2105 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
+            metaDescription: "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/2105-league-of-legends-rp-18.webp",
             imgAlt: "2105 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
             id: 1,
             locale: "tr",
@@ -450,6 +439,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 57,
@@ -462,12 +452,9 @@ export const mockMainPage: MainPageData = {
             category_slug: "league-of-legends-lol-rp",
             slug: "3625-league-of-legends-rp",
             description: "",
-            metaTitle:
-              "3625 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
-            metaDescription:
-              "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/3625-league-of-legends-rp-63.webp",
+            metaTitle: "3625 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
+            metaDescription: "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/3625-league-of-legends-rp-63.webp",
             imgAlt: "3625 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
             id: 1,
             locale: "tr",
@@ -485,6 +472,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 46,
@@ -498,10 +486,8 @@ export const mockMainPage: MainPageData = {
             slug: "460-league-of-legends-rp",
             description: "",
             metaTitle: "460 LoL RP (Riot Pin) TR Epinpay Görseli",
-            metaDescription:
-              "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/460-league-of-legends-rp-99.webp",
+            metaDescription: "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/460-league-of-legends-rp-99.webp",
             imgAlt: "460 LoL RP (Riot Pin) TR Epinpay Görseli",
             id: 1,
             locale: "tr",
@@ -519,6 +505,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 2729,
@@ -531,14 +518,10 @@ export const mockMainPage: MainPageData = {
             category_slug: "steam-cuzdan-kodu",
             slug: "5-usd-steam-cuzdan-kodu",
             description: "",
-            metaTitle:
-              "5 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
-            metaDescription:
-              "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/3/product/5-usd-steam-cuzdan-kodu-37.webp",
-            imgAlt:
-              "5 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaTitle: "5 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaDescription: "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/3/product/5-usd-steam-cuzdan-kodu-37.webp",
+            imgAlt: "5 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
             id: 1,
             locale: "tr",
             name: "5 USD Steam Cüzdan Kodu",
@@ -555,6 +538,7 @@ export const mockMainPage: MainPageData = {
           platform: "PC Games",
           type: "Wallet Code",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 2730,
@@ -567,14 +551,10 @@ export const mockMainPage: MainPageData = {
             category_slug: "steam-cuzdan-kodu",
             slug: "10-usd-steam-cuzdan-kodu",
             description: "",
-            metaTitle:
-              "10 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
-            metaDescription:
-              "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/3/product/10-usd-steam-cuzdan-kodu-13.webp",
-            imgAlt:
-              "10 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaTitle: "10 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaDescription: "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/3/product/10-usd-steam-cuzdan-kodu-13.webp",
+            imgAlt: "10 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
             id: 1,
             locale: "tr",
             name: "10 USD Steam Cüzdan Kodu",
@@ -591,6 +571,7 @@ export const mockMainPage: MainPageData = {
           platform: "PC Games",
           type: "Wallet Code",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 2731,
@@ -603,14 +584,10 @@ export const mockMainPage: MainPageData = {
             category_slug: "steam-cuzdan-kodu",
             slug: "20-usd-steam-cuzdan-kodu",
             description: "",
-            metaTitle:
-              "20 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
-            metaDescription:
-              "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/3/product/20-usd-steam-cuzdan-kodu-75.webp",
-            imgAlt:
-              "20 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaTitle: "20 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaDescription: "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/3/product/20-usd-steam-cuzdan-kodu-75.webp",
+            imgAlt: "20 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
             id: 1,
             locale: "tr",
             name: "20 USD Steam Cüzdan Kodu",
@@ -627,6 +604,7 @@ export const mockMainPage: MainPageData = {
           platform: "PC Games",
           type: "Wallet Code",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 2732,
@@ -639,14 +617,10 @@ export const mockMainPage: MainPageData = {
             category_slug: "steam-cuzdan-kodu",
             slug: "25-usd-steam-cuzdan-kodu",
             description: "",
-            metaTitle:
-              "25 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
-            metaDescription:
-              "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/3/product/25-usd-steam-cuzdan-kodu-65.webp",
-            imgAlt:
-              "25 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaTitle: "25 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+            metaDescription: "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/3/product/25-usd-steam-cuzdan-kodu-65.webp",
+            imgAlt: "25 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
             id: 1,
             locale: "tr",
             name: "25 USD Steam Cüzdan Kodu",
@@ -663,6 +637,7 @@ export const mockMainPage: MainPageData = {
           platform: "PC Games",
           type: "Wallet Code",
           platform_icon: "",
+          totalStock: 15
         },
       ],
       "30d": [
@@ -677,12 +652,9 @@ export const mockMainPage: MainPageData = {
             category_slug: "pubg-mobile-uc",
             slug: "pubg-mobile-1800-uc-top-up",
             description: "",
-            metaTitle:
-              "PUBG Mobile 1800 UC Satın Al – Anında Teslimat | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/pubg-mobile-1800-uc-top-up-24.webp",
+            metaTitle: "PUBG Mobile 1800 UC Satın Al – Anında Teslimat | Epinpay",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/pubg-mobile-1800-uc-top-up-24.webp",
             imgAlt: "PUBG Mobile 1800 UC Satın Al – Anında Teslimat | Epinpay",
             id: 1,
             locale: "tr",
@@ -700,6 +672,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Top-Up",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 2819,
@@ -713,10 +686,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-3850-uc-top-up",
             description: "",
             metaTitle: "PUBG Mobile 3850 UC Top-Up – Anında Teslimat | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/pubg-mobile-3850-uc-top-up-49.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/pubg-mobile-3850-uc-top-up-49.webp",
             imgAlt: "PUBG Mobile 3850 UC Top-Up – Anında Teslimat | Epinpay",
             id: 1,
             locale: "tr",
@@ -734,6 +705,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Top-Up",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 52,
@@ -747,10 +719,8 @@ export const mockMainPage: MainPageData = {
             slug: "1005-league-of-legends-rp",
             description: "",
             metaTitle: "1005 LoL RP (TR) | Uygun Fiyat ve Hızlı Teslimat",
-            metaDescription:
-              "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
+            metaDescription: "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
             imgAlt: "1005 LoL RP (TR) | Uygun Fiyat ve Hızlı Teslimat",
             id: 1,
             locale: "tr",
@@ -768,6 +738,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 54,
@@ -780,12 +751,9 @@ export const mockMainPage: MainPageData = {
             category_slug: "league-of-legends-lol-rp",
             slug: "2105-league-of-legends-rp",
             description: "",
-            metaTitle:
-              "2105 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
-            metaDescription:
-              "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/10/product/2105-league-of-legends-rp-18.webp",
+            metaTitle: "2105 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
+            metaDescription: "League of Legends RP satın al! Epinpay ile anında teslimat, güvenli ödeme ve tüm sunucularda geçerli Riot Pin kodları. Hemen RP yükle, oyuna güçlü dön!",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/10/product/2105-league-of-legends-rp-18.webp",
             imgAlt: "2105 LoL RP (Riot Pin) TR| Uygun Fiyat ve Hızlı Teslimat",
             id: 1,
             locale: "tr",
@@ -803,6 +771,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 113,
@@ -816,10 +785,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-8100-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
             imgAlt: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -838,6 +805,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
         {
           id: 97,
@@ -851,10 +819,8 @@ export const mockMainPage: MainPageData = {
             slug: "pubg-mobile-325-uc-tr",
             description: "",
             metaTitle: "PUBG Mobile 325 UC (Türkiye) Satın Al | Epinpay",
-            metaDescription:
-              "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-            imgUrl:
-              "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
+            metaDescription: "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
+            imgUrl: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-325-uc-tr-15.webp",
             imgAlt: "PUBG Mobile 325 UC (Türkiye) Satın Al | Epinpay",
             id: 1,
             locale: "tr",
@@ -873,6 +839,7 @@ export const mockMainPage: MainPageData = {
           platform: "Mobile Games",
           type: "Epin",
           platform_icon: "",
+          totalStock: 15
         },
       ],
     },

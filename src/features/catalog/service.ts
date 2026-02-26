@@ -9,6 +9,7 @@ import {
   ChangeQuantityPayload,
   NotifyWhenAvailablePayload,
 } from "./catalog.types";
+import { cache } from "react";
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
@@ -28,12 +29,12 @@ export const getCategory = (query: URLSearchParams, category: string) =>
   );
 
 export const getProduct = (
-  query: URLSearchParams,
+  query: string = "",
   category: string,
   product: string,
 ) =>
   baseFetcher<ProductDetailApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}/${product}?${query.toString()}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}/${product}?${query}`,
   );
 
 /* -------------------------- BASKET ACTIONS -------------------------- */

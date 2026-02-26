@@ -38,19 +38,25 @@ export default function SeoSectionWithTab({
   const aboutGame = initialCategory?.translation?.description ?? "";
   const description = initialProduct?.translation?.description ?? "";
   const activation = initialCategory?.translation?.activation ?? "";
-
   const categoryDescription = useMemo(
-    () => DOMPurify.sanitize(aboutGame),
+    () =>
+      typeof window !== "undefined" ? DOMPurify.sanitize(aboutGame) : aboutGame,
     [aboutGame],
   );
 
   const productDescription = useMemo(
-    () => DOMPurify.sanitize(description),
+    () =>
+      typeof window !== "undefined"
+        ? DOMPurify.sanitize(description)
+        : description,
     [description],
   );
 
   const activationDescription = useMemo(
-    () => DOMPurify.sanitize(activation),
+    () =>
+      typeof window !== "undefined"
+        ? DOMPurify.sanitize(activation)
+        : activation,
     [activation],
   );
 

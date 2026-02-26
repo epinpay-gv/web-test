@@ -61,17 +61,9 @@ export default async function ProductsPage({
   return (
     <>
       {/* SEO Content */}
-      <OrganizationSchema
-        baseUrl={baseUrl}
-        locale={locale}
-        description={metadata.title}
-      />
-      <WebsiteSchema
-        baseUrl={baseUrl}
-        locale={locale}
-        description={metadata.title}
-      />
-      <BreadcrumbSchema items={breadcrumbItems} />
+      <OrganizationSchema baseUrl={baseUrl} locale={locale} description={metadata.title}/>
+      <WebsiteSchema baseUrl={baseUrl} locale={locale} description={metadata.title}/>
+      <BreadcrumbSchema items={breadcrumbItems}/>
 
       {/* Page Content */}
       <ProductsClient
