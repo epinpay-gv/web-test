@@ -59,7 +59,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema items={breadcrumbItems} baseUrl={""} locale={""} />
+      <BreadcrumbSchema items={breadcrumbItems} />
 
       {/* Page Content */}
       <CategoryClient

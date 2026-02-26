@@ -34,7 +34,7 @@ export default async function CategoriesPage({
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema items={breadcrumbItems} baseUrl={""} locale={""} />
+      <BreadcrumbSchema items={breadcrumbItems} />
 
       {/* Page Content */}
       <CategoriesClient data={res.data} pagination={res.pagination} breadcrumbItems={breadcrumbItems} />
