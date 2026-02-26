@@ -1,9 +1,7 @@
 import { Comment } from "@/types/types";
 
 type ProductsSchemaProps = {
-  baseUrl: string;
-  locale: string;
-  slug: string;
+  pageUrl: string;
   name: string;
   description: string;
   image: string[];
@@ -12,7 +10,6 @@ type ProductsSchemaProps = {
   price: number;
   currency: string;
   stock: number;
-  priceValidUntil: string;
   ratingValue?: number;
   reviewCount?: number;
 
@@ -82,9 +79,7 @@ type schemaData = {
 };
 
 export function ProductSchema({
-  baseUrl,
-  locale,
-  slug,
+  pageUrl,
   name,
   description,
   image,
@@ -93,17 +88,15 @@ export function ProductSchema({
   price,
   currency,
   stock,
-  priceValidUntil,
   ratingValue,
   reviewCount,
   reviews,
 }: ProductsSchemaProps) {
-  const productUrl = `${baseUrl}/${locale}${slug}`;
 
   const schema: schemaData = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "@id": `${productUrl}#product`, //"https://www.epinpay.com/pubg-mobile-uc/pubg-mobile-60-uc-tr#product";
+    "@id": `${pageUrl}#product`, //"https://www.epinpay.com/pubg-mobile-uc/pubg-mobile-60-uc-tr#product";
     name,
     image,
     description,
@@ -111,11 +104,11 @@ export function ProductSchema({
     category,
     offers: {
       "@type": "Offer",
-      "@id": `${productUrl}#offer`,
-      url: productUrl,
+      "@id": `${pageUrl}#offer`,
+      url: pageUrl,
       price: price.toString(),
       priceCurrency: currency,
-      priceValidUntil: priceValidUntil,
+      priceValidUntil: "2026-12-31",
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
       inventoryLevel: {
@@ -157,9 +150,10 @@ export function ProductSchema({
         "@type": "Rating",
         ratingValue: r.rate.toString(),
       },
-    }));
+    })); 
+  }
 
-    return (
+  return (
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -167,5 +161,4 @@ export function ProductSchema({
         }}
       />
     );
-  }
 }

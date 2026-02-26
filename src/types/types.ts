@@ -65,6 +65,7 @@ export interface Product {
   epPrice: number | null;
   discountRate?: number;
   fakePrice?: number | null;
+  totalStock: number | null; // ! bu backende eklenmeli - seo için
 
   isFavorite?: boolean;
 }
