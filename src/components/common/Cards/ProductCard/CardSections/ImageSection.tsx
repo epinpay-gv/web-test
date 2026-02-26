@@ -8,7 +8,7 @@ const sizeClasses = {
   vertical: "aspect-square w-36.5 h-36.5 md:w-50 md:h-50",
   horizontal: {
     default: "w-16 h-16 md:w-33.5 md:h-33.5",
-    cart: "w-16 h-16 md:w-27.5 md:h-27.5", 
+    cart: "w-16 h-16 md:w-27.5 md:h-27.5",
   },
 };
 
@@ -25,7 +25,6 @@ export function ImageSection({
   isInCart,
   addToFavorites,
 }: ImageSectionProps) {
-
   const sizeClass = isHorizontal
     ? isInCart
       ? sizeClasses.horizontal.cart
@@ -33,9 +32,7 @@ export function ImageSection({
     : sizeClasses.vertical;
 
   return (
-    <div
-      className={`relative ${sizeClass}`}
-    >
+    <div className={`relative ${sizeClass}`}>
       <div
         className={`absolute top-2 right-2 z-10 ${isHorizontal ? "hidden md:block" : ""}`}
       >
@@ -43,7 +40,7 @@ export function ImageSection({
           isFavorite={product.isFavorite}
           addToFavorites={() =>
             addToFavorites?.({
-              productId: product.id
+              productId: product.id,
             })
           }
         />
@@ -53,7 +50,11 @@ export function ImageSection({
         src={product.translation.imgUrl}
         alt={product.translation.imgAlt}
         fill
-        sizes="(max-width: 768px) 100vw, 224px"
+        sizes="      
+          (max-width: 768px) 146px,
+          (max-width: 1024px) 200px,
+          224px
+        "
         className="object-contain rounded mx-auto"
       />
     </div>

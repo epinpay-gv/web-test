@@ -1,12 +1,12 @@
 import { createSeo } from "@/lib/seo";
-import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
-import { ProductsSchema } from "@/components/seo/ProductsSchema";
+import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
 import ProductsClient from "./products-client";
 import { getProducts } from "@/features/catalog/service";
 import {
   createProductsBreadcrumb,
   extractSelectedFilterOption,
 } from "@/features/catalog/utils";
+import { OrganizationSchema, WebsiteSchema } from "@/components/seo";
 
 export async function generateMetadata({
   params,
@@ -14,12 +14,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const res = await getProducts(new URLSearchParams());
+  const metadata = res.metadata.find((m) => m.pageId === 2) || {
+    title: "Ürünler",
+    metaDescription: "Epinpay ürünlerini keşfedin",
+  };
 
   return createSeo({
-    title: locale === "en" ? "All Products" : "Tüm Ürünler",
-    description:
-      locale === "en" ? "Browse all products" : "Tüm ürünleri keşfedin",
-    canonical: "/products",
+    title: metadata.title,
+    description: metadata.metaDescription,
+    canonical: `/${locale}/products`,
     locale: locale,
   });
 }
@@ -33,12 +37,21 @@ export default async function ProductsPage({
 }) {
   const { locale } = await params;
   const { productType } = await searchParams;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.epinpay.com";
 
   const res = await getProducts(new URLSearchParams());
+  const metadata = res.metadata.find((m) => m.pageId === 1) || {
+    title: "Ürünler",
+    metaDescription: "Epinpay ürünlerini keşfedin",
+  };
+  const productsMetadata = res.metadata.find((m) => m.pageId === 2) || {
+    title: "Ürünler",
+    metaDescription: "Epinpay ürünlerini keşfedin",
+  };
 
   // BREADCRUMB DATA
   const selectedProductType = extractSelectedFilterOption(
-    res.filters,
+    res.data.filters,
     "productType",
     productType,
   );
@@ -48,19 +61,15 @@ export default async function ProductsPage({
   return (
     <>
       {/* SEO Content */}
-      <BreadcrumbSchema items={breadcrumbItems} />
-      <ProductsSchema
-        name="Epinpay Products"
-        description="Epinpay ürünleri"
-        url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products`}
-        locale={locale}
-      />
+      <OrganizationSchema baseUrl={baseUrl} locale={locale} description={metadata.title}/>
+      <WebsiteSchema baseUrl={baseUrl} locale={locale} description={metadata.title}/>
+      <BreadcrumbSchema items={breadcrumbItems}/>
 
       {/* Page Content */}
       <ProductsClient
-        initialProducts={res.data}
-        initialFilters={res.filters}
-        pagination={res.pagination}
+        initialProducts={res.data.data}
+        initialFilters={res.data.filters}
+        pagination={res.data.pagination}
         breadcrumbItems={breadcrumbItems}
       />
     </>

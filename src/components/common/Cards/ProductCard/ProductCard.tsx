@@ -57,7 +57,7 @@ export default function ProductCard({
 
   return (
     <Link
-      className={`hover:scale-102 gap-1 flex ${isInCart ? "cart-card-container" : "card-container p-3"} ${isHorizontal ? "flex-row gap-4" : "flex-col justify-start"} ${cardSizeClass}`}
+      className={`gap-1 flex ${isInCart ? "cart-card-container" : "card-container p-3"} ${isHorizontal ? "flex-row gap-4" : "flex-col justify-start"} ${cardSizeClass}`}
       href={`${product.translation.category_slug}/${product.translation.slug}`}
     >
       {/* Image Section */}

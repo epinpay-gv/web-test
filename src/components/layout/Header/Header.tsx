@@ -70,7 +70,7 @@ export function Header() {
             <SearchInput />
           </div>
 
-          <div className="flex items-center justify-end md:gap-4">
+          <div className="flex items-center justify-end  md:gap-4">
             <IconShape
               icon={Search}
               color="custom"
@@ -85,7 +85,7 @@ export function Header() {
               <LocaleDropdown />
             </div>
 
-            <div className="flex items-center lg:gap-4">
+            <div className="hidden md:flex items-center lg:gap-4">
               <ThemeToggle />
               <CartButton />
             </div>

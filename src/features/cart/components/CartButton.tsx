@@ -14,9 +14,9 @@ export function CartButton() {
         aria-label="Sepet"
         variant="ghost"
         appearance="filled"
-        padding="xs"
+        padding="sm"
         className="border-none! focus:ring-0"
-        icon={<Cart className="md:w-5 md:h-5 w-4 h-4 transition-colors" />}
+        icon={<Cart className="lg:w-7 lg:h-7 w-6 h-6 transition-colors" />}
       />
       {/* <IconShape 
         icon={Cart} 

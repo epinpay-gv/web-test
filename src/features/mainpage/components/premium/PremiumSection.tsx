@@ -24,14 +24,11 @@ export default function PremiumSection({ data }: PremiumSectionProps) {
         />
 
         {/* DESCRIPTION & ACTION BUTTON */}
-        <div className="bg-(--bg-dark) rounded-b-lg overflow-hidden grid grid-cols-2">
-          {/* LEFT */}
+        <div className="relative bg-(--bg-dark) rounded-b-lg overflow-hidden">
           <div className="p-8 mb-12 flex flex-col gap-6">
             <div className="flex items-center gap-6">
               <div className="flex flex-col leading-tight">
-                <span className="text-[18px] text-(--text-white)">
-                  Epinpay
-                </span>
+                <span className="text-[18px] text-(--text-white)">Epinpay</span>
                 <h2 className="text-[36px] bg-[linear-gradient(270deg,#8C83FF_0%,#A6FFF7_50%,#A86DFF_75%,#FFEE86_100%)] bg-clip-text text-transparent font-bold">
                   Premium
                 </h2>
@@ -40,7 +37,7 @@ export default function PremiumSection({ data }: PremiumSectionProps) {
                 variant="brand"
                 text="Satın Al"
                 padding="xs"
-                className="font-semibold w-21 h-10 rounded-2xl"
+                className="font-semibold w-21 h-10 rounded-2x max-w-21"
               />
             </div>
 
@@ -53,15 +50,14 @@ export default function PremiumSection({ data }: PremiumSectionProps) {
             </ul>
           </div>
 
-          {/* RIGHT */}
-          <div className="relative">
+          <div className="absolute -bottom-60 right-0 w-135.25 h-150 pointer-events-none">
             <Image
-              src="/image/premium/premium.png"
-              alt="Epinpay Premium"
-              width={3000}
+              src="/image/premium/gift.webp"
+              alt="Premium Gift"
+              width={541}
               height={600}
+              className="w-135.25 h-auto"
               priority
-              className="absolute object-cover top-40 left-22 transform scale-250"
             />
           </div>
         </div>

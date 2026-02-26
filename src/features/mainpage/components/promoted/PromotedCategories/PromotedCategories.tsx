@@ -21,14 +21,14 @@ export default function PromotedCategories({
           key={category.id}
           title={category.title}
           backgroundImage={category.image}
-          slug={`/categories/${category.slug}`}
+          slug={`/${category.slug}`}
         />
       ))}
 
       {/* 12. Kart : Explore All */}
       <CategoryCard
         title="Tüm Oyunları Keşfet"
-        slug="/categories"
+        slug="/products"
       />
     </div>
   );

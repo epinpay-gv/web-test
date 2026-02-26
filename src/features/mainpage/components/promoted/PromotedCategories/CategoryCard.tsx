@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -20,7 +19,7 @@ export function CategoryCard({
       href={slug}
       className={cn(
         "relative block rounded-3xl overflow-hidden group",
-        "transition-transform duration-300 hover:scale-105",
+        "transition-transform duration-300 hover:scale-102",
         "w-20.25 h-[56.8px] md:w-[123.5px] md:h-[86.7px]",
         !backgroundImage && "bg-(--bg-brand)",
       )}
@@ -51,12 +50,13 @@ export function CategoryCard({
         </p>
       </div>
 
-      {/* Hover inner shadow */}
+      {/* Hover Effect */}
       <div
         className="
-          absolute inset-0 pointer-events-none opacity-0
-          group-hover:opacity-100 transition-opacity duration-300
-          shadow-[inset_0_0_30px_8px_rgba(255,255,255,0.35)]
+        absolute inset-0 rounded-3xl pointer-events-none
+        opacity-0 group-hover:opacity-100
+        transition-all duration-300
+        shadow-[0_0_4px_rgba(255,255,255,0.4),inset_0_0_10px_rgba(255,255,255,0.5)]
         "
       />
     </Link>

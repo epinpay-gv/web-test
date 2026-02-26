@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockCategories, mockProducts } from "@/mocks";
+import { mockCategories, mockProducts, mockMetadata } from "@/mocks";
 import { ProductRegion, ProductPlatform } from "@/types/types";
 
 type Params = {
@@ -19,7 +19,6 @@ export async function GET(
   const categoryData = mockCategories.find(
     (item) => item.translation.slug === category,
   );
-  console.log(resolvedParams);
 
   if (!categoryData) {
     return NextResponse.json(
@@ -79,26 +78,21 @@ export async function GET(
   }
 
   const platforms = Array.from(platformMap.values());
-  console.log({
-    data: productData,
-    category: {
-      variants,
-      regions,
-      platforms,
-      categoryData,
-    },
-  });
 
   // FAKE LATENCY
-  await new Promise((r) => setTimeout(r, 300));
+  await new Promise((r) => setTimeout(r, 200));
 
   return NextResponse.json({
-    data: productData,
-    category: {
-      variants,
-      regions,
-      platforms,
-      categoryData,
+    data: {
+      data: productData,
+      category: {
+        variants,
+        regions,
+        platforms,
+        categoryData,
+      },
     },
+
+    metadata: mockMetadata.find((m) => m.pageId === 1),
   });
 }

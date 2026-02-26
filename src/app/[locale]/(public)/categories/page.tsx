@@ -1,6 +1,5 @@
 import { createSeo } from "@/lib/seo";
-import { CategorySchema } from "@/components/seo/CategorySchema";
-import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
 import { getCategories } from "@/features/catalog/service";
 import CategoriesClient from "./categories-client";
 import { createCategoriesBreadcrumb } from "@/features/catalog/utils";
@@ -36,12 +35,6 @@ export default async function CategoriesPage({
     <>
       {/* SEO Content */}
       <BreadcrumbSchema items={breadcrumbItems} />
-      <CategorySchema
-        name="Epinpay Categories"
-        description="Dijital oyun, epin ve servis kategorileri"
-        url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/categories`}
-        locale={locale}
-      />
 
       {/* Page Content */}
       <CategoriesClient data={res.data} pagination={res.pagination} breadcrumbItems={breadcrumbItems} />

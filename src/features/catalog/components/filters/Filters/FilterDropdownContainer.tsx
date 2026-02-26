@@ -3,7 +3,8 @@ import { Button, DropdownMenu } from "@/components/common";
 import { AngleDown } from "flowbite-react-icons/outline";
 
 interface FilterDropdownContainerProps {
-  title: string;
+  title?: string;
+  icon?: React.ReactNode;
   selectedId: string;
   items: { id: string; text: string }[];
   onSelect: (id: string) => void;
@@ -11,6 +12,7 @@ interface FilterDropdownContainerProps {
 
 export default function FilterDropdownContainer({
   title,
+  icon,
   selectedId,
   items,
   onSelect,
@@ -19,14 +21,14 @@ export default function FilterDropdownContainer({
   
   return (
     <div className="flex flex-col gap-1">
-      <p className="font-base text-sm leading-5 text-(--text-body)">{title}</p>
+      {title && <p className="font-base text-sm leading-5 text-(--text-body)">{title}</p>}
       <DropdownMenu
         trigger={
           <Button
             padding="sm"
             textSize="sm"
             variant="secondary"
-            icon={<AngleDown size={10} />}
+            icon={icon ?? <AngleDown size={10} />}
             text={selectedItem?.text ?? ""}
           />
         }

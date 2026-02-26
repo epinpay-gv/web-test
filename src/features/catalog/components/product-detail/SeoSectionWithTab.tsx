@@ -100,7 +100,7 @@ export default function SeoSectionWithTab({
             </ExpandableContent>
           </BoxWrapper>
         )}
-        {initialCategory.translation.comments && (
+        {/* {initialCategory.translation.comments && (
           <BoxWrapper
             id="reviews"
             title="Değerlendirmeler"
@@ -115,7 +115,7 @@ export default function SeoSectionWithTab({
               </div>
             </ExpandableContent>
           </BoxWrapper>
-        )}
+        )} */}
       </div>
     </div>
   );
