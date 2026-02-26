@@ -1,5 +1,10 @@
 import { createSeo } from "@/lib/seo";
-import { BreadcrumbSchema, OrganizationSchema, ProductSchema, WebsiteSchema } from "@/components/seo";
+import {
+  BreadcrumbSchema,
+  OrganizationSchema,
+  ProductSchema,
+  WebsiteSchema,
+} from "@/components/seo";
 import ProductClient from "./product-client";
 import { getProduct } from "@/features/catalog/service";
 import { createProductBreadcrumb } from "@/features/catalog/utils";
@@ -60,11 +65,7 @@ export default async function ProductPage({ params }: Props) {
         locale={locale}
         description={res.metadata?.title || ""}
       />
-      <BreadcrumbSchema
-        items={breadcrumbItems}
-        baseUrl={productUrl}
-        locale={locale}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <ProductSchema
         baseUrl={baseUrl}
         locale={locale}
