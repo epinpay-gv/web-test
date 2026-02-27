@@ -1,17 +1,50 @@
 {
   "header": {
     "searchPlaceholder": "Search",
-    "searchFound": "sonuç bulanan",
+    "searchFound": "sonuç bulunlan",
     "searchNotFound": "için sonuç bulunamadı",
     "language": "Sistem Dili",
-    "currency": "Para Birimi"
+    "currency": "Para Birimi",
+    "becomeSeller": "Satıcı ol"
   },
   "footer": {
-    "support" : {
-        "title" : "Destek",
-        "link1": "support@epinpay.com",
-        "link2": "Çözüm Merkezi",
-        "link3": "Destek Talebi Oluştur"
-    }
+    "support": {
+      "title": "Destek",
+      "link1": "support@epinpay.com",
+      "link2": "Çözüm Merkezi",
+      "link3": "Destek Talebi Oluştur"
+    },
+    "epinpay": {
+      "title": "Epinpay",
+      "aboutUs": "Hakkımızda",
+      "categories": "Kategoriler",
+      "blog": "Blog",
+      "forgotPassword": "Şifremi Unuttum",
+      "myOrders": "Siparişlerim",
+      "premium": "Epinpay Premium",
+      "epPoints": "EP Puanları",
+      "inviteAndEarn": "Davet Et ve Kazan",
+      "streamers": "Yayıncılar"
+    },
+    "institutional": {
+      "title": "Kurumsal",
+      "termsOfUse": "Hüküm ve Koşullar",
+      "amlKyc": "AML & KYC Politikası",
+      "privacyPolicy": "Gizlilik Sözleşmesi",
+      "kvkk": "KVKK Aydınlatma Metni",
+      "refundPolicy": "İade Politikası",
+      "advertisingPolicy": "Reklam Politikası",
+      "productListingPolicy": "Ürün ve Listeleme Politikası",
+      "buyerProtection": "Alıcı Koruma Politikası",
+      "contact": "İletişim"
+    },
+    "popularGames": "Popüler Oyunlar",
+    "popularProducts": "Popüler Ürünler",
+    "paymentMethods": "ödeme yöntemi",
+    "disclaimer": "epinpay.com platformunu kullanmak, Hüküm ve Koşullarını kabul etmek anlamına gelir. Kişisel verilerinizi nasıl işlediğimizle ilgili bilgiler Gizlilik Sözleşmesinde bulunabilir. Telif hakkı © Epinpay Team. Tüm hakları saklıdır."
+  },
+  "nav": {
+    "games": "Oyunlar",
+    "viewAll": "Tümünü incele"
   }
 }

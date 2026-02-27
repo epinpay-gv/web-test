@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button, ProductCard } from "@/components/common";
 import { Product } from "@/types/types";
 import { AddToFavoritesPayload, AddToCartPayload, ChangeQuantityPayload, NotifyWhenAvailablePayload } from "../../catalog.types";
+import { useTranslations } from "next-intl";
 
 interface ProductGridProps {
   data: Product[];
@@ -13,6 +14,9 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({ data, addToCart, notifyWhenAvailable, addToFavorites, changeQuantity }: ProductGridProps) {
+  const t = useTranslations("common.messages");
+  const tBtn = useTranslations("common.buttons");
+
   return (
     <>
       {data.length > 0 ? (
@@ -37,14 +41,14 @@ export default function ProductGrid({ data, addToCart, notifyWhenAvailable, addT
             width={300}
             height={300}
           />
-          <div className="text-xl font-semibold">Ürün bulunamadı</div>
+          <div className="text-xl font-semibold">{t("productNotFound")}</div>
           <div className="text-sm font-normal">
-            Arama kriterlerinize göre ürün bulunamadı.
+            {t("productNotFoundDesc")}
           </div>
           <Button
             padding="sm"
             textSize="sm"
-            text="Tüm Ürünleri Görüntüle"
+            text={tBtn("viewAllProductsBtn")}
             variant="brand"
             onClick={() => {}}
             className="max-w-48"

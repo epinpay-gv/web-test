@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/common";
 import { ActiveFilterChip } from "@/features/catalog/catalog.types";
+import { useTranslations } from "next-intl";
 
 type FilterKey = "category" | "region" | "platform";
 
@@ -18,13 +19,15 @@ export default function FilterLabels({
   toggleFilter,
   resetFilters,
 }: FilterLabelsProps) {
+  const t = useTranslations("catalog.filters");
+
   return (
     <div className="hidden md:flex flex-wrap items-center gap-2">
       <button
         onClick={resetFilters}
         className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"
       >
-        Seçimleri Temizle
+        {t("clearSelections")}
       </button>
       {activeFilters.map((chip) => (
         <Badge

@@ -3,17 +3,59 @@
     "login": "Login",
     "signup": "Signup",
     "loginWithGoogle": "Login with Google",
+    "signupWithGoogle": "Sign up with Google",
     "addToCart": "Add to Cart",
     "buyNow": "Buy Now",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "viewAllProducts": "View All Products",
+    "viewAllGames": "Explore All Games",
+    "viewAllItems": "View all",
+    "buy": "Buy",
+    "goBack": "Go Back",
+    "resend": "Resend",
+    "sending": "Sending...",
+    "processing": "Processing...",
+    "saving": "Saving...",
+    "loggingIn": "Logging in...",
+    "becomeSeller": "Become a Seller",
+    "resetPassword": "Reset Password",
+    "sendResetLink": "Send Reset Link",
+    "requestNewLink": "Request New Link",
+    "viewAllProductsBtn": "View All Products"
   },
   "labels": {
     "price": "Price",
     "stock": "In Stock",
-    "outOfStock": "Out of Stock"
+    "outOfStock": "Out of Stock",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "referralCode": "Referral Code",
+    "emailLabel": "Email",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "games": "Games",
+    "products": "Products",
+    "product": "product",
+    "listing": "listed",
+    "allProducts": "All products"
   },
   "messages": {
     "loading": "Loading...",
-    "error": "Something went wrong"
-  }
+    "error": "Something went wrong",
+    "noResults": "no results found for",
+    "productNotFound": "Product not found",
+    "productNotFoundDesc": "No products found matching your search criteria.",
+    "noNotifications": "No notifications.",
+    "clearSelections": "Clear Selections"
+  },
+  "trustLabels": {
+    "instantDelivery": "Instant Delivery",
+    "support": "24/7 Support",
+    "verifiedStores": "Verified Sellers",
+    "licencedEpins": "Licensed Epins",
+    "securePayment": "Secure Payment"
+  },
+  "paymentMethods": "payment methods"
 }

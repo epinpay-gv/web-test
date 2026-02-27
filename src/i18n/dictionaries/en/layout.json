@@ -1,10 +1,11 @@
 {
   "header": {
     "searchPlaceholder": "Search",
-    "searchFound": "results",
-    "searchNotFound": "result not found",
+    "searchFound": "results found",
+    "searchNotFound": "no results found for",
     "language": "Language",
-    "currency": "Currency"
+    "currency": "Currency",
+    "becomeSeller": "Become a Seller"
   },
   "footer": {
     "support": {
@@ -12,6 +13,38 @@
       "link1": "support@epinpay.com",
       "link2": "Support Hub",
       "link3": "Create a Ticket"
-    }
+    },
+    "epinpay": {
+      "title": "Epinpay",
+      "aboutUs": "About Us",
+      "categories": "Categories",
+      "blog": "Blog",
+      "forgotPassword": "Forgot Password",
+      "myOrders": "My Orders",
+      "premium": "Epinpay Premium",
+      "epPoints": "EP Points",
+      "inviteAndEarn": "Invite & Earn",
+      "streamers": "Streamers"
+    },
+    "institutional": {
+      "title": "Institutional",
+      "termsOfUse": "Terms & Conditions",
+      "amlKyc": "AML & KYC Policy",
+      "privacyPolicy": "Privacy Policy",
+      "kvkk": "KVKK Disclosure",
+      "refundPolicy": "Refund Policy",
+      "advertisingPolicy": "Advertising Policy",
+      "productListingPolicy": "Product & Listing Policy",
+      "buyerProtection": "Buyer Protection Policy",
+      "contact": "Contact"
+    },
+    "popularGames": "Popular Games",
+    "popularProducts": "Popular Products",
+    "paymentMethods": "payment methods",
+    "disclaimer": "By using the epinpay.com platform, you agree to its Terms & Conditions. Information about how we process your personal data can be found in the Privacy Policy. Copyright © Epinpay Team. All rights reserved."
+  },
+  "nav": {
+    "games": "Games",
+    "viewAll": "View all"
   }
 }

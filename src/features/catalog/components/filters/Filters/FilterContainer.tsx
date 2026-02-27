@@ -7,6 +7,7 @@ import { BottomSheet, Button } from "@/components/common";
 import { useState } from "react";
 import { Sort, Filter } from "flowbite-react-icons/outline";
 import { FilterGroupConfig, ActiveFilterChip } from "@/features/catalog/catalog.types";
+import { useTranslations } from "next-intl";
 
 interface FiltersProps {
   titleData: TitleData;
@@ -25,6 +26,7 @@ export default function Filters({
 
   const [mobileFilters, setMobileFilters] = useState(false);
   const [mobileSorting, setMobileSorting] = useState(false);
+  const t = useTranslations("catalog.filters");
 
   return (
     <>
@@ -33,7 +35,7 @@ export default function Filters({
         <Button
           padding="sm"
           textSize="sm"
-          text="Filtrele"
+          text={t("title")}
           variant="secondary"
           onClick={() => setMobileFilters(true)}
           icon={<Filter size={14} />}
@@ -41,14 +43,14 @@ export default function Filters({
         <Button
           padding="sm"
           textSize="sm"
-          text={`Sırala`}
+          text={t("sort")}
           variant="secondary"
           onClick={() => setMobileSorting(true)}
           icon={<Sort size={14} />}
         />
         <BottomSheet
           isOpen={mobileFilters}
-          title="Filtrele"
+          title={t("title")}
           onClose={() => setMobileFilters(false)}
         >
           <div className="p-6">
@@ -64,7 +66,7 @@ export default function Filters({
         </BottomSheet>
         <BottomSheet
           isOpen={mobileSorting}
-          title="Sırala"
+          title={t("sort")}
           onClose={() => setMobileSorting(false)}
         >
           <div className="p-6">

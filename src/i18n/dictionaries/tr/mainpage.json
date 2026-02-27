@@ -1,1 +1,13 @@
-{}
+{
+  "promoted": {
+    "heading": "Oyun paranı anında yükle oyundan hiç kopma",
+    "viewAllProducts": "Tüm Ürünleri Gör",
+    "exploreAllGames": "Tüm Oyunları Keşfet"
+  },
+  "bestsellers": {
+    "title": "En Çok Satanlar"
+  },
+  "premium": {
+    "buy": "Satın Al"
+  }
+}

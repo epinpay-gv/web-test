@@ -8,12 +8,14 @@ import {
 } from "@/components/common";
 import BoxWrapper from "@/components/common/Wrappers/BoxWrapper";
 import DOMPurify from "dompurify";
+import { useTranslations } from "next-intl";
 
 interface SeoSectionProps {
   initialCategory: Category;
 }
 
 export default function SeoSection({ initialCategory }: SeoSectionProps) {
+  const t = useTranslations("catalog.productDetail");
   const description = initialCategory?.translation?.description ?? "";
   const activation = initialCategory?.translation?.activation ?? "";
 
@@ -36,21 +38,21 @@ export default function SeoSection({ initialCategory }: SeoSectionProps) {
   return (
     <div className="flex flex-col gap-10 pb-10 px-4 md:px-4">
       {initialCategory.translation.description && (
-        <BoxWrapper title="Ürün Açıklaması">
+        <BoxWrapper title={t("productDescription")}>
           <ExpandableContent maxHeight={400}>
             <div dangerouslySetInnerHTML={{ __html: categoryDescription }} />
           </ExpandableContent>
         </BoxWrapper>
       )}
       {initialCategory.translation.activation && (
-        <BoxWrapper title="Nasıl Aktif Edilir">
+        <BoxWrapper title={t("howToActivate")}>
           <ExpandableContent maxHeight={400}>
             <div dangerouslySetInnerHTML={{ __html: activationDescription }} />
           </ExpandableContent>
         </BoxWrapper>
       )}
       {initialCategory.translation.faq && (
-        <BoxWrapper title="Sık Sorulan Sorular">
+        <BoxWrapper title={t("faq")}>
           {initialCategory.translation.faq.map((item) => (
             <AccordionItem key={item.id} title={item.name}>
               {item.description}
@@ -59,7 +61,7 @@ export default function SeoSection({ initialCategory }: SeoSectionProps) {
         </BoxWrapper>
       )}
       {/* {initialCategory.translation.comments && (
-        <BoxWrapper title="Değerlendirmeler">
+        <BoxWrapper title={t("reviews")}>
           <ExpandableContent maxHeight={400}>
             <div></div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

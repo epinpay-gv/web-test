@@ -1,0 +1,50 @@
+{
+  "header": {
+    "searchPlaceholder": "Suchen",
+    "searchFound": "Ergebnisse gefunden",
+    "searchNotFound": "keine Ergebnisse gefunden für",
+    "language": "Sprache",
+    "currency": "Währung",
+    "becomeSeller": "Verkäufer werden"
+  },
+  "footer": {
+    "support": {
+      "title": "Support",
+      "link1": "support@epinpay.com",
+      "link2": "Lösungszentrum",
+      "link3": "Supportanfrage erstellen"
+    },
+    "epinpay": {
+      "title": "Epinpay",
+      "aboutUs": "Über uns",
+      "categories": "Kategorien",
+      "blog": "Blog",
+      "forgotPassword": "Passwort vergessen",
+      "myOrders": "Meine Bestellungen",
+      "premium": "Epinpay Premium",
+      "epPoints": "EP-Punkte",
+      "inviteAndEarn": "Einladen & Verdienen",
+      "streamers": "Streamer"
+    },
+    "institutional": {
+      "title": "Unternehmen",
+      "termsOfUse": "Allgemeine Geschäftsbedingungen",
+      "amlKyc": "AML- & KYC-Richtlinie",
+      "privacyPolicy": "Datenschutzrichtlinie",
+      "kvkk": "KVKK-Offenlegung",
+      "refundPolicy": "Rückerstattungsrichtlinie",
+      "advertisingPolicy": "Werberichtlinie",
+      "productListingPolicy": "Produkt- und Auflistungsrichtlinie",
+      "buyerProtection": "Käuferschutzrichtlinie",
+      "contact": "Kontakt"
+    },
+    "popularGames": "Beliebte Spiele",
+    "popularProducts": "Beliebte Produkte",
+    "paymentMethods": "Zahlungsmethoden",
+    "disclaimer": "Die Nutzung der Plattform epinpay.com bedeutet die Akzeptanz der Allgemeinen Geschäftsbedingungen. Informationen zur Verarbeitung Ihrer personenbezogenen Daten finden Sie in der Datenschutzrichtlinie. Copyright © Epinpay Team. Alle Rechte vorbehalten."
+  },
+  "nav": {
+    "games": "Spiele",
+    "viewAll": "Alle anzeigen"
+  }
+}

@@ -4,6 +4,7 @@ import { Input, CheckBox, Toggle } from "@/components/common";
 import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
 import { FilterSearch } from "./FilterSearch";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 /**
  * Backend filter key → zustand store key mapping
@@ -34,6 +35,7 @@ export default function FilterElement({
   const toggleBoolean = useCatalogFilters((s) => s.toggleBoolean);
 
   const [searchValue, setSearchValue] = useState("");
+  const t = useTranslations("catalog");
 
   const filteredOptions = useMemo(() => {
     if (config.type !== "checkbox") return [];
@@ -152,7 +154,7 @@ export default function FilterElement({
                 );
               })
             ) : (
-              <div className="font-normal text-xs text-(--text-fg-danger-strong)">&quot;{searchValue}&quot; için sonuç bulunamadı</div>
+              <div className="font-normal text-xs text-(--text-fg-danger-strong)">&quot;{searchValue}&quot; {t("filters.noResults")}</div>
             )}
           </div>
         </div>

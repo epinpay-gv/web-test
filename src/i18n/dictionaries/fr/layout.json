@@ -1,0 +1,50 @@
+{
+  "header": {
+    "searchPlaceholder": "Rechercher",
+    "searchFound": "résultats trouvés",
+    "searchNotFound": "aucun résultat trouvé pour",
+    "language": "Langue",
+    "currency": "Devise",
+    "becomeSeller": "Devenir vendeur"
+  },
+  "footer": {
+    "support": {
+      "title": "Support",
+      "link1": "support@epinpay.com",
+      "link2": "Centre de solutions",
+      "link3": "Créer un ticket"
+    },
+    "epinpay": {
+      "title": "Epinpay",
+      "aboutUs": "À propos de nous",
+      "categories": "Catégories",
+      "blog": "Blog",
+      "forgotPassword": "Mot de passe oublié",
+      "myOrders": "Mes commandes",
+      "premium": "Epinpay Premium",
+      "epPoints": "Points EP",
+      "inviteAndEarn": "Inviter et gagner",
+      "streamers": "Streamers"
+    },
+    "institutional": {
+      "title": "Institutionnel",
+      "termsOfUse": "Conditions générales",
+      "amlKyc": "Politique AML et KYC",
+      "privacyPolicy": "Politique de confidentialité",
+      "kvkk": "Divulgation KVKK",
+      "refundPolicy": "Politique de remboursement",
+      "advertisingPolicy": "Politique publicitaire",
+      "productListingPolicy": "Politique de produits et annonces",
+      "buyerProtection": "Protection des acheteurs",
+      "contact": "Contact"
+    },
+    "popularGames": "Jeux populaires",
+    "popularProducts": "Produits populaires",
+    "paymentMethods": "méthodes de paiement",
+    "disclaimer": "L'utilisation de la plateforme epinpay.com implique l'acceptation de ses Conditions générales. Des informations sur le traitement de vos données personnelles sont disponibles dans la Politique de confidentialité. Copyright © Epinpay Team. Tous droits réservés."
+  },
+  "nav": {
+    "games": "Jeux",
+    "viewAll": "Tout voir"
+  }
+}
