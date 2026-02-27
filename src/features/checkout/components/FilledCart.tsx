@@ -4,7 +4,7 @@
 import ProductCard from "@/components/common/Cards/ProductCard/ProductCard";
 import { ProductCardOrientation } from "@/components/common/Cards/ProductCard/types";
 import { CartItem, CartStep } from "../types";
-import { OrderSummary } from "./OrderSummary";
+import { CartSummary } from "./CartSummary";
 import { CartStepper } from "./CartStepper";
 
 interface FilledCartProps {
@@ -61,7 +61,7 @@ export function FilledCart({
           {/* SAĞ: Özet */}
           <aside className="md:col-span-2">
             <div className="sticky top-28">
-              <OrderSummary 
+              <CartSummary 
                 totalPrice={totalPrice} 
                 onNext={(wantsInvoice) => onStepChange("delivery", wantsInvoice)}
               />

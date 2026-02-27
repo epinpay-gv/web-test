@@ -2,58 +2,92 @@
 "use client";
 import { useState } from "react";
 import { CartStepper } from "./CartStepper";
-import { OrderSummary } from "./OrderSummary";
-import { Input } from "@/components/common";
-import { CartStep } from "../types";
-import { ChevronRight } from "flowbite-react-icons/outline";
+import { Badge } from "@/components/common";
+import { CartStep, InvoiceForm  } from "../types";
+import { ShieldCheck } from "lucide-react";
+import { InvoiceFormSection } from "./InvoiceFormSection";
+import { usePaymentMethods } from "../hooks/usePaymentMethods";
+import { PaymentMethodItem } from "./PaymentMethodItem";
+import { PaymentSummary } from "./PaymentSummary";
 
 interface PaymentCartProps {
   totalPrice: number;
   initialWantsInvoice: boolean;
-  currentStep: any;
+  currentStep: CartStep;
 }
 
 export function PaymentCart({ totalPrice, initialWantsInvoice, currentStep }: PaymentCartProps) {
-  // Logic: Sayfa içinde kullanıcı fikrini değiştirirse diye yerel state
+  const { methods, isLoading } = usePaymentMethods();  
   const [wantsInvoice, setWantsInvoice] = useState(initialWantsInvoice);
+  const [selectedMethodId, setSelectedMethodId] = useState<string>("");
+  const [invoiceForm, setInvoiceForm ] = useState<InvoiceForm>({
+    name: "",
+    surname: "",
+    country: "",
+    city: ""
+  });
 
+  const handleInputChange = (field: keyof InvoiceForm) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInvoiceForm(prev => ({
+      ...prev,
+      [field]: e.target.value
+    }));
+  };
   return (
-    <div className="flex flex-col gap-6">
-      {/* Stepper logic'i burada PaymentCart'ın tepesinde */}
+    <div className="flex flex-col gap-6">      
       <CartStepper currentStep={currentStep} />
-
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 px-4">
-        <div className="lg:col-span-8 space-y-6">
-          
-          {/* RESİMDEKİ ÜST PANEL: Fatura Formu */}
-          {wantsInvoice && (
-            <div className="p-6 bg-(--bg-neutral-primary-soft) border border-(--border-default) rounded-(--radius-base) animate-in fade-in slide-in-from-top-4">
-               <h2 className="text-xl font-bold mb-2">Fatura bilgilerinizi girin</h2>
-               <p className="text-sm text-gray-400 mb-6 font-light">Lütfen fatura detaylarını eksiksiz doldurunuz.</p>
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input placeholder="Adınızı girin" />
-                  <Input placeholder="Soyadınızı girin" />
-                  <Input placeholder="Ülke seçin" />
-                  <Input placeholder="Şehir seçin" />
-               </div>
-            </div>
+      {/* Invoice Form */}
+      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 px-4">
+        <div className="lg:col-span-3 flex flex-col gap-4">                    
+         {wantsInvoice && (
+            <InvoiceFormSection 
+              formData={invoiceForm} 
+              onInputChange={handleInputChange} 
+            />
           )}
 
           {/* RESİMDEKİ ALT PANEL: Ödeme Yöntemleri */}
-          <div className="p-6 bg-(--bg-neutral-primary-soft) border border-(--border-default) rounded-(--radius-base)">
-             <h2 className="text-xl font-bold mb-6">Bir ödeme yöntemi seçin</h2>
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2 max-h-19 overflow-hidden ">
+              <div className="flex gap-2">
+                <h2 className="text-xl font-semibold text-(--text-heading) leading-7">Bir ödeme yöntemi seçin</h2>
+                <Badge 
+                  icon={<ShieldCheck size={12} className="text-(--bg-success-strong)"/>} 
+                  text="SSL SECURED" 
+                  theme="success" 
+                  size="sm"
+                  className="py-0.5 px-1 gap-1 font-(--font-base)"
+                />
+              </div>
+              <p className="text-sm font-(--font-base) leading-5 text-(--text-heading)">
+                Tüm işlemler güvenli bir şekilde korunur, işlenir ve harici ödeme sağlayıcıları tarafından yetkilendirilir.
+              </p>
+            </div>
              <div className="flex flex-col gap-3">
-                {/* Ödeme yöntemi butonları (Ziraat, Apple Pay vb.) */}
-             </div>
+              {isLoading ? (
+                <div className="text-sm text-gray-500">Yükleniyor...</div>
+              ) : (
+                methods.map((method) => (
+                  <PaymentMethodItem
+                    key={method.id}
+                    method={method}
+                    isSelected={selectedMethodId === method.id}
+                    onSelect={setSelectedMethodId}
+                  />
+                ))
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="lg:col-span-4">
-          <OrderSummary 
-            totalPrice={totalPrice} 
-            // Logic: Ödeme sayfasındayken de checkbox'a basınca form anında açılsın
-            onNext={(checked) => setWantsInvoice(checked)} 
-          />
+        <div className="lg:col-span-2 mt-25">
+          <PaymentSummary 
+            productCount={2} 
+            comission={9.47} 
+            productTotalAmount={269.00} 
+            taxes={1.06} 
+            totalAmount={253.33}
+           />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
-import { CartResponse } from "./types";
+import { CartResponse, OrderDetailResponse, PaymentMethod, OrderAuthRequest } from "./types";
 
 export const cartService = {
   async getCart(userId?: string, guestId?: string): Promise<CartResponse> {
@@ -21,5 +21,20 @@ export const cartService = {
       localStorage.setItem('guest_id', guestId);
     }
     return guestId;
+  }
+};
+
+export const paymentService = {
+  getPaymentMethods: async (): Promise<PaymentMethod[]> => {
+    return await baseFetcher<PaymentMethod[]>('/api/cart/payment-methods');
+  }
+};
+
+export const orderService = {
+  getOrderDetail: async (payload: OrderAuthRequest): Promise<OrderDetailResponse> => {
+    return await baseFetcher<OrderDetailResponse, OrderAuthRequest>(`/api/order/${payload.order_id}`, {
+      method: 'POST',
+      body: payload
+    });
   }
 };

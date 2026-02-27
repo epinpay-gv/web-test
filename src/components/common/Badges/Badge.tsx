@@ -3,7 +3,7 @@ import { Close } from "flowbite-react-icons/outline";
 import { ReactNode } from "react";
 
 type BadgeSize = "sm" | "lg" ;
-type BadgeTheme = "gray" | "white" | "brand" | "danger" | "warning" | "success" | "success_outline" | "gray_unborder";
+type BadgeTheme = "gray" | "white" | "brand" | "danger" | "warning" | "success" | "success_outline" | "gray_unborder" | "white_disabled";
 type BadgeType = "default" | "pill";
 
 interface BadgeProps {
@@ -32,17 +32,14 @@ const BADGE_ICON_SIZE_CLASSES: Record<BadgeSize, string> = {
 
 const BADGE_THEME_CLASSES: Record<BadgeTheme, string> = {
   gray: "bg-(--bg-neutral-secondary) border border-(--border-default-medium) text-(--text-heading)",
-  white:
-    "bg-(--bg-neutral-primary-soft) border border-(--border-default) text-(--text-heading)",
-  brand:
-    "bg-(--bg-brand-softer) border border-(--border-brand-subtle) text-(--text-brand-strong)",
-  danger:
-    "bg-(--bg-danger-soft)  border border-(--border-danger-subtle) text-(--text-fg-danger-strong)",
-  warning:
-    "bg-(--bg-warning-soft) border border-(--border-warning-subtle) text-(--text-fg-warning)",
-  success: "bg-(--bg-success-strong) border border-(--border-success-subtle) text-(--text-fg-success)",
+  white: "bg-(--bg-neutral-primary-soft) border border-(--border-default) text-(--text-heading)",
+  brand: "bg-(--bg-brand-softer) border border-(--border-brand-subtle) text-(--text-fg-brand-strong)",
+  danger: "bg-(--bg-danger-soft)  border border-(--border-danger-subtle) text-(--text-fg-danger-strong)",
+  warning: "bg-(--bg-warning-soft) border border-(--border-warning-subtle) text-(--text-fg-warning)",
+  success: "bg-(--bg-success-soft) border border-(--border-success-subtle) text-(--bg-success-strong)",
   success_outline: "bg-(--bg-neutral-primary-soft) border border-(--border-success) text-(--text-fg-success-strong)",
-  gray_unborder: "bg-(--bg-neutral-secondary) text-(--text-body)"
+  gray_unborder: "bg-(--bg-neutral-secondary) text-(--text-body)",
+  white_disabled: "bg-(--bg-neutral-primary-soft) border border-(--border-default) text-(--text-fg-disabled)"
 };
 
 const BADGE_TYPE_CLASSES: Record<BadgeType, string> = {
