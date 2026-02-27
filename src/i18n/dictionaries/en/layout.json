@@ -1,0 +1,17 @@
+{
+  "header": {
+    "searchPlaceholder": "Search",
+    "searchFound": "results",
+    "searchNotFound": "result not found",
+    "language": "Language",
+    "currency": "Currency"
+  },
+  "footer": {
+    "support": {
+      "title": "Support",
+      "link1": "support@epinpay.com",
+      "link2": "Support Hub",
+      "link3": "Create a Ticket"
+    }
+  }
+}

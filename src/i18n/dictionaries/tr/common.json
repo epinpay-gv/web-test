@@ -1,0 +1,19 @@
+{
+  "buttons": {
+    "login": "Giriş Yap",
+    "signup": "Kayıt Ol",
+    "loginWithGoogle": "Google ile Giriş Yap",
+    "addToCart": "Sepete Ekle",
+    "buyNow": "Şimdi Al",
+    "viewAll": "View All"
+  },
+  "labels": {
+    "price": "Fiyat",
+    "stock": "Stokta",
+    "outOfStock": "Stokta Yok"
+  },
+  "messages": {
+    "loading": "Yükleniyor...",
+    "error": "Bir şey ters gitti"
+  }
+}

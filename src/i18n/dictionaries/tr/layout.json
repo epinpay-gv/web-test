@@ -1,0 +1,17 @@
+{
+  "header": {
+    "searchPlaceholder": "Search",
+    "searchFound": "sonuç bulanan",
+    "searchNotFound": "için sonuç bulunamadı",
+    "language": "Sistem Dili",
+    "currency": "Para Birimi"
+  },
+  "footer": {
+    "support" : {
+        "title" : "Destek",
+        "link1": "support@epinpay.com",
+        "link2": "Çözüm Merkezi",
+        "link3": "Destek Talebi Oluştur"
+    }
+  }
+}

@@ -4,8 +4,11 @@ import { useRef, useEffect } from 'react';
 import { useSearch } from '@/features/search/fetcher/services';
 import { Search } from 'flowbite-react-icons/outline';
 import { Input } from '@/components/common';
+import { useTranslations } from 'next-intl';
 
 export function SearchInput() {
+  const t = useTranslations("layout.header");
+
   const { query, setQuery, results, isLoading, isOpen, setIsOpen } = useSearch();
   const wrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -59,7 +62,7 @@ export function SearchInput() {
             <>
               <div className="px-4 py-2 border-b border-gray-700">
                 <span className="text-xs text-gray-500">
-                  {results.length} sonuç bulunan
+                  {results.length} {t("searchFound")}
                 </span>
               </div>
               <ul className="max-h-72 overflow-y-auto">
@@ -73,7 +76,7 @@ export function SearchInput() {
                     }}
                   >
                     {/* Image Placeholder */}
-                    <div className="w-10 h-10 rounded-(--radius-base) bg-gray-700 flex-shrink-0 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-(--radius-base) bg-gray-700 shrink-0 flex items-center justify-center">
                       <Search />
                     </div>
 
@@ -88,7 +91,7 @@ export function SearchInput() {
                     </div>
 
                     {/* Price */}
-                    <span className="text-sm font-semibold text-blue-400 flex-shrink-0">
+                    <span className="text-sm font-semibold text-blue-400 shrink-0">
                       {item.price.toLocaleString('tr-TR')}₺
                     </span>
                   </li>
@@ -102,7 +105,7 @@ export function SearchInput() {
             <div className="px-4 py-8 flex flex-col items-center justify-center gap-2">
               <Search />
               <p className="text-sm text-gray-500">
-                {query} için sonuç bulunamadı
+                {query} {t("searchNotFound")}
               </p>
             </div>
           )}

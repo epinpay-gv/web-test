@@ -1,0 +1,19 @@
+{
+  "buttons": {
+    "login": "Login",
+    "signup": "Signup",
+    "loginWithGoogle": "Login with Google",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "viewAll": "View All"
+  },
+  "labels": {
+    "price": "Price",
+    "stock": "In Stock",
+    "outOfStock": "Out of Stock"
+  },
+  "messages": {
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  }
+}
