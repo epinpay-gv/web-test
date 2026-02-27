@@ -12,7 +12,6 @@ import {
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
-// TODO : SEO schemaları ekle
 export const getProducts = (query: URLSearchParams) =>
   baseFetcher<ProductsApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${query.toString()}`,
