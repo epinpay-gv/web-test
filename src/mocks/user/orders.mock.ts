@@ -24,7 +24,7 @@ export const mockOrders: Order[] = [
         imageUrl: "/image/mock-img.png",
         status: "COMPLETED",
         codeStatus: "DELIVERED",
-        code: "XXXX-XXXX-XXXX-XXXX",
+        code: "1111-1111-1111-1111",
         howToUseUrl: "#",
       },
       {
@@ -93,7 +93,7 @@ export const mockOrders: Order[] = [
         imageUrl: "/image/mock-img.png",
         status: "COMPLETED",
         codeStatus: "DELIVERED",
-        code: "ABCD-EFGH-IJKL-MNOP",
+        code: "1234-4321-5678-3321",
         howToUseUrl: "https://support.xbox.com/redeem",
         description: "1 aylık Xbox Game Pass Ultimate üyeliği",
       },
@@ -123,7 +123,7 @@ export const mockOrders: Order[] = [
         imageUrl: "/image/mock-img.png",
         status: "COMPLETED",
         codeStatus: "DELIVERED",
-        code: "PUBG-1234-5678",
+        code: "1534-5445-89734",
         howToUseUrl: "#",
       },
       {
@@ -137,7 +137,7 @@ export const mockOrders: Order[] = [
         imageUrl: "/image/mock-img.png",
         status: "COMPLETED",
         codeStatus: "DELIVERED",
-        code: "FF-ABCD-EFGH",
+        code: "22-5467-230982",
         howToUseUrl: "#",
       },
       {
@@ -151,7 +151,7 @@ export const mockOrders: Order[] = [
         imageUrl: "/image/mock-img.png",
         status: "COMPLETED",
         codeStatus: "DELIVERED",
-        code: "BS-XXXX-YYYY-ZZZZ",
+        code: "54654-43534-565",
         howToUseUrl: "#",
       },
     ],
@@ -277,7 +277,7 @@ export const mockOrders: Order[] = [
         imageUrl: "/image/mock-img.png",
         status: "COMPLETED",
         codeStatus: "DELIVERED",
-        code: "RZ-1234-ABCD-5678",
+        code: "453-45356-4543",
         howToUseUrl: "#",
       },
       {
