@@ -1,10 +1,13 @@
 "use client";
 import { MegaMenu, NavLinkCard } from "@/components/common";
-import { navCards } from "./data/navmenu.mock";
 import { megaMenus } from "./data/megamenu.mock";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { getNavCards } from "./data/getNavCards";
 
 export function NavMenu() {
+  const t = useTranslations("layout.navmenu");
+  const navCards = getNavCards(t);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   return (

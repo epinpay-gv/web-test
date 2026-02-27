@@ -43,8 +43,10 @@
     "paymentMethods": "Zahlungsmethoden",
     "disclaimer": "Die Nutzung der Plattform epinpay.com bedeutet die Akzeptanz der Allgemeinen Geschäftsbedingungen. Informationen zur Verarbeitung Ihrer personenbezogenen Daten finden Sie in der Datenschutzrichtlinie. Copyright © Epinpay Team. Alle Rechte vorbehalten."
   },
-  "nav": {
+  "navmenu": {
     "games": "Spiele",
-    "viewAll": "Alle anzeigen"
+    "stramers": "Alle ansehen",
+    "raffles": "Gewinnspiele",
+    "epgames": "EP-Spiele"
   }
 }
