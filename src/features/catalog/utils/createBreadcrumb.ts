@@ -1,9 +1,5 @@
-// src/features/catalog/utils/breadcrumb.ts
+import { BreadcrumbItem } from "@/types/types";
 
-export interface BreadcrumbItem {
-  name: string;
-  url: string;
-}
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
 
@@ -11,7 +7,7 @@ function base(locale: string): BreadcrumbItem[] {
   return [
     {
       name: locale === "en" ? "Home" : "Anasayfa",
-      url: `${SITE_URL}/${locale}`,
+      href: `${SITE_URL}/${locale}`,
     },
   ];
 }
@@ -19,14 +15,14 @@ function base(locale: string): BreadcrumbItem[] {
 function categoriesRoot(locale: string): BreadcrumbItem {
   return {
     name: locale === "en" ? "Categories" : "Kategoriler",
-    url: `${SITE_URL}/${locale}/categories`,
+    href: `${SITE_URL}/${locale}/categories`,
   };
 }
 
 function productsRoot(locale: string): BreadcrumbItem {
   return {
     name: locale === "en" ? "Products" : "Ürünler",
-    url: `${SITE_URL}/${locale}/products`,
+    href: `${SITE_URL}/${locale}/products`,
   };
 }
 
@@ -51,7 +47,7 @@ export function createProductsBreadcrumb(
   if (productType) {
     items.push({
       name: productType.label,
-      url: `${SITE_URL}/${locale}/products?productType=${productType.value}`,
+      href: `${SITE_URL}/${locale}/products?productType=${productType.value}`,
     });
   }
 
@@ -73,14 +69,14 @@ export function createCategoryBreadcrumb(
     categoriesRoot(locale),
     {
       name: categoryName,
-      url: `${SITE_URL}/${locale}/${categorySlug}`,
+      href: `${SITE_URL}/${locale}/${categorySlug}`,
     },
   ];
 
   if (productType) {
     items.push({
       name: productType.label,
-      url: `${SITE_URL}/${locale}/${categorySlug}?productType=${productType.value}`,
+      href: `${SITE_URL}/${locale}/${categorySlug}?productType=${productType.value}`,
     });
   }
 
@@ -103,11 +99,11 @@ export function createProductBreadcrumb(
     categoriesRoot(locale),
     {
       name: categoryName,
-      url: `${SITE_URL}/${locale}/${categorySlug}`,
+      href: `${SITE_URL}/${locale}/${categorySlug}`,
     },
     {
       name: productName,
-      url: `${SITE_URL}/${locale}/${categorySlug}/${productSlug}`,
+      href: `${SITE_URL}/${locale}/${categorySlug}/${productSlug}`,
     },
   ];
 }

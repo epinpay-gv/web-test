@@ -1,5 +1,16 @@
 import { ReactNode } from "react";
 
+/* SEO */
+export interface PageMetadata {
+  id: number;
+  pageId: number;
+  slug: string;
+  locale: string;
+  title: string;
+  metaTitle: string;
+  metaDescription: string;
+}
+
 /* COMMON */
 export interface PaginationData {
   count: number;
@@ -9,9 +20,14 @@ export interface PaginationData {
   has_more: boolean;
 }
 
-export type BreadcrumbItemType = {
+export interface BreadcrumbItem {
   name: string;
-  url: string;
+  href: string; // relative: /products
+}
+
+export interface BreadcrumbItemType{
+  name: string;
+  href: string;
   icon?: ReactNode;
 };
 
@@ -49,6 +65,7 @@ export interface Product {
   epPrice: number | null;
   discountRate?: number;
   fakePrice?: number | null;
+  totalStock: number | null; // ! bu backende eklenmeli - seo için
 
   isFavorite?: boolean;
 }

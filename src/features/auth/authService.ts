@@ -1,5 +1,3 @@
-// authService.ts
-
 import { baseFetcher } from '@/lib/api/baseFetcher';
 import {
   RegisterFormData,

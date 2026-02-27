@@ -28,13 +28,27 @@ export const megaMenus = {
       },
     ],
     productLinks: [
-      { name: "Valorant", url: "" },
-      { name: "LOL", url: "" },
-      { name: "CS:GO", url: "" },
-      { name: "Pubg Mobile", url: "" },
-      { name: "Pubg Mobile 1", url: "" },
-      { name: "Pubg Mobile 2", url: "" },
-      { name: "Pubg Mobile 3", url: "" },
+      { name: "Valorant VP", url: "/valorant-vp" },
+      { name: "PUBG Mobile", url: "/pubg-mobile-uc" },
+      {
+        name: "League of Legends (LoL RP)",
+        url: "/league-of-legends-lol-rp",
+      },
+      {
+        name: "Metin2 EP (Ejder Parası)",
+        url: "/metin2-ep-ejder-parasi",
+      },
+      { name: "Rise Online World", url: "/rise-online-world" },
+      { name: "Zula Altın", url: "/zula-altin" },
+      { name: "Joypara JP", url: "/joypara-jp" },
+      { name: "Knight Online", url: "/knight-online" },
+      {
+        name: "Nowa Online World Elmas",
+        url: "/nowa-online-world-elmas",
+      },
+      { name: "Free Fire Elmas", url: "/free-fire-elmas" },
+      { name: "Honor of Kings", url: "/honor-of-kings" },
+
     ],
   },
 };

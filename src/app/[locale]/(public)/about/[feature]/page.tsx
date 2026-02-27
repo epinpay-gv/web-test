@@ -1,2 +1,3 @@
-// invite-and-win
-// about-ep
+export default function FeaturePage() {
+  return <></>;
+}

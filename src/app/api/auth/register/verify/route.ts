@@ -96,7 +96,13 @@ export async function POST(request: NextRequest) {
         email: body.email,
         name: undefined,
         surname: undefined,
+        role: '',
+        displayName: '',
+        uid: '',
+        epPoints: 0,
+        balance: 0
       },
+      refreshToken: ''
     };
 
     return NextResponse.json(response, { status: 200 });

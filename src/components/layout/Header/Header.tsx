@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ThemeToggle } from "@/features/theme/components/ThemeToggle";
 import { Button, IconShape } from "@/components/common";
 import Image from "next/image";
@@ -14,36 +12,20 @@ import { NotificationDropdown } from "@/features/notifications/components/Notifi
 import { X, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-// ✅ Yeni AuthDropdown bileşenini import ediyoruz
 import { AuthDropdown } from "@/features/auth/components/AuthDropdown"; 
 
 export function Header() {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
-  // State'ler
-  // const [mounted, setMounted] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const hydrate = useAuthStore((state) => state.hydrate);
-
-  // Hydration hatasını önlemek için mounted kontrolü
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
 
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
   const logoSrc = `/logos/epinpay-${themeSuffix}-lg.png`;
 
-  // Sayfa sunucuda render edilirken login durumunu henüz bilmediğimiz için
-  // butonu göstermeden önce istemciye geçişi (mounted) bekliyoruz.
-  // if (!mounted) {
-  //   return (
-  //     <header className="h-16 md:h-22 border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft)" />
-  //   );
-  // }
 
   return (
     <>
@@ -67,7 +49,7 @@ export function Header() {
             <SearchInput />
           </div>
 
-          <div className="flex items-center justify-end md:gap-4">
+          <div className="flex items-center justify-end  md:gap-4">
             <IconShape
               icon={Search}
               color="custom"
@@ -82,7 +64,7 @@ export function Header() {
               <LocaleDropdown />
             </div>
 
-            <div className="flex items-center lg:gap-4">
+            <div className="hidden md:flex items-center lg:gap-4">
               <ThemeToggle />
               <CartButton />
             </div>

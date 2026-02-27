@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockCategories } from "@/mocks";
+import { mockCategories, mockMetadata } from "@/mocks";
 import { PaginationData } from "@/types/types";
 
 export async function GET(req: Request) {
@@ -7,10 +7,9 @@ export async function GET(req: Request) {
 
   // pagination
   const page = Number(searchParams.get("page") ?? 1);
-  const perPage = Number(searchParams.get("perPage") ?? 12);
+  const perPage = Number(searchParams.get("perPage") ?? 10);
 
   const data = [...mockCategories];
-
 
   // --- PAGINATION ---
   const totalCount = data.length;
@@ -21,7 +20,7 @@ export async function GET(req: Request) {
 
   const paginatedData = data.slice(start, end);
 
-    // FAKE LATENCY
+  // FAKE LATENCY
   await new Promise((r) => setTimeout(r, 300));
 
   return NextResponse.json({
@@ -33,5 +32,6 @@ export async function GET(req: Request) {
       total_page: totalPage,
       has_more: page < totalPage,
     } as PaginationData,
+    metadata: mockMetadata.find((m) => m.pageId === 1),
   });
 }

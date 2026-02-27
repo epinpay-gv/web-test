@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Category, PaginationData } from "@/types/types";
+import { BreadcrumbItem, Category, PaginationData } from "@/types/types";
 import { getCategories } from "@/features/catalog/service";
 import { CategoryGrid, PageTitle } from "@/features/catalog/components";
 import { Breadcrumb, Pagination } from "@/components/common";
@@ -9,10 +9,7 @@ import { Home } from "flowbite-react-icons/outline";
 interface ProductsClientProps {
   data: Category[];
   pagination: PaginationData;
-  breadcrumbItems: {
-    name: string;
-    url: string;
-  }[];
+  breadcrumbItems: BreadcrumbItem[];
 }
 
 export default function CategoriessClient({
@@ -20,6 +17,7 @@ export default function CategoriessClient({
   pagination,
   breadcrumbItems,
 }: ProductsClientProps) {
+  const [categories, setCategories] = useState<Category[]>(data);
   const [paginationState, setPaginationState] =
     useState<PaginationData>(pagination);
   const [page, setPage] = useState(1);
@@ -29,29 +27,36 @@ export default function CategoriessClient({
    * PAGE → FETCH
    */
   useEffect(() => {
-    const fetch = async () => {
-      if (isLoading) return;
+    const fetchData = async () => {
       setIsLoading(true);
 
-      const params = new URLSearchParams();
-      params.set("page", String(page));
-      params.set("perPage", "15");
+      try {
+        const params = new URLSearchParams();
+        params.set("page", String(page));
+        params.set("perPage", "15");
 
-      const res = await getCategories(params);
+        const res = await getCategories(params);
 
-      setPaginationState(res.pagination);
+        setCategories(res.data);
+        setPaginationState(res.pagination);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    fetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchData();
   }, [page]);
 
   return (
-    <div className="container max-w-7xl mx-auto pb-12 ">
+    <div className="container max-w-7xl mx-auto pb-12 px-4 md:px-0">
+      <div className="pl-4 md:pl-0 py-4 md:py-6 w-full"></div>
       <PageTitle
         data={{
           title: "Kategoriler ",
-          totalProductAmount: pagination.count,
+          totalProductAmount: paginationState.count,
+        }}
+        onSelect={function (id: string): void {
+          throw new Error("Function not implemented.");
         }}
       />
       <Breadcrumb
@@ -61,7 +66,7 @@ export default function CategoriessClient({
         }))}
       />
       <div className="flex flex-col items-center gap-4">
-        <CategoryGrid data={data} pagination={pagination} />
+        <CategoryGrid data={categories} pagination={pagination} />
         <Pagination
           pagination={paginationState}
           onPageChange={(page) => {

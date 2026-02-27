@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { mockProducts, filterGroups } from "@/mocks";
+import { mockProducts, filterGroups, mockMetadata } from "@/mocks";
 import { PaginationData } from "@/types/types";
+import { metadata } from "@/app/layout";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -22,39 +23,27 @@ export async function GET(req: Request) {
 
   // --- FILTERS ---
   if (categories.length) {
-    data = data.filter((p) =>
-      categories.includes(String(p.category_id)),
-    );
+    data = data.filter((p) => categories.includes(String(p.category_id)));
   }
 
   if (regions.length) {
-    data = data.filter((p) =>
-      regions.includes(String(p.region_id)),
-    );
+    data = data.filter((p) => regions.includes(String(p.region_id)));
   }
 
   if (platforms.length) {
-    data = data.filter((p) =>
-      platforms.includes(String(p.platform_id)),
-    );
+    data = data.filter((p) => platforms.includes(String(p.platform_id)));
   }
 
   if (productTypes.length) {
-    data = data.filter((p) =>
-      productTypes.includes(String(p.type_id)),
-    );
+    data = data.filter((p) => productTypes.includes(String(p.type_id)));
   }
 
   if (minPrice) {
-    data = data.filter(
-      (p) => (p.epPrice ?? 0) >= Number(minPrice),
-    );
+    data = data.filter((p) => (p.epPrice ?? 0) >= Number(minPrice));
   }
 
   if (maxPrice) {
-    data = data.filter(
-      (p) => (p.epPrice ?? 0) <= Number(maxPrice),
-    );
+    data = data.filter((p) => (p.epPrice ?? 0) <= Number(maxPrice));
   }
 
   // --- PAGINATION ---
@@ -66,7 +55,7 @@ export async function GET(req: Request) {
 
   const paginatedData = data.slice(start, end);
 
-    // FAKE LATENCY
+  // FAKE LATENCY
   await new Promise((r) => setTimeout(r, 300));
 
   return NextResponse.json({
@@ -79,5 +68,6 @@ export async function GET(req: Request) {
       has_more: page < totalPage,
     } as PaginationData,
     filters: filterGroups,
+    metadata: mockMetadata.filter((m) => m.pageId === 2 || m.pageId === 1),
   });
 }

@@ -1,10 +1,10 @@
 "use client";
-
 import React from "react";
 import { cn } from "@/lib/utils";
 
 interface IconShapeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "circle" | "square";
+  label?: string;
   color?: "green" | "red" | "brand" | "yellow" | "gray" | "dark" | "white" | "custom";
   customColor?: string;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
@@ -33,6 +33,7 @@ const sizeMap = {
 
 export const IconShape = ({
   variant = "square",
+  label,
   color = "green",
   customColor,
   size = "md",

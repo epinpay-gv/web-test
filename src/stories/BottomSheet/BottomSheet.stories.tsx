@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import React, { useState } from "react";
 import { BottomSheet } from "@/components/common/BottomSheet/BottomSheet";
-import { Button } from "@/components/common/Button/Button";
+import { Button } from "@/components/common";
 
 const meta: Meta<typeof BottomSheet> = {
   title: "Common/BottomSheet",

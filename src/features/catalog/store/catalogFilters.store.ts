@@ -1,17 +1,20 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { CatalogFilterState } from "../catalog.types";
-
-type FilterKey = "category" | "region" | "platform";
-type ToggleBooleanKey = "inTr" | "inStock";
+import {
+  CatalogFilterState,
+  FilterKey,
+  SortOption,
+  ToggleBooleanKey,
+} from "../catalog.types";
 
 type CatalogFiltersStore = {
   filters: CatalogFilterState;
-
+  setFilters: (filters: CatalogFilterState) => void;
   toggleFilter: (key: FilterKey, value: string) => void;
   toggleBoolean: (key: ToggleBooleanKey) => void;
   setProductType: (value: string) => void;
   setPriceRange: (min?: number, max?: number) => void;
+  setSort: (sort: SortOption) => void;
   reset: () => void;
 };
 
@@ -67,6 +70,13 @@ export const useCatalogFilters = create<CatalogFiltersStore>()(
         },
       })),
 
+    setSort: (sort) =>
+      set((state) => ({
+        filters: {
+          ...state.filters,
+          sort,
+        },
+      })),
     reset: () => set({ filters: initialFilters }),
   })),
 );

@@ -63,8 +63,9 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
           <div
             className="
               absolute -inset-[50%]
-              bg-[url('/bg-image.png')]
-              bg-repeat bg-center
+              bg-[url('/bg-image.webp')]
+              bg-repeat 
+              bg-center
               bg-size-[120px_300px]
               rotate-60 
               contrast-200 brightness-180

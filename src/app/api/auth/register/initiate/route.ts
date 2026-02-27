@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Simüle edilmiş gecikme (gerçek API gibi)
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 200));
 
     // Backend geldiğinde bu kısım kullanılacak:
     /*
@@ -75,6 +75,7 @@ export async function POST(request: NextRequest) {
     const response: AuthResponse = {
       success: true,
       message: 'Doğrulama kodu email adresinize gönderildi',
+      refreshToken: ''
     };
 
     return NextResponse.json(response, { status: 200 });

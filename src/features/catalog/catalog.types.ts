@@ -1,4 +1,11 @@
-import { Product, PaginationData, Category, ProductPlatform, ProductRegion } from "@/types/types";
+import {
+  Product,
+  PaginationData,
+  Category,
+  ProductPlatform,
+  ProductRegion,
+  PageMetadata,
+} from "@/types/types";
 import { TitleData } from "@/components/common/Title/types";
 
 /* CATEGORY TYPES */
@@ -7,17 +14,22 @@ export interface CategoriesPageResponse {
   pagination: PaginationData;
 }
 
+/* FILTER TYPES */
+
+export type FilterKey = "category" | "region" | "platform";
+export type ToggleBooleanKey = "inTr" | "inStock";
+export type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc";
+
 export type CatalogFilterState = {
   category: string[];
   region: string[];
   platform: string[];
-  productType: string[]; // TAB + checkbox ortak
+  productType: string[];
   price?: { min?: number; max?: number };
   inTr?: boolean;
   inStock?: boolean;
+  sort?: SortOption;
 };
-
-/* FILTER TYPES */
 
 export type FilterElementConfig =
   | {
@@ -72,7 +84,7 @@ export type ActiveFilterChip = {
 };
 
 /* PRODUCT DETAIL TYPES */
-export interface CategoryWithProductDetail{
+export interface CategoryWithProductDetail {
   variants: Product[];
   regions: ProductRegion[];
   platforms: ProductPlatform[];
@@ -82,21 +94,28 @@ export interface CategoryWithProductDetail{
 /* RESPONSE & PAYLOAD TYPES */
 
 export interface ProductsApiResponse {
+  metadata: PageMetadata[];
   data: Product[];
   pagination: PaginationData;
   filters: FilterGroupConfig[];
 }
 
-export type CategoriesApiResponse = CategoriesPageResponse;
+export interface CategoriesApiResponse {
+  metadata: PageMetadata;
+  data: Category[];
+  pagination: PaginationData;
+}
 
-export interface CategoryApiResponse{
+export interface CategoryApiResponse {
+  metadata: PageMetadata;
   data: Product[];
   category: Category;
   pagination: PaginationData;
   filters: FilterGroupConfig[];
 }
 
-export interface ProductDetailApiResponse{
+export interface ProductDetailApiResponse {
+  metadata: PageMetadata;
   data: Product;
   category: CategoryWithProductDetail;
 }

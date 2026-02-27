@@ -72,7 +72,7 @@ const CONTAINER_VARIANT_CLASSES: Record<
   },
 
   segmented: {
-    base: "min-w-max inline-flex items-center bg-(--bg-neutral-primary-soft) font-semibold overflow-hidden",
+    base: "w-full inline-flex items-center bg-(--bg-neutral-primary-soft) font-semibold ",
     size: {
       sm: "w-[280px] h-[48px] gap-2 p-1.5 rounded-[14px]",
       base: "w-[341px] h-[56px] gap-3 p-2 rounded-[16px] font-semibold",

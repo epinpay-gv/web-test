@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { Product } from "@/types/types";
 import { ProductCard } from "@/components/common";
-import { AddToCartPayload, ChangeQuantityPayload, NotifyWhenAvailablePayload } from "@/components/common/Cards/ProductCard/types";
+import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface ProductCarouselProps {
   products: Product[];
@@ -22,6 +22,9 @@ export function ProductCarousel({
   showControls = true,
   loop = false,
 }: ProductCarouselProps) {
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
+
   return (
     <Carousel
       opts={{
@@ -32,19 +35,14 @@ export function ProductCarousel({
     >
       <CarouselContent className="-ml-4">
         {products.map((product) => (
-          <CarouselItem
-            key={product.id}
-            className="pl-4 basis-auto"
-          >
-            <ProductCard product={product} addToCart={function (payload: AddToCartPayload): void {
-              throw new Error("Function not implemented.");
-            } } notifyWhenAvailable={function (payload: NotifyWhenAvailablePayload): void {
-              throw new Error("Function not implemented.");
-            } } addToFavorites={function (payload: NotifyWhenAvailablePayload): void {
-              throw new Error("Function not implemented.");
-            } } changeQuantity={function (payload: ChangeQuantityPayload): void {
-              throw new Error("Function not implemented.");
-            } } />
+          <CarouselItem key={product.id} className="pl-4 basis-auto">
+            <ProductCard
+              product={product}
+              addToCart={addToCart}
+              notifyWhenAvailable={notifyWhenAvailable}
+              addToFavorites={addToFavorites}
+              changeQuantity={changeQuantity}
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

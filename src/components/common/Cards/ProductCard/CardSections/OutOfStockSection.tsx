@@ -1,6 +1,6 @@
 "use client";
-import { NotifyWhenAvailablePayload } from "../types";
 import { Button } from "@/components/common";
+import { NotifyWhenAvailablePayload } from "@/features/catalog/catalog.types";
 
 interface OutOfStockSectionProps {
   isHorizontal : boolean;
@@ -25,8 +25,7 @@ export function OutOfStockSection({
           className="w-full"
           onClick={() =>
             notifyWhenAvailable?.({
-              productId: 0,
-              userId: 0,
+              productId: 0
             })
           }
         />

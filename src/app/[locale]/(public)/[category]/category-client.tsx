@@ -13,27 +13,18 @@ import {
   buildCatalogSearchParams,
   getActiveFilterLabels,
 } from "@/features/catalog/utils";
-import { Category, PaginationData, Product } from "@/types/types";
+import { BreadcrumbItem, Category, PaginationData, Product } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { Breadcrumb, NavTab, Pagination } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
-import {
-  AddToCartPayload,
-  AddToFavoritesPayload,
-  ChangeQuantityPayload,
-  FilterGroupConfig,
-  NotifyWhenAvailablePayload,
-} from "@/features/catalog/catalog.types";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface CategoryClientProps {
   initialProducts: Product[];
   initialFilters: FilterGroupConfig[];
   pagination: PaginationData;
-  breadcrumbItems: {
-    name: string;
-    url: string;
-  }[];
+  breadcrumbItems: BreadcrumbItem[];
   initialCategory: Category;
   categorySlug: string;
 }
@@ -134,7 +125,9 @@ export default function CategoryClient({
             title: `${pageTitle} ürünleri`,
             totalProductAmount: pagination.count,
           }}
-          changeOrder={() => {}}
+          onSelect={function (id: string): void {
+            throw new Error("Function not implemented.");
+          }}
         />
         <Breadcrumb
           items={breadcrumbItems.map((item, index) => ({
@@ -181,7 +174,6 @@ export default function CategoryClient({
             <SeoSection initialCategory={initialCategory} />
           </div>
         </div>
-
       </div>
     </div>
   );
