@@ -27,6 +27,7 @@ interface ProductCardProps {
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
+  isReadOnly?: boolean;
 }
 
 const sizeClasses = {
@@ -45,6 +46,7 @@ export default function ProductCard({
   notifyWhenAvailable,
   addToFavorites,
   changeQuantity,
+  isReadOnly
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
   const Component: ElementType = isInCart ? "div" : Link;
@@ -108,11 +110,13 @@ export default function ProductCard({
         )}
 
         {isInCart && (
-          <div className="flex w-full justify-between items-center">
-            <CartActionButtons
+          <div className={!isReadOnly ? "flex w-full justify-between items-center" : "w-full flex justify-end"}>
+            {!isReadOnly &&
+              <CartActionButtons
               product={product}
               changeQuantity={changeQuantity}
-            />
+              />
+            }
             <PriceSection product={product} />
           </div>
         )}

@@ -1,7 +1,10 @@
 "use client";
+import { ProductCard } from "@/components/common";
 import { useOrderDetails } from "../hooks/useOrderDetails";
 import { OrderSummary } from "./OrderSummary";
 import { PaymentSummary } from "./PaymentSummary"; 
+import { SellerDetail } from "./SellerDetail";
+import { ProductCardOrientation } from "@/components/common/Cards/ProductCard/types";
 
 export function SuccessResult({ orderId }: { orderId: string }) {
   const { order } = useOrderDetails(orderId);
@@ -9,7 +12,7 @@ export function SuccessResult({ orderId }: { orderId: string }) {
   if (!order) return <div>Sipariş bulunamadı.</div>;
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 animate-in fade-in duration-500 ">
      
       {JSON.stringify(order)}
       <div className="text-center">
@@ -17,46 +20,36 @@ export function SuccessResult({ orderId }: { orderId: string }) {
       </div>
 
       <div className="lg:grid lg:grid-cols-2 gap-8">
-        <div className="">        
-          {/* ÜRÜN LİSTESİ */}
-          <div className="bg-[#0F222E] border border-[#1D303A] rounded-xl p-6">
-            <h3 className="mb-4 font-semibold border-b border-[#1D303A] pb-2">Satın Alınan Ürünler</h3>
-            {order.products.map(product => (
-              <div key={product.id} className="flex justify-between items-center py-3">
-                <div className="flex items-center gap-4">                  
-                  <div>
-                    <p className="font-medium">{product.name}</p>
-                    <p className="text-xs text-gray-500">{product.quantity} Adet</p>
-                  </div>
-                </div>
-                <p className="font-semibold">₺{product.price.toFixed(2)}</p>
-              </div>
-            ))}
-          </div>
-
-          {order.invoice && (
-            <div className="bg-[#0F222E] border border-[#1D303A] rounded-xl p-6">
-              <h3 className="mb-4 font-semibold text-(--text-fg-brand)">Fatura Bilgileri</h3>
-              <div className="grid grid-cols-2 gap-y-4 text-sm">
-                <div>
-                  <p className="text-gray-500">Ad Soyad</p>
-                  <p>{order.invoice.name} {order.invoice.surname}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500">Ülke / Şehir</p>
-                  <p>{order.invoice.country}, {order.invoice.city}</p>
-                </div>
-              </div>
+        {/* Ürün Listesi */}
+        <div className="bg-(--bg-neutral-primary-soft) border border-[#1D303A] relative z-90 rounded-xl p-6">
+          <h3 className="mb-4 font-semibold border-b text-(--text-body) border-[#1D303A] pb-2">Ürünler</h3>
+          {order.products.map((item) => (            
+            <div key={item.id} className="border-b border-[#1D303A] py-4 last:border-0">
+              <ProductCard
+                key={item.id}
+                product={item }  
+                orientation={ProductCardOrientation.HORIZONTAL}
+                isReadOnly={true} 
+                isInCart={true}                 
+                addToCart={() => {}}
+                notifyWhenAvailable={() => {}}
+                addToFavorites={() => {}}
+                changeQuantity={() => {}}            
+                />
             </div>
-          )}
-        </div>
+          ))}
+        </div>                  
 
-        <div className="">
+        <div className="flex flex-col gap-4">
           <OrderSummary 
-            date={order.order_id}
-            orderId={order.date}
-            payMethod={order.payment_method}
-            
+            orderId={order.order_id}
+            date={order.date}
+            payMethod={order.payment_method}            
+          />
+          <SellerDetail
+            address="Osmangazi Mah. Bayraklı / İzmir Sicil No: 2315416"
+            email="info@epinpay.com"
+            phone="+90 554 111 11 11"
           />
         </div>
       </div>

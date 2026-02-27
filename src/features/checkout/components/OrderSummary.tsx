@@ -8,7 +8,7 @@ interface OrderSummaryProps {
 export function OrderSummary({orderId, date, payMethod} : OrderSummaryProps) {
    
     return(
-        <div className="bg-(--bg-neutral-primary-soft) border border-[#1D303A] rounded-(--radius-base)  relative p-6">
+        <div className="bg-(--bg-neutral-primary-soft) border border-[#1D303A] rounded-(--radius-base) relative p-6">
             <div className="border-b border-[#1D303A] pb-2">
                 <p className="text-(--text-body) font-medium">Ödeme Özeti</p>
             </div>

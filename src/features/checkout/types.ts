@@ -65,7 +65,7 @@ export interface OrderDetailResponse {
     is_guest: boolean,
     email: string
   }
-  products: OrderedProduct[];
+  products: Product[]
   invoice: OrderInvoice | null; 
   summary: OrderSummaryData;
 }
