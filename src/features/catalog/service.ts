@@ -17,6 +17,7 @@ export const getProducts = (query: URLSearchParams) =>
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${query.toString()}`,
   );
 
+// TODO : SEO schemaları ekle
 export const getCategories = (query: URLSearchParams) =>
   baseFetcher<CategoriesApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/categories?${query.toString()}`,
@@ -28,12 +29,12 @@ export const getCategory = (query: URLSearchParams, category: string) =>
   );
 
 export const getProduct = (
-  query: URLSearchParams,
+  query: string = "",
   category: string,
   product: string,
 ) =>
   baseFetcher<ProductDetailApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}/${product}?${query.toString()}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}/${product}?${query}`,
   );
 
 /* -------------------------- BASKET ACTIONS -------------------------- */

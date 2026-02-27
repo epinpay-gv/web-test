@@ -1,5 +1,6 @@
 import { Sort } from "flowbite-react-icons/outline";
 import FilterDropdownContainer from "./filters/Filters/FilterDropdownContainer";
+import { useTranslations } from "next-intl";
 
 interface PageTitleProps {
   data: {
@@ -15,6 +16,8 @@ export default function PageTitle({
   onSelect,
   isLoading = false,
 }: PageTitleProps) {
+  const t = useTranslations("common.labels");
+
   return (
     <div className="flex items-center justify-between">
       <div className="text-sm md:text-xl flex items-center gap-2">
@@ -25,8 +28,8 @@ export default function PageTitle({
           </>
         ) : (
           <>
-            <h1>{data.title} listeleniyor</h1>
-            <p className="text-(--text-body)">{data.totalProductAmount} ürün</p>
+            <h1>{data.title} {t("listing")}</h1>
+            <p className="text-(--text-body)">{data.totalProductAmount} {t("product")}</p>
           </>
         )}
       </div>

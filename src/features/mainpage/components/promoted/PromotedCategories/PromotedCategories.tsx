@@ -1,5 +1,6 @@
 import { PromotedCategory } from "../../../mainpage.types";
 import { CategoryCard } from "./CategoryCard";
+import { useTranslations } from "next-intl";
 
 interface PromotedCategoriesProps {
   categories: PromotedCategory[];
@@ -10,6 +11,7 @@ export default function PromotedCategories({
   categories,
   className
 }: PromotedCategoriesProps) {
+  const t = useTranslations("mainpage.promoted");
 
   return (
     <div
@@ -27,7 +29,7 @@ export default function PromotedCategories({
 
       {/* 12. Kart : Explore All */}
       <CategoryCard
-        title="Tüm Oyunları Keşfet"
+        title={t("exploreAllGames")}
         slug="/products"
       />
     </div>

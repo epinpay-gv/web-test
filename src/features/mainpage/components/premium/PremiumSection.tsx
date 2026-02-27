@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/common";
 import { PremiumPlan } from "../../mainpage.types";
+import { useTranslations } from "next-intl";
 
 interface PremiumSectionProps {
   data: PremiumPlan[];
@@ -12,6 +13,7 @@ interface PremiumSectionProps {
 export default function PremiumSection({ data }: PremiumSectionProps) {
   const [selectedPlan, setSelectedPlan] = useState(data[0]?.id || "1m");
   const currentPlan = data.find((plan) => plan.id === selectedPlan);
+  const t = useTranslations("mainpage.premium");
 
   return (
     <div className="hidden md:block py-8 bg-[linear-gradient(263.8deg,#F9D697_0.55%,#FFE7DD_24.87%,#BFC3D2_89.38%,#FFDBAD_97.8%)]">
@@ -35,7 +37,7 @@ export default function PremiumSection({ data }: PremiumSectionProps) {
               </div>
               <Button
                 variant="brand"
-                text="Satın Al"
+                text={t("buy")}
                 padding="xs"
                 className="font-semibold w-21 h-10 rounded-2x max-w-21"
               />

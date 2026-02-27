@@ -1,0 +1,61 @@
+{
+  "buttons": {
+    "login": "Se connecter",
+    "signup": "S'inscrire",
+    "loginWithGoogle": "Se connecter avec Google",
+    "signupWithGoogle": "S'inscrire avec Google",
+    "addToCart": "Ajouter au panier",
+    "buyNow": "Acheter maintenant",
+    "viewAll": "Tout voir",
+    "viewAllProducts": "Voir tous les produits",
+    "viewAllGames": "Découvrir tous les jeux",
+    "viewAllItems": "Tout voir",
+    "buy": "Acheter",
+    "goBack": "Retour",
+    "resend": "Renvoyer",
+    "sending": "Envoi en cours...",
+    "processing": "Traitement en cours...",
+    "saving": "Enregistrement...",
+    "loggingIn": "Connexion en cours...",
+    "becomeSeller": "Devenir vendeur",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "sendResetLink": "Envoyer le lien de réinitialisation",
+    "requestNewLink": "Demander un nouveau lien",
+    "viewAllProductsBtn": "Voir tous les produits"
+  },
+  "labels": {
+    "price": "Prix",
+    "stock": "En stock",
+    "outOfStock": "Rupture de stock",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "referralCode": "Code de parrainage",
+    "emailLabel": "E-mail",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "games": "Jeux",
+    "products": "Produits",
+    "product": "produit",
+    "listing": "répertorié",
+    "allProducts": "Tous les produits"
+  },
+  "messages": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "noResults": "aucun résultat trouvé pour",
+    "productNotFound": "Produit non trouvé",
+    "productNotFoundDesc": "Aucun produit trouvé correspondant à vos critères de recherche.",
+    "noNotifications": "Aucune notification.",
+    "clearSelections": "Effacer les sélections"
+  },
+  "trustLabels": {
+    "instantDelivery": "Livraison instantanée",
+    "support": "Support 24/7",
+    "verifiedStores": "Vendeurs vérifiés",
+    "licencedEpins": "Epins sous licence",
+    "securePayment": "Paiement sécurisé"
+  },
+  "paymentMethods": "méthodes de paiement"
+}

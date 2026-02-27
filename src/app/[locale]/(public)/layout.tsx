@@ -15,9 +15,9 @@ export default async function PublicLayout({
       <div className="flex min-h-screen flex-col ">
         <Header />
         <NavMenu />
-        <PageAnimate>
+        {/* <PageAnimate> */}
           <main className="flex-1">{children}</main>
-        </PageAnimate>
+        {/* </PageAnimate> */}
         <Footer />
       </div>
     </>

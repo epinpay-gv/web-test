@@ -4,6 +4,7 @@ import { Category, Product } from "@/types/types";
 import { ExpandableContent, NavTab, RatingCard } from "@/components/common";
 import BoxWrapper from "@/components/common/Wrappers/BoxWrapper";
 import DOMPurify from "dompurify";
+import { useTranslations } from "next-intl";
 
 interface SeoSectionWithTabProps {
   initialCategory: Category;
@@ -14,11 +15,13 @@ export default function SeoSectionWithTab({
   initialCategory,
   initialProduct,
 }: SeoSectionWithTabProps) {
+  const t = useTranslations("catalog.productDetail");
+
   const tabs = [
-    { label: "Ürün Açıklaması", value: "product-description" },
-    { label: "Oyun Hakkında", value: "about-game" },
-    { label: "Nasıl Aktif Edilir", value: "activation" },
-    { label: "Değerlendirmeler", value: "reviews" },
+    { label: t("productDescription"), value: "product-description" },
+    { label: t("aboutGame"), value: "about-game" },
+    { label: t("howToActivate"), value: "activation" },
+    { label: t("reviews"), value: "reviews" },
   ];
 
   const [activeTab, setActiveTab] = useState(tabs[0].value);
@@ -38,19 +41,25 @@ export default function SeoSectionWithTab({
   const aboutGame = initialCategory?.translation?.description ?? "";
   const description = initialProduct?.translation?.description ?? "";
   const activation = initialCategory?.translation?.activation ?? "";
-
   const categoryDescription = useMemo(
-    () => DOMPurify.sanitize(aboutGame),
+    () =>
+      typeof window !== "undefined" ? DOMPurify.sanitize(aboutGame) : aboutGame,
     [aboutGame],
   );
 
   const productDescription = useMemo(
-    () => DOMPurify.sanitize(description),
+    () =>
+      typeof window !== "undefined"
+        ? DOMPurify.sanitize(description)
+        : description,
     [description],
   );
 
   const activationDescription = useMemo(
-    () => DOMPurify.sanitize(activation),
+    () =>
+      typeof window !== "undefined"
+        ? DOMPurify.sanitize(activation)
+        : activation,
     [activation],
   );
 
@@ -68,7 +77,7 @@ export default function SeoSectionWithTab({
         {initialCategory.translation.description && (
           <BoxWrapper
             id="product-description"
-            title="Ürün Açıklaması"
+            title={t("productDescription")}
             className="scroll-mt-32"
           >
             <ExpandableContent maxHeight={300}>
@@ -79,7 +88,7 @@ export default function SeoSectionWithTab({
         {initialCategory.translation.description && (
           <BoxWrapper
             id="about-game"
-            title="Oyun Hakkında"
+            title={t("aboutGame")}
             className="scroll-mt-32"
           >
             <ExpandableContent maxHeight={300}>
@@ -90,7 +99,7 @@ export default function SeoSectionWithTab({
         {initialCategory.translation.activation && (
           <BoxWrapper
             id="activation"
-            title="Nasıl Aktif Edilir"
+            title={t("howToActivate")}
             className="scroll-mt-32"
           >
             <ExpandableContent maxHeight={300}>
@@ -103,7 +112,7 @@ export default function SeoSectionWithTab({
         {/* {initialCategory.translation.comments && (
           <BoxWrapper
             id="reviews"
-            title="Değerlendirmeler"
+            title={t("reviews")}
             className="scroll-mt-32"
           >
             <ExpandableContent maxHeight={300}>

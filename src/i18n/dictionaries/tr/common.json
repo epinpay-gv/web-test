@@ -1,0 +1,61 @@
+{
+  "buttons": {
+    "login": "Giriş Yap",
+    "signup": "Kayıt Ol",
+    "loginWithGoogle": "Google ile Giriş Yap",
+    "signupWithGoogle": "Google ile Kaydol",
+    "addToCart": "Sepete Ekle",
+    "buyNow": "Şimdi Al",
+    "viewAll": "Tümünü Gör",
+    "viewAllProducts": "Tüm Ürünleri Gör",
+    "viewAllGames": "Tüm Oyunları Keşfet",
+    "viewAllItems": "Tümünü incele",
+    "buy": "Satın Al",
+    "goBack": "Geri Dön",
+    "resend": "Tekrar Gönder",
+    "sending": "Gönderiliyor...",
+    "processing": "İşleniyor...",
+    "saving": "Kaydediliyor...",
+    "loggingIn": "Giriş Yapılıyor...",
+    "becomeSeller": "Satıcı ol",
+    "resetPassword": "Şifre Yenile",
+    "sendResetLink": "Yenileme Bağlantısı Gönder",
+    "requestNewLink": "Yeni Bağlantı Talep Et",
+    "viewAllProductsBtn": "Tüm Ürünleri Görüntüle"
+  },
+  "labels": {
+    "price": "Fiyat",
+    "stock": "Stokta",
+    "outOfStock": "Stokta Yok",
+    "email": "Email",
+    "password": "Şifre",
+    "newPassword": "Yeni Şifre",
+    "confirmPassword": "Şifre Tekrar",
+    "referralCode": "Referans Kodu",
+    "emailLabel": "E-posta",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "games": "Oyunlar",
+    "products": "Ürünler",
+    "product": "ürün",
+    "listing": "listeleniyor",
+    "allProducts": "Tüm ürünler"
+  },
+  "messages": {
+    "loading": "Yükleniyor...",
+    "error": "Bir şey ters gitti",
+    "noResults": "için sonuç bulunamadı",
+    "productNotFound": "Ürün bulunamadı",
+    "productNotFoundDesc": "Arama kriterlerinize göre ürün bulunamadı.",
+    "noNotifications": "Bildirim bulunmuyor.",
+    "clearSelections": "Seçimleri Temizle"
+  },
+  "trustLabels": {
+    "instantDelivery": "Anında Teslimat",
+    "support": "7/24 Destek",
+    "verifiedStores": "Doğrulanmış Satıcılar",
+    "licencedEpins": "Lisanslı Epinler",
+    "securePayment": "Güvenli Ödeme"
+  },
+  "paymentMethods": "ödeme yöntemi"
+}

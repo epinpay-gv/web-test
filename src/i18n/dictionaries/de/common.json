@@ -1,0 +1,61 @@
+{
+  "buttons": {
+    "login": "Anmelden",
+    "signup": "Registrieren",
+    "loginWithGoogle": "Mit Google anmelden",
+    "signupWithGoogle": "Mit Google registrieren",
+    "addToCart": "In den Warenkorb",
+    "buyNow": "Jetzt kaufen",
+    "viewAll": "Alle anzeigen",
+    "viewAllProducts": "Alle Produkte anzeigen",
+    "viewAllGames": "Alle Spiele entdecken",
+    "viewAllItems": "Alle anzeigen",
+    "buy": "Kaufen",
+    "goBack": "Zurück",
+    "resend": "Erneut senden",
+    "sending": "Wird gesendet...",
+    "processing": "Wird verarbeitet...",
+    "saving": "Wird gespeichert...",
+    "loggingIn": "Anmeldung läuft...",
+    "becomeSeller": "Verkäufer werden",
+    "resetPassword": "Passwort zurücksetzen",
+    "sendResetLink": "Link zum Zurücksetzen senden",
+    "requestNewLink": "Neuen Link anfordern",
+    "viewAllProductsBtn": "Alle Produkte anzeigen"
+  },
+  "labels": {
+    "price": "Preis",
+    "stock": "Auf Lager",
+    "outOfStock": "Nicht auf Lager",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "newPassword": "Neues Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "referralCode": "Empfehlungscode",
+    "emailLabel": "E-Mail",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "games": "Spiele",
+    "products": "Produkte",
+    "product": "Produkt",
+    "listing": "aufgelistet",
+    "allProducts": "Alle Produkte"
+  },
+  "messages": {
+    "loading": "Wird geladen...",
+    "error": "Etwas ist schiefgelaufen",
+    "noResults": "keine Ergebnisse gefunden für",
+    "productNotFound": "Produkt nicht gefunden",
+    "productNotFoundDesc": "Keine Produkte mit Ihren Suchkriterien gefunden.",
+    "noNotifications": "Keine Benachrichtigungen.",
+    "clearSelections": "Auswahl löschen"
+  },
+  "trustLabels": {
+    "instantDelivery": "Sofortige Lieferung",
+    "support": "24/7 Support",
+    "verifiedStores": "Verifizierte Verkäufer",
+    "licencedEpins": "Lizenzierte Epins",
+    "securePayment": "Sichere Zahlung"
+  },
+  "paymentMethods": "Zahlungsmethoden"
+}
