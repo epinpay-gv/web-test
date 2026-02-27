@@ -84,12 +84,12 @@ export default function ProductsClient({
 
         const res = await getProducts(params);
 
-      setProducts(res.data.data);
-      setGroups(res.data.filters);
-      setPaginationState(res.data.pagination);
-        setProducts(res.data.data);
-        setGroups(res.data.filters);
-        setPaginationState(res.data.pagination);
+      setProducts(res.data);
+      setGroups(res.filters);
+      setPaginationState(res.pagination);
+        setProducts(res.data);
+        setGroups(res.filters);
+        setPaginationState(res.pagination);
       } finally {
         setIsLoading(false);
       }

@@ -18,12 +18,18 @@ export default function SeoSection({ initialCategory }: SeoSectionProps) {
   const activation = initialCategory?.translation?.activation ?? "";
 
   const categoryDescription = useMemo(
-    () => DOMPurify.sanitize(description),
+    () =>
+      typeof window !== "undefined"
+        ? DOMPurify.sanitize(description)
+        : description,
     [description],
   );
 
   const activationDescription = useMemo(
-    () => DOMPurify.sanitize(activation),
+    () =>
+      typeof window !== "undefined"
+        ? DOMPurify.sanitize(activation)
+        : activation,
     [activation],
   );
 

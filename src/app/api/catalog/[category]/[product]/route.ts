@@ -83,16 +83,13 @@ export async function GET(
   await new Promise((r) => setTimeout(r, 200));
 
   return NextResponse.json({
-    data: {
-      data: productData,
-      category: {
-        variants,
-        regions,
-        platforms,
-        categoryData,
-      },
+    data: productData,
+    category: {
+      variants,
+      regions,
+      platforms,
+      categoryData,
     },
-
     metadata: mockMetadata.find((m) => m.pageId === 1),
   });
 }

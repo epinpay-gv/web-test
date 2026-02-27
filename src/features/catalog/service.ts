@@ -9,15 +9,16 @@ import {
   ChangeQuantityPayload,
   NotifyWhenAvailablePayload,
 } from "./catalog.types";
-import { cache } from "react";
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
+// TODO : SEO schemaları ekle
 export const getProducts = (query: URLSearchParams) =>
   baseFetcher<ProductsApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${query.toString()}`,
   );
 
+// TODO : SEO schemaları ekle
 export const getCategories = (query: URLSearchParams) =>
   baseFetcher<CategoriesApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/categories?${query.toString()}`,

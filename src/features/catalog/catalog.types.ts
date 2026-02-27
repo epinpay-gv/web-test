@@ -91,23 +91,23 @@ export interface CategoryWithProductDetail {
   categoryData: Category;
 }
 
-/* PAGE DATA */
-export interface ProductsData {
+/* RESPONSE & PAYLOAD TYPES */
+
+export interface ProductsApiResponse {
+  metadata: PageMetadata[];
   data: Product[];
   pagination: PaginationData;
   filters: FilterGroupConfig[];
 }
 
-/* RESPONSE & PAYLOAD TYPES */
-
-export interface ProductsApiResponse {
-  metadata: PageMetadata[];
-  data: ProductsData;
+export interface CategoriesApiResponse {
+  metadata: PageMetadata;
+  data: Category[];
+  pagination: PaginationData;
 }
 
-export type CategoriesApiResponse = CategoriesPageResponse;
-
 export interface CategoryApiResponse {
+  metadata: PageMetadata;
   data: Product[];
   category: Category;
   pagination: PaginationData;
@@ -115,8 +115,9 @@ export interface CategoryApiResponse {
 }
 
 export interface ProductDetailApiResponse {
-  data: { data: Product; category: CategoryWithProductDetail };
   metadata: PageMetadata;
+  data: Product;
+  category: CategoryWithProductDetail;
 }
 
 export interface AddToCartPayload {
