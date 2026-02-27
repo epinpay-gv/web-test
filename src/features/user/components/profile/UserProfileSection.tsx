@@ -21,7 +21,7 @@ type Props = {
 
 function SectionHeader({ title, description }: { title: string; description: string }) {
     return (
-        <div className="pt-4">
+        <div>
             <h2 className="font-semibold text-(--text-heading)">{title}</h2>
             <p className="text-sm text-(--text-body)">{description}</p>
         </div>

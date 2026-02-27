@@ -24,7 +24,7 @@ export const OrderCard = ({ order }: OrderCardProps) => {
     <div className="flex items-center justify-between rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) p-5">
 
       {/* SOL */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         {/* Sipariş No */}
         <span className="text-[16px] font-semibold text-(--text-white)">
           Sipariş numarası: {order.orderNumber}
@@ -50,7 +50,7 @@ export const OrderCard = ({ order }: OrderCardProps) => {
 
         {/* ORTA BİLGİ */}
         <div className="flex-1 flex justify-center">
-          <div className="grid grid-cols-[auto_auto] gap-x-6 gap-y-1 text-sm">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-1  text-sm">
 
             <span className="text-(--text-body)">
               Sipariş Durumu:
@@ -72,13 +72,13 @@ export const OrderCard = ({ order }: OrderCardProps) => {
 
         {/* BUTONLAR */}
         <div className="flex items-center gap-2 text-(--text-body) whitespace-nowrap">
-          {order.invoiceStatus !== "NONE" && (
+          {/* {order.invoiceStatus !== "NONE" && (
             <Button
               text="Fatura talep et"
               textSize="sm"
               variant="dark"
             />
-          )}
+          )} */}
 
           <Link href={`/user/orders/${order.id}`}>
             <Button

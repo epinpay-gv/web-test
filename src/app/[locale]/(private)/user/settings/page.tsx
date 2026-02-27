@@ -37,7 +37,7 @@ export default function SettingsPage() {
     };
 
     return (
-        <div className="space-y-4">
+        <div className="">
             <UserPageHeader title="Ayarlar" />
 
             <div className="space-y-12">

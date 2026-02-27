@@ -30,7 +30,7 @@ export default function OrdersClient({ data, pagination }: OrdersClientProps) {
         <>
           <FiltersSection />
           <OrdersSection orders={orders} />
-          <div className="mx-auto">
+          <div>
             <Pagination
               pagination={paginationState}
               onPageChange={(page) => {
@@ -41,6 +41,8 @@ export default function OrdersClient({ data, pagination }: OrdersClientProps) {
           </div>
         </>
       )}
+      
+      {/* Sepette Ürün Yoksa */}
       {!data && <StatusState image="/image/orders/empty-orders.png"  
       title="Henüz bir siparişiniz bulunmamaktadır." description="Sipariş verdiğiniz ürünler burada listelenecektir."
  />}
