@@ -134,7 +134,7 @@ export interface ChangeQuantityPayload {
   productId: number;
   offerId: number;
   quantity: number;
-  action: "add" | "remove";
+  action: "add" | "remove" | "update";
 }
 export interface NotifyWhenAvailablePayload {
   productId: number;

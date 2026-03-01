@@ -92,7 +92,7 @@ export default function RootLayout({
           }}
         /> 
 
-        <noscript>
+        {/* <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-WKCNWN7N"
             height="0"

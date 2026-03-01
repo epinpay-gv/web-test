@@ -1,4 +1,5 @@
 "use client";
+import React, { ElementType } from "react"; // React eklendi
 import { Product } from "@/types/types";
 import { ProductCardOrientation } from "./types";
 import {
@@ -10,12 +11,14 @@ import {
   CartActionButtons,
 } from "./CardSections";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import {
   AddToFavoritesPayload,
   AddToCartPayload,
   NotifyWhenAvailablePayload,
   ChangeQuantityPayload,
 } from "@/features/catalog/catalog.types";
+
 interface ProductCardProps {
   product: Product;
   orientation?: ProductCardOrientation;
@@ -24,13 +27,14 @@ interface ProductCardProps {
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
+  isReadOnly?: boolean;
 }
 
 const sizeClasses = {
   vertical: "w-42.5 h-79 md:w-56 md:h-92.5",
   horizontal: {
     default: "w-87 h-39.5 md:w-155.5",
-    cart: "w-87 md:w-141.5 h-27.5",
+    cart: "w-full h-27.5",
   },
 };
 
@@ -42,9 +46,11 @@ export default function ProductCard({
   notifyWhenAvailable,
   addToFavorites,
   changeQuantity,
+  isReadOnly
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
-
+  const Component: ElementType = isInCart ? "div" : Link;
+  
   const cardSizeClass = isHorizontal
     ? isInCart
       ? sizeClasses.horizontal.cart
@@ -52,13 +58,23 @@ export default function ProductCard({
     : sizeClasses.vertical;
 
   const cardContentSizeClass = isHorizontal
-    ? "flex-1 flex flex-col items-start"
+    ? "flex-1 flex flex-col items-start justify-between"
     : "flex flex-col justify-between";
 
+  const productHref = `/${product.translation.category_slug}/${product.translation.slug}`;
+
+  // Link veya Div için gerekli proplar
+  const componentProps = !isInCart ? { href: productHref } : {};
+
   return (
-    <Link
-      className={`gap-1 flex ${isInCart ? "cart-card-container" : "card-container p-3"} ${isHorizontal ? "flex-row gap-4" : "flex-col justify-start"} ${cardSizeClass}`}
-      href={`${product.translation.category_slug}/${product.translation.slug}`}
+    <Component
+      {...componentProps}
+      className={cn(
+        "gap-1 flex transition-transform duration-200",
+        !isInCart ? "hover:scale-102 card-container p-3" : "cart-card-container",
+        isHorizontal ? "flex-row gap-4" : "flex-col justify-start",
+        cardSizeClass
+      )}
     >
       {/* Image Section */}
       <ImageSection
@@ -69,11 +85,14 @@ export default function ProductCard({
       />
 
       {/* Content Section */}
-      <div className={`space-y-1 md:space-y-2 ${cardContentSizeClass}`}>
-        <ProductInfo product={product} isHorizontal={isHorizontal} />
+      <div className={cn("space-y-1 w-full flex justify-between md:space-y-2", cardContentSizeClass)}>        
+        <ProductInfo 
+            product={product} 
+            isHorizontal={isHorizontal} 
+        />
 
-        {!isInCart &&
-          (product.basePrice ? (
+        {!isInCart && (
+          product.basePrice ? (
             <>
               <PriceSection product={product} />
               <ActionButtons
@@ -87,18 +106,21 @@ export default function ProductCard({
               isHorizontal={isHorizontal}
               notifyWhenAvailable={notifyWhenAvailable}
             />
-          ))}
+          )
+        )}
 
         {isInCart && (
-          <div className="flex">
-            <CartActionButtons
+          <div className={!isReadOnly ? "flex w-full justify-between items-center" : "w-full flex justify-end"}>
+            {!isReadOnly &&
+              <CartActionButtons
               product={product}
               changeQuantity={changeQuantity}
-            />
+              />
+            }
             <PriceSection product={product} />
           </div>
         )}
       </div>
-    </Link>
+    </Component>
   );
 }
