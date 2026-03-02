@@ -40,19 +40,9 @@ export interface GetMeResponse {
 }
 
 
-export interface OrdersPageOrder {
-  id: number;
-  order_no: string;
-  items: [];
-  status: "" | "";
-  product_amount: number;
-  total_amount: number;
-  created_at: string;
-}
-
-export interface OrdersPageApiResponse{
-    data: OrdersPageOrder[];
-    pagination: PaginationData;
+export interface OrdersPageApiResponse {
+  data: Order[];
+  pagination: PaginationData;
 }
 
 export type OrderStatus = "COMPLETED" | "PENDING" | "CANCELLED";
@@ -75,6 +65,8 @@ export interface OrderProduct {
   code?: string;
   howToUseUrl?: string;
   requiresActivation?: boolean;
+  isDropshipping?: boolean;
+  storeCode?: string;
 }
 
 

@@ -8,52 +8,38 @@ import {
   PRODUCT_CATEGORY_LABELS,
 } from "@/features/user/user.types";
 import { Button } from "@/components/common";
-import { useState } from "react";
 import { Copy, Check, Eye, EyeOff } from "lucide-react";
+import { useOrderProductStatus } from "@/features/user/hooks/orders/useOrderProductStatus";
+
 
 interface OrderProductCardProps {
   product: OrderProduct;
 }
 
 export const OrderProductCard = ({ product }: OrderProductCardProps) => {
-  const [copied, setCopied] = useState(false);
-  const [codeVisible, setCodeVisible] = useState(false);
-  // "pending" | "delivered" | "not_delivered"
-  const [deliveryState, setDeliveryState] = useState<"pending" | "delivered" | "not_delivered">("pending");
+  const {
+    copied,
+    codeVisible,
+    setCodeVisible,
+    deliveryState,
+    maskedCode,
+    handleCopyCode,
+    handleDelivered,
+    handleNotDelivered,
+    showDeliveryCard,
+    showCodeBox,
+  } = useOrderProductStatus(product);
 
   const codeStatusLabel = product.codeStatus
     ? CODE_STATUS_LABELS[product.codeStatus]
     : null;
+
   const codeStatusColor = product.codeStatus
     ? CODE_STATUS_COLORS[product.codeStatus]
     : "";
 
-  const handleCopyCode = () => {
-    if (!product.code) return;
-    navigator.clipboard.writeText(product.code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleDelivered = () => {
-    setDeliveryState("delivered");
-    // TODO: API entegrasyonu — PATCH /orders/products/{id}/confirm
-    console.log("Ürün teslim alındı onaylandı:", product.id);
-  };
-
-  const handleNotDelivered = () => {
-    setDeliveryState("not_delivered");
-    // TODO: API entegrasyonu — POST /orders/products/{id}/dispute
-    console.log("Ürün teslim alınmadı bildirildi:", product.id);
-  };
-
-  const maskedCode = product.code
-    ? product.code.replace(/[^\s]/g, "*")
-    : "";
-
   return (
     <div className="bg-(--bg-neutral-primary-soft) p-4 border-b flex items-center gap-4">
-
       {/* Ürün Görseli */}
       <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-(--bg-neutral-secondary)">
         <Image
@@ -72,27 +58,33 @@ export const OrderProductCard = ({ product }: OrderProductCardProps) => {
         <span className="w-83.5 text-sm font-semibold text-(--text-body) line-clamp-2 wrap-break-words">
           {product.name}
         </span>
+
         {product.description && (
           <span className="text-xs text-(--text-body) truncate">
             {product.description}
           </span>
         )}
+
         <div className="flex flex-wrap items-center gap-2 text-xs text-(--text-body)">
           <span className="inline-flex items-center justify-center gap-1 bg-(--bg-neutral-primary-soft) border border-(--border-default) px-1 py-0.5 rounded-sm">
             {PRODUCT_CATEGORY_LABELS[product.category]}
           </span>
+
           {product.region && (
             <span className="truncate max-w-30">{product.region}</span>
           )}
+
           <span className="font-semibold mx-auto">
-            {product.currency}{product.price}
+            {product.currency}
+            {product.price}
           </span>
         </div>
       </div>
 
-      {/* Sipariş Durumu Etiketi */}
+      {/* Sipariş Durumu */}
       <div className="flex flex-col items-center gap-1">
         <span className="text-xs text-(--text-body)">Sipariş durumu</span>
+
         {codeStatusLabel && (
           <span className={`text-sm font-medium ${codeStatusColor}`}>
             {codeStatusLabel}
@@ -100,20 +92,21 @@ export const OrderProductCard = ({ product }: OrderProductCardProps) => {
         )}
       </div>
 
-      {/* Sağ Status Alanı  */}
+      {/* Sağ Aksiyon Alanı */}
       <div className="flex ml-auto">
-
-     {/* DURUM 1: Kod teslim edildi */}
-        {product.codeStatus === "DELIVERED" && product.code && (
+        {/* DURUM 1: Kod teslim edildi */}
+        {showCodeBox && (
           <div className="flex flex-col gap-2 items-end border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
-<span className="text-(--text-body) text-sm">ürün kodu</span>
-            {/* Kod Kutusu*/}
+            <span className="text-(--text-body) text-sm">ürün kodu</span>
+
             <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-(--bg-success)">
-              {/* Kopyala */}
               <Button
-                icon={copied
-                  ? <Check size={13} className="text-white" />
-                  : <Copy size={13} className="text-white" />
+                icon={
+                  copied ? (
+                    <Check size={13} className="text-white" />
+                  ) : (
+                    <Copy size={13} className="text-white" />
+                  )
                 }
                 size="xs"
                 variant="ghost"
@@ -123,16 +116,17 @@ export const OrderProductCard = ({ product }: OrderProductCardProps) => {
                 onClick={handleCopyCode}
               />
 
-              {/* Kod */}
               <span className="text-sm font-mono text-white tracking-widest select-all">
                 {codeVisible ? product.code : maskedCode}
               </span>
 
-              {/* Göz */}
               <Button
-                icon={codeVisible
-                  ? <EyeOff size={13} className="text-white" />
-                  : <Eye size={13} className="text-white" />
+                icon={
+                  codeVisible ? (
+                    <EyeOff size={13} className="text-white" />
+                  ) : (
+                    <Eye size={13} className="text-white" />
+                  )
                 }
                 size="xs"
                 variant="ghost"
@@ -143,26 +137,27 @@ export const OrderProductCard = ({ product }: OrderProductCardProps) => {
               />
             </div>
 
-            {/* Nasıl kullanırım */}
             <HowToUse url={product.howToUseUrl} />
           </div>
         )}
 
-        {/* DURUM 2 / 3 / 4: Beklemede + Aktivasyon gerekiyor */}
-        {product.codeStatus === "PENDING" && product.requiresActivation && (
+        {/* DURUM 2: Beklemede + Aktivasyon gerekiyor */}
+        {showDeliveryCard && (
           <div className="flex flex-col gap-2 items-end p-2 border-2 border-dashed border-(--border-brand-light) w-[265px] h-[98px] bg-(--bg-brand-softer) rounded-xl">
-
-            <span className="text-xs text-(--text-body)">Ürünü teslim aldınız mı?</span>
+            <span className="text-xs text-(--text-body)">
+              Ürünü teslim aldınız mı?
+            </span>
 
             <div className="flex items-center gap-2">
               <Button
                 text="Teslim Aldım"
                 textSize="xs"
                 variant="success"
-                disabled={deliveryState === "not_delivered"} 
+                disabled={deliveryState === "not_delivered"}
                 onClick={handleDelivered}
                 className="rounded-2xl"
               />
+
               <Button
                 text="Teslim Almadım"
                 textSize="xs"
@@ -173,7 +168,6 @@ export const OrderProductCard = ({ product }: OrderProductCardProps) => {
               />
             </div>
 
-            {/* Alt durum */}
             {deliveryState === "pending" && (
               <button className="flex items-end gap-1 text-xs text-(--text-fg-brand)">
                 Sorun bildir
@@ -191,23 +185,15 @@ export const OrderProductCard = ({ product }: OrderProductCardProps) => {
             )}
           </div>
         )}
-
-        {/* DURUM: Beklemede + Aktivasyona gerek yok → aksiyon yok */}
-        {product.codeStatus === "PENDING" && !product.requiresActivation && null}
-
-        {/* DURUM: İptal edildi → aksiyon yok */}
-        {product.codeStatus === "CANCELLED" && null}
       </div>
     </div>
   );
 };
 
-
 function HowToUse({ url }: { url?: string }) {
   const inner = (
     <>
-      Nasıl kullanırım?{" "}
-      <span className="text-(--text-fg-brand)">incele</span>
+      Nasıl kullanırım? <span className="text-(--text-fg-brand)">incele</span>
     </>
   );
 
@@ -225,8 +211,6 @@ function HowToUse({ url }: { url?: string }) {
   }
 
   return (
-    <span className="text-xs text-(--text-body) cursor-pointer">
-      {inner}
-    </span>
+    <span className="text-xs text-(--text-body) cursor-pointer">{inner}</span>
   );
 }

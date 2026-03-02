@@ -10,12 +10,10 @@ interface OrderDetailClientProps {
 
 export default function OrderDetailClient({ order }: OrderDetailClientProps) {
   return (
-    <div className="w-227 h-139.5 rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) px-3 py-3 flex flex-col divide-y ">
-      {/* Header */}
+    <div className="rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) px-3 py-3 flex flex-col divide-y">
       <div>
         <OrderDetailHeader order={order} />
       </div>
-      {/* Products */}
       <div className="flex flex-col">
         {order.products.map((product) => (
           <OrderProductCard key={product.id} product={product} />
