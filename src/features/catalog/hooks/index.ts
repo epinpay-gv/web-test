@@ -1,4 +1,4 @@
 import { useProductSearch } from "./product-detail/useProductSearch";
-import { useQueryState } from "./useQueryState";
+import { useBasketActions } from "./basket/useBasketActions";
 
-export { useProductSearch, useQueryState };
+export { useProductSearch, useBasketActions };

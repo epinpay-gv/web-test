@@ -1058,32 +1058,32 @@ export const filterGroups: FilterGroupConfig[] = [
     elements: [
       {
         type: "checkbox",
-        key: "games",
+        key: "category",
         options: [
           { label: "League of Legends (LoL RP)", value: "10", count: 128 },
           { label: "Steam Cüzdan Kodu", value: "11", count: 42 },
           { label: "PUBG Mobile", value: "9", count: 76 },
-          { label: "Free Fire Elmas", value: "free-fire-elmas", count: 33 },
-          { label: "Pasha Fencer", value: "pasha-fencer", count: 9 },
-          { label: "Point Blank", value: "point-blank", count: 18 },
-          { label: "Zula Altın", value: "zula-altin", count: 64 },
-          { label: "Xbox", value: "xbox", count: 90 },
+          { label: "Free Fire Elmas", value: "101", count: 33 },
+          { label: "Pasha Fencer", value: "102r", count: 9 },
+          { label: "Point Blank", value: "103", count: 18 },
+          { label: "Zula Altın", value: "104", count: 64 },
+          { label: "Xbox", value: "105", count: 90 },
           {
             label: "The Lord of the Rings: Rise to War",
-            value: "the-lord-of-the-rings-rise-to-war-degerli-tas",
+            value: "106",
             count: 5,
           },
           {
             label: "Google Play Hediye Kartı",
-            value: "google-play-hediye-karti",
+            value: "107",
             count: 154,
           },
           {
             label: "Playstation Hediye Kartı",
-            value: "playstation-hediye-karti",
+            value: "108",
             count: 203,
           },
-          { label: "Razer Gold", value: "razer-gold", count: 47 },
+          { label: "Razer Gold", value: "109", count: 47 },
         ],
         search: {
           placeholder: "Ara",
@@ -1169,7 +1169,7 @@ export const filterGroups: FilterGroupConfig[] = [
     elements: [
       {
         type: "checkbox",
-        key: "productType",
+        key: "type",
         options: [
           { label: "Tüm Ürünler", value: "all" },
           { label: "Yazılım ve Lisanlar", value: "1" },

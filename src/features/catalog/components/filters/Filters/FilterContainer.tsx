@@ -6,7 +6,11 @@ import { countActiveFiltersByGroup } from "@/features/catalog/utils";
 import { BottomSheet, Button } from "@/components/common";
 import { useState } from "react";
 import { Sort, Filter } from "flowbite-react-icons/outline";
-import { FilterGroupConfig, ActiveFilterChip } from "@/features/catalog/catalog.types";
+import {
+  FilterGroupConfig,
+  ActiveFilterChip,
+  CatalogSearchParams,
+} from "@/features/catalog/catalog.types";
 import { useTranslations } from "next-intl";
 
 interface FiltersProps {
@@ -14,6 +18,10 @@ interface FiltersProps {
   filters: FilterGroupConfig[];
   activeFilters: ActiveFilterChip[];
   resetFilters: () => void;
+  currentSearch: CatalogSearchParams;
+  toggleFilter: (key: keyof CatalogSearchParams, value: string) => void;
+  setPriceRange: (min?: number, max?: number) => void;
+  toggleBoolean: (key: "inTr" | "inStock") => void;
 }
 
 export default function Filters({
@@ -21,6 +29,10 @@ export default function Filters({
   filters,
   activeFilters,
   resetFilters,
+  currentSearch,
+  toggleFilter,
+  setPriceRange,
+  toggleBoolean,
 }: FiltersProps) {
   const activeCountMap = countActiveFiltersByGroup(activeFilters, filters);
 
@@ -60,6 +72,10 @@ export default function Filters({
                 config={group}
                 activeCount={activeCountMap[index]}
                 resetFilters={resetFilters}
+                currentSearch={currentSearch}
+                toggleFilter={toggleFilter}
+                setPriceRange={setPriceRange}
+                toggleBoolean={toggleBoolean}
               />
             ))}
           </div>
@@ -76,6 +92,10 @@ export default function Filters({
                 config={group}
                 activeCount={activeCountMap[index]}
                 resetFilters={resetFilters}
+                currentSearch={currentSearch}
+                toggleFilter={toggleFilter}
+                setPriceRange={setPriceRange}
+                toggleBoolean={toggleBoolean}
               />
             ))}
           </div>
@@ -90,6 +110,10 @@ export default function Filters({
             config={group}
             activeCount={activeCountMap[index]}
             resetFilters={resetFilters}
+            currentSearch={currentSearch}
+            toggleFilter={toggleFilter}
+            setPriceRange={setPriceRange}
+            toggleBoolean={toggleBoolean}
           />
         ))}
       </div>

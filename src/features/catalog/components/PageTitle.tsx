@@ -7,7 +7,7 @@ interface PageTitleProps {
     title: string;
     totalProductAmount: number;
   };
-  onSelect: (id: string) => void;
+  onSelect?: (id: string) => void;
   isLoading?: boolean;
 }
 
@@ -23,8 +23,8 @@ export default function PageTitle({
       <div className="text-sm md:text-xl flex items-center gap-2">
         {isLoading ? (
           <>
-            <div className="h-6 w-40 rounded-md bg-gray-200 animate-pulse" />
-            <div className="h-5 w-20 rounded-md bg-gray-200 animate-pulse" />
+            <div className="h-6 w-40 rounded-md bg-gray-200 shimmer" />
+            <div className="h-5 w-20 rounded-md bg-gray-200 shimmer" />
           </>
         ) : (
           <>

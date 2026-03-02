@@ -1,22 +1,21 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+
+import { useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   FilterContainer,
   FilterLabels,
   PageTitle,
   ProductGrid,
 } from "@/features/catalog/components";
-import { getProducts } from "@/features/catalog/service";
-import { useCatalogFilters } from "@/features/catalog/store";
-import {
-  buildCatalogSearchParams,
-  getActiveFilterLabels,
-} from "@/features/catalog/utils";
+import { getActiveFilterLabels } from "@/features/catalog/utils";
 import { BreadcrumbItem, PaginationData, Product } from "@/types/types";
-import { useRouter } from "next/navigation";
 import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
-import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import {
+  FilterGroupConfig,
+  CatalogSearchParams,
+} from "@/features/catalog/catalog.types";
 import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 
 interface ProductsClientProps {
@@ -24,6 +23,7 @@ interface ProductsClientProps {
   initialFilters: FilterGroupConfig[];
   pagination: PaginationData;
   breadcrumbItems: BreadcrumbItem[];
+  currentSearch: CatalogSearchParams;
 }
 
 export default function ProductsClient({
@@ -31,29 +31,19 @@ export default function ProductsClient({
   initialFilters,
   pagination,
   breadcrumbItems,
+  currentSearch,
 }: ProductsClientProps) {
   const router = useRouter();
-  const isFirstRender = useRef(true);
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
 
+  // ─── Derived data from props (server already fetched correct data) ────────
   const pageTitle = breadcrumbItems[2]
-    ? `${breadcrumbItems[2]?.name} ürünleri`
-    : "Tüm ürünler ";
+    ? `${breadcrumbItems[2].name} ürünleri`
+    : "Tüm ürünler";
 
-  const filters = useCatalogFilters((s) => s.filters);
-  const setProductType = useCatalogFilters((s) => s.setProductType);
-  const resetFilters = useCatalogFilters((s) => s.reset);
-  const toggleFilter = useCatalogFilters((s) => s.toggleFilter);
-  const setPriceRange = useCatalogFilters((s) => s.setPriceRange);
-
-  const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [groups, setGroups] = useState(initialFilters);
-  const [paginationState, setPaginationState] =
-    useState<PaginationData>(pagination);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const tabFilters = groups.find((item) => item.isTab);
-  const columnFilters = groups.filter((item) => !item.isTab);
+  const tabFilters = initialFilters.find((g) => g.isTab);
+  const columnFilters = initialFilters.filter((g) => !g.isTab);
 
   const productTypeTabItems =
     tabFilters?.elements?.[0]?.type === "checkbox"
@@ -63,54 +53,92 @@ export default function ProductsClient({
         }))
       : [];
 
-  const activeFilters = getActiveFilterLabels(filters, groups);
+  const activeFilters = getActiveFilterLabels(currentSearch, initialFilters);
 
   const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
     useBasketActions();
 
-  /**
-   * PAGE → FETCH
-   */
-  useEffect(() => {
-    const fetchData = async () => {
-      if (isLoading) return;
+  // ─── URL mutation helpers ─────────────────────────────────────────────────
 
-      try {
-        setIsLoading(true);
+  function navigate(updater: (p: URLSearchParams) => void) {
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      updater(params);
+      router.replace(`?${params.toString()}`, { scroll: false });
+    });
+  }
 
-        const params = buildCatalogSearchParams(filters);
-        params.set("page", String(page));
-        params.set("perPage", "12");
-
-        const res = await getProducts(params);
-
-      setProducts(res.data);
-      setGroups(res.filters);
-      setPaginationState(res.pagination);
-        setProducts(res.data);
-        setGroups(res.filters);
-        setPaginationState(res.pagination);
-      } finally {
-        setIsLoading(false);
+  function handleProductTypeChange(value: string) {
+    navigate((p) => {
+      if (value === "all") {
+        p.delete("type");
+      } else {
+        p.set("type", value);
       }
-    };
+      p.delete("page"); 
+    });
+  }
 
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, filters]);
+  function handleToggleFilter(key: keyof CatalogSearchParams, value: string) {
+    console.log("KEY : ", key, " VALUE : ", value);
+    navigate((p) => {
+      const existing = p.getAll(key);
+      p.delete(key);
+      const next = existing.includes(value)
+        ? existing.filter((v) => v !== value)
+        : [...existing, value];
+      next.forEach((v) => p.append(key, v));
+      p.delete("page");
+    });
+  }
 
-  /* FILTER CHANGE → RESET PAGE */
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+  function handleSetPriceRange(min?: number, max?: number) {
+    navigate((p) => {
+      if (min !== undefined) p.set("minPrice", String(min));
+      else p.delete("minPrice");
 
-    setPage(1);
+      if (max !== undefined) p.set("maxPrice", String(max));
+      else p.delete("maxPrice");
 
-    const params = buildCatalogSearchParams(filters);
-    router.replace(`?${params.toString()}`, { scroll: false });
-  }, [filters, router]);
+      p.delete("page");
+    });
+  }
+
+  function handleToggleBoolean(key: "inTr" | "inStock") {
+    navigate((p) => {
+      if (key === "inTr") p.set("inTr", "true");
+      if (key === "inStock") p.set("inStock", "true");
+    });
+  }
+
+  function handleResetFilters() {
+    navigate((p) => {
+      (
+        [
+          "category",
+          "region",
+          "platform",
+          "type",
+          "genre",
+          "sort",
+          "minPrice",
+          "maxPrice",
+          "inTr",
+          "inStock",
+          "page",
+        ] as const
+      ).forEach((k) => p.delete(k));
+    });
+  }
+
+  function handlePageChange(page: number) {
+    navigate((p) => {
+      p.set("page", String(page));
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // ─── Render ───────────────────────────────────────────────────────────────
 
   return (
     <div className="container max-w-7xl mx-auto space-y-4 pb-12">
@@ -118,23 +146,21 @@ export default function ProductsClient({
         {productTypeTabItems.length > 0 && (
           <NavTab
             items={productTypeTabItems}
-            activeValue={filters.productType[0] ?? "all"}
+            activeValue={currentSearch.type ?? "all"}
             variant="segmented"
             size="base"
-            onChange={(value) => setProductType(value)}
+            onChange={handleProductTypeChange}
           />
         )}
       </div>
+
       <div className="px-4 md:px-0">
         <PageTitle
           data={{
-            title: `${pageTitle}`,
+            title: pageTitle,
             totalProductAmount: pagination.count,
           }}
-          onSelect={function (id: string): void {
-            throw new Error("Function not implemented.");
-          }}
-          isLoading={isLoading}
+          isLoading={isPending}
         />
         <Breadcrumb
           items={breadcrumbItems.map((item, index) => ({
@@ -142,38 +168,41 @@ export default function ProductsClient({
             icon: index === 0 ? <Home size={14} /> : undefined,
           }))}
         />
+
         <div className="flex md:flex-row flex-col items-start gap-4">
           <FilterContainer
             titleData={{ title: "Filtrele", isUnderlined: true }}
             filters={columnFilters}
             activeFilters={activeFilters}
-            resetFilters={resetFilters}
+            resetFilters={handleResetFilters}
+            currentSearch={currentSearch}
+            toggleFilter={handleToggleFilter}
+            setPriceRange={handleSetPriceRange}
+            toggleBoolean={handleToggleBoolean}
           />
 
-          <div className="flex-1 flex flex-col gap-4 ">
+          <div className="flex-1 flex flex-col gap-4">
             {activeFilters.length > 0 && (
               <FilterLabels
                 activeFilters={activeFilters}
-                resetFilters={resetFilters}
-                setPriceRange={setPriceRange}
-                toggleFilter={toggleFilter}
+                resetFilters={handleResetFilters}
+                setPriceRange={handleSetPriceRange}
+                toggleFilter={handleToggleFilter}
               />
             )}
 
             <ProductGrid
-              data={products}
+              data={initialProducts}
               addToCart={addToCart}
               changeQuantity={changeQuantity}
               addToFavorites={addToFavorites}
               notifyWhenAvailable={notifyWhenAvailable}
             />
+
             <div className="mx-auto">
               <Pagination
-                pagination={paginationState}
-                onPageChange={(page) => {
-                  setPage(page);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
+                pagination={pagination}
+                onPageChange={handlePageChange}
               />
             </div>
           </div>

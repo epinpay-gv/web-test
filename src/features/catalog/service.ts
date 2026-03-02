@@ -8,14 +8,21 @@ import {
   AddToFavoritesPayload,
   ChangeQuantityPayload,
   NotifyWhenAvailablePayload,
+  CatalogSearchParams,
 } from "./catalog.types";
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
-export const getProducts = (query: URLSearchParams) =>
-  baseFetcher<ProductsApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${query.toString()}`,
+export const getProducts = (search: CatalogSearchParams) => {
+  const params = new URLSearchParams();
+  (Object.keys(search) as (keyof CatalogSearchParams)[]).forEach((key) => {
+    const value = search[key];
+    if (value !== undefined) params.set(key, value);
+  });
+  return baseFetcher<ProductsApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${params.toString()}`,
   );
+};
 
 // TODO : SEO schemaları ekle
 export const getCategories = (query: URLSearchParams) =>

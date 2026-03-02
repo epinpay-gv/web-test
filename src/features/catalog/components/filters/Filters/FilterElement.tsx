@@ -1,46 +1,32 @@
 "use client";
-import { FilterElementConfig, ToggleKeyMap } from "@/features/catalog/catalog.types";
+
+import { FilterElementConfig, CatalogSearchParams } from "@/features/catalog/catalog.types";
 import { Input, CheckBox, Toggle } from "@/components/common";
-import { useCatalogFilters } from "@/features/catalog/store/catalogFilters.store";
 import { FilterSearch } from "./FilterSearch";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 
-/**
- * Backend filter key → zustand store key mapping
- */
-const mapFilterKey = (
-  key: string,
-): "category" | "region" | "platform" | null => {
-  if (key === "games") return "category";
-  if (key === "region") return "region";
-  if (key === "platform") return "platform";
-  return null;
-};
-
-const mapToggleKey = (key: string): ToggleKeyMap | null => {
-  if (key === "in-tr") return "inTr";
-  if (key === "in-stock") return "inStock";
-  return null;
-};
+interface FilterElementProps {
+  config: FilterElementConfig;
+  currentSearch: CatalogSearchParams;
+  toggleFilter: (key: keyof CatalogSearchParams, value: string) => void;
+  setPriceRange: (min?: number, max?: number) => void;
+  toggleBoolean: (key: "inTr" | "inStock") => void;
+}
 
 export default function FilterElement({
   config,
-}: {
-  config: FilterElementConfig;
-}) {
-  const filters = useCatalogFilters((s) => s.filters);
-  const toggleFilter = useCatalogFilters((s) => s.toggleFilter);
-  const setPriceRange = useCatalogFilters((s) => s.setPriceRange);
-  const toggleBoolean = useCatalogFilters((s) => s.toggleBoolean);
-
+  currentSearch,
+  toggleFilter,
+  setPriceRange,
+  toggleBoolean,
+}: FilterElementProps) {
   const [searchValue, setSearchValue] = useState("");
   const t = useTranslations("catalog");
 
   const filteredOptions = useMemo(() => {
     if (config.type !== "checkbox") return [];
     if (!searchValue.trim()) return config.options;
-
     const q = searchValue.toLowerCase();
     return config.options.filter((opt) => opt.label.toLowerCase().includes(q));
   }, [config, searchValue]);
@@ -56,26 +42,18 @@ export default function FilterElement({
       )}
 
       {/* TOGGLE */}
-      {config.type === "toggle" &&
-        (() => {
-          const mappedKey = mapToggleKey(config.key);
-          if (!mappedKey) return null;
+      {config.type === "toggle" && (
+        <div className="flex items-center justify-start gap-2">
+          <Toggle
+            size="base"
+            label={config.label}
+            checked={currentSearch[config.key as keyof CatalogSearchParams] === "true"}
+            onCheckedChange={() => toggleBoolean(config.key as "inTr" | "inStock")}
+          />
+        </div>
+      )}
 
-          const isChecked = Boolean(filters[mappedKey]);
-
-          return (
-            <div className="flex items-center justify-start gap-2">
-              <Toggle
-                size="base"
-                label={config.label}
-                checked={isChecked}
-                onCheckedChange={() => toggleBoolean(mappedKey)}
-              />
-            </div>
-          );
-        })()}
-
-      {/* RANGE (FİYAT) */}
+      {/* RANGE */}
       {config.type === "range" && (
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -90,11 +68,13 @@ export default function FilterElement({
                 wrapperClassName="flex-1"
                 rightIcon={<></>}
                 onChange={(e) =>
-                  setPriceRange(Number(e.target.value), filters.price?.max)
+                  setPriceRange(
+                    Number(e.target.value),
+                    currentSearch.maxPrice ? Number(currentSearch.maxPrice) : undefined,
+                  )
                 }
               />
             </div>
-
             <div className="flex-1">
               <label className="block text-sm font-medium mb-2">Maximum</label>
               <Input
@@ -106,7 +86,10 @@ export default function FilterElement({
                 wrapperClassName="flex-1"
                 rightIcon={<></>}
                 onChange={(e) =>
-                  setPriceRange(filters.price?.min, Number(e.target.value))
+                  setPriceRange(
+                    currentSearch.minPrice ? Number(currentSearch.minPrice) : undefined,
+                    Number(e.target.value),
+                  )
                 }
               />
             </div>
@@ -122,7 +105,6 @@ export default function FilterElement({
               {config.label}
             </label>
           )}
-
           <div
             className={`space-y-2 ${
               filteredOptions.length > 6
@@ -132,9 +114,9 @@ export default function FilterElement({
           >
             {filteredOptions.length > 0 ? (
               filteredOptions.map((opt) => {
-                const mappedKey = mapFilterKey(config.key);
-                const isChecked =
-                  mappedKey !== null && filters[mappedKey].includes(opt.value);
+                const paramValue = currentSearch[config.key as keyof CatalogSearchParams];
+                const isChecked = paramValue === opt.value;
+
                 return (
                   <div key={opt.value} className="flex items-center gap-2">
                     <CheckBox
@@ -145,16 +127,20 @@ export default function FilterElement({
                         opt.count !== undefined ? `(${opt.count})` : undefined
                       }
                       checked={isChecked}
-                      onCheckedChange={() => {
-                        if (!mappedKey) return;
-                        toggleFilter(mappedKey, opt.value);
-                      }}
+                      onCheckedChange={() =>
+                        toggleFilter(
+                          config.key as keyof CatalogSearchParams,
+                          opt.value,
+                        )
+                      }
                     />
                   </div>
                 );
               })
             ) : (
-              <div className="font-normal text-xs text-(--text-fg-danger-strong)">&quot;{searchValue}&quot; {t("filters.noResults")}</div>
+              <div className="font-normal text-xs text-(--text-fg-danger-strong)">
+                &quot;{searchValue}&quot; {t("filters.noResults")}
+              </div>
             )}
           </div>
         </div>

@@ -3,18 +3,29 @@ import Title from "@/components/common/Title/Title";
 import FilterElement from "./FilterElement";
 import { useState } from "react";
 import { ChevronRight } from "flowbite-react-icons/outline";
-import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import {
+  CatalogSearchParams,
+  FilterGroupConfig,
+} from "@/features/catalog/catalog.types";
 
 interface FilterGroupProps {
   config: FilterGroupConfig;
   activeCount?: number;
   resetFilters: () => void;
+  currentSearch: CatalogSearchParams;
+  toggleFilter: (key: keyof CatalogSearchParams, value: string) => void;
+  setPriceRange: (min?: number, max?: number) => void;
+  toggleBoolean: (key: "inTr" | "inStock") => void;
 }
 
 export default function FilterGroup({
   config,
   activeCount,
   resetFilters,
+  currentSearch,
+  toggleFilter,
+  setPriceRange,
+  toggleBoolean,
 }: FilterGroupProps) {
   const { titleData, elements } = config;
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +61,14 @@ export default function FilterGroup({
         `}
       >
         {elements.map((el) => (
-          <FilterElement key={el.key} config={el} />
+          <FilterElement
+            key={el.key}
+            config={el}
+            currentSearch={currentSearch}
+            toggleFilter={toggleFilter}
+            setPriceRange={setPriceRange}
+            toggleBoolean={toggleBoolean}
+          />
         ))}
       </div>
     </div>

@@ -15,21 +15,8 @@ export interface CategoriesPageResponse {
 }
 
 /* FILTER TYPES */
-
-export type FilterKey = "category" | "region" | "platform";
-export type ToggleBooleanKey = "inTr" | "inStock";
 export type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc";
 
-export type CatalogFilterState = {
-  category: string[];
-  region: string[];
-  platform: string[];
-  productType: string[];
-  price?: { min?: number; max?: number };
-  inTr?: boolean;
-  inStock?: boolean;
-  sort?: SortOption;
-};
 
 export type FilterElementConfig =
   | {
@@ -75,13 +62,26 @@ export interface FilterGroupConfig {
   elements: FilterElementConfig[];
 }
 
-export type ToggleKeyMap = "inTr" | "inStock";
-
 export type ActiveFilterChip = {
   key: string;
   value: string;
   label: string;
 };
+
+export interface CatalogSearchParams {
+  page?:        string;
+  limit?:       string;
+  region?:   string; // "1,2,3"
+  platform?: string;
+  type:     string;
+  category?: string;
+  genre?:    string;
+  sort?:        string;
+  minPrice?:    string;
+  maxPrice?:    string;
+  inTr?:        string;
+  inStock?:     string;
+}
 
 /* PRODUCT DETAIL TYPES */
 export interface CategoryWithProductDetail {
