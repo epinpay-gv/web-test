@@ -16,7 +16,7 @@ export default function OrderDetailClient({ order }: OrderDetailClientProps) {
       </div>
       <div className="flex flex-col">
         {order.products.map((product) => (
-          <OrderProductCard key={product.id} product={product} />
+          <OrderProductCard key={product.id} orderId={order.id} product={product} />
         ))}
       </div>
     </div>

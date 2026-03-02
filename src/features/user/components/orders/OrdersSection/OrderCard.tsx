@@ -24,55 +24,56 @@ export const OrderCard = ({ order }: OrderCardProps) => {
   }, [order.createdAt]);
 
   return (
-  
-      <div className="flex items-center justify-between rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) p-5 hover:opacity-80 transition-opacity cursor-pointer">
 
-        {/* SOL */}
-        <div className="flex flex-col gap-1">
-          <span className="text-[16px] font-semibold text-(--text-white)">
-            Sipariş numarası: {order.orderNumber}
+    <div className="flex items-center justify-between rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) p-5 hover:opacity-80 transition-opacity cursor-pointer">
+
+      {/* SOL */}
+      <div className="flex flex-col gap-1">
+        <span className="text-[16px] font-semibold text-(--text-white) ">
+          Sipariş numarası: {order.orderNumber}
+        </span>
+        <div className="flex items-center gap-2 text-sm text-(--text-body)">
+          <span className="border-r border-(--border-neutral) pr-2">
+            {order.products.length} Ürün
           </span>
-          <div className="flex items-center gap-2 text-sm text-(--text-body)">
-            <span className="border-r border-(--border-neutral) pr-1">
-              {order.products.length} Ürün
-            </span>
-            <span className="border-r border-(--border-neutral) pr-1 max-w-27.5 truncate">
-              Satıcı {order.sellerName}
-            </span>
-            <span>
-              {formattedDate} {formattedTime}
-            </span>
-          </div>
-        </div>
-
-        {/* SAĞ */}
-        <div className="flex items-center flex-1">
-
-          {/* ORTA BİLGİ */}
-          <div className="flex-1 flex justify-center">
-            <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
-              <span className="text-(--text-body)">Sipariş Durumu:</span>
-              <span className={`font-medium ${statusColor}`}>{statusLabel}</span>
-
-              <span className="text-(--text-body)">Toplam tutar:</span>
-              <span className="font-semibold">
-                {order.currency}{order.totalAmount}
-              </span>
-            </div>
-          </div>
-
-          {/* DETAY İKONU */}
-          <Link href={`/user/orders/${order.id}`}>
-            <Button
-              text="Detay gör"
-              textSize="sm"
-              variant="dark"
-              icon={<AngleRight className="w-4 h-4" />}
-            />
-          </Link>
-
+          <span className="border-r border-(--border-neutral) px-2 max-w-27.5 truncate">
+            Satıcı {order.sellerName}
+          </span>
+          <span className="pl-2">
+            {formattedDate} {formattedTime}
+          </span>
         </div>
       </div>
- 
+
+      {/* SAĞ */}
+      <div className="flex items-center gap-6">
+
+        {/* ORTA BİLGİ */}
+        <div className="flex flex-col items-end text-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-(--text-body)">Durum:</span>
+            <span className={`font-medium ${statusColor}`}>{statusLabel}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-(--text-body)">Toplam:</span>
+            <span className="font-semibold">
+              {order.currency}{order.totalAmount}
+            </span>
+          </div>
+        </div>
+
+        {/* DETAY İKONU */}
+        <Link href={`/user/orders/${order.id}`}>
+          <Button
+            text="Detay gör"
+            textSize="sm"
+            variant="dark"
+            icon={<AngleRight className="w-4 h-4" />}
+          />
+        </Link>
+
+      </div>
+    </div>
+
   );
 };

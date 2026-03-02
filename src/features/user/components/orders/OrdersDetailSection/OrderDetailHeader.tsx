@@ -39,7 +39,7 @@ export const OrderDetailHeader = ({ order }: OrderDetailHeaderProps) => {
   };
 
   return (
-    <div className="rounded-2xl bg-(--bg-neutral-primary-soft) p-5 flex flex-col gap-3">
+    <div className="rounded-2xl bg-(--bg-neutral-primary-soft) p-2 flex flex-col gap-3">
       {/* Üst Ana Alan - 3 Kolon */}
       <div className="grid grid-cols-3 items-start">
         {/* SOL: Geri + Sipariş No */}
@@ -55,7 +55,7 @@ export const OrderDetailHeader = ({ order }: OrderDetailHeaderProps) => {
           </Link>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-[16px] font-semibold text-(--text-white)">
+            <span className="text-[16px] font-semibold text-(--text-white) whitespace-nowrap">
               Sipariş numarası: {order.orderNumber}
             </span>
             <Button
