@@ -10,12 +10,14 @@ import {
   CartActionButtons,
 } from "./CardSections";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import {
   AddToFavoritesPayload,
   AddToCartPayload,
   NotifyWhenAvailablePayload,
   ChangeQuantityPayload,
 } from "@/features/catalog/catalog.types";
+
 interface ProductCardProps {
   product: Product;
   orientation?: ProductCardOrientation;
@@ -24,13 +26,14 @@ interface ProductCardProps {
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
+  isReadOnly?: boolean;
 }
 
 const sizeClasses = {
   vertical: "w-42.5 h-79 md:w-56 md:h-92.5",
   horizontal: {
     default: "w-87 h-39.5 md:w-155.5",
-    cart: "w-87 md:w-141.5 h-27.5",
+    cart: "w-full h-27.5",
   },
 };
 
@@ -42,6 +45,7 @@ export default function ProductCard({
   notifyWhenAvailable,
   addToFavorites,
   changeQuantity,
+  isReadOnly,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
 
@@ -51,16 +55,15 @@ export default function ProductCard({
       : sizeClasses.horizontal.default
     : sizeClasses.vertical;
 
-  const cardContentSizeClass = isHorizontal
-    ? "flex-1 flex flex-col items-start"
-    : "flex flex-col justify-between";
+  const cardClasses = cn(
+    "gap-1 flex transition-transform duration-200",
+    !isInCart ? "hover:scale-102 card-container p-3" : "cart-card-container",
+    isHorizontal ? "flex-row gap-4" : "flex-col justify-start",
+    cardSizeClass,
+  );
 
-  return (
-    <Link
-      className={`gap-1 flex ${isInCart ? "cart-card-container" : "card-container p-3"} ${isHorizontal ? "flex-row gap-4" : "flex-col justify-start"} ${cardSizeClass}`}
-      href={`${product.translation.category_slug}/${product.translation.slug}`}
-    >
-      {/* Image Section */}
+  const content = (
+    <>
       <ImageSection
         product={product}
         isHorizontal={isHorizontal}
@@ -68,8 +71,14 @@ export default function ProductCard({
         addToFavorites={addToFavorites}
       />
 
-      {/* Content Section */}
-      <div className={`space-y-1 md:space-y-2 ${cardContentSizeClass}`}>
+      <div
+        className={cn(
+          "space-y-1 w-full flex justify-between md:space-y-2",
+          isHorizontal
+            ? "flex-1 flex flex-col items-start justify-between"
+            : "flex flex-col justify-between",
+        )}
+      >
         <ProductInfo product={product} isHorizontal={isHorizontal} />
 
         {!isInCart &&
@@ -90,15 +99,35 @@ export default function ProductCard({
           ))}
 
         {isInCart && (
-          <div className="flex">
-            <CartActionButtons
-              product={product}
-              changeQuantity={changeQuantity}
-            />
+          <div
+            className={
+              !isReadOnly
+                ? "flex w-full justify-between items-center"
+                : "w-full flex justify-end"
+            }
+          >
+            {!isReadOnly && (
+              <CartActionButtons
+                product={product}
+                changeQuantity={changeQuantity}
+              />
+            )}
             <PriceSection product={product} />
           </div>
         )}
       </div>
+    </>
+  );
+
+  if (isInCart) {
+    return <div className={cardClasses}>{content}</div>;
+  }
+
+  const productHref = `/${product.translation.category_slug}/${product.translation.slug}`;
+
+  return (
+    <Link href={productHref} className={cardClasses}>
+      {content}
     </Link>
   );
 }

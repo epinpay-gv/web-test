@@ -51,7 +51,7 @@ export function Modal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4">
+    <div className="fixed inset-0 flex items-center justify-center z-20! p-4 bg-(--bg-overlay)">
       <div
         className={`
           w-full

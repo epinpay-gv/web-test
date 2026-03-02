@@ -1,6 +1,6 @@
 {
   "header": {
-    "searchPlaceholder": "Search",
+    "searchPlaceholder": "Ara",
     "searchFound": "sonuç bulunlan",
     "searchNotFound": "için sonuç bulunamadı",
     "language": "Sistem Dili",
@@ -43,8 +43,13 @@
     "paymentMethods": "ödeme yöntemi",
     "disclaimer": "epinpay.com platformunu kullanmak, Hüküm ve Koşullarını kabul etmek anlamına gelir. Kişisel verilerinizi nasıl işlediğimizle ilgili bilgiler Gizlilik Sözleşmesinde bulunabilir. Telif hakkı © Epinpay Team. Tüm hakları saklıdır."
   },
-  "nav": {
+  "navmenu": {
     "games": "Oyunlar",
-    "viewAll": "Tümünü incele"
+    "stramers": "Yayıncılar",
+    "raffles": "Çekilişler",
+    "epgames": "EP Oyunları"
+  },
+  "gamesMegaMenu": {
+    
   }
 }

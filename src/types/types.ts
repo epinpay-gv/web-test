@@ -50,7 +50,7 @@ export interface Product {
   platform_id: number;
   type_id: number;
   status: PRODUCT_STATUS;
-
+  quantity?: number;
   region: string;
   platform: string;
   platform_icon: string;
@@ -96,6 +96,7 @@ export interface ProductRegion {
 export interface ProductPlatform {
   id: number;
   translation: Translation;
+  icon: string;
 }
 
 export interface ProductType {

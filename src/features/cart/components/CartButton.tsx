@@ -2,11 +2,12 @@
 import { useCartStore } from "../store/cart.store";
 import { Cart } from "flowbite-react-icons/outline";
 import { Button } from "@/components/common";
+import { useRouter } from "next/navigation";
 
 export function CartButton() {
   const items = useCartStore((state) => state.items);
   const itemCount = items.reduce((total, item) => total + item.quantity, 0);
-
+  const router = useRouter()
   return (
     <div className="relative inline-flex">
       <Button
@@ -16,7 +17,8 @@ export function CartButton() {
         appearance="filled"
         padding="sm"
         className="border-none! focus:ring-0"
-        icon={<Cart className="lg:w-7 lg:h-7 w-6 h-6 transition-colors" />}
+        icon={<Cart className="md:w-5 md:h-5 w-4 h-4 transition-colors" />}
+        onClick={() => router.push("/checkout")}
       />
       {/* <IconShape 
         icon={Cart} 
