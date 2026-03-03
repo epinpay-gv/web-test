@@ -35,10 +35,23 @@ export const getCategories = (query: URLSearchParams) =>
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/categories?${query.toString()}`,
   );
 
-export const getCategory = (query: URLSearchParams, category: string) =>
-  baseFetcher<CategoryApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}?${query.toString()}`,
+export const getCategory = (
+  search: Record<string, string | string[] | undefined>,
+  category: string,
+) => {
+  const params = new URLSearchParams();
+  Object.entries(search).forEach(([key, value]) => {
+    if (!value) return;
+    if (Array.isArray(value)) {
+      value.forEach((v) => params.append(key, v));
+    } else {
+      params.set(key, value);
+    }
+  });
+  return baseFetcher<CategoryApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}?${params.toString()}`,
   );
+};
 
 export const getProduct = (
   query: string = "",

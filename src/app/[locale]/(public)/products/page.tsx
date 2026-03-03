@@ -21,9 +21,9 @@ export async function generateMetadata({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
-  const resolvedSearch = await searchParams;
+  const search = await searchParams;
 
-  const res = await getProducts(resolvedSearch);
+  const res = await getProducts(search);
   
   const metadata = res.metadata.find((m) => m.pageId === 2) || {
     title: "Ürünler",

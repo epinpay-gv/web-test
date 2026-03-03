@@ -15,23 +15,17 @@ import {
 } from "@/features/catalog/utils";
 import { Suspense } from "react";
 
-type Params = {
-  locale: string;
-  category: string;
-};
-
-type Props = {
-  params: Promise<Params>;
-  searchParams: Promise<{ productType?: string }>;
-};
-
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
-  params: Promise<Params>;
+  params: Promise<{ locale: string; category: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale, category } = await params;
-  const res = await getCategory(new URLSearchParams(), category);
+  const search = await searchParams;
+
+  const res = await getCategory(search, category);
 
   return createSeo({
     title: res.category.translation.metaTitle,
@@ -41,17 +35,26 @@ export async function generateMetadata({
   });
 }
 
-export default async function CategoryPage({ params, searchParams }: Props) {
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string; category: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { locale, category } = await params;
-  const { productType } = await searchParams;
+  const search = await searchParams;
 
   const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
-  const res = await getCategory(new URLSearchParams(), category);
+  const res = await getCategory(search, category);
+
+  // BREADCRUMB DATA
+  const typeValue = Array.isArray(search.type) ? search.type[0] : search.type;
 
   const selectedProductType = extractSelectedFilterOption(
     res.filters,
     "productType",
-    productType,
+    typeValue,
   );
 
   const breadcrumbItems = createCategoryBreadcrumb(
@@ -61,6 +64,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     selectedProductType,
   );
 
+  //SEO ITEMS
   const seoCollectionItems = res.data.slice(0, 4).map((product, index) => ({
     "@type": "ListItem",
     position: index + 1,

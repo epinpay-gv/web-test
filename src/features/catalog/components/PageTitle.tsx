@@ -59,6 +59,7 @@ export default function PageTitle({
           items={dropdownItems}
           onSelect={onSortSelect}
           icon={<Sort size={16} className="text-(--text-body)" />}
+          align="right"
         />
       </div>
     </div>

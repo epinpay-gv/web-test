@@ -73,6 +73,7 @@ export async function GET(
           locale: item.translation.locale,
           name: item.platform,
         },
+        icon: ""
       });
     }
   }

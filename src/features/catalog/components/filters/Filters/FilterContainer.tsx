@@ -71,6 +71,7 @@ export default function Filters({
             items={dropdownItems}
             onSelect={onSortSelect}
             icon={<Sort size={16} className="text-(--text-body)" />}
+            isCatalogPage={true}
           />
         </div>
         <BottomSheet
