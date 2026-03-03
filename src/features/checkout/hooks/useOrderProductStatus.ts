@@ -8,8 +8,8 @@ export function useOrderProductStatus(orderId: string, product: OrderProduct) {
   const [copied, setCopied] = useState(false);
   const [codeVisible, setCodeVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [localProduct, setLocalProduct] = useState(product);
+  const [localProduct] = useState(product);
+  const [topUpSelection, setTopUpSelection] = useState<null | "confirmed" | "disputed">(null);
 
   const maskedCode = localProduct.code ? localProduct.code.replace(/[^\s]/g, "*") : "";
 
@@ -20,83 +20,31 @@ export function useOrderProductStatus(orderId: string, product: OrderProduct) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleViewEpin = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const res = await baseFetcher<{ epins: string[]; already_viewed: boolean }>(
-        `${process.env.NEXT_PUBLIC_API_URL}/order/${orderId}/items/${localProduct.id}/view-epin`,
-        { method: "POST" }
-      );
-      if (res.epins && res.epins.length > 0) {
-        setLocalProduct((prev) => ({
-          ...prev,
-          code: res.epins.join(", "),
-          status: "COMPLETED",
-        }));
-        setCodeVisible(true);
-      }
-    } catch (err) {
-      setError("EPIN kodu alınamadı.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+  // UI önce güncellenir, ardından arka planda API çağrısı yapılır.
+  const handleConfirm = () => {
+    setTopUpSelection("confirmed");
+    baseFetcher(
+      `${process.env.NEXT_PUBLIC_API_URL}/order/${orderId}/items/${localProduct.id}/confirm`,
+      { method: "POST" }
+    ).catch((err) => console.error("confirm error:", err));
   };
 
-  const handleConfirm = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await baseFetcher(
-        `${process.env.NEXT_PUBLIC_API_URL}/order/${orderId}/items/${localProduct.id}/confirm`,
-        { method: "POST" }
-      );
-      setLocalProduct((prev) => ({ ...prev, status: "COMPLETED" }));
-    } catch (err) {
-      setError("Onay işlemi başarısız oldu.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleDispute = (reason?: string) => {
+    setTopUpSelection("disputed");
+    baseFetcher(
+      `${process.env.NEXT_PUBLIC_API_URL}/order/${orderId}/items/${localProduct.id}/dispute`,
+      { method: "POST", body: JSON.stringify({ reason }) }
+    ).catch((err) => console.error("dispute error:", err));
   };
-
-  const handleDispute = async (reason?: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await baseFetcher(
-        `${process.env.NEXT_PUBLIC_API_URL}/order/${orderId}/items/${localProduct.id}/dispute`,
-        {
-          method: "POST",
-          body: JSON.stringify({ reason })
-        }
-      );
-      setLocalProduct((prev) => ({ ...prev, status: "DISPUTED" }));
-    } catch (err) {
-      setError("İtiraz işlemi başarısız oldu.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const showViewEpinButton =
-    (localProduct.itemType === "NORMAL" || localProduct.itemType === "DROPSHIPPING") &&
-    localProduct.status === "EPIN_READY";
 
   const showCodeBox =
-    localProduct.status === "COMPLETED" &&
     (localProduct.itemType === "NORMAL" || localProduct.itemType === "DROPSHIPPING") &&
+    localProduct.status === "COMPLETED" &&
     !!localProduct.code;
 
   const showTopUpActions =
     localProduct.itemType === "TOP_UP" &&
-    localProduct.status === "DELIVERED";
-
-  const showWaitingMessage =
-    (localProduct.itemType === "DROPSHIPPING" || localProduct.itemType === "TOP_UP") &&
-    localProduct.status === "AWAITING_DELIVERY";
+    (localProduct.status === "DELIVERED" || topUpSelection !== null);
 
   return {
     product: localProduct,
@@ -104,15 +52,12 @@ export function useOrderProductStatus(orderId: string, product: OrderProduct) {
     codeVisible,
     setCodeVisible,
     isLoading,
-    error,
     maskedCode,
+    topUpSelection,
     handleCopyCode,
-    handleViewEpin,
     handleConfirm,
     handleDispute,
-    showViewEpinButton,
     showCodeBox,
     showTopUpActions,
-    showWaitingMessage,
   };
 }

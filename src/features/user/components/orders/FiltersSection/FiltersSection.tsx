@@ -1,29 +1,34 @@
+"use client";
+
 import { useRef } from "react";
 import OrderSearch from "./OrdersSearch";
 import Badge from "@/components/common/Badges/Badge";
-import { ORDER_STATUS_TABS, OrderStatus, ORDER_STATUS_LABELS } from "@/features/user/user.types";
+import {
+  ORDER_STATUS_TABS,
+  ORDER_STATUS_TAB_LABELS,
+  OrderStatusTab,
+} from "@/features/user/user.types";
 import { CalendarWeek } from "flowbite-react-icons/outline";
 import { Button } from "@/components/common";
 
 interface FiltersSectionProps {
   search: string;
   onSearchChange: (value: string) => void;
-  selectedStatus: "ALL" | OrderStatus;
-  onStatusChange: (status: "ALL" | OrderStatus) => void;
+  selectedStatus: OrderStatusTab;
+  onStatusChange: (status: OrderStatusTab) => void;
   selectedDate?: string;
   onDateChange: (date?: string) => void;
   totalCount?: number;
-  isLoading?: boolean;
 }
 
 export default function FiltersSection({
   search,
   onSearchChange,
+  selectedStatus,
   onStatusChange,
   selectedDate,
   totalCount,
   onDateChange,
-  isLoading,
 }: FiltersSectionProps) {
   const dateInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,24 +43,20 @@ export default function FiltersSection({
         )}
 
         <div className="flex items-center gap-2 ml-auto">
-          <OrderSearch
-            value={search}
-            onChange={onSearchChange}
-            disabled={isLoading}
-          />
+          <OrderSearch value={search} onChange={onSearchChange} />
 
           {/* Tarih seçici: input ref ile tetiklenir */}
           <div className="relative">
-           <Button
-  type="button"
-  aria-label="Tarih filtrele"
-  onClick={() => dateInputRef.current?.showPicker?.()}
-  size="base"
-  variant="secondary"
-  appearance="outline"
-  padding="rounded"
-  icon={<CalendarWeek className="w-4 h-4" />}
-/>
+            <Button
+              type="button"
+              aria-label="Tarih filtrele"
+              onClick={() => dateInputRef.current?.showPicker?.()}
+              size="base"
+              variant="secondary"
+              appearance="outline"
+              padding="rounded"
+              icon={<CalendarWeek className="w-4 h-4" />}
+            />
             <input
               ref={dateInputRef}
               type="date"
@@ -70,26 +71,22 @@ export default function FiltersSection({
 
       {/* Alt satır: statü sekmeleri */}
       <div className="flex items-center gap-2">
-        {ORDER_STATUS_TABS.map((status) => {
-          const label = status === "ALL" ? "Tümü" : ORDER_STATUS_LABELS[status as OrderStatus];
-
-          return (
-            <button
-              key={status}
-              type="button"
-              onClick={() => onStatusChange(status)}
-              className="focus:outline-none"
-            >
-              <Badge
-                text={label}
-                size="sm"
-                theme="white"
-                type="pill"
-                className="rounded-sm"
-              />
-            </button>
-          );
-        })}
+        {ORDER_STATUS_TABS.map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => onStatusChange(tab)}
+            className="focus:outline-none"
+          >
+            <Badge
+              text={ORDER_STATUS_TAB_LABELS[tab]}
+              size="sm"
+              theme={selectedStatus === tab ? "brand" : "white"}
+              type="pill"
+              className="rounded-sm"
+            />
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -4,90 +4,50 @@ import { Pagination, Button } from "@/components/common";
 import StatusState from "@/components/common/StatusState/StatusState";
 import { Modal } from "@/components/common/Modal/Modal";
 import { FiltersSection, OrdersSection } from "@/features/user/components/orders";
-import { Order, OrderStatus } from "@/features/user/user.types";
+import { Order, OrderStatusTab } from "@/features/user/user.types";
 import { PaginationData } from "@/types/types";
-import { useEffect, useRef, useState } from "react";
-import { getOrders } from "@/features/user/service";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useCallback } from "react";
 
 type ErrorType = "load" | "access_denied" | "view" | null;
-
-interface Filters {
-  search: string;
-  date?: string;
-  status: "ALL" | OrderStatus;
-  page: number;
-}
 
 interface OrdersClientProps {
   data: Order[];
   pagination: PaginationData;
+  hasAnyOrders: boolean;
+  error?: ErrorType;
 }
 
-const DEFAULT_FILTERS: Filters = {
-  search: "",
-  date: undefined,
-  status: "ALL",
-  page: 1,
-};
-
-export default function OrdersClient({ data, pagination }: OrdersClientProps) {
+export default function OrdersClient({ data, pagination, hasAnyOrders, error }: OrdersClientProps) {
   const router = useRouter();
-  const [orders, setOrders] = useState<Order[]>(data);
-  const [paginationState, setPaginationState] = useState<PaginationData>(pagination);
-  const [filters, setFilters] = useState<Filters>({
-    ...DEFAULT_FILTERS,
-    page: pagination.current_page ?? 1,
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ErrorType>(null);
-  const isFirstRender = useRef(true)
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
+  const search = searchParams.get("search") ?? "";
+  const status = (searchParams.get("status") ?? "ALL") as OrderStatusTab;
+  const date = searchParams.get("date") ?? undefined;
 
-  const hasInitialOrders = data.length > 0;
-  const hasResults = orders.length > 0;
+  const hasResults = data.length > 0;
+  const isFiltered = !!(search.trim() || date || status !== "ALL");
 
-  const updateFilter = (patch: Partial<Omit<Filters, "page">>) => {
-    setFilters((prev) => ({ ...prev, ...patch, page: 1 }));
-  };
+  const updateQuery = useCallback(
+    (patch: Record<string, string | undefined>) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-  const resolveError = (status?: number): ErrorType => {
-    if (status === 401 || status === 403) return "access_denied";
-    if ((status ?? 0) >= 500) return "view";
-    return "load";
-  };
-
-  useEffect(() => {
-     if (isFirstRender.current) { 
-      isFirstRender.current = false;
-      return;
-    }
-    const fetchOrders = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      const params = new URLSearchParams({
-        page: String(filters.page),
-        perPage: String(paginationState.per_page),
-        ...(filters.search.trim() && { search: filters.search.trim() }),
-        ...(filters.date && { date: filters.date }),
-        ...(filters.status !== "ALL" && { status: filters.status }),
+      Object.entries(patch).forEach(([key, value]) => {
+        if (value === undefined || value === "" || value === "ALL") {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
       });
 
-      try {
-        const res = await getOrders(params);
-        setOrders(res.data);
-        setPaginationState(res.pagination);
-      } catch (err: unknown) {
-        const status = (err as { status?: number })?.status;
-        setError(resolveError(status));
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      if (!("page" in patch)) params.set("page", "1");
 
-    fetchOrders();
-  }, [filters, paginationState.per_page]);
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [searchParams, pathname, router]
+  );
 
   return (
     <div>
@@ -96,15 +56,14 @@ export default function OrdersClient({ data, pagination }: OrdersClientProps) {
         title="Siparişler Yüklemedi"
         confirmText="Sayfayı Yenile"
         onConfirm={() => router.refresh()}
-        onClose={() => setError(null)}
+        onClose={() => router.refresh()}
       />
-
       <Modal
         open={error === "access_denied"}
         title="Bu siparişe erişiminiz yok"
         confirmText="Ana sayfaya dön"
         onConfirm={() => router.push("/")}
-        onClose={() => setError(null)}
+        onClose={() => router.push("/")}
       />
 
       {error === "view" && (
@@ -123,46 +82,7 @@ export default function OrdersClient({ data, pagination }: OrdersClientProps) {
 
       {!error && (
         <>
-          {hasInitialOrders && (
-            <>
-              <FiltersSection
-                search={filters.search}
-                onSearchChange={(value) => updateFilter({ search: value })}
-                selectedStatus={filters.status}
-                onStatusChange={(status) => updateFilter({ status })}
-                selectedDate={filters.date}
-                totalCount={paginationState.count}
-                onDateChange={(date) => updateFilter({ date })}
-                isLoading={isLoading}
-              />
-
-              {hasResults ? (
-                <>
-                  <OrdersSection orders={orders} />
-                  <Pagination
-                    pagination={paginationState}
-                    onPageChange={(page) => {
-                      setFilters((prev) => ({ ...prev, page }));
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                  />
-                </>
-              ) : (
-                !isLoading && (
-                  <StatusState
-                    image="/image/orders/empty-orders.png"
-                    description={
-                      filters.search.trim()
-                        ? `"${filters.search.trim()}" aramasına ait sonuç bulunamadı.`
-                        : "Henüz bir sipariş bulunamamaktadır."
-                    }
-                  />
-                )
-              )}
-            </>
-          )}
-
-          {!hasInitialOrders && !isLoading && (
+          {!hasAnyOrders && (
             <StatusState
               image="/image/orders/empty-orders.png"
               title="Sipariş Yok."
@@ -171,6 +91,44 @@ export default function OrdersClient({ data, pagination }: OrdersClientProps) {
                 <Button text="Ana Sayfaya Git" variant="secondary" padding="sm" size="base" textSize="sm" onClick={() => router.push("/")} />
               }
             />
+          )}
+
+          {hasAnyOrders && (
+            <>
+              <FiltersSection
+                search={search}
+                onSearchChange={(value) => updateQuery({ search: value })}
+                selectedStatus={status}
+                onStatusChange={(s) => updateQuery({ status: s })}
+                selectedDate={date}
+                totalCount={pagination.count}
+                onDateChange={(d) => updateQuery({ date: d })}
+              />
+
+              {hasResults ? (
+                <>
+                  <OrdersSection orders={data} />
+                  <Pagination
+                    pagination={pagination}
+                    onPageChange={(p) => {
+                      updateQuery({ page: String(p) });
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  />
+                </>
+              ) : (
+                <StatusState
+                  image="/image/orders/empty-orders.png"
+                  description={
+                    search.trim()
+                      ? `"${search.trim()}" aramasına ait sonuç bulunamadı.`
+                      : isFiltered
+                      ? "Seçilen filtrelere ait sipariş bulunamadı."
+                      : "Henüz bir sipariş bulunamamaktadır."
+                  }
+                />
+              )}
+            </>
           )}
         </>
       )}

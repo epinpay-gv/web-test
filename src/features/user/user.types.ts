@@ -18,8 +18,7 @@
 
 import { PaginationData } from "@/types/types";
 
-
-export type UserRole = "USER"
+export type UserRole = "USER";
 
 export interface User {
   id: string;
@@ -39,13 +38,21 @@ export interface GetMeResponse {
   data: User;
 }
 
-
 export interface OrdersPageApiResponse {
   data: Order[];
   pagination: PaginationData;
 }
 
-export type OrderStatus = "PENDING_PAYMENT" | "PAYMENT_SUCCESS" | "COMPLETED" | "CANCELLED" | "TIMEOUT" | "PAYMENT_FAILED";
+export type OrderStatus =
+  | "PENDING_PAYMENT"
+  | "PAYMENT_SUCCESS"
+  | "COMPLETED"
+  | "CANCELLED"
+  | "TIMEOUT"
+  | "PAYMENT_FAILED";
+
+export type ItemType = "NORMAL" | "DROPSHIPPING" | "TOP_UP";
+
 export type OrderItemStatus =
   | "PENDING_PAYMENT"
   | "PAID"
@@ -53,11 +60,12 @@ export type OrderItemStatus =
   | "AWAITING_DELIVERY"
   | "DELIVERED"
   | "COMPLETED"
-  | "DISPUTED";
+  | "DISPUTED"
+  | "TIMEOUT"
+  | "CANCELLED";
 
 export type InvoiceStatus = "NONE" | "REQUESTED" | "APPROVED";
 export type ProductCategory = "DIGITAL_KEY" | "GIFT_CARD" | "TOP_UP";
-export type ItemType = "NORMAL" | "DROPSHIPPING" | "TOP_UP";
 
 export interface OrderProduct {
   id: string;
@@ -76,7 +84,7 @@ export interface OrderProduct {
   requiresActivation?: boolean;
   deliveryDeadline?: string;
   viewedAt?: string;
-  storeCode?: string; // Still useful for some internal checks if needed
+  storeCode?: string;
 }
 
 export interface Order {
@@ -96,46 +104,53 @@ const STATUS_COLORS = {
   SUCCESS: "text-(--text-fg-success-strong)",
   WARNING: "text-(--text-fg-warning)",
   DANGER: "text-(--text-fg-danger-strong)",
-  NEUTRAL: "text-(--text-body)",
 } as const;
 
-export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
-  PENDING_PAYMENT: "Ödeme Bekleniyor",
-  PAYMENT_SUCCESS: "Ödeme Başarılı",
+// ─── Sipariş Listesi ──────────────────────────────────────────────────────────
+
+export type OrderDisplayStatus = "COMPLETED" | "CANCELLED" | "PENDING";
+
+export function getOrderDisplayStatus(status: OrderStatus): OrderDisplayStatus {
+  if (status === "COMPLETED") return "COMPLETED";
+  if (status === "CANCELLED" || status === "TIMEOUT" || status === "PAYMENT_FAILED") return "CANCELLED";
+  return "PENDING";
+}
+
+export const ORDER_DISPLAY_LABELS: Record<OrderDisplayStatus, string> = {
   COMPLETED: "Tamamlandı",
   CANCELLED: "İptal Edildi",
-  TIMEOUT: "Zaman Aşımı",
-  PAYMENT_FAILED: "Ödeme Başarısız",
+  PENDING: "Beklemede",
 };
 
-export const ORDER_STATUS_COLORS: Record<OrderStatus, string> = {
-  PENDING_PAYMENT: STATUS_COLORS.WARNING,
-  PAYMENT_SUCCESS: STATUS_COLORS.SUCCESS,
+export const ORDER_DISPLAY_COLORS: Record<OrderDisplayStatus, string> = {
   COMPLETED: STATUS_COLORS.SUCCESS,
   CANCELLED: STATUS_COLORS.DANGER,
-  TIMEOUT: STATUS_COLORS.DANGER,
-  PAYMENT_FAILED: STATUS_COLORS.DANGER,
+  PENDING: STATUS_COLORS.WARNING,
 };
 
-export const ITEM_STATUS_LABELS: Record<OrderItemStatus, string> = {
-  PENDING_PAYMENT: "Ödeme Bekleniyor",
-  PAID: "Ödendi",
-  EPIN_READY: "EPIN Hazır",
-  AWAITING_DELIVERY: "Teslimat Bekleniyor",
+
+
+export type ItemDisplayStatus = "DELIVERED" | "CANCELLED" | "PENDING";
+
+export function getItemDisplayStatus(status: OrderItemStatus): ItemDisplayStatus {
+  if (status === "COMPLETED" || status === "DISPUTED") return "DELIVERED";
+  if (status === "CANCELLED" || status === "TIMEOUT") return "CANCELLED";
+  return "PENDING";
+}
+
+export const ITEM_DISPLAY_LABELS: Record<ItemDisplayStatus, string> = {
   DELIVERED: "Teslim Edildi",
-  COMPLETED: "Tamamlandı",
-  DISPUTED: "İtiraz Edildi",
+  CANCELLED: "İptal Edildi",
+  PENDING: "Beklemede",
 };
 
-export const ITEM_STATUS_COLORS: Record<OrderItemStatus, string> = {
-  PENDING_PAYMENT: STATUS_COLORS.WARNING,
-  PAID: STATUS_COLORS.SUCCESS,
-  EPIN_READY: STATUS_COLORS.SUCCESS,
-  AWAITING_DELIVERY: STATUS_COLORS.WARNING,
+export const ITEM_DISPLAY_COLORS: Record<ItemDisplayStatus, string> = {
   DELIVERED: STATUS_COLORS.SUCCESS,
-  COMPLETED: STATUS_COLORS.SUCCESS,
-  DISPUTED: STATUS_COLORS.DANGER,
+  CANCELLED: STATUS_COLORS.DANGER,
+  PENDING: STATUS_COLORS.WARNING,
 };
+
+
 
 export const INVOICE_STATUS_LABELS: Record<InvoiceStatus, string> = {
   NONE: "Fatura Yok",
@@ -149,9 +164,26 @@ export const PRODUCT_CATEGORY_LABELS: Record<ProductCategory, string> = {
   TOP_UP: "Top-up",
 };
 
-export const ORDER_STATUS_TABS: ("ALL" | OrderStatus)[] = [
+
+export type OrderStatusTab = "ALL" | "COMPLETED" | "PENDING" | "CANCELLED";
+
+export const ORDER_STATUS_TABS: OrderStatusTab[] = [
   "ALL",
   "COMPLETED",
-  "PENDING_PAYMENT",
+  "PENDING",
   "CANCELLED",
 ];
+
+export const ORDER_STATUS_TAB_LABELS: Record<OrderStatusTab, string> = {
+  ALL: "Tümü",
+  COMPLETED: "Tamamlanan",
+  PENDING: "Bekleyen",
+  CANCELLED: "İptal Edilen",
+};
+
+
+export function resolveStatusParams(tab: OrderStatusTab): string[] {
+  if (tab === "PENDING") return ["PENDING_PAYMENT", "PAYMENT_SUCCESS"];
+  if (tab === "ALL") return [];
+  return [tab];
+}

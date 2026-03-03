@@ -7,33 +7,26 @@ import { Input } from "@/components/common";
 interface OrderSearchProps {
   value: string;
   onChange: (value: string) => void;
-  disabled?: boolean;
   debounceMs?: number;
 }
 
 export default function OrderSearch({
   value,
   onChange,
-  disabled,
   debounceMs = 400,
 }: OrderSearchProps) {
   const [localValue, setLocalValue] = useState(value);
 
-  // Dışarıdan value sıfırlandığında (örn. filtre temizleme) sync et
   useEffect(() => {
-    if (value === "" && localValue !== "") {
-      setLocalValue("");
-    }
+    setLocalValue(value);
   }, [value]);
 
-  // Debounce: localValue değişince parent'a geciktirerek ilet
+  // Debounce: kullanıcı yazmayı bırakınca parent'a ilet
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onChange(localValue);
-    }, debounceMs);
-
+    if (localValue === value) return;
+    const timer = setTimeout(() => onChange(localValue), debounceMs);
     return () => clearTimeout(timer);
-  }, [localValue, debounceMs]);
+  }, [localValue]);
 
   return (
     <div className="w-[240px] h-[40px]">
@@ -48,7 +41,6 @@ export default function OrderSearch({
           onChange("");
         }}
         onChange={(e) => setLocalValue(e.target.value)}
-        disabled={disabled}
       />
     </div>
   );

@@ -3,9 +3,10 @@
 import Image from "next/image";
 import {
   OrderProduct,
-  ITEM_STATUS_LABELS,
-  ITEM_STATUS_COLORS,
   PRODUCT_CATEGORY_LABELS,
+  getItemDisplayStatus,
+  ITEM_DISPLAY_LABELS,
+  ITEM_DISPLAY_COLORS,
 } from "@/features/user/user.types";
 import { Button } from "@/components/common";
 import { Copy, Check, Eye, EyeOff, Loader2 } from "lucide-react";
@@ -23,20 +24,20 @@ export const OrderProductCard = ({ orderId, product: initialProduct }: OrderProd
     codeVisible,
     setCodeVisible,
     isLoading,
-    error,
     maskedCode,
+    topUpSelection,
     handleCopyCode,
-    handleViewEpin,
     handleConfirm,
     handleDispute,
-    showViewEpinButton,
     showCodeBox,
     showTopUpActions,
-    showWaitingMessage,
   } = useOrderProductStatus(orderId, initialProduct);
 
-  const statusLabel = ITEM_STATUS_LABELS[product.status];
-  const statusColor = ITEM_STATUS_COLORS[product.status];
+  const displayStatus = getItemDisplayStatus(product.status);
+  const statusLabel = ITEM_DISPLAY_LABELS[displayStatus];
+  const statusColor = ITEM_DISPLAY_COLORS[displayStatus];
+
+  const hasCustomAction = showCodeBox || showTopUpActions;
 
   return (
     <div className="bg-(--bg-neutral-primary-soft) p-4 border-b flex items-center gap-4">
@@ -90,36 +91,21 @@ export const OrderProductCard = ({ orderId, product: initialProduct }: OrderProd
 
       {/* Sağ Aksiyon Alanı */}
       <div className="flex flex-col items-end gap-2 flex-shrink-0 min-w-[200px]">
-        {error && <span className="text-xs text-(--text-fg-danger-strong)">{error}</span>}
-
         {isLoading ? (
-          <div className="flex items-center gap-2 text-xs text-(--text-body)">
-            <Loader2 className="w-4 h-4 animate-spin" />
-            İşleniyor...
-          </div>
-        ) : (
+          <Loader2 className="w-4 h-4 animate-spin text-(--text-body)" />
+        ) : hasCustomAction ? (
           <>
-            {/* View EPIN Button */}
-            {showViewEpinButton && (
-              <Button
-                text="EPIN Kodu Görüntüle"
-                variant="dark"
-                padding="sm"
-                textSize="xs"
-                onClick={handleViewEpin}
-              />
-            )}
-
             {/* TOP_UP Actions (Confirm/Dispute) */}
             {showTopUpActions && (
-              <div className="flex flex-col gap-2 items-end">
-                <span className="text-xs text-(--text-body)">Ürünü teslim aldınız mı?</span>
+              <div className="flex flex-col gap-2 items-end border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
+                <span className="text-(--text-body) text-sm">Ürünü teslim aldınız mı?</span>
                 <div className="flex items-center gap-2">
                   <Button
                     text="Teslim Aldım"
                     textSize="xs"
                     variant="success"
                     onClick={handleConfirm}
+                    disabled={topUpSelection === "disputed"}
                     className="rounded-2xl"
                   />
                   <Button
@@ -127,17 +113,25 @@ export const OrderProductCard = ({ orderId, product: initialProduct }: OrderProd
                     textSize="xs"
                     variant="warning"
                     onClick={() => handleDispute()}
+                    disabled={topUpSelection === "confirmed"}
                     className="whitespace-nowrap rounded-2xl"
                   />
                 </div>
+                {topUpSelection === "disputed" ? (
+                  <button
+                    type="button"
+                    onClick={() => {/* TODO: sorun bildir modalını aç */}}
+                    className="text-xs text-(--text-fg-brand) hover:opacity-80 transition-opacity"
+                  >
+                    sorun bildir
+                  </button>
+                ) : (
+                  <span className="text-xs text-(--text-body)">
+                    Nasıl kullanırım?{" "}
+                    <span className="text-(--text-fg-brand)">incele</span>
+                  </span>
+                )}
               </div>
-            )}
-
-            {/* Waiting Message */}
-            {showWaitingMessage && (
-              <span className="text-xs text-(--text-fg-warning) text-right">
-                Teslimat Bekleniyor<br />(Tahmini 24 saat içinde)
-              </span>
             )}
 
             {/* EPIN Code Box */}
@@ -179,37 +173,11 @@ export const OrderProductCard = ({ orderId, product: initialProduct }: OrderProd
                     onClick={() => setCodeVisible((v) => !v)}
                   />
                 </div>
-                <HowToUse url={product.howToUseUrl} />
               </div>
             )}
           </>
-        )}
+        ) : null}
       </div>
     </div>
   );
 };
-
-function HowToUse({ url }: { url?: string }) {
-  const inner = (
-    <>
-      Nasıl kullanırım? <span className="text-(--text-fg-brand)">incele</span>
-    </>
-  );
-
-  if (url && url !== "#") {
-    return (
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-xs text-(--text-body) hover:opacity-80 transition-opacity"
-      >
-        {inner}
-      </a>
-    );
-  }
-
-  return (
-    <span className="text-xs text-(--text-body) cursor-pointer">{inner}</span>
-  );
-}

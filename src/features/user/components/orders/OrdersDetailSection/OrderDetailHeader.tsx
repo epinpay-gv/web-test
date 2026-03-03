@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react";
 import {
   Order,
-  ORDER_STATUS_LABELS,
-  ORDER_STATUS_COLORS,
+  getOrderDisplayStatus,
+  ORDER_DISPLAY_LABELS,
+  ORDER_DISPLAY_COLORS,
 } from "@/features/user/user.types";
 import { Button } from "@/components/common";
 import { AngleLeft, FileCopy } from "flowbite-react-icons/outline";
@@ -18,8 +19,9 @@ interface OrderDetailHeaderProps {
 export const OrderDetailHeader = ({ order }: OrderDetailHeaderProps) => {
   const [copied, setCopied] = useState(false);
 
-  const statusLabel = ORDER_STATUS_LABELS[order.status];
-  const statusColor = ORDER_STATUS_COLORS[order.status];
+  const displayStatus = getOrderDisplayStatus(order.status);
+  const statusLabel = ORDER_DISPLAY_LABELS[displayStatus];
+  const statusColor = ORDER_DISPLAY_COLORS[displayStatus];
 
   const { formattedDate, formattedTime } = useMemo(() => {
     const date = new Date(order.createdAt);
@@ -91,8 +93,7 @@ export const OrderDetailHeader = ({ order }: OrderDetailHeaderProps) => {
           </div>
         </div>
 
-        {/* SAĞ: artık boş - fatura alanı silindi */}
-        <div className="flex justify-end"></div>
+    
       </div>
 
       {/* Alt Meta Satırı */}
