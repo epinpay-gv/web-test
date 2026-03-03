@@ -51,7 +51,7 @@ export function Modal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-20! p-4 bg-(--bg-overlay)">
+    <div className="fixed inset-0 flex items-center justify-center z-999! p-4 bg-(--bg-overlay)">
       <div
         className={`
           w-full
@@ -61,7 +61,7 @@ export function Modal({
           shadow-xl
           p-6
           relative
-          z-20
+          z-999
         `}
       >
         {/* Close Button */}

@@ -657,7 +657,7 @@ export const mockProducts: Product[] = [
     platform: "Mobile Games",
     type: "Epin",
     platform_icon: "",
-    totalStock: 15,
+    totalStock: 0,
   },
   {
     id: 62,
@@ -692,7 +692,7 @@ export const mockProducts: Product[] = [
     platform: "Mobile Games",
     type: "Epin",
     platform_icon: "",
-    totalStock: 15,
+    totalStock: 0,
   },
   {
     id: 1140,
@@ -765,7 +765,7 @@ export const mockProducts: Product[] = [
     platform: "PC Games",
     type: "Wallet Code",
     platform_icon: "",
-    totalStock: 15,
+    totalStock: 0,
   },
   {
     id: 2730,

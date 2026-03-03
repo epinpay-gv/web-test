@@ -12,7 +12,7 @@ export function CartStepper({ currentStep }: { currentStep: CartStep }) {
   const activeIndex = STEPS.findIndex(s => s.key === currentStep);
 
   return (
-    <div className="flex items-center justify-center bg-(--bg-neutral-primary-medium) w-full h-17 select-none border-b border-(--border-default)">
+    <div className="flex relative items-center justify-center bg-(--bg-neutral-primary-medium) w-full h-17 select-none border-b border-(--border-default)">
       <div className="flex items-center gap-2 md:gap-8">
         {STEPS.map((step, index) => {
           const isActive = currentStep === step.key;

@@ -19,7 +19,7 @@ export async function POST(
       user_info: {
         userId: "1",
         email: "macit.furkan.erkaya@gmail.com", 
-        is_guest: true
+        is_guest: false
       },
       products: [
         {

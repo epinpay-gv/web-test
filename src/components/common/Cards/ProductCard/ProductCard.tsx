@@ -22,11 +22,15 @@ interface ProductCardProps {
   product: Product;
   orientation?: ProductCardOrientation;
   isInCart?: boolean;
+  isOutOfStock?: boolean;
+  onOutOfStockClick?: () => void;
+  onRemoveItem?: () => void;
   addToCart: (payload: AddToCartPayload) => void;
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
   isReadOnly?: boolean;
+  cardActions?: boolean
 }
 
 const sizeClasses = {
@@ -41,11 +45,15 @@ export default function ProductCard({
   product,
   orientation = ProductCardOrientation.VERTICAL,
   isInCart = false,
+  isOutOfStock = false,
+  onOutOfStockClick,
+  onRemoveItem,
   addToCart,
   notifyWhenAvailable,
   addToFavorites,
   changeQuantity,
   isReadOnly,
+  cardActions = true,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
 

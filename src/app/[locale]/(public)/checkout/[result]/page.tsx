@@ -19,10 +19,9 @@ export default function ResultPage({ params, searchParams }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-(--bg-neutral-primary-soft) relative overflow-hidden">
+    <div className="min-h-screen bg-(--variants-gray) relative overflow-hidden">
       <div className="absolute max-lg:hidden w-193.5 h-166 -right-60.5 -bottom-15 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />  
-      <div className="max-w-5xl mx-auto">
-        {orderId}
+      <div className="max-w-5xl mx-auto">        
         {result === "success" ? (
           <SuccessResult orderId={orderId!} />
         ) : (

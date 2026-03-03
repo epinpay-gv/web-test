@@ -9,17 +9,30 @@ import DropdownMenu from "@/components/common/Dropdown/DropdownMenu";
 interface CartActionButtonsProps {
   product: Product;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
+  onRemove?: () => void;
 }
 
-export function CartActionButtons({ product, changeQuantity }: CartActionButtonsProps) {
+export function CartActionButtons({ product, changeQuantity, onRemove }: CartActionButtonsProps) {
   const quantityItems = [1, 2, 3, 4, 5].map((num) => ({
     id: String(num),
     text: `${num} Adet`,
     value: num,
-    checked: product.quantity === num
+    checked: product.quantity === num,
   }));
 
   const currentQuantityLabel = `${product.quantity || 1} Adet`;
+
+  const handleQuantitySelect = (selectedQuantity: number) => {
+    if (selectedQuantity === product.quantity) return;
+    console.log("Deneme")
+    changeQuantity({
+      productId: Number(product.id),
+      offerId: Number(product.cheapestOffer),
+      action: "update",
+      quantity: selectedQuantity,
+    });
+  };
+
   return (
     <div className="flex items-center justify-start gap-3 h-8">
       <div className="w-32">
@@ -27,14 +40,7 @@ export function CartActionButtons({ product, changeQuantity }: CartActionButtons
           title="Adet Seçin"
           width="100%"
           items={quantityItems}
-          onSelect={(item) => {
-            changeQuantity({
-              productId: Number(product.id),
-              offerId: Number(product.cheapestOffer),
-              action: "update",
-              quantity: Number(item.value)
-            });
-          }}
+          onSelect={(item) => handleQuantitySelect(Number(item.value))}
           trigger={
             <div className="flex items-center justify-between w-full border border-(--border-default) rounded-full px-4 py-1.5 text-xs text-(--text-body) bg-(--bg-neutral-primary-soft) hover:border-cyan-500/50 transition-colors">
               <span>{currentQuantityLabel}</span>
@@ -44,22 +50,14 @@ export function CartActionButtons({ product, changeQuantity }: CartActionButtons
         />
       </div>
 
-      {/* Silme Butonu */}
       <div>
-        <Button          
+        <Button
           className="rounded-full p-1!"
-          variant="secondary" 
+          variant="secondary"
           size="xs"
           icon={<TrashBin size={14} className="text-(--text-body)" />}
-          onClick={() =>
-            changeQuantity({
-              productId: Number(product.id),
-              offerId: Number(product.cheapestOffer),
-              action: "remove",
-              quantity: Number(product.quantity)
-            })
-          }
-        ></Button>
+          onClick={() => onRemove?.()}
+        />
       </div>
     </div>
   );

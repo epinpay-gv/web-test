@@ -1,34 +1,26 @@
 "use client";
-import { XCircle } from "lucide-react";
-import Link from "next/link";
+import { Button } from "@/components/common";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export function FailedResult() {
+  const router = useRouter()
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center animate-in zoom-in-95 duration-500">
-      <div className="relative mb-6">
-        <div className="absolute inset-0 bg-red-500/20 blur-2xl rounded-full" />
-        <img src="/icons/failed-order.png" alt="Failed" className="w-32 h-32 relative z-10" />
+    <div className="flex flex-col items-center gap-4 justify-baseline min-h-screen text-center animate-in zoom-in-95 duration-500">
+      <div className="pt-6">
+        <Image
+          src={"/image/cart/failed-payment.png"}
+          alt="failed payment"
+          fill
+          className="max-w-62.5 max-h-41.5 relative!" 
+        />
       </div>
-
-      <h1 className="text-3xl font-bold text-white mb-3">Ödeme Başarısız</h1>
-      <p className="text-gray-400 max-w-sm mx-auto mb-8 font-light leading-relaxed">
-        Ödeme işleminiz banka veya sistem kaynaklı bir sorun nedeniyle tamamlanamadı. 
-        Lütfen bilgilerinizi kontrol edip tekrar deneyin.
-      </p>
-
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Link 
-          href="/cart"
-          className="px-8 py-3 bg-(--bg-brand) hover:bg-(--bg-brand-strong) text-white rounded-xl font-semibold transition-all"
-        >
-          Tekrar Dene
-        </Link>
-        <Link 
-          href="/support"
-          className="px-8 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl border border-[#1D303A] transition-all"
-        >
-          Destek Al
-        </Link>
+      <div className="flex flex-col gap-3 max-w-87.75">
+        <h2 className="text-xl text-(--text-fg-warning-subtle) leading-7 font-semibold"> Ödeme Başarısız </h2>
+        <p className="font-normal text-(--text-heading)">Ödeme alınamadı, ödeme yönteminizi kontrol ettikten sonra tekrar deneyiniz.</p>
+      </div>
+      <div>
+        <Button variant="brand" text="Sepete geri dön" className="max-w-fit" onClick={() => router.push("/checkout") }/>
       </div>
     </div>
   );

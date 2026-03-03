@@ -37,7 +37,7 @@ export function PaymentCart({ totalPrice, initialWantsInvoice, currentStep }: Pa
     <div className="flex flex-col gap-6">      
       <CartStepper currentStep={currentStep} />
       {/* Invoice Form */}
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 px-4">
+      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 ">
         <div className="lg:col-span-3 flex flex-col gap-4">                    
          {wantsInvoice && (
             <InvoiceFormSection 
@@ -45,9 +45,7 @@ export function PaymentCart({ totalPrice, initialWantsInvoice, currentStep }: Pa
               onInputChange={handleInputChange} 
             />
           )}
-
-          {/* RESİMDEKİ ALT PANEL: Ödeme Yöntemleri */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 px-4">
             <div className="flex flex-col gap-2 max-h-19 overflow-hidden ">
               <div className="flex gap-2">
                 <h2 className="text-xl font-semibold text-(--text-heading) leading-7">Bir ödeme yöntemi seçin</h2>
@@ -87,7 +85,7 @@ export function PaymentCart({ totalPrice, initialWantsInvoice, currentStep }: Pa
             productTotalAmount={269.00} 
             taxes={1.06} 
             totalAmount={253.33}
-           />
+           />                
         </div>
       </div>
     </div>

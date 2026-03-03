@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom"; // Portal için eklendi
+import { createPortal } from "react-dom";
 import clsx from "clsx";
 import DropdownListItem from "./DropdownListItem";
 import { DropdownMenuItem } from "./dropdown.types";
@@ -21,7 +21,7 @@ interface DropdownMenuProps {
 export default function DropdownMenu({
   trigger,
   items,
-  title = "Seçim Yapın",
+  title = "Secim Yapin",
   align = "left",
   width = 240,
   onSelect,
@@ -30,8 +30,9 @@ export default function DropdownMenu({
 }: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [coords, setCoords] = useState({ top: 0, left: 0, width: 0 }); // Konum için eklendi
+  const [coords, setCoords] = useState({ top: 0, left: 0, width: 0 });
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const portalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -42,7 +43,6 @@ export default function DropdownMenu({
 
   const toggle = () => {
     if (!open && wrapperRef.current) {
-      // Tetikleyici elementin ekrandaki tam konumunu hesapla
       const rect = wrapperRef.current.getBoundingClientRect();
       setCoords({
         top: rect.bottom + window.scrollY,
@@ -63,11 +63,22 @@ export default function DropdownMenu({
 
   useEffect(() => {
     if (!open || isMobile) return;
+
     const handleClickOutside = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) close();
+      const target = e.target as Node;
+      // Hem trigger wrapper'ı hem portal listesini kontrol et
+      const insideTrigger = wrapperRef.current?.contains(target);
+      const insidePortal = portalRef.current?.contains(target);
+      if (!insideTrigger && !insidePortal) {
+        close();
+      }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    // mousedown yerine click kullan:
+    // mousedown'da portal henüz mount edilmemiş olabiliyor,
+    // click'te ise onSelect zaten tamamlanmis oluyor
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, [open, isMobile]);
 
   return (
@@ -76,15 +87,16 @@ export default function DropdownMenu({
         {trigger}
       </div>
 
-      {/* MASAÜSTÜ GÖRÜNÜM (Portal ile Body'ye Işınlama) */}
+      {/* MASAUSTU - Portal ile body'ye tasindi */}
       {open && !isMobile && createPortal(
         <div
-          style={{ 
+          ref={portalRef}
+          style={{
             width: width === "100%" ? coords.width : width,
-            position: 'absolute',
+            position: "absolute",
             top: `${coords.top}px`,
-            left: align === "right" ? 'auto' : `${coords.left}px`,
-            right: align === "right" ? `${window.innerWidth - coords.left}px` : 'auto',
+            left: align === "right" ? "auto" : `${coords.left}px`,
+            right: align === "right" ? `${window.innerWidth - coords.left}px` : "auto",
           }}
           className={clsx(
             "z-[9999] mt-2 rounded-md shadow-2xl border border-(--border-default-medium)",
@@ -94,29 +106,29 @@ export default function DropdownMenu({
         >
           <div className="flex flex-col gap-1.5 max-h-60 overflow-y-auto custom-scrollbar">
             {items.map((item) => (
-              <DropdownListItem 
-                key={item.id} 
-                {...item} 
+              <DropdownListItem
+                key={item.id}
+                {...item}
                 state={item.disabled ? "disabled" : "initial"}
-                onClick={() => handleSelect(item)} 
+                onClick={() => handleSelect(item)}
               />
             ))}
           </div>
         </div>,
-        document.body // İçeriği buraya gönderiyoruz
+        document.body
       )}
 
-      {/* MOBİL GÖRÜNÜM (BOTTOM SHEET) */}
+      {/* MOBIL - Bottom Sheet */}
       <BottomSheet isOpen={open && isMobile} onClose={close} title={title}>
         <div className="flex flex-col p-4 gap-2">
           {items.map((item) => (
             <div key={item.id} className="border-b border-gray-800 last:border-none py-1">
-              <DropdownListItem 
-                key={item.id} 
-                {...item} 
+              <DropdownListItem
+                key={item.id}
+                {...item}
                 size="md"
                 state={item.disabled ? "disabled" : "initial"}
-                onClick={() => handleSelect(item)} 
+                onClick={() => handleSelect(item)}
               />
             </div>
           ))}
