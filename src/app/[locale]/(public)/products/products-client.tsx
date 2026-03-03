@@ -1,7 +1,4 @@
 "use client";
-
-import { useTransition } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import {
   FilterContainer,
   FilterLabels,
@@ -12,18 +9,15 @@ import { getActiveFilterLabels } from "@/features/catalog/utils";
 import { BreadcrumbItem, PaginationData, Product } from "@/types/types";
 import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
-import {
-  FilterGroupConfig,
-  CatalogSearchParams,
-} from "@/features/catalog/catalog.types";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
+import { useCatalogUrlFilters } from "@/features/catalog/hooks";
 
 interface ProductsClientProps {
   initialProducts: Product[];
   initialFilters: FilterGroupConfig[];
   pagination: PaginationData;
   breadcrumbItems: BreadcrumbItem[];
-  currentSearch: CatalogSearchParams;
 }
 
 export default function ProductsClient({
@@ -31,19 +25,29 @@ export default function ProductsClient({
   initialFilters,
   pagination,
   breadcrumbItems,
-  currentSearch,
 }: ProductsClientProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
+  const {
+    searchParams,
+    isPending,
+    handleProductTypeChange,
+    handleToggleFilter,
+    handleSetPriceRange,
+    handleToggleBoolean,
+    handleResetFilters,
+    handlePageChange,
+    handleSortChange,
+  } = useCatalogUrlFilters(initialFilters);
 
-  // ─── Derived data from props (server already fetched correct data) ────────
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
+
   const pageTitle = breadcrumbItems[2]
     ? `${breadcrumbItems[2].name} ürünleri`
     : "Tüm ürünler";
 
   const tabFilters = initialFilters.find((g) => g.isTab);
-  const columnFilters = initialFilters.filter((g) => !g.isTab);
+  const titleFilters = initialFilters.find((g) => g.isTitle);
+  const columnFilters = initialFilters.filter((g) => !g.isTab && !g.isTitle);
 
   const productTypeTabItems =
     tabFilters?.elements?.[0]?.type === "checkbox"
@@ -53,92 +57,20 @@ export default function ProductsClient({
         }))
       : [];
 
-  const activeFilters = getActiveFilterLabels(currentSearch, initialFilters);
+  const activeFilters = getActiveFilterLabels(
+    new URLSearchParams(searchParams.toString()),
+    initialFilters,
+  );
 
-  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
-    useBasketActions();
-
-  // ─── URL mutation helpers ─────────────────────────────────────────────────
-
-  function navigate(updater: (p: URLSearchParams) => void) {
-    startTransition(() => {
-      const params = new URLSearchParams(searchParams.toString());
-      updater(params);
-      router.replace(`?${params.toString()}`, { scroll: false });
-    });
-  }
-
-  function handleProductTypeChange(value: string) {
-    navigate((p) => {
-      if (value === "all") {
-        p.delete("type");
-      } else {
-        p.set("type", value);
-      }
-      p.delete("page"); 
-    });
-  }
-
-  function handleToggleFilter(key: keyof CatalogSearchParams, value: string) {
-    console.log("KEY : ", key, " VALUE : ", value);
-    navigate((p) => {
-      const existing = p.getAll(key);
-      p.delete(key);
-      const next = existing.includes(value)
-        ? existing.filter((v) => v !== value)
-        : [...existing, value];
-      next.forEach((v) => p.append(key, v));
-      p.delete("page");
-    });
-  }
-
-  function handleSetPriceRange(min?: number, max?: number) {
-    navigate((p) => {
-      if (min !== undefined) p.set("minPrice", String(min));
-      else p.delete("minPrice");
-
-      if (max !== undefined) p.set("maxPrice", String(max));
-      else p.delete("maxPrice");
-
-      p.delete("page");
-    });
-  }
-
-  function handleToggleBoolean(key: "inTr" | "inStock") {
-    navigate((p) => {
-      if (key === "inTr") p.set("inTr", "true");
-      if (key === "inStock") p.set("inStock", "true");
-    });
-  }
-
-  function handleResetFilters() {
-    navigate((p) => {
-      (
-        [
-          "category",
-          "region",
-          "platform",
-          "type",
-          "genre",
-          "sort",
-          "minPrice",
-          "maxPrice",
-          "inTr",
-          "inStock",
-          "page",
-        ] as const
-      ).forEach((k) => p.delete(k));
-    });
-  }
-
-  function handlePageChange(page: number) {
-    navigate((p) => {
-      p.set("page", String(page));
-    });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // ─── Render ───────────────────────────────────────────────────────────────
+  const sortDropdownEl = titleFilters?.elements.find(
+    (el) => el.type === "dropdown",
+  );
+  const defaultSort =
+    sortDropdownEl?.type === "dropdown"
+      ? (sortDropdownEl.options[0]?.value ?? "")
+      : "";
+  const currentSort = searchParams.get("sort") ?? defaultSort;
+  const activeType = searchParams.get("type") ?? "all";
 
   return (
     <div className="container max-w-7xl mx-auto space-y-4 pb-12">
@@ -146,7 +78,7 @@ export default function ProductsClient({
         {productTypeTabItems.length > 0 && (
           <NavTab
             items={productTypeTabItems}
-            activeValue={currentSearch.type ?? "all"}
+            activeValue={activeType}
             variant="segmented"
             size="base"
             onChange={handleProductTypeChange}
@@ -161,6 +93,9 @@ export default function ProductsClient({
             totalProductAmount: pagination.count,
           }}
           isLoading={isPending}
+          titleFilter={titleFilters}
+          currentSort={currentSort}
+          onSortSelect={handleSortChange}
         />
         <Breadcrumb
           items={breadcrumbItems.map((item, index) => ({
@@ -175,10 +110,12 @@ export default function ProductsClient({
             filters={columnFilters}
             activeFilters={activeFilters}
             resetFilters={handleResetFilters}
-            currentSearch={currentSearch}
             toggleFilter={handleToggleFilter}
             setPriceRange={handleSetPriceRange}
             toggleBoolean={handleToggleBoolean}
+            titleFilter={titleFilters}
+            currentSort={currentSort}
+            onSortSelect={handleSortChange}
           />
 
           <div className="flex-1 flex flex-col gap-4">

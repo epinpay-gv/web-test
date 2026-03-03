@@ -8,16 +8,21 @@ import {
   AddToFavoritesPayload,
   ChangeQuantityPayload,
   NotifyWhenAvailablePayload,
-  CatalogSearchParams,
 } from "./catalog.types";
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
-export const getProducts = (search: CatalogSearchParams) => {
+export const getProducts = (
+  search: Record<string, string | string[] | undefined>,
+) => {
   const params = new URLSearchParams();
-  (Object.keys(search) as (keyof CatalogSearchParams)[]).forEach((key) => {
-    const value = search[key];
-    if (value !== undefined) params.set(key, value);
+  Object.entries(search).forEach(([key, value]) => {
+    if (!value) return;
+    if (Array.isArray(value)) {
+      value.forEach((v) => params.append(key, v));
+    } else {
+      params.set(key, value);
+    }
   });
   return baseFetcher<ProductsApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${params.toString()}`,

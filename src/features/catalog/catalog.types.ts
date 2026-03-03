@@ -17,7 +17,6 @@ export interface CategoriesPageResponse {
 /* FILTER TYPES */
 export type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc";
 
-
 export type FilterElementConfig =
   | {
       type: "dropdown";
@@ -58,8 +57,10 @@ export type FilterElementConfig =
 
 export interface FilterGroupConfig {
   isTab: boolean;
+  isTitle: boolean;
   titleData?: TitleData;
   elements: FilterElementConfig[];
+  locale: string;
 }
 
 export type ActiveFilterChip = {
@@ -68,20 +69,6 @@ export type ActiveFilterChip = {
   label: string;
 };
 
-export interface CatalogSearchParams {
-  page?:        string;
-  limit?:       string;
-  region?:   string; // "1,2,3"
-  platform?: string;
-  type:     string;
-  category?: string;
-  genre?:    string;
-  sort?:        string;
-  minPrice?:    string;
-  maxPrice?:    string;
-  inTr?:        string;
-  inStock?:     string;
-}
 
 /* PRODUCT DETAIL TYPES */
 export interface CategoryWithProductDetail {

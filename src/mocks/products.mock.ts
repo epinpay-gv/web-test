@@ -1021,6 +1021,7 @@ export const mockProducts: Product[] = [
 ];
 
 export const filterGroups: FilterGroupConfig[] = [
+  //TR
   {
     titleData: {
       title: "Fiyat",
@@ -1028,6 +1029,8 @@ export const filterGroups: FilterGroupConfig[] = [
     },
     elements: [{ type: "range", key: "price", min: 0, max: 10000 }],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     elements: [
@@ -1038,6 +1041,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     elements: [
@@ -1048,6 +1053,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1091,6 +1098,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1115,6 +1124,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1160,6 +1171,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1184,5 +1197,28 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: true,
+    locale: "tr",
+    isTitle: false,
   },
+  {
+    elements: [
+      {
+        type: "dropdown",
+        key: "type",
+        options: [
+          { label: "En İyi Eşleşme", value: "best_match" },
+          { label: "En Çok Satanlar", value: "best_seller" },
+          { label: "Artan Fiyat", value: "price_asc" },
+          { label: "Azalan Fiyat", value: "price_desc" },
+          { label: "A'dan Z'ye", value: "name_asc" },
+          { label: "Z'den A'ya", value: "name_desc" },
+        ],
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: true,
+  },
+
+  //EN
 ];

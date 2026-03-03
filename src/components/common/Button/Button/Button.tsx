@@ -31,7 +31,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const TEXT_SIZE_CLASSES: Record<ButtonTextSize, string> = {
   xs: "text-xs",
-  sm: "text-sm",
+  sm: "text-xs md:text-sm",
   base: "text-base",
   lg: "text-lg",
   xl: "text-xl",

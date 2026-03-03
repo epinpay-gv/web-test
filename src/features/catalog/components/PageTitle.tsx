@@ -1,22 +1,37 @@
 import { Sort } from "flowbite-react-icons/outline";
 import FilterDropdownContainer from "./filters/Filters/FilterDropdownContainer";
 import { useTranslations } from "next-intl";
+import { FilterGroupConfig } from "../catalog.types";
 
 interface PageTitleProps {
   data: {
     title: string;
     totalProductAmount: number;
   };
-  onSelect?: (id: string) => void;
   isLoading?: boolean;
+  titleFilter?: FilterGroupConfig;
+  onSortSelect: (value: string) => void;
+  currentSort?: string;
 }
 
 export default function PageTitle({
   data,
-  onSelect,
   isLoading = false,
+  titleFilter,
+  onSortSelect,
+  currentSort,
 }: PageTitleProps) {
   const t = useTranslations("common.labels");
+
+  const dropdownEl = titleFilter?.elements.find((el) => el.type === "dropdown");
+  const dropdownItems =
+    dropdownEl?.type === "dropdown"
+      ? dropdownEl.options.map((opt) => ({
+          id: opt.value,
+          text: opt.label,
+          value: opt.value,
+        }))
+      : [];
 
   return (
     <div className="flex items-center justify-between">
@@ -28,18 +43,24 @@ export default function PageTitle({
           </>
         ) : (
           <>
-            <h1>{data.title} {t("listing")}</h1>
-            <p className="text-(--text-body)">{data.totalProductAmount} {t("product")}</p>
+            <h1>
+              {data.title} {t("listing")}
+            </h1>
+            <p className="text-(--text-body)">
+              {data.totalProductAmount} {t("product")}
+            </p>
           </>
         )}
       </div>
       {/* Sort */}
-      {/* <FilterDropdownContainer
-        selectedId=""
-        items={[]}
-        onSelect={onSelect}
-        icon={<Sort size={16} className="text-(--text-body)" />}
-      /> */}
+      <div className="hidden md:block">
+        <FilterDropdownContainer
+          selectedId={currentSort ?? ""}
+          items={dropdownItems}
+          onSelect={onSortSelect}
+          icon={<Sort size={16} className="text-(--text-body)" />}
+        />
+      </div>
     </div>
   );
 }

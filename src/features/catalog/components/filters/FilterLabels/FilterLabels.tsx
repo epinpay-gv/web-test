@@ -1,16 +1,13 @@
 "use client";
 
 import { Badge } from "@/components/common";
-import {
-  ActiveFilterChip,
-  CatalogSearchParams,
-} from "@/features/catalog/catalog.types";
+import { ActiveFilterChip } from "@/features/catalog/catalog.types";
 import { useTranslations } from "next-intl";
 
 interface FilterLabelsProps {
   activeFilters: ActiveFilterChip[];
   setPriceRange: (min?: number, max?: number) => void;
-  toggleFilter: (key: keyof CatalogSearchParams, value: string) => void;
+  toggleFilter: (key: string, value: string) => void;
   resetFilters: () => void;
 }
 

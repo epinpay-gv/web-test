@@ -33,7 +33,7 @@ export function ActionButtons({ product, isHorizontal, orientation = "horizontal
         textSize="xs"
         variant="secondary"
         icon={<CartPlusAlt />}
-        className="block md:hidden"
+        className="block md:hidden max-w-12"
         onClick={() =>
           addToCart?.({
             productId: product.id,

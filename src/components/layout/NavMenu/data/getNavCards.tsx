@@ -6,7 +6,7 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
       type: "mega",
       megaMenuKey: "products",
       title: t("games"),
-      href: "/products?productType=1",
+      href: "/products",
       variant: {
         hoverBg: "rgba(0, 187, 167, 1)",
         hoverBorder: "#fff",

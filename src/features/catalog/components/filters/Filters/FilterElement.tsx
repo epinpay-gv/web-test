@@ -1,26 +1,25 @@
 "use client";
-
-import { FilterElementConfig, CatalogSearchParams } from "@/features/catalog/catalog.types";
+import { FilterElementConfig } from "@/features/catalog/catalog.types";
 import { Input, CheckBox, Toggle } from "@/components/common";
 import { FilterSearch } from "./FilterSearch";
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 interface FilterElementProps {
   config: FilterElementConfig;
-  currentSearch: CatalogSearchParams;
-  toggleFilter: (key: keyof CatalogSearchParams, value: string) => void;
+  toggleFilter: (key: string, value: string) => void;
   setPriceRange: (min?: number, max?: number) => void;
-  toggleBoolean: (key: "inTr" | "inStock") => void;
+  toggleBoolean: (key: string) => void;
 }
 
 export default function FilterElement({
   config,
-  currentSearch,
   toggleFilter,
   setPriceRange,
   toggleBoolean,
 }: FilterElementProps) {
+  const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState("");
   const t = useTranslations("catalog");
 
@@ -47,8 +46,9 @@ export default function FilterElement({
           <Toggle
             size="base"
             label={config.label}
-            checked={currentSearch[config.key as keyof CatalogSearchParams] === "true"}
-            onCheckedChange={() => toggleBoolean(config.key as "inTr" | "inStock")}
+            // getAll returns [] if absent, ["true"] if set — works for both
+            checked={searchParams.getAll(config.key).includes("true")}
+            onCheckedChange={() => toggleBoolean(config.key)}
           />
         </div>
       )}
@@ -70,7 +70,9 @@ export default function FilterElement({
                 onChange={(e) =>
                   setPriceRange(
                     Number(e.target.value),
-                    currentSearch.maxPrice ? Number(currentSearch.maxPrice) : undefined,
+                    searchParams.get("maxPrice")
+                      ? Number(searchParams.get("maxPrice"))
+                      : undefined,
                   )
                 }
               />
@@ -87,7 +89,9 @@ export default function FilterElement({
                 rightIcon={<></>}
                 onChange={(e) =>
                   setPriceRange(
-                    currentSearch.minPrice ? Number(currentSearch.minPrice) : undefined,
+                    searchParams.get("minPrice")
+                      ? Number(searchParams.get("minPrice"))
+                      : undefined,
                     Number(e.target.value),
                   )
                 }
@@ -114,8 +118,10 @@ export default function FilterElement({
           >
             {filteredOptions.length > 0 ? (
               filteredOptions.map((opt) => {
-                const paramValue = currentSearch[config.key as keyof CatalogSearchParams];
-                const isChecked = paramValue === opt.value;
+                // getAll reads ALL repeated values: ?region=1&region=2 → ["1","2"]
+                const isChecked = searchParams
+                  .getAll(config.key)
+                  .includes(opt.value);
 
                 return (
                   <div key={opt.value} className="flex items-center gap-2">
@@ -128,10 +134,7 @@ export default function FilterElement({
                       }
                       checked={isChecked}
                       onCheckedChange={() =>
-                        toggleFilter(
-                          config.key as keyof CatalogSearchParams,
-                          opt.value,
-                        )
+                        toggleFilter(config.key, opt.value)
                       }
                     />
                   </div>

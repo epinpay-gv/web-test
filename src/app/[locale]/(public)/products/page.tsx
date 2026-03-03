@@ -12,14 +12,13 @@ import {
   OrganizationSchema,
   WebsiteSchema,
 } from "@/components/seo";
-import { CatalogSearchParams } from "@/features/catalog/catalog.types";
 
 export async function generateMetadata({
   params,
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<CatalogSearchParams>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
   const resolvedSearch = await searchParams;
@@ -44,14 +43,14 @@ export default async function ProductsPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<CatalogSearchParams>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
-  const resolvedSearch = await searchParams;
+  const search = await searchParams;
 
   const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products`;
 
-  const res = await getProducts(resolvedSearch);
+  const res = await getProducts(search);
 
   const metadata = res.metadata.find((m) => m.pageId === 1) || {
     title: "Ürünler",
@@ -59,10 +58,12 @@ export default async function ProductsPage({
   };
 
   // BREADCRUMB DATA
+  const typeValue = Array.isArray(search.type) ? search.type[0] : search.type;
+
   const selectedProductType = extractSelectedFilterOption(
     res.filters,
     "productType",
-    resolvedSearch.type,
+    typeValue
   );
 
   const breadcrumbItems = createProductsBreadcrumb(locale, selectedProductType);
@@ -133,7 +134,6 @@ export default async function ProductsPage({
         initialFilters={res.filters}
         pagination={res.pagination}
         breadcrumbItems={breadcrumbItems}
-        currentSearch={resolvedSearch}
       />
     </>
   );
