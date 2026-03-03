@@ -28,6 +28,7 @@ export interface BaseNavItem {
   href: string;
   variant: NavCardVariant;
   decor: DecorVariant;
+  secondDecor?: DecorVariant;
 }
 
 export type LinkNavItem = BaseNavItem & {

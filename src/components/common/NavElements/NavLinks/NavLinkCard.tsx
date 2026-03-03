@@ -16,6 +16,7 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
     href,
     variant,
     decor,
+    secondDecor,
     isBgImage = true,
     titleLocation = "top-left",
     titleColor,
@@ -34,49 +35,59 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
       className={cn(
         "relative overflow-hidden",
         "w-31.5 h-18 rounded-2xl py-2 px-3",
-        isBgImage && "bg-[#1D303A]",
         className,
       )}
       variants={{
         initial: {
-          backgroundColor: isBgImage ? variant.hoverBg : "transparent",
-          border: "none",
+          borderWidth: 2,
           borderColor: "transparent",
+          borderStyle: "solid",
         },
         hover: {
-          backgroundColor: variant.hoverBg,
-          border: "border border-2",
+          borderWidth: 2,
           borderColor: variant.hoverBorder,
+          borderStyle: "solid",
           boxShadow: variant.hoverInsetShadow,
         },
       }}
     >
       {/* Pattern */}
       {isBgImage && (
-        <motion.div
+        <div
           className="absolute inset-0 pointer-events-none overflow-hidden"
-          variants={{
-            initial: { opacity: 0.5 },
-            hover: { opacity: 0 },
-          }}
+          style={{ isolation: "isolate" }}
         >
+          {/* Layer 1 Color  */}
           <div
-            className="
-              absolute -inset-[50%]
-              bg-[url('/bg-image.webp')]
-              bg-repeat 
-              bg-center
-              bg-size-[120px_300px]
-              rotate-60 
-              contrast-200 brightness-180
-              "
+            className="absolute inset-0 pointer-events-none"
+            style={{ backgroundColor: variant.hoverBg }}
           />
-        </motion.div>
+
+          {/* Layer 2 Image */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none overflow-hidden"
+            variants={{
+              initial: { opacity: 1 },
+              hover: { opacity: 0 },
+            }}
+            transition={{
+              type: "tween",
+              ease: "easeOut",
+              duration: 0.05,
+            }}
+          >
+            <div
+              className="absolute inset-0 bg-[url('/nav-bg.webp')] bg-cover bg-center"
+              style={{ mixBlendMode: "luminosity" }}
+            />
+          </motion.div>
+        </div>
       )}
 
       {/* Title */}
       <span
-        className={`absolute  ${titleColor ? `text-[${titleColor}]` : "text-white"} font-semibold text-sm z-10 ${titleLocation === "center" ? "top-6 left-8" : "top-3 left-3"}`}
+        className={`absolute font-semibold text-sm z-10 ${titleLocation === "center" ? "top-6 left-8" : "top-3 left-3"}`}
+        style={{ color: titleColor }}
       >
         {title}
       </span>
@@ -97,6 +108,25 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
           className="pointer-events-none"
         />
       </motion.div>
+
+      {/* SecondDecor */}
+      {secondDecor && (
+        <motion.div
+          className="absolute z-10"
+          variants={{
+            initial: secondDecor.animation.initial,
+            hover: secondDecor.animation.hover,
+          }}
+        >
+          <Image
+            src={secondDecor.decorImage}
+            alt={secondDecor.decorImageAlt || ""}
+            width={secondDecor.width}
+            height={secondDecor.height}
+            className="pointer-events-none"
+          />
+        </motion.div>
+      )}
     </motion.div>
   );
 

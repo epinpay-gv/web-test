@@ -61,6 +61,15 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
           hover: { x: 40, y: -5, scale: 1.2, rotate: -10 },
         },
       },
+      secondDecor: {
+        decorImage: "/navMenu/card-3-2.webp",
+        width: 64,
+        height: 65,
+        animation: {
+          initial: { x: 0, y: -60, scale: 2 },
+          hover: { x: 0, y: 10, scale: 2 },
+        },
+      },
       titleLocation: "top-left",
     },
     {
@@ -79,6 +88,15 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
         animation: {
           initial: { x: 40, y: -5, scale: 1, rotate: -60 },
           hover: { x: 30, y: -10, scale: 1.2, rotate: -60 },
+        },
+      },
+      secondDecor: {
+        decorImage: "/navMenu/card-4-2.webp",
+        width: 64,
+        height: 65,
+        animation: {
+          initial: { x: -35, y: 20, scale: 0.5, rotate: 0 },
+          hover: { x: -20, y: 5, scale: 0.5, rotate: -10 },
         },
       },
       titleLocation: "top-left",
