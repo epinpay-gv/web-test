@@ -7,7 +7,7 @@ import { useCart } from '@/features/checkout/hooks/useCart';
 import { useState } from 'react';
 
 export default function CartPage() {
-  const { items, totalPrice, step, setStep, isLoading, updateQuantity } = useCart();
+  const { items, totalPrice, step, setStep, isLoading, updateQuantity, removeItem, resetCart  } = useCart();
   const [wantsInvoice, setWantsInvoice] = useState(false);
   // const user = useAuthStore((state) => state.user);
   // const isAuthenticated = useAuthStore((state) => state.user);
@@ -32,19 +32,20 @@ export default function CartPage() {
       <div className="absolute max-lg:hidden w-193.5 h-166 -right-60.5 -bottom-15 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />      
       <div className=" mx-auto pb-20 relative ">
         {items.length === 0 ? (
-          <EmptyCart />
+          <EmptyCart onResetCart={resetCart} />
         ) : (
           <div className="text-white">
             {step === "items" &&
               <FilledCart 
-              items={items} 
-              totalPrice={totalPrice} 
-              step={step}              
-              onQuantityChange={updateQuantity}
-              onStepChange={(nextStep, invoicePreference) => {
+                items={items} 
+                totalPrice={totalPrice} 
+                step={step}              
+                onQuantityChange={updateQuantity}
+                onStepChange={(nextStep, invoicePreference) => {
                   if (invoicePreference !== undefined) setWantsInvoice(invoicePreference);
                   setStep(nextStep);
                 }}
+                onRemoveItem={removeItem}
               />
             }
             {step === "delivery" &&

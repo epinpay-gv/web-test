@@ -75,3 +75,13 @@ export interface OrderAuthRequest {
   email: string;
   userId?: string;
 }
+
+export interface OrderErrors {
+  email?: boolean;
+  agreement?: boolean;
+}
+
+export interface CartErrors {
+  email?: boolean;
+  agreement?: boolean;
+}

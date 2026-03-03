@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType } from "react"; // React eklendi
+import React, { ElementType } from "react";
 import { Product } from "@/types/types";
 import { ProductCardOrientation } from "./types";
 import {
@@ -23,11 +23,15 @@ interface ProductCardProps {
   product: Product;
   orientation?: ProductCardOrientation;
   isInCart?: boolean;
+  isOutOfStock?: boolean;
+  onOutOfStockClick?: () => void;
+  onRemoveItem?: () => void;
   addToCart: (payload: AddToCartPayload) => void;
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
   isReadOnly?: boolean;
+  cardActions?: boolean
 }
 
 const sizeClasses = {
@@ -42,15 +46,19 @@ export default function ProductCard({
   product,
   orientation = ProductCardOrientation.VERTICAL,
   isInCart = false,
+  isOutOfStock = false,
+  onOutOfStockClick,
+  onRemoveItem,
   addToCart,
   notifyWhenAvailable,
   addToFavorites,
   changeQuantity,
-  isReadOnly
+  isReadOnly,
+  cardActions = true,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
   const Component: ElementType = isInCart ? "div" : Link;
-  
+
   const cardSizeClass = isHorizontal
     ? isInCart
       ? sizeClasses.horizontal.cart
@@ -62,8 +70,6 @@ export default function ProductCard({
     : "flex flex-col justify-between";
 
   const productHref = `/${product.translation.category_slug}/${product.translation.slug}`;
-
-  // Link veya Div için gerekli proplar
   const componentProps = !isInCart ? { href: productHref } : {};
 
   return (
@@ -85,11 +91,13 @@ export default function ProductCard({
       />
 
       {/* Content Section */}
-      <div className={cn("space-y-1 w-full flex justify-between md:space-y-2", cardContentSizeClass)}>        
-        <ProductInfo 
-            product={product} 
-            isHorizontal={isHorizontal} 
-        />
+      <div
+        className={cn(
+          "space-y-1 w-full flex justify-between md:space-y-2",
+          cardContentSizeClass
+        )}
+      >
+        <ProductInfo product={product} isHorizontal={isHorizontal} />
 
         {!isInCart && (
           product.basePrice ? (
@@ -110,14 +118,34 @@ export default function ProductCard({
         )}
 
         {isInCart && (
-          <div className={!isReadOnly ? "flex w-full justify-between items-center" : "w-full flex justify-end"}>
-            {!isReadOnly &&
+          <div
+            className={
+              !isReadOnly
+                ? "flex w-full justify-between items-center"
+                : "w-full flex justify-end"
+            }
+          >
+            {cardActions &&
               <CartActionButtons
               product={product}
               changeQuantity={changeQuantity}
-              />
+              onRemove={onRemoveItem}
+              />          
             }
-            <PriceSection product={product} />
+            
+            {isOutOfStock ? (
+                <button
+                  type="button"
+                  onClick={onOutOfStockClick}
+                  className="px-2.5 py-1 rounded-md bg-(--bg-danger-soft) border border-(--border-danger-subtle) text-(--text-fg-danger-strong) text-xs font-semibold tracking-wide hover:bg-red-500/20 transition-colors cursor-pointer"
+                >
+                  Stokta Yok
+                </button>
+              ) : (
+                <PriceSection product={product} />
+              )
+            }
+            
           </div>
         )}
       </div>

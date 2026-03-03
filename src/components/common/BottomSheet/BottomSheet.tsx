@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Close, AngleLeft } from "flowbite-react-icons/outline";
 import { Button } from "../Button";
 import { IconShape } from "../IconShape/IconShape";
+import { cn } from "@/lib/utils";
 
 interface BottomSheetProps {
   isOpen: boolean;
@@ -11,7 +12,15 @@ interface BottomSheetProps {
   onBack?: () => void;
   title?: string;
   children: React.ReactNode;
+  theme?: Theme
 }
+type Theme = "default" | "dark";
+
+const THEME: Record<Theme, string> = {
+  default: `bg-(--bg-neutral-primary-soft)`,
+  dark: `bg-(--bg-variants-gray)`,
+};
+
 
 export const BottomSheet: React.FC<BottomSheetProps> = ({
   isOpen,
@@ -19,6 +28,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   onBack,
   title,
   children,
+  theme="default"
 }) => {
   useEffect(() => {
     if (isOpen) document.body.style.overflow = "hidden";
@@ -37,7 +47,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
       {/* Sheet */}
       <div className="fixed inset-x-0 bottom-0 z-70 flex flex-col animate-slide-up ">
-        <div className="bg-(--bg-variants-gray) rounded-t-(--raidus-base) max-h-[85vh] w-full flex flex-col border-t border-(--border-default)">
+        <div className={`rounded-t-(--raidus-base) max-h-[85vh] w-full flex flex-col border-t border-(--border-default) ${THEME[theme]}`}>
           <div className="flex items-center justify-between px-6 py-5 border-b border-gray-700/40">
             {/* Geri Butonu Alanı */}
             {onBack && (
