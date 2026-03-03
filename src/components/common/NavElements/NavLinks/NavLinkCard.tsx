@@ -31,10 +31,11 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
         mass: 1,
         stiffness: 300,
         damping: 20,
+        bounce: 1,
       }}
       className={cn(
         "relative overflow-hidden",
-        "w-31.5 h-18 rounded-2xl py-2 px-3",
+        "w-32.5 h-19 rounded-2xl py-2 px-3",
         className,
       )}
       variants={{
@@ -51,6 +52,14 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
         },
       }}
     >
+      {/* Title */}
+      <span
+        className={`absolute font-semibold text-sm z-50 ${titleLocation === "center" ? "top-6 left-8" : "top-2 left-3"}`}
+        style={{ color: titleColor }}
+      >
+        {title}
+      </span>
+
       {/* Pattern */}
       {isBgImage && (
         <div
@@ -83,14 +92,6 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
           </motion.div>
         </div>
       )}
-
-      {/* Title */}
-      <span
-        className={`absolute font-semibold text-sm z-10 ${titleLocation === "center" ? "top-6 left-8" : "top-3 left-3"}`}
-        style={{ color: titleColor }}
-      >
-        {title}
-      </span>
 
       {/* Decor */}
       <motion.div
