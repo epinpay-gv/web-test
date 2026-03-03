@@ -4,12 +4,10 @@ import { Badge } from "@/components/common";
 import { ActiveFilterChip } from "@/features/catalog/catalog.types";
 import { useTranslations } from "next-intl";
 
-type FilterKey = "category" | "region" | "platform";
-
 interface FilterLabelsProps {
   activeFilters: ActiveFilterChip[];
-  setPriceRange: (min?: number | undefined, max?: number | undefined) => void;
-  toggleFilter: (key: FilterKey, value: string) => void;
+  setPriceRange: (min?: number, max?: number) => void;
+  toggleFilter: (key: string, value: string) => void;
   resetFilters: () => void;
 }
 

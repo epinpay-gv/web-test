@@ -8,7 +8,6 @@ import {
 } from "@/features/catalog/utils";
 import {
   CollectionPageSchema,
-  FaqSchema,
   ItemListSchema,
   OrganizationSchema,
   WebsiteSchema,
@@ -16,11 +15,16 @@ import {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
-  const res = await getProducts(new URLSearchParams());
+  const search = await searchParams;
+
+  const res = await getProducts(search);
+  
   const metadata = res.metadata.find((m) => m.pageId === 2) || {
     title: "Ürünler",
     metaDescription: "Epinpay ürünlerini keşfedin",
@@ -39,30 +43,33 @@ export default async function ProductsPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ productType?: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
-  const { productType } = await searchParams;
+  const search = await searchParams;
 
   const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/products`;
 
-  const res = await getProducts(new URLSearchParams());
+  const res = await getProducts(search);
+
   const metadata = res.metadata.find((m) => m.pageId === 1) || {
     title: "Ürünler",
     metaDescription: "Epinpay ürünlerini keşfedin",
   };
 
   // BREADCRUMB DATA
+  const typeValue = Array.isArray(search.type) ? search.type[0] : search.type;
+
   const selectedProductType = extractSelectedFilterOption(
     res.filters,
     "productType",
-    productType,
+    typeValue
   );
 
   const breadcrumbItems = createProductsBreadcrumb(locale, selectedProductType);
 
   //SEO ITEMS
-    const seoCollectionItems = res.data.slice(0, 4).map((product, index) => ({
+  const seoCollectionItems = res.data.slice(0, 4).map((product, index) => ({
     "@type": "ListItem",
     position: index + 1,
     item: `${pageUrl}/${product.translation.slug}`,
@@ -99,7 +106,6 @@ export default async function ProductsPage({
       },
     },
   }));
-
 
   return (
     <>

@@ -1,27 +1,34 @@
 "use client";
 import { Button, DropdownMenu } from "@/components/common";
+import { DropdownMenuItem } from "@/components/common/Dropdown/dropdown.types";
 import { AngleDown } from "flowbite-react-icons/outline";
 
 interface FilterDropdownContainerProps {
-  title?: string;
+  isCatalogPage?: boolean;
   icon?: React.ReactNode;
   selectedId: string;
-  items: { id: string; text: string }[];
+  items: DropdownMenuItem[];
   onSelect: (id: string) => void;
+  align?: "left" | "right";
 }
 
 export default function FilterDropdownContainer({
-  title,
+  isCatalogPage = false,
   icon,
   selectedId,
   items,
   onSelect,
+  align = "left"
 }: FilterDropdownContainerProps) {
   const selectedItem = items.find((i) => i.id === selectedId);
-  
+
+  const itemsWithState = items.map((item) => ({
+    ...item,
+    active: item.id === selectedId,
+  }));
+
   return (
     <div className="flex flex-col gap-1">
-      {title && <p className="font-base text-sm leading-5 text-(--text-body)">{title}</p>}
       <DropdownMenu
         trigger={
           <Button
@@ -29,13 +36,13 @@ export default function FilterDropdownContainer({
             textSize="sm"
             variant="secondary"
             icon={icon ?? <AngleDown size={10} />}
-            text={selectedItem?.text ?? ""}
+            text={isCatalogPage ? `Sırala (${selectedItem?.text})` : selectedItem?.text}
+            className="truncate"
           />
         }
-        items={items}
-        onSelect={(item) => {
-          onSelect(item.id);
-        }}
+        items={itemsWithState}
+        onSelect={(item) => { onSelect(item.id)}}
+        align={align}
       />
     </div>
   );

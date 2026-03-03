@@ -65,7 +65,7 @@ export default function ProductCard({
 
   const cardClasses = cn(
     "gap-1 flex transition-transform duration-200",
-    !isInCart ? "hover:scale-102 card-container p-3" : "cart-card-container",
+    !isInCart ? "hover:shadow-[0px_0px_8px_-2px_rgba(255,_255,_255,_0.5)] card-container p-3" : "cart-card-container",
     isHorizontal ? "flex-row gap-4" : "flex-col justify-start",
     cardSizeClass,
   );

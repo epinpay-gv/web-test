@@ -1,42 +1,37 @@
 import {
   ActiveFilterChip,
-  CatalogFilterState,
   FilterGroupConfig,
 } from "@/features/catalog/catalog.types";
 
 export function getActiveFilterLabels(
-  filters: CatalogFilterState,
+  params: URLSearchParams,
   groups: FilterGroupConfig[],
 ): ActiveFilterChip[] {
-  
   const chips: ActiveFilterChip[] = [];
 
   groups.forEach((group) => {
     group.elements.forEach((el) => {
       if (el.type !== "checkbox") return;
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const selectedValues = (filters as any)[el.key];
-      if (!Array.isArray(selectedValues) || selectedValues.length === 0) return;
+      // getAll handles ?region=1&region=2 → ["1", "2"] correctly
+      const selectedValues = params.getAll(el.key);
+      if (selectedValues.length === 0) return;
 
       el.options.forEach((opt) => {
         if (selectedValues.includes(opt.value)) {
-          chips.push({
-            key: el.key,
-            value: opt.value,
-            label: opt.label,
-          });
+          chips.push({ key: el.key, value: opt.value, label: opt.label });
         }
       });
     });
   });
 
-  // PRICE
-  if (filters.price?.min || filters.price?.max) {
+  const minPrice = params.get("minPrice");
+  const maxPrice = params.get("maxPrice");
+  if (minPrice || maxPrice) {
     chips.push({
       key: "price",
       value: "price",
-      label: `${filters.price.min ?? 0} – ${filters.price.max ?? "∞"} ₺`,
+      label: `${minPrice ?? 0} – ${maxPrice ?? "∞"} ₺`,
     });
   }
 

@@ -43,8 +43,6 @@ export enum CATEGORY_STATUS {
 }
 export interface Product {
   id: number;
-
-  // * Alttaki değerler filtrelemede kullanılıyor, backendden isimleri de dönmeli
   category_id: number;
   region_id: number;
   platform_id: number;
@@ -55,10 +53,10 @@ export interface Product {
   platform: string;
   platform_icon: string;
   type: string;
+  genres: { id: number; name: string }[];
 
   translation: ProductTranslation;
 
-  genres: { id: number; name: string }[];
 
   cheapestOffer?: Offer | null;
   basePrice: number | null;

@@ -17,7 +17,7 @@ export async function GET(req: Request) {
 
   // pagination
   const page = Number(searchParams.get("page") ?? 1);
-  const perPage = Number(searchParams.get("perPage") ?? 15);
+  const perPage = Number(searchParams.get("perPage") ?? 12);
 
   let data = [...mockProducts];
 

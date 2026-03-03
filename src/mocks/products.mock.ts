@@ -163,78 +163,6 @@ export const mockProducts: Product[] = [
     totalStock: 15,
   },
   {
-    id: 139,
-    category_id: 9,
-    region_id: 1,
-    platform_id: 4,
-    type_id: 3,
-    status: PRODUCT_STATUS.ACTIVE,
-    translation: {
-      category_slug: "pubg-mobile-uc",
-      slug: "pubg-mobile-3850-uc-tr",
-      description: "",
-      metaTitle: "PUBG Mobile 3850 UC (Türkiye) Satın Al | Epinpay",
-      metaDescription:
-        "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-      imgUrl:
-        "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
-      imgAlt: "PUBG Mobile 3850 UC (Türkiye) Satın Al | Epinpay",
-      id: 1,
-      locale: "tr",
-      name: "Pubg Mobile 3850 UC TR",
-    },
-    cheapestOffer: {
-      id: 1011,
-    },
-    basePrice: 1829.5,
-    epPrice: null,
-    discountRate: 15,
-    fakePrice: 2030,
-    isFavorite: false,
-    genres: [],
-    region: "Turkey",
-    platform: "Mobile Games",
-    type: "Epin",
-    platform_icon: "",
-    totalStock: 15,
-  },
-  {
-    id: 113,
-    category_id: 9,
-    region_id: 1,
-    platform_id: 4,
-    type_id: 3,
-    status: PRODUCT_STATUS.ACTIVE,
-    translation: {
-      category_slug: "pubg-mobile-uc",
-      slug: "pubg-mobile-8100-uc-tr",
-      description: "",
-      metaTitle: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
-      metaDescription:
-        "Epinpay üzerinden PUBG Mobile UC satın al! Yetkili tedarikçi güvencesiyle anında teslimat, güvenli ödeme ve destek. Royale Pass ve özel eşyalar seni bekliyor.",
-      imgUrl:
-        "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
-      imgAlt: "PUBG Mobile 8100 UC (Türkiye) Satın Al | Epinpay",
-      id: 1,
-      locale: "tr",
-      name: "Pubg Mobile 8100 UC TR",
-    },
-    cheapestOffer: {
-      id: 447,
-    },
-    basePrice: 3659,
-    epPrice: null,
-    discountRate: 15,
-    fakePrice: 4035,
-    isFavorite: false,
-    genres: [],
-    region: "Turkey",
-    platform: "Mobile Games",
-    type: "Epin",
-    platform_icon: "",
-    totalStock: 15,
-  },
-  {
     id: 97,
     category_id: 9,
     region_id: 1,
@@ -1021,6 +949,7 @@ export const mockProducts: Product[] = [
 ];
 
 export const filterGroups: FilterGroupConfig[] = [
+  //TR
   {
     titleData: {
       title: "Fiyat",
@@ -1028,6 +957,8 @@ export const filterGroups: FilterGroupConfig[] = [
     },
     elements: [{ type: "range", key: "price", min: 0, max: 10000 }],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     elements: [
@@ -1038,6 +969,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     elements: [
@@ -1048,6 +981,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1058,32 +993,32 @@ export const filterGroups: FilterGroupConfig[] = [
     elements: [
       {
         type: "checkbox",
-        key: "games",
+        key: "category",
         options: [
           { label: "League of Legends (LoL RP)", value: "10", count: 128 },
           { label: "Steam Cüzdan Kodu", value: "11", count: 42 },
           { label: "PUBG Mobile", value: "9", count: 76 },
-          { label: "Free Fire Elmas", value: "free-fire-elmas", count: 33 },
-          { label: "Pasha Fencer", value: "pasha-fencer", count: 9 },
-          { label: "Point Blank", value: "point-blank", count: 18 },
-          { label: "Zula Altın", value: "zula-altin", count: 64 },
-          { label: "Xbox", value: "xbox", count: 90 },
+          { label: "Free Fire Elmas", value: "101", count: 33 },
+          { label: "Pasha Fencer", value: "102r", count: 9 },
+          { label: "Point Blank", value: "103", count: 18 },
+          { label: "Zula Altın", value: "104", count: 64 },
+          { label: "Xbox", value: "105", count: 90 },
           {
             label: "The Lord of the Rings: Rise to War",
-            value: "the-lord-of-the-rings-rise-to-war-degerli-tas",
+            value: "106",
             count: 5,
           },
           {
             label: "Google Play Hediye Kartı",
-            value: "google-play-hediye-karti",
+            value: "107",
             count: 154,
           },
           {
             label: "Playstation Hediye Kartı",
-            value: "playstation-hediye-karti",
+            value: "108",
             count: 203,
           },
-          { label: "Razer Gold", value: "razer-gold", count: 47 },
+          { label: "Razer Gold", value: "109", count: 47 },
         ],
         search: {
           placeholder: "Ara",
@@ -1091,6 +1026,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1115,6 +1052,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1160,6 +1099,8 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
@@ -1169,7 +1110,7 @@ export const filterGroups: FilterGroupConfig[] = [
     elements: [
       {
         type: "checkbox",
-        key: "productType",
+        key: "type",
         options: [
           { label: "Tüm Ürünler", value: "all" },
           { label: "Yazılım ve Lisanlar", value: "1" },
@@ -1184,5 +1125,28 @@ export const filterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: true,
+    locale: "tr",
+    isTitle: false,
   },
+  {
+    elements: [
+      {
+        type: "dropdown",
+        key: "type",
+        options: [
+          { label: "En İyi Eşleşme", value: "best_match" },
+          { label: "En Çok Satanlar", value: "best_seller" },
+          { label: "Artan Fiyat", value: "price_asc" },
+          { label: "Azalan Fiyat", value: "price_desc" },
+          { label: "A'dan Z'ye", value: "name_asc" },
+          { label: "Z'den A'ya", value: "name_desc" },
+        ],
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: true,
+  },
+
+  //EN
 ];

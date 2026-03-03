@@ -2,11 +2,12 @@ import { NavCardConfig } from "../types/navmenu.types";
 
 export function getNavCards(t: (key: string) => string): NavCardConfig[] {
   return [
+    // PRODUCTS
     {
       type: "mega",
       megaMenuKey: "products",
       title: t("games"),
-      href: "/products?productType=1",
+      href: "/products",
       variant: {
         hoverBg: "rgba(0, 187, 167, 1)",
         hoverBorder: "#fff",
@@ -17,32 +18,14 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
         width: 80,
         height: 55,
         animation: {
-          initial: { x: 40, y: 20, scale: 1, rotate: 30 },
-          hover: { x: 40, y: 20, scale: 1.5, rotate: 10 },
+          initial: { x: 55, y: 15, scale: 1, rotate: 30 },
+          hover: { x: 55, y: 15, scale: 1.5, rotate: 10 },
         },
       },
       titleLocation: "top-left",
     },
-    {
-      type: "link",
-      title: t("stramers"),
-      href: "/streamers",
-      variant: {
-        hoverBg: "rgba(255, 95, 95, 1)",
-        hoverBorder: "#fff",
-        hoverInsetShadow: "inset 0 0 10px rgba(255,255,255,1)",
-      },
-      decor: {
-        decorImage: "/navMenu/card-2.png",
-        width: 73,
-        height: 67,
-        animation: {
-          initial: { x: 10, y: 20, scale: 1.5 },
-          hover: { x: 10, y: 10, scale: 2 },
-        },
-      },
-      titleLocation: "top-left",
-    },
+
+    // RAFFLES
     {
       type: "link",
       title: t("raffles"),
@@ -61,8 +44,41 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
           hover: { x: 40, y: -5, scale: 1.2, rotate: -10 },
         },
       },
+      secondDecor: {
+        decorImage: "/navMenu/card-3-2.webp",
+        width: 64,
+        height: 65,
+        animation: {
+          initial: { x: 0, y: -60, scale: 2 },
+          hover: { x: 0, y: 10, scale: 2 },
+        },
+      },
       titleLocation: "top-left",
     },
+
+    // STREAMERS
+    {
+      type: "link",
+      title: t("stramers"),
+      href: "/streamers",
+      variant: {
+        hoverBg: "rgba(255, 95, 95, 1)",
+        hoverBorder: "#fff",
+        hoverInsetShadow: "inset 0 0 10px rgba(255,255,255,1)",
+      },
+      decor: {
+        decorImage: "/navMenu/card-2.webp",
+        width: 73,
+        height: 67,
+        animation: {
+          initial: { x: 15, y: 20, scale: 1 },
+          hover: { x: 15, y: 10, scale: 1.2 },
+        },
+      },
+      titleLocation: "top-left",
+    },
+
+    // MINI GAMES
     {
       type: "link",
       title: t("epgames"),
@@ -78,11 +94,22 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
         height: 86,
         animation: {
           initial: { x: 40, y: -5, scale: 1, rotate: -60 },
-          hover: { x: 30, y: -10, scale: 1.2, rotate: -60 },
+          hover: { x: 30, y: -10, scale: 1.4, rotate: -50 },
+        },
+      },
+      secondDecor: {
+        decorImage: "/navMenu/card-4-2.webp",
+        width: 64,
+        height: 65,
+        animation: {
+          initial: { x: -35, y: 20, scale: 0.5, rotate: 0 },
+          hover: { x: -20, y: 5, scale: 0.5, rotate: -10 },
         },
       },
       titleLocation: "top-left",
     },
+
+    // PREMIUM
     {
       type: "link",
       title: "Premium",
