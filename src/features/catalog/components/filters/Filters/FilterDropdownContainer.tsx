@@ -4,7 +4,6 @@ import { DropdownMenuItem } from "@/components/common/Dropdown/dropdown.types";
 import { AngleDown } from "flowbite-react-icons/outline";
 
 interface FilterDropdownContainerProps {
-  isCatalogPage?: boolean;
   icon?: React.ReactNode;
   selectedId: string;
   items: DropdownMenuItem[];
@@ -13,7 +12,6 @@ interface FilterDropdownContainerProps {
 }
 
 export default function FilterDropdownContainer({
-  isCatalogPage = false,
   icon,
   selectedId,
   items,
@@ -36,7 +34,7 @@ export default function FilterDropdownContainer({
             textSize="sm"
             variant="secondary"
             icon={icon ?? <AngleDown size={10} />}
-            text={isCatalogPage ? `Sırala (${selectedItem?.text})` : selectedItem?.text}
+            text={selectedItem?.text}
             className="truncate"
           />
         }

@@ -2,18 +2,31 @@
 import Image from "next/image";
 import { Button, ProductCard } from "@/components/common";
 import { Product } from "@/types/types";
-import { AddToFavoritesPayload, AddToCartPayload, ChangeQuantityPayload, NotifyWhenAvailablePayload } from "../../catalog.types";
+import {
+  AddToFavoritesPayload,
+  AddToCartPayload,
+  ChangeQuantityPayload,
+  NotifyWhenAvailablePayload,
+} from "../../catalog.types";
 import { useTranslations } from "next-intl";
 
 interface ProductGridProps {
   data: Product[];
+  isLoading?: boolean;
   addToCart: (payload: AddToCartPayload) => void;
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
-export default function ProductGrid({ data, addToCart, notifyWhenAvailable, addToFavorites, changeQuantity }: ProductGridProps) {
+export default function ProductGrid({
+  data,
+  isLoading = false,
+  addToCart,
+  notifyWhenAvailable,
+  addToFavorites,
+  changeQuantity,
+}: ProductGridProps) {
   const t = useTranslations("common.messages");
   const tBtn = useTranslations("common.buttons");
 
@@ -23,6 +36,7 @@ export default function ProductGrid({ data, addToCart, notifyWhenAvailable, addT
         <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-max">
           {data.map((productCard, index) => (
             <ProductCard
+              isLoading={isLoading}
               product={productCard}
               key={index}
               addToCart={addToCart}
@@ -42,9 +56,7 @@ export default function ProductGrid({ data, addToCart, notifyWhenAvailable, addT
             height={300}
           />
           <div className="text-xl font-semibold">{t("productNotFound")}</div>
-          <div className="text-sm font-normal">
-            {t("productNotFoundDesc")}
-          </div>
+          <div className="text-sm font-normal">{t("productNotFoundDesc")}</div>
           <Button
             padding="sm"
             textSize="sm"

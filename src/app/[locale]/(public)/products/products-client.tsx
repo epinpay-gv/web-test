@@ -125,10 +125,12 @@ export default function ProductsClient({
                 resetFilters={handleResetFilters}
                 setPriceRange={handleSetPriceRange}
                 toggleFilter={handleToggleFilter}
+                isLoading={isPending}
               />
             )}
 
             <ProductGrid
+              isLoading={isPending}
               data={initialProducts}
               addToCart={addToCart}
               changeQuantity={changeQuantity}

@@ -19,6 +19,7 @@ import {
 } from "@/features/catalog/catalog.types";
 
 interface ProductCardProps {
+  isLoading?: boolean;
   product: Product;
   orientation?: ProductCardOrientation;
   isInCart?: boolean;
@@ -30,7 +31,7 @@ interface ProductCardProps {
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
   isReadOnly?: boolean;
-  cardActions?: boolean
+  cardActions?: boolean;
 }
 
 const sizeClasses = {
@@ -42,6 +43,7 @@ const sizeClasses = {
 };
 
 export default function ProductCard({
+  isLoading = false,
   product,
   orientation = ProductCardOrientation.VERTICAL,
   isInCart = false,
@@ -65,7 +67,9 @@ export default function ProductCard({
 
   const cardClasses = cn(
     "gap-1 flex transition-transform duration-200",
-    !isInCart ? "hover:shadow-[0px_0px_8px_-2px_rgba(255,_255,_255,_0.5)] card-container p-3" : "cart-card-container",
+    !isInCart
+      ? "hover:shadow-[0px_0px_8px_-2px_rgba(255,_255,_255,_0.5)] card-container p-3"
+      : "cart-card-container",
     isHorizontal ? "flex-row gap-4" : "flex-col justify-start",
     cardSizeClass,
   );
@@ -73,6 +77,7 @@ export default function ProductCard({
   const content = (
     <>
       <ImageSection
+        isLoading={isLoading}
         product={product}
         isHorizontal={isHorizontal}
         isInCart={isInCart}
@@ -87,16 +92,17 @@ export default function ProductCard({
             : "flex flex-col justify-between",
         )}
       >
-        <ProductInfo product={product} isHorizontal={isHorizontal} />
+        <ProductInfo product={product} isHorizontal={isHorizontal} isLoading={isLoading}/>
 
         {!isInCart &&
           (product.basePrice ? (
             <>
-              <PriceSection product={product} />
+              <PriceSection product={product} isLoading={isLoading}/>
               <ActionButtons
                 isHorizontal={isHorizontal}
                 addToCart={addToCart}
                 product={product}
+                isLoading={isLoading}
               />
             </>
           ) : (

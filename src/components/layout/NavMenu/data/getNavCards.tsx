@@ -49,8 +49,8 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
         width: 64,
         height: 65,
         animation: {
-          initial: { x: 0, y: -60, scale: 2 },
-          hover: { x: 0, y: 10, scale: 2 },
+          initial: { x: 0, y: -70, scale: 1.5 },
+          hover: { x: 0, y: 5, scale: 1.5 },
         },
       },
       titleLocation: "top-left",
@@ -102,7 +102,7 @@ export function getNavCards(t: (key: string) => string): NavCardConfig[] {
         width: 64,
         height: 65,
         animation: {
-          initial: { x: -35, y: 20, scale: 0.5, rotate: 0 },
+          initial: { x: -35, y: 22, scale: 0.5, rotate: 0 },
           hover: { x: -20, y: 5, scale: 0.5, rotate: -10 },
         },
       },

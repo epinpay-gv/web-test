@@ -33,24 +33,31 @@ export default function PageTitle({
         }))
       : [];
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-between">
+        {/* Title */}
+        <div className="text-sm md:text-xl flex items-center gap-2">
+          <div className="h-6 w-40 rounded-md bg-gray-200 shimmer" />
+          <div className="h-5 w-20 rounded-md bg-gray-200 shimmer" />
+        </div>
+
+        {/* Sort Button */}
+        <div className="hidden md:block">
+          <div className="w-36 h-10 rounded-md bg-gray-200 shimmer" />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex items-center justify-between">
       <div className="text-sm md:text-xl flex items-center gap-2">
-        {isLoading ? (
-          <>
-            <div className="h-6 w-40 rounded-md bg-gray-200 shimmer" />
-            <div className="h-5 w-20 rounded-md bg-gray-200 shimmer" />
-          </>
-        ) : (
-          <>
-            <h1>
-              {data.title} {t("listing")}
-            </h1>
-            <p className="text-(--text-body)">
-              {data.totalProductAmount} {t("product")}
-            </p>
-          </>
-        )}
+        <h1>
+          {data.title} {t("listing")}
+        </h1>
+        <p className="text-(--text-body)">
+          {data.totalProductAmount} {t("product")}
+        </p>
       </div>
       {/* Sort */}
       <div className="hidden md:block">

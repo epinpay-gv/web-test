@@ -134,6 +134,7 @@ export default function CategoryClient({
                 resetFilters={handleResetFilters}
                 setPriceRange={handleSetPriceRange}
                 toggleFilter={handleToggleFilter}
+                isLoading={isPending}
               />
             )}
             <ProductGrid
@@ -142,6 +143,7 @@ export default function CategoryClient({
               changeQuantity={changeQuantity}
               addToFavorites={addToFavorites}
               notifyWhenAvailable={notifyWhenAvailable}
+              isLoading={isPending}
             />
             {initialProducts.length > 0 && (
               <div className="mx-auto">

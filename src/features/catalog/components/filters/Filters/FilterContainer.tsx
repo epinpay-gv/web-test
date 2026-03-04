@@ -56,24 +56,21 @@ export default function Filters({
   return (
     <>
       {/* MOBİL GÖRÜNÜM */}
-      <div className="flex md:hidden gap-4 justify-between w-full">
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            padding="sm"
-            textSize="sm"
-            text={t("title")}
-            variant="secondary"
-            onClick={() => setMobileFilters(true)}
-            icon={<Filter size={14} />}
-          />
-          <FilterDropdownContainer
-            selectedId={currentSort ?? ""}
-            items={dropdownItems}
-            onSelect={onSortSelect}
-            icon={<Sort size={16} className="text-(--text-body)" />}
-            isCatalogPage={true}
-          />
-        </div>
+      <div className="grid grid-cols-2 md:hidden gap-4 justify-between w-full">
+        <Button
+          padding="sm"
+          textSize="sm"
+          text={t("title")}
+          variant="secondary"
+          onClick={() => setMobileFilters(true)}
+          icon={<Filter size={14} />}
+        />
+        <FilterDropdownContainer
+          selectedId={currentSort ?? ""}
+          items={dropdownItems}
+          onSelect={onSortSelect}
+          icon={<Sort size={16} className="text-(--text-body)" />}
+        />
         <BottomSheet
           isOpen={mobileFilters}
           title={t("title")}
