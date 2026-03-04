@@ -35,6 +35,8 @@ export function useBasketActions() {
     }
   };
 
+  const openTopupModal =() => {}
+
   const addToCart = (payload: AddToCartPayload) =>
     handleRequest(() => addToCartService(payload), "Ürün sepete eklendi");
 
