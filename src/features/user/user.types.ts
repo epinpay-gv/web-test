@@ -106,7 +106,7 @@ const STATUS_COLORS = {
   DANGER: "text-(--text-fg-danger-strong)",
 } as const;
 
-// ─── Sipariş Listesi ──────────────────────────────────────────────────────────
+// Sipariş Listesi
 
 export type OrderDisplayStatus = "COMPLETED" | "CANCELLED" | "PENDING";
 
@@ -128,8 +128,6 @@ export const ORDER_DISPLAY_COLORS: Record<OrderDisplayStatus, string> = {
   PENDING: STATUS_COLORS.WARNING,
 };
 
-
-
 export type ItemDisplayStatus = "DELIVERED" | "CANCELLED" | "PENDING";
 
 export function getItemDisplayStatus(status: OrderItemStatus): ItemDisplayStatus {
@@ -150,8 +148,6 @@ export const ITEM_DISPLAY_COLORS: Record<ItemDisplayStatus, string> = {
   PENDING: STATUS_COLORS.WARNING,
 };
 
-
-
 export const INVOICE_STATUS_LABELS: Record<InvoiceStatus, string> = {
   NONE: "Fatura Yok",
   REQUESTED: "Fatura Talep Edildi",
@@ -163,7 +159,6 @@ export const PRODUCT_CATEGORY_LABELS: Record<ProductCategory, string> = {
   GIFT_CARD: "Gift card",
   TOP_UP: "Top-up",
 };
-
 
 export type OrderStatusTab = "ALL" | "COMPLETED" | "PENDING" | "CANCELLED";
 
@@ -181,9 +176,45 @@ export const ORDER_STATUS_TAB_LABELS: Record<OrderStatusTab, string> = {
   CANCELLED: "İptal Edilen",
 };
 
-
 export function resolveStatusParams(tab: OrderStatusTab): string[] {
   if (tab === "PENDING") return ["PENDING_PAYMENT", "PAYMENT_SUCCESS"];
   if (tab === "ALL") return [];
   return [tab];
 }
+
+// Kullanıcı Profili 
+
+export type UserProfile = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  referralCode: string;
+  isEmailVerified: boolean;
+};
+
+export type UserProfileSectionContent = {
+  title: string;
+  description: string;
+};
+
+//  Kullanıcı Ayarları 
+
+export interface UserSettingsDTO {
+  system: {
+    country: string;
+    currency: string;
+  };
+  notifications: {
+    email: boolean;
+  };
+}
+
+export type CountryOption = {
+  label: string;
+  value: string;
+};
+
+export type CurrencyOption = {
+  label: string;
+  value: string;
+};

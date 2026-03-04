@@ -1,4 +1,4 @@
-import { mockProfile, mockProfileSectionContent } from "@/features/user/mocks/profile.mock";
+import { mockProfile, mockProfileSectionContent } from "@/mocks/user/profile.mock";
 import UserPageHeader from "@/features/user/components/UserPageHeader";
 import UserProfileSection from "@/features/user/components/profile/UserProfileSection";
 

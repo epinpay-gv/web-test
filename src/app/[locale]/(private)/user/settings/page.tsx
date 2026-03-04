@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import UserPageHeader from "@/features/user/components/UserPageHeader";
-import { mockUserSettings, countryOptions, currencyOptions, UserSettingsDTO } from "@/features/user/mocks/settings.mock";
+import { UserSettingsDTO } from "@/features/user/user.types";
+
 import { AngleDown } from "flowbite-react-icons/outline";
 import DropdownMenu from "@/components/common/Dropdown/DropdownMenu";
+import { countryOptions, currencyOptions, mockUserSettings } from "@/mocks/user/settings.mock";
 
 export default function SettingsPage() {
     const [settings, setSettings] =
@@ -69,6 +71,7 @@ export default function SettingsPage() {
                                 }
                                 items={countryOptions.map((option) => ({
                                     id: option.value,
+                                    value: option.value,
                                     text: option.label,
                                 }))}
                                 onSelect={(item) => handleCountryChange(item.id)}
@@ -93,12 +96,12 @@ export default function SettingsPage() {
                                 }
                                 items={currencyOptions.map((option) => ({
                                     id: option.value,
+                                    value: option.value,
                                     text: option.label,
                                 }))}
                                 onSelect={(item) => handleCurrencyChange(item.id)}
                                 width="100%"
                             />
-
                         </div>
                     </div>
                 </section>

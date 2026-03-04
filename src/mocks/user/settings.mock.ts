@@ -1,12 +1,4 @@
-export interface UserSettingsDTO {
-  system: {
-    country: string;
-    currency: string;
-  };
-  notifications: {
-    email: boolean;
-  };
-}
+import { UserSettingsDTO, CountryOption, CurrencyOption } from "@/features/user/user.types";
 
 export const mockUserSettings: UserSettingsDTO = {
   system: {
@@ -18,13 +10,13 @@ export const mockUserSettings: UserSettingsDTO = {
   },
 };
 
-export const countryOptions = [
-  {label: "English (US)", value: "US"},
+export const countryOptions: CountryOption[] = [
+  { label: "English (US)", value: "US" },
   { label: "Türkiye", value: "TR" },
   { label: "Almanya", value: "DE" },
 ];
 
-export const currencyOptions = [
+export const currencyOptions: CurrencyOption[] = [
   { label: "Türk Lirası (TRY)", value: "TRY" },
   { label: "Euro (EUR)", value: "EUR" },
   { label: "Dolar (USD)", value: "USD" },

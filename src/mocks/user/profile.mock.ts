@@ -1,15 +1,4 @@
-export type UserProfile = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  referralCode: string;
-  isEmailVerified: boolean;
-};
-
-export type UserProfileSectionContent = {
-  title: string;
-  description: string;
-};
+import { UserProfile, UserProfileSectionContent } from "@/features/user/user.types";
 
 export const mockProfile: UserProfile = {
   firstName: "Burak",
