@@ -18,7 +18,7 @@ export function useOrderProductStatus(orderId: string, product: OrderProduct) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // UI önce güncellenir, ardından arka planda API çağrısı yapılır.
+  // UI önce güncellenecek ve ardından arka planda API çağrısı yapılacak..
   const handleConfirm = () => {
     setTopUpSelection("confirmed");
     baseFetcher(

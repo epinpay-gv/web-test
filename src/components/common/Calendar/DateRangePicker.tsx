@@ -31,7 +31,7 @@ const DAY_PICKER_CLASS_NAMES = {
   day: "w-9 h-9 flex items-center justify-center relative",
   day_button:
     "w-8 h-8 rounded-lg text-sm transition-colors relative z-10 text-(--text-white)  focus:outline-none",
-    range_start:
+  range_start:
     "!bg-(--bg-brand) !text-white !rounded-l-lg !rounded-r-none font-semibold",
   range_end:
     "!bg-(--bg-brand) !text-white !rounded-r-lg !rounded-l-none font-semibold",
@@ -67,7 +67,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => setIsMobile(window.innerWidth < 640);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -124,7 +124,6 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
         }}
       />
 
-
       <div className="flex flex-col md:flex-row gap-2 px-3 pb-3">
         <Button
           text="Temizle"
@@ -150,29 +149,31 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
 
   return (
     <>
+      <div ref={containerRef} className="relative w-auto flex-shrink-0">
+        <button
+          type="button"
+          aria-label="Tarih aralığı filtrele"
+          onClick={() => setOpen((v) => !v)}
+          className={`
+            h-[40px] flex items-center gap-1.5 px-4 text-sm font-medium transition-colors rounded-[12px] bg-(--bg-neutral-secondary-medium)
+            ${hasValue
+              ? "text-white border-(--border-brand)"
+              : "text-(--text-body) border-(--border-default-medium)"}
+          `}
+        >
+          <CalendarWeek className="w-4 h-4 shrink-0" />
+          {/* Tarih etiketi sadece desktop'da gorunecek mobilde ikon */}
+          {displayLabel && (
+            <span className="hidden sm:inline truncate">{displayLabel}</span>
+          )}
+        </button>
 
-<div ref={containerRef} className="relative w-full sm:w-auto">
-  <button
-    type="button"
-    aria-label="Tarih aralığı filtrele"
-    onClick={() => setOpen((v) => !v)}
-    className={`
-      w-full sm:w-auto h-[40px] flex items-center gap-1.5 px-4 text-sm font-medium transition-colors border rounded-[12px] bg-(--bg-neutral-secondary-medium)
-    ${hasValue
-  ? " text-white border-(--border-brand)"
-  : " text-(--text-body) border-(--border-default-medium)"}
-    `}
-  >
-    <CalendarWeek className="w-4 h-4 shrink-0" />
-    {displayLabel && <span className="truncate">{displayLabel}</span>}
-  </button>
-
-  {open && !isMobile && (
-    <div className="absolute right-0 top-12 z-50 rounded-2xl border border-(--border-default-medium) bg-(--bg-neutral-primary-soft) shadow-2xl min-w-[280px]">
-      {calendarContent} 
-    </div>
-  )}
-</div>
+        {open && !isMobile && (
+          <div className="absolute right-0 top-12 z-50 rounded-2xl border border-(--border-default-medium) bg-(--bg-neutral-primary-soft) shadow-2xl min-w-[280px]">
+            {calendarContent}
+          </div>
+        )}
+      </div>
 
       {open && isMobile && (
         <>

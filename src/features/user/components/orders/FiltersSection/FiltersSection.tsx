@@ -30,7 +30,7 @@ export default function FiltersSection({
 }: FiltersSectionProps) {
   return (
     <div className="flex flex-col gap-3 mb-4">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+      <div className="hidden sm:flex sm:flex-row sm:items-center gap-2">
         {typeof totalCount === "number" && (
           <span className="text-xs md:text-sm text-(--text-body) sm:mr-auto">
             {totalCount} sipariş listeleniyor
@@ -40,6 +40,15 @@ export default function FiltersSection({
         <DatePicker value={selectedDate} onChange={onDateChange} />
       </div>
 
+      {/* Mobilde Search ve DatePicker  */}
+      <div className="flex sm:hidden flex-row items-center gap-2">
+        <div className="flex-1 min-w-0">
+          <OrderSearch value={search} onChange={onSearchChange} />
+        </div>
+        <DatePicker value={selectedDate} onChange={onDateChange} />
+      </div>
+
+      {/* Badge'ler */}
       <div className="flex items-center gap-2 flex-wrap">
         {ORDER_STATUS_TABS.map((tab) => (
           <button
@@ -58,6 +67,14 @@ export default function FiltersSection({
           </button>
         ))}
       </div>
+
+  
+      {typeof totalCount === "number" && (
+        <span className="sm:hidden text-xs text-(--text-body)">
+          {totalCount} sipariş listeleniyor
+        </span>
+      )}
+
     </div>
   );
 }

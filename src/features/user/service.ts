@@ -16,7 +16,7 @@ export const getOrders = (query: URLSearchParams) =>
     `${process.env.NEXT_PUBLIC_API_URL}/user/orders?${query.toString()}`,
   );
 
-// API bağlandığında mock satırını kaldır, baseFetcher satırını aç:
+// API bağlandığında mock satırını kaldıracağız baseFetcher satırını açacagız
 // return baseFetcher<Order>(`${process.env.NEXT_PUBLIC_API_URL}/user/orders/${id}`);
 export const getOrderById = (id: string): Promise<Order | null> =>
   Promise.resolve(mockOrders.find((o) => o.id === id) ?? null);
