@@ -41,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="tr" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        {/* --- ORİJİNAL SCRİPTLERİN (Bozmadan Geri Getirildi) --- */}
         {/* <Script
           id="gtm"
           strategy="afterInteractive"
@@ -99,7 +100,8 @@ export default function RootLayout({
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
-        </noscript>*/}
+        </noscript> */}
+        {/* --- SCRİPTLER SONU --- */}
 
         <ThemeProvider>
           <SessionProvider>

@@ -14,7 +14,10 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { AuthDropdown } from "@/features/auth/components/AuthDropdown"; 
 
+
+
 export function Header() {
+
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
@@ -43,7 +46,7 @@ export function Header() {
               className="h-6 md:h-10 w-auto object-contain cursor-pointer"
               priority
             />
-          </button>
+          </button> 
 
           <div className="hidden md:block max-w-lg flex-1">
             <SearchInput />
@@ -99,7 +102,7 @@ export function Header() {
               <SearchInput />
             </div>
             <button
-              onClick={() => setIsSearchOpen(false)}
+            onClick={() => setIsSearchOpen(false)}
               className="ml-4 p-2 text-red-500"
             >
               <X className="w-6 h-6" />
