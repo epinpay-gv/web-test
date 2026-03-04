@@ -2,7 +2,7 @@
 import { Header, Footer } from "@/components/layout";
 import PageAnimate from "@/components/common/PageAnimate/PageAnimate";
 import "@/styles/global.css";
-import { userMenu } from "@/features/user/user-menu";
+import { userMenuMock } from "@/features/user/userMenuMock";
 import { Sidebar } from "@/components/layout/Sidebar/Sidebar";
 
 interface PrivateLayoutProps {
@@ -12,12 +12,12 @@ interface PrivateLayoutProps {
 export default function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
     <div className="min-h-screen bg-muted/20">
-      <Header  />
+      <Header />
 
       <div className="mx-auto flex max-w-322 gap-6 py-8 px-4">
         {/* SOL PANEL */}
         <aside className="hidden w-77 rounded-2xl bg-(--bg-neutral-primary-soft) p-5 lg:block">
-        <Sidebar data={userMenu}/>
+          <Sidebar data={userMenuMock} />
         </aside>
 
         {/* SAĞ İÇERİK */}
