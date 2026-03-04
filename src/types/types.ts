@@ -11,6 +11,12 @@ export interface PageMetadata {
   metaDescription: string;
 }
 
+export interface FAQ {
+  id: number;
+  name: string;
+  description: string;
+}
+
 /* COMMON */
 export interface PaginationData {
   count: number;
@@ -25,11 +31,11 @@ export interface BreadcrumbItem {
   href: string; // relative: /products
 }
 
-export interface BreadcrumbItemType{
+export interface BreadcrumbItemType {
   name: string;
   href: string;
   icon?: ReactNode;
-};
+}
 
 /* PRODUCT */
 export enum PRODUCT_STATUS {
@@ -57,7 +63,6 @@ export interface Product {
 
   translation: ProductTranslation;
 
-
   cheapestOffer?: Offer | null;
   basePrice: number | null;
   epPrice: number | null;
@@ -84,7 +89,7 @@ export interface ProductTranslation extends Translation {
   imgAlt: string;
 
   activation?: string; // ! bu backende eklenmeli
-  faq?: { id: number; name: string; description: string }[]; // ! bu backende eklenmeli
+  faq?: FAQ[]; // ! bu backende eklenmeli
   comments?: Comment[]; // ! bu backende eklenmeli
 }
 export interface ProductRegion {
@@ -113,7 +118,7 @@ export interface CategoryTranslation extends Translation {
   slug: string;
   description: string;
   activation?: string; // ! bu backende eklenmeli
-  faq?: { id: number; name: string; description: string }[]; // ! bu backende eklenmeli
+  faq?: FAQ[]; // ! bu backende eklenmeli
   comments?: Comment[]; // ! bu backende eklenmeli
 
   // bannerImageUrl: string; // ! yeni yapıda buna gerek olmayabilir

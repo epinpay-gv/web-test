@@ -1,6 +1,8 @@
+import { FAQ } from "@/types/types";
+
 type FaqSchemaProps = {
   pageUrl: string;
-  faqData: { id: number; name: string; description: string }[];
+  faqData: FAQ[];
 };
 
 type schemaData = {

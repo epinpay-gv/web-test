@@ -20,8 +20,8 @@ export const mockMetadata: PageMetadata[] = [
     metaDescription: "The only address for reliable and fast delivery",
   },
   {
-    id: 1,
-    pageId: 1, // Products sayfası
+    id: 3,
+    pageId: 2, // Products sayfası
     slug: "/products",
     locale: "tr",
     title: "Ürünler | Epinpay",
@@ -29,12 +29,30 @@ export const mockMetadata: PageMetadata[] = [
     metaDescription: "Ürünler",
   },
   {
-    id: 2,
-    pageId: 1, // Products sayfası
+    id: 4,
+    pageId: 2, // Products sayfası
     slug: "/products",
     locale: "en",
     title: "Products | Epinpay",
     metaTitle: "Epinpay",
     metaDescription: "Products",
+  },
+  {
+    id: 5,
+    pageId: 3, // Çekilişler sayfası
+    slug: "/raffles",
+    locale: "tr",
+    title: "Çekilişler | Epinpay",
+    metaTitle: "Epinpay",
+    metaDescription: "Çekilişlere katıl, ödülleri topla!",
+  },
+  {
+    id: 6,
+    pageId: 3, // Çekilişler sayfası
+    slug: "/raffles",
+    locale: "en",
+    title: "Çekilişler | Epinpay",
+    metaTitle: "Epinpay",
+    metaDescription: "Join the raffles, gain the prices!",
   },
 ];
