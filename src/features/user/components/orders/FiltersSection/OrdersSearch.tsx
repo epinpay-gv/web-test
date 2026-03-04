@@ -26,10 +26,10 @@ export default function OrderSearch({
     if (localValue === value) return;
     const timer = setTimeout(() => onChange(localValue), debounceMs);
     return () => clearTimeout(timer);
-  }, [localValue]);
+ }, [localValue, value, onChange, debounceMs]);
 
   return (
-    <div className="w-[240px] h-[40px]">
+    <div className="w-60 h-10">
       <Input
         variant="default"
         inputSize="sm"

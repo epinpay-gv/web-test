@@ -30,18 +30,18 @@ export const OrderCard = ({ order }: OrderCardProps) => {
   }, [order.createdAt]);
 
   return (
-    <div className="relative flex items-center justify-between rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) p-5 hover:opacity-80 transition-opacity cursor-pointer">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-2xl bg-(--bg-neutral-primary-soft) border border-(#1D303A) p-5 gap-3 hover:opacity-80 transition-opacity cursor-pointer">
 
-      {/* SOL */}
-      <div className="flex flex-col gap-1">
-        <span className="text-[16px] font-semibold text-(--text-white)">
+      {/* Sol: sipariş bilgileri */}
+      <div className="flex flex-col gap-1 min-w-0">
+        <span className="text-[16px] font-semibold text-(--text-white) truncate">
           Sipariş numarası: {order.orderNumber}
         </span>
-        <div className="flex items-center gap-2 text-sm text-(--text-body)">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-(--text-body)">
           <span className="border-r border-(--border-neutral) pr-2">
             {order.products.length} Ürün
           </span>
-          <span className="border-r border-(--border-neutral) px-2 max-w-27.5 truncate">
+          <span className="border-r border-(--border-neutral) px-2 max-w-[110px] truncate">
             Satıcı {order.sellerName}
           </span>
           <span className="pl-2">
@@ -50,22 +50,20 @@ export const OrderCard = ({ order }: OrderCardProps) => {
         </div>
       </div>
 
-      {/* durum ve toplam bilgisi*/}
-      <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center text-sm">
-        <div className="flex items-center gap-5">
-          <span className="text-(--text-body) ">Durum:</span>
+      {/* Orta: durum ve toplam */}
+      <div className="flex items-center gap-6 sm:flex-col sm:items-center sm:gap-1 text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-(--text-body)">Durum:</span>
           <span className={`font-medium ${statusColor}`}>{statusLabel}</span>
         </div>
-        <div className="flex items-center gap-15">
-          <span className="text-(--text-body) ">Toplam:</span>
-          <span className="font-semibold">
-            {order.currency}{order.totalAmount}
-          </span>
+        <div className="flex items-center gap-2">
+          <span className="text-(--text-body)">Toplam:</span>
+          <span className="font-semibold">{order.currency}{order.totalAmount}</span>
         </div>
       </div>
 
-      {/* order detail kısmı için detay butonu */}
-      <Link href={`/user/orders/${order.id}`}>
+      {/* Sağ: detay butonu */}
+      <Link href={`/user/orders/${order.id}`} className="self-end sm:self-auto">
         <Button
           text="Detay gör"
           textSize="sm"
