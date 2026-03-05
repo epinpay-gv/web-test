@@ -1,13 +1,13 @@
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { FAQ, PageMetadata, PaginationData } from "@/types/types";
 
-export interface BannerSection {
+export interface BannerSectionData {
   name: string;
   image: string;
   raffle: Raffle | Raffle[];
 }
 
-export interface SliderSection {
+export interface SliderSectionData {
   title: string;
   raffles: Raffle[];
   line: number;
@@ -27,10 +27,10 @@ export interface RafflesApiResponse {
     activeParticipantCount: number;
     winners: Winner[];
     faq: FAQ[];
-    sliders: SliderSection[];
+    sliders: SliderSectionData[];
     banners: {
-      featured: BannerSection;
-      streamers: BannerSection[];
+      featured: BannerSectionData;
+      streamers: BannerSectionData[];
     };
   };
 }

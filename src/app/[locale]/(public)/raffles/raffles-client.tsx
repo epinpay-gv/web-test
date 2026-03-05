@@ -1,9 +1,14 @@
 "use client";
 
 import {
-  Winner,
-  SliderSection,
   BannerSection,
+  MainBannerLeft,
+  MainBannerRight,
+} from "@/features/raffles/components";
+import {
+  Winner,
+  SliderSectionData,
+  BannerSectionData,
 } from "@/features/raffles/raffle.types";
 import { FAQ } from "@/types/types";
 
@@ -12,10 +17,10 @@ interface RafflesClientProps {
     activeParticipantCount: number;
     winners: Winner[];
     faq: FAQ[];
-    sliders: SliderSection[];
+    sliders: SliderSectionData[];
     banners: {
-      featured: BannerSection;
-      streamers: BannerSection[];
+      featured: BannerSectionData;
+      streamers: BannerSectionData[];
     };
   };
 }
@@ -26,15 +31,19 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
 
   return (
     <>
-      <BannerSection />
-      <SliderSection />
-      <BannerSection />
-      <SliderSection />
-      <BannerSection />
-      <DescriptionCards />
-      <SliderSection />
-      <Winners />
-      <FAQSection />
+      <BannerSection
+        background="brand"
+        left={<MainBannerLeft data={activeParticipantCount} />}
+        right={<MainBannerRight />}
+      />
+      {/* <SliderSection /> */}
+      {/* <BannerSection /> */}
+      {/* <SliderSection /> */}
+      {/* <BannerSection /> */}
+      {/* <DescriptionCards /> */}
+      {/* <SliderSection /> */}
+      {/* <Winners /> */}
+      {/* <FAQSection /> */}
     </>
   );
 }
