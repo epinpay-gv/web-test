@@ -1,3 +1,5 @@
 export default function ArticlePage() {
-  return <></>;
+  return(
+    <div>deneme</div>
+  ) ;
 }
