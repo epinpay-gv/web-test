@@ -57,8 +57,8 @@ export interface Raffle {
   constraint: ParticipationConstraint; // ! Bu bana lazım değil
   //   allowedRoles: string[]; // ! Bu bana lazım değil
 
-  currencyId: number; // TODO : ödül değeri kısmında kullanılacak
-  totalCost: string; // TODO : ödül değeri kısmında kullanılacak
+  currencyId: number; 
+  totalCost: string; 
 
   epCost?: number | null;
   couponType?: string | null;
@@ -82,6 +82,9 @@ export interface Raffle {
   participations?: Participation[];
   pool?: RafflePool[];
   //   logs?: RaffleLog[]; // ! Bu bana lazım değil
+
+  participationCount: number; // ! bu backende eklenmeli
+
 }
 
 export interface RaffleReward {

@@ -4,6 +4,7 @@ import {
   BannerSection,
   MainBannerLeft,
   MainBannerRight,
+  SliderSection,
 } from "@/features/raffles/components";
 import {
   Winner,
@@ -29,6 +30,10 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
   const { activeParticipantCount, winners, faq, sliders, banners } = data;
   const { featured, streamers } = banners;
 
+  const slider1Data = sliders.find(i => i.line === 1);
+  const slider2Data = sliders.find(i => i.line === 2);
+  const slider3Data = sliders.find(i => i.line === 3);
+
   return (
     <>
       <BannerSection
@@ -36,7 +41,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
         left={<MainBannerLeft data={activeParticipantCount} />}
         right={<MainBannerRight />}
       />
-      {/* <SliderSection /> */}
+      {slider1Data && <SliderSection data={slider1Data} />}
       {/* <BannerSection /> */}
       {/* <SliderSection /> */}
       {/* <BannerSection /> */}

@@ -22,7 +22,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image: "https://placehold.co/64x64?text=EP",
+      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-20T08:00:00Z",
     updatedAt: "2025-03-01T10:00:00Z",
@@ -36,7 +36,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-101",
       },
     ],
-    constraint: ParticipationConstraint.EVERYONE,
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289
   },
   {
     id: "raffle-002",
@@ -51,7 +52,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image: "https://placehold.co/64x64?text=EP",
+      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-28T09:00:00Z",
     updatedAt: "2025-03-05T12:00:00Z",
@@ -65,7 +66,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-102",
       },
     ],
-    constraint: ParticipationConstraint.EVERYONE,
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289
   },
   {
     id: "raffle-003",
@@ -80,7 +82,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image: "https://placehold.co/64x64?text=EP",
+      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-05T11:00:00Z",
     updatedAt: "2025-02-26T08:00:00Z",
@@ -94,7 +96,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-103",
       },
     ],
-    constraint: ParticipationConstraint.EVERYONE,
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289
   },
   {
     id: "raffle-004",
@@ -109,7 +112,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image: "https://placehold.co/64x64?text=EP",
+      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2024-12-28T10:00:00Z",
     updatedAt: "2025-01-15T12:00:00Z",
@@ -123,7 +126,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-104",
       },
     ],
-    constraint: ParticipationConstraint.EVERYONE,
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289
   },
   {
     id: "raffle-005",
@@ -138,7 +142,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image: "https://placehold.co/64x64?text=EP",
+      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-22T09:00:00Z",
     updatedAt: "2025-03-10T20:01:00Z",
@@ -152,7 +156,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-105",
       },
     ],
-    constraint: ParticipationConstraint.EVERYONE,
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289
   },
   {
     id: "raffle-006",
@@ -167,8 +172,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "101",
     creator: {
       name: "İLKİNSAN",
-      image:
-        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/ilkinsan-38.webp",
+      image: "https://cdn.epinpay.com/image/ep/2025/10/mainpage/ilkinsan-38.webp",
     },
     createdAt: "2025-03-06T10:00:00Z",
     updatedAt: "2025-03-08T14:00:00Z",
@@ -182,7 +186,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-106",
       },
     ],
-    constraint: ParticipationConstraint.EVERYONE,
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289
   },
   {
     id: "raffle-007",
@@ -197,8 +202,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "102",
     creator: {
       name: "BERKAYKURT7",
-      image:
-        "https://cdn.epinpay.com/image/ep/2026/1/mainpage/berkaykurt7-27.webp",
+      image: "https://cdn.epinpay.com/image/ep/2026/1/mainpage/berkaykurt7-27.webp",
     },
     createdAt: "2025-03-04T11:00:00Z",
     updatedAt: "2025-03-04T11:00:00Z",
@@ -213,6 +217,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-008",
@@ -227,8 +232,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "103",
     creator: {
       name: "DGRMURAT",
-      image:
-        "https://cdn.epinpay.com/image/ep/2025/8/mainpage/dgrmurat-65.webp",
+      image: "https://cdn.epinpay.com/image/ep/2025/8/mainpage/dgrmurat-65.webp",
     },
     createdAt: "2025-03-01T10:00:00Z",
     updatedAt: "2025-03-03T09:00:00Z",
@@ -243,6 +247,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-009",
@@ -272,6 +277,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-010",
@@ -286,8 +292,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "105",
     creator: {
       name: "SAVASBERKE",
-      image:
-        "https://cdn.epinpay.com/image/ep/2025/9/mainpage/savas-berke-18.webp",
+      image: "https://cdn.epinpay.com/image/ep/2025/9/mainpage/savas-berke-18.webp",
     },
     createdAt: "2025-03-04T14:00:00Z",
     updatedAt: "2025-03-07T12:00:00Z",
@@ -302,6 +307,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-011",
@@ -316,8 +322,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "106",
     creator: {
       name: "SEYDICAN",
-      image:
-        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/seydican-53.webp",
+      image: "https://cdn.epinpay.com/image/ep/2025/10/mainpage/seydican-53.webp",
     },
     createdAt: "2025-01-18T09:00:00Z",
     updatedAt: "2025-02-04T11:00:00Z",
@@ -332,6 +337,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-012",
@@ -361,6 +367,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-013",
@@ -390,6 +397,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-014",
@@ -404,7 +412,7 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "platform-001",
     creator: {
       name: "EpinGame Platform",
-      image: "https://placehold.co/64x64?text=EP",
+      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-03-04T08:00:00Z",
     updatedAt: "2025-03-06T09:00:00Z",
@@ -419,6 +427,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
   {
     id: "raffle-015",
@@ -448,6 +457,7 @@ export const rafflesMockData: Raffle[] = [
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289
   },
 ];
 

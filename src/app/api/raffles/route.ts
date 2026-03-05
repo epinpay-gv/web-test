@@ -27,34 +27,32 @@ export async function GET() {
     }));
 
   //SLIDER DATAS
-  const premiumSliderData = rafflesMockData
-    .filter((i) => i.constraint === ParticipationConstraint.PREMIUM)
-    .map((i) => ({
-      title: "Premium üyelere özel çekilişler",
-      raffles: i,
-      line: 1,
-    }));
+  const premiumSliderData = rafflesMockData.filter(
+    (i) => i.constraint === ParticipationConstraint.PREMIUM,
+  );
 
-  const referenceSliderData = rafflesMockData
-    .filter((i) => i.constraint === ParticipationConstraint.REFERENCE)
-    .map((i) => ({
-      title: "Referanslı kullanıcılara özel çekilişler",
-      raffles: i,
-      line: 2,
-    }));
+  const referenceSliderData = rafflesMockData.filter(
+    (i) => i.constraint === ParticipationConstraint.REFERENCE,
+  );
 
-  const epinpaySliderData = rafflesMockData
-    .filter((i) => i.creatorId === "1")
-    .map((i) => ({
-      title: "Epinpay çekilişleri",
-      raffles: i,
-      line: 3,
-    }));
+  const epinpaySliderData = rafflesMockData.filter((i) => i.creatorId === "1");
 
   const sliderData = [
-    ...premiumSliderData,
-    ...referenceSliderData,
-    ...epinpaySliderData,
+    {
+      title: "Premium üyelere özel çekilişler",
+      raffles: premiumSliderData,
+      line: 1,
+    },
+    {
+      title: "Referanslı kullanıcılara özel çekilişler",
+      raffles: referenceSliderData,
+      line: 2,
+    },
+    {
+      title: "Epinpay çekilişleri",
+      raffles: epinpaySliderData,
+      line: 3,
+    },
   ];
 
   // FAKE LATENCY

@@ -1,14 +1,15 @@
+import { Raffle } from "../types";
 
 interface ImageSectionProps {
-  card?: string;
+  card: Raffle;
 }
 
-export default function ImageSection({  }: ImageSectionProps) {
+export default function ImageSection({ card }: ImageSectionProps) {
 
 
   return (
-    <section className="">
+    <div className="">
 
-    </section>
+    </div>
   );
 }
