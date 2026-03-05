@@ -6,8 +6,8 @@ export default function MainBannerRight() {
       <Image
         src="/raffles-page/main-banner-right-image.webp"
         alt="Main Banner Image"
-        width={300}
-        height={300}
+        width={400}
+        height={400}
       />
     </div>
   );

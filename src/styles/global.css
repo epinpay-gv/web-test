@@ -472,7 +472,7 @@ div {
 }
 
 .mega-menu-left-bg {
-  background-color: #081D28;
+  background-color: #081d28;
 
   /* gradient layers */
   background-image:
@@ -482,13 +482,12 @@ div {
       rgba(255, 255, 255, 0.06) 0%,
       rgba(255, 255, 255, 0) 60%
     ),
-
     /* ALTTAN KIRMIZI GLOW */
     radial-gradient(
-      159.4% 111.11% at 17.46% 117.36%,
-      rgba(255, 95, 95, 0.55) 0%,
-      rgba(255, 95, 95, 0) 65.43%
-    );
+        159.4% 111.11% at 17.46% 117.36%,
+        rgba(255, 95, 95, 0.55) 0%,
+        rgba(255, 95, 95, 0) 65.43%
+      );
 }
 
 /* SKELETON İÇİN ANİMASYON */
