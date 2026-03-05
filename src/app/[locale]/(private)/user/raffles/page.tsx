@@ -1,4 +1,4 @@
-export default function RafflesPage() {
+export default function MyRafflesPage() {
 
   return (
     <div>

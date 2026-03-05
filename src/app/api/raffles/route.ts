@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
-import { mockMetadata, rafflesMockData } from "@/mocks";
-import { PaginationData } from "@/types/types";
+import {
+  mockMetadata,
+  rafflesMockData,
+  rafflesFaqMockData,
+  rafflesWinnersMockData,
+} from "@/mocks";
 import { ParticipationConstraint } from "@/components/common/Cards/RaffleCard/types";
 
-export async function GET(req: Request) {
+export async function GET() {
   //BANNER DATAS
   const featuredBannerData = rafflesMockData
     .filter((i) => i.creatorId === "1")
@@ -47,7 +51,11 @@ export async function GET(req: Request) {
       line: 3,
     }));
 
-  const sliderData = [...premiumSliderData, ...referenceSliderData, ...epinpaySliderData];
+  const sliderData = [
+    ...premiumSliderData,
+    ...referenceSliderData,
+    ...epinpaySliderData,
+  ];
 
   // FAKE LATENCY
   await new Promise((r) => setTimeout(r, 300));
@@ -56,8 +64,8 @@ export async function GET(req: Request) {
     metadata: mockMetadata.find((m) => m.pageId === 3),
     data: {
       activeParticipantCount: 126,
-      winners: [],
-      faq: [],
+      winners: rafflesWinnersMockData,
+      faq: rafflesFaqMockData,
       sliders: sliderData,
       banners: {
         featured: featuredBannerData,

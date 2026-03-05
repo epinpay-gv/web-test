@@ -451,6 +451,78 @@ export const rafflesMockData: Raffle[] = [
   },
 ];
 
-export const rafflesFaqMockData: FAQ[] = [];
+export const rafflesFaqMockData: FAQ[] = [
+  {
+    id: 1,
+    name: "How do I enter a raffle?",
+    description:
+      "To enter a raffle, simply navigate to the active raffle on the Raffles page and click the 'Enter Raffle' button. You must be logged in to participate. Each raffle may have different entry requirements, such as a minimum account age or a specific number of points.",
+  },
+  {
+    id: 2,
+    name: "How are winners selected?",
+    description:
+      "Winners are selected randomly and fairly using a certified random number generator once the raffle period ends. Every eligible entry has an equal chance of winning. The draw is automated and cannot be influenced by any party.",
+  },
+  {
+    id: 3,
+    name: "How will I be notified if I win?",
+    description:
+      "If you are selected as a winner, you will receive an instant notification via the platform and an email to your registered address. You have 48 hours to claim your prize before it is forfeited and a new winner is drawn.",
+  },
+  {
+    id: 4,
+    name: "Can I enter the same raffle multiple times?",
+    description:
+      "No, each user is limited to one entry per raffle to ensure fairness for all participants. Attempts to create multiple accounts to gain extra entries will result in disqualification and a permanent account ban.",
+  },
+  {
+    id: 5,
+    name: "What happens if I don't claim my prize?",
+    description:
+      "Unclaimed prizes expire after 48 hours of the winner announcement. Once expired, a re-draw is conducted automatically and a new winner is selected from the remaining eligible entries. Make sure your notification settings are enabled so you never miss a win.",
+  },
+];
 
-export const rafflesWinnersMockData: Winner[] = [];
+export const rafflesWinnersMockData: Winner[] = [
+  {
+    name: "Jane D***",
+    date: "2025-06-13T11:48:00.000Z",
+    id: "001",
+  },
+  {
+    name: "Marcus T***",
+    date: "2025-06-12T09:22:00.000Z",
+    id: "002",
+  },
+  {
+    name: "Sofia R***",
+    date: "2025-06-11T14:05:00.000Z",
+    id: "003",
+  },
+  {
+    name: "Ahmed K***",
+    date: "2025-06-10T16:33:00.000Z",
+    id: "004",
+  },
+  {
+    name: "Priya M***",
+    date: "2025-06-09T08:17:00.000Z",
+    id: "005",
+  },
+  {
+    name: "Lucas B***",
+    date: "2025-06-08T20:44:00.000Z",
+    id: "006",
+  },
+  {
+    name: "Elena V***",
+    date: "2025-06-07T13:59:00.000Z",
+    id: "007",
+  },
+  {
+    name: "Omar S***",
+    date: "2025-06-06T10:30:00.000Z",
+    id: "008",
+  },
+];

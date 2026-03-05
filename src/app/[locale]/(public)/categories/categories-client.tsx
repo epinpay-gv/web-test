@@ -55,7 +55,7 @@ export default function CategoriessClient({
           title: "Kategoriler ",
           totalProductAmount: paginationState.count,
         }}
-        onSelect={function (id: string): void {
+        onSortSelect={function (value: string): void {
           throw new Error("Function not implemented.");
         }}
       />

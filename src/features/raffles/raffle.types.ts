@@ -14,6 +14,7 @@ export interface SliderSection {
 }
 
 export interface Winner {
+  id: string;
   name: string;
   date: string;
 }
@@ -21,7 +22,7 @@ export interface Winner {
 /* RESPONSE & PAYLOAD TYPES */
 
 export interface RafflesApiResponse {
-  metadata: PageMetadata[];
+  metadata: PageMetadata;
   data: {
     activeParticipantCount: number;
     winners: Winner[];
