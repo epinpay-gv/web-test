@@ -22,7 +22,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-20T08:00:00Z",
     updatedAt: "2025-03-01T10:00:00Z",
@@ -32,12 +33,14 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-001",
         name: "Steam Deck OLED 512GB",
         quantity: 1,
-        image: "https://placehold.co/300x200?text=SteamDeck",
+        image:
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+
         offerId: "offer-101",
       },
     ],
     constraint: ParticipationConstraint.PREMIUM,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-002",
@@ -52,7 +55,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-28T09:00:00Z",
     updatedAt: "2025-03-05T12:00:00Z",
@@ -62,12 +66,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-002",
         name: "FIFA 25 Ultimate Edition (PC)",
         quantity: 3,
-        image: "https://placehold.co/300x200?text=FIFA25",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-102",
       },
     ],
     constraint: ParticipationConstraint.PREMIUM,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-003",
@@ -82,7 +87,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-05T11:00:00Z",
     updatedAt: "2025-02-26T08:00:00Z",
@@ -92,12 +98,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-003",
         name: "PlayStation Plus Extra 12 Ay",
         quantity: 5,
-        image: "https://placehold.co/300x200?text=PS+Plus",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-103",
       },
     ],
     constraint: ParticipationConstraint.PREMIUM,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-004",
@@ -112,7 +119,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2024-12-28T10:00:00Z",
     updatedAt: "2025-01-15T12:00:00Z",
@@ -122,12 +130,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-004",
         name: "Elden Ring: Shadow of the Erdtree DLC",
         quantity: 2,
-        image: "https://placehold.co/300x200?text=EldenRing",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-104",
       },
     ],
     constraint: ParticipationConstraint.PREMIUM,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-005",
@@ -142,7 +151,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "1",
     creator: {
       name: "Epinpay",
-      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-02-22T09:00:00Z",
     updatedAt: "2025-03-10T20:01:00Z",
@@ -152,12 +162,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-005",
         name: "Xbox Game Pass Ultimate 3 Ay",
         quantity: 10,
-        image: "https://placehold.co/300x200?text=GamePass",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-105",
       },
     ],
     constraint: ParticipationConstraint.PREMIUM,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-006",
@@ -172,7 +183,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "101",
     creator: {
       name: "İLKİNSAN",
-      image: "https://cdn.epinpay.com/image/ep/2025/10/mainpage/ilkinsan-38.webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/ilkinsan-38.webp",
     },
     createdAt: "2025-03-06T10:00:00Z",
     updatedAt: "2025-03-08T14:00:00Z",
@@ -182,12 +194,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-006",
         name: "Cyberpunk 2077 Phantom Liberty Bundle (Steam)",
         quantity: 4,
-        image: "https://placehold.co/300x200?text=Cyberpunk",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-106",
       },
     ],
     constraint: ParticipationConstraint.PREMIUM,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-007",
@@ -202,7 +215,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "102",
     creator: {
       name: "BERKAYKURT7",
-      image: "https://cdn.epinpay.com/image/ep/2026/1/mainpage/berkaykurt7-27.webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2026/1/mainpage/berkaykurt7-27.webp",
     },
     createdAt: "2025-03-04T11:00:00Z",
     updatedAt: "2025-03-04T11:00:00Z",
@@ -212,12 +226,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-007",
         name: "Valorant 10.000 VP",
         quantity: 5,
-        image: "https://placehold.co/300x200?text=Valorant",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-107",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-008",
@@ -232,7 +247,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "103",
     creator: {
       name: "DGRMURAT",
-      image: "https://cdn.epinpay.com/image/ep/2025/8/mainpage/dgrmurat-65.webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/8/mainpage/dgrmurat-65.webp",
     },
     createdAt: "2025-03-01T10:00:00Z",
     updatedAt: "2025-03-03T09:00:00Z",
@@ -242,12 +258,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-008",
         name: "Nintendo Switch 2 (Standart)",
         quantity: 1,
-        image: "https://placehold.co/300x200?text=Switch2",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-108",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-009",
@@ -272,12 +289,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-009",
         name: "GTA VI Pre-Order (PS5)",
         quantity: 2,
-        image: "https://placehold.co/300x200?text=GTAVI",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-109",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-010",
@@ -292,7 +310,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "105",
     creator: {
       name: "SAVASBERKE",
-      image: "https://cdn.epinpay.com/image/ep/2025/9/mainpage/savas-berke-18.webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/9/mainpage/savas-berke-18.webp",
     },
     createdAt: "2025-03-04T14:00:00Z",
     updatedAt: "2025-03-07T12:00:00Z",
@@ -302,12 +321,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-010",
         name: "League of Legends 20.000 RP",
         quantity: 3,
-        image: "https://placehold.co/300x200?text=LoL+RP",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-110",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-011",
@@ -322,7 +342,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "106",
     creator: {
       name: "SEYDICAN",
-      image: "https://cdn.epinpay.com/image/ep/2025/10/mainpage/seydican-53.webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/seydican-53.webp",
     },
     createdAt: "2025-01-18T09:00:00Z",
     updatedAt: "2025-02-04T11:00:00Z",
@@ -332,12 +353,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-011",
         name: "Hogwarts Legacy Deluxe Edition (PC)",
         quantity: 2,
-        image: "https://placehold.co/300x200?text=Hogwarts",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-111",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-012",
@@ -362,12 +384,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-012",
         name: "Monster Hunter Wilds Collector's Edition",
         quantity: 1,
-        image: "https://placehold.co/300x200?text=MHWilds",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-112",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-013",
@@ -392,12 +415,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-013",
         name: "Diablo IV + Vessel of Hatred Bundle (Battle.net)",
         quantity: 2,
-        image: "https://placehold.co/300x200?text=DiabloIV",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-113",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-014",
@@ -412,7 +436,8 @@ export const rafflesMockData: Raffle[] = [
     creatorId: "platform-001",
     creator: {
       name: "EpinGame Platform",
-      image:"https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
     },
     createdAt: "2025-03-04T08:00:00Z",
     updatedAt: "2025-03-06T09:00:00Z",
@@ -422,12 +447,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-014",
         name: "Spotify Premium 6 Ay",
         quantity: 8,
-        image: "https://placehold.co/300x200?text=Spotify",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-114",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
   {
     id: "raffle-015",
@@ -452,12 +478,13 @@ export const rafflesMockData: Raffle[] = [
         raffleId: "raffle-015",
         name: "The Last of Us Part II Remastered (PS5)",
         quantity: 3,
-        image: "https://placehold.co/300x200?text=TLOU2R",
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-115",
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
-    participationCount: 1289
+    participationCount: 1289,
   },
 ];
 

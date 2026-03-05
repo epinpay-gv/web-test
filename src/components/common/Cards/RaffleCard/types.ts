@@ -48,13 +48,13 @@ export interface Raffle {
   id: string;
   title: string;
   description?: string | null;
-  type: RaffleType; // TODO : arka plan rengi planlarken kullanılacak
+  type: RaffleType; 
   status: RaffleStatus;
 
   startDate: string;
   endDate: string;
 
-  constraint: ParticipationConstraint; // ! Bu bana lazım değil
+  constraint: ParticipationConstraint; 
   //   allowedRoles: string[]; // ! Bu bana lazım değil
 
   currencyId: number; 
