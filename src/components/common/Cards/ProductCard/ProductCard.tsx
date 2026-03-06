@@ -8,6 +8,7 @@ import {
   ActionButtons,
   OutOfStockSection,
   CartActionButtons,
+  TopupInfoForm,
 } from "./CardSections";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -17,21 +18,20 @@ import {
   NotifyWhenAvailablePayload,
   ChangeQuantityPayload,
 } from "@/features/catalog/catalog.types";
+import { Modal } from "../../Modal/Modal";
+import { useState } from "react";
 
 interface ProductCardProps {
   isLoading?: boolean;
   product: Product;
   orientation?: ProductCardOrientation;
   isInCart?: boolean;
-  isOutOfStock?: boolean;
-  onOutOfStockClick?: () => void;
-  onRemoveItem?: () => void;
   addToCart: (payload: AddToCartPayload) => void;
   notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
   isReadOnly?: boolean;
-  cardActions?: boolean;
+  onClose?: () => void;
 }
 
 const sizeClasses = {
@@ -47,15 +47,12 @@ export default function ProductCard({
   product,
   orientation = ProductCardOrientation.VERTICAL,
   isInCart = false,
-  isOutOfStock = false,
-  onOutOfStockClick,
-  onRemoveItem,
   addToCart,
   notifyWhenAvailable,
   addToFavorites,
   changeQuantity,
   isReadOnly,
-  cardActions = true,
+  onClose,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
 
@@ -73,6 +70,11 @@ export default function ProductCard({
     isHorizontal ? "flex-row gap-4" : "flex-col justify-start",
     cardSizeClass,
   );
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  
+
 
   const content = (
     <>
@@ -92,12 +94,16 @@ export default function ProductCard({
             : "flex flex-col justify-between",
         )}
       >
-        <ProductInfo product={product} isHorizontal={isHorizontal} isLoading={isLoading}/>
+        <ProductInfo
+          product={product}
+          isHorizontal={isHorizontal}
+          isLoading={isLoading}
+        />
 
         {!isInCart &&
           (product.basePrice ? (
             <>
-              <PriceSection product={product} isLoading={isLoading}/>
+              <PriceSection product={product} isLoading={isLoading} />
               <ActionButtons
                 isHorizontal={isHorizontal}
                 addToCart={addToCart}
@@ -130,6 +136,17 @@ export default function ProductCard({
           </div>
         )}
       </div>
+      {isOpen && onClose && (
+        <Modal
+          open={isOpen}
+          onClose={onClose}
+          title={"Bilgilerini Gir"}
+          theme="info"
+          size="md"
+        >
+          <TopupInfoForm />
+        </Modal>
+      )}
     </>
   );
 

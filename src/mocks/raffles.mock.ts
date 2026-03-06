@@ -1,0 +1,565 @@
+import {
+  Raffle,
+  RaffleType,
+  RaffleStatus,
+  CreatorType,
+  ParticipationConstraint,
+} from "@/components/common/Cards/RaffleCard/types";
+import { Winner } from "@/features/raffles/raffle.types";
+import { FAQ } from "@/types/types";
+
+export const rafflesMockData: Raffle[] = [
+  {
+    id: "raffle-001",
+    title: "Steam Deck OLED Çekilişi",
+    type: RaffleType.FREE,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-01T10:00:00Z",
+    endDate: "2025-03-15T23:59:00Z",
+    currencyId: 1,
+    totalCost: "0.00",
+    creatorType: CreatorType.STORE,
+    creatorId: "1",
+    creator: {
+      name: "Epinpay",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+    },
+    createdAt: "2025-02-20T08:00:00Z",
+    updatedAt: "2025-03-01T10:00:00Z",
+    rewards: [
+      {
+        id: "reward-001",
+        raffleId: "raffle-001",
+        name: "Steam Deck OLED 512GB",
+        quantity: 1,
+        image:
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+
+        offerId: "offer-101",
+      },
+    ],
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-002",
+    title: "FIFA 25 Ultimate Edition Çekilişi",
+    type: RaffleType.EP,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-05T12:00:00Z",
+    endDate: "2025-03-20T20:00:00Z",
+    currencyId: 4,
+    totalCost: "500.00",
+    creatorType: CreatorType.STORE,
+    creatorId: "1",
+    creator: {
+      name: "Epinpay",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+    },
+    createdAt: "2025-02-28T09:00:00Z",
+    updatedAt: "2025-03-05T12:00:00Z",
+    rewards: [
+      {
+        id: "reward-002",
+        raffleId: "raffle-002",
+        name: "FIFA 25 Ultimate Edition (PC)",
+        quantity: 3,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-102",
+      },
+    ],
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-003",
+    title: "PlayStation Plus 12 Ay Üyelik",
+    type: RaffleType.COUPON,
+    status: RaffleStatus.ANNOUNCED,
+    startDate: "2025-02-10T10:00:00Z",
+    endDate: "2025-02-25T23:59:00Z",
+    currencyId: 1,
+    totalCost: "0.00",
+    creatorType: CreatorType.STORE,
+    creatorId: "1",
+    creator: {
+      name: "Epinpay",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+    },
+    createdAt: "2025-02-05T11:00:00Z",
+    updatedAt: "2025-02-26T08:00:00Z",
+    rewards: [
+      {
+        id: "reward-003",
+        raffleId: "raffle-003",
+        name: "PlayStation Plus Extra 12 Ay",
+        quantity: 5,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-103",
+      },
+    ],
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-004",
+    title: "Elden Ring Shadow of the Erdtree",
+    type: RaffleType.EP,
+    status: RaffleStatus.COMPLETED,
+    startDate: "2025-01-01T00:00:00Z",
+    endDate: "2025-01-14T23:59:00Z",
+    currencyId: 4,
+    totalCost: "750.00",
+    creatorType: CreatorType.STORE,
+    creatorId: "1",
+    creator: {
+      name: "Epinpay",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+    },
+    createdAt: "2024-12-28T10:00:00Z",
+    updatedAt: "2025-01-15T12:00:00Z",
+    rewards: [
+      {
+        id: "reward-004",
+        raffleId: "raffle-004",
+        name: "Elden Ring: Shadow of the Erdtree DLC",
+        quantity: 2,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-104",
+      },
+    ],
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-005",
+    title: "Xbox Game Pass Ultimate 3 Ay",
+    type: RaffleType.FREE,
+    status: RaffleStatus.DRAWING,
+    startDate: "2025-03-01T08:00:00Z",
+    endDate: "2025-03-10T20:00:00Z",
+    currencyId: 1,
+    totalCost: "0.00",
+    creatorType: CreatorType.STORE,
+    creatorId: "1",
+    creator: {
+      name: "Epinpay",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+    },
+    createdAt: "2025-02-22T09:00:00Z",
+    updatedAt: "2025-03-10T20:01:00Z",
+    rewards: [
+      {
+        id: "reward-005",
+        raffleId: "raffle-005",
+        name: "Xbox Game Pass Ultimate 3 Ay",
+        quantity: 10,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-105",
+      },
+    ],
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-006",
+    title: "Cyberpunk 2077 + Phantom Liberty Bundle",
+    type: RaffleType.MIXED,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-08T14:00:00Z",
+    endDate: "2025-03-22T22:00:00Z",
+    currencyId: 1,
+    totalCost: "250.00",
+    creatorType: CreatorType.PUBLISHER,
+    creatorId: "101",
+    creator: {
+      name: "İLKİNSAN",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/ilkinsan-38.webp",
+    },
+    createdAt: "2025-03-06T10:00:00Z",
+    updatedAt: "2025-03-08T14:00:00Z",
+    rewards: [
+      {
+        id: "reward-006",
+        raffleId: "raffle-006",
+        name: "Cyberpunk 2077 Phantom Liberty Bundle (Steam)",
+        quantity: 4,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-106",
+      },
+    ],
+    constraint: ParticipationConstraint.PREMIUM,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-007",
+    title: "Valorant 10.000 VP Paketi",
+    type: RaffleType.EP,
+    status: RaffleStatus.DRAFT,
+    startDate: "2025-03-25T10:00:00Z",
+    endDate: "2025-04-05T23:59:00Z",
+    currencyId: 4,
+    totalCost: "300.00",
+    creatorType: CreatorType.PUBLISHER,
+    creatorId: "102",
+    creator: {
+      name: "BERKAYKURT7",
+      image:
+        "https://cdn.epinpay.com/image/ep/2026/1/mainpage/berkaykurt7-27.webp",
+    },
+    createdAt: "2025-03-04T11:00:00Z",
+    updatedAt: "2025-03-04T11:00:00Z",
+    rewards: [
+      {
+        id: "reward-007",
+        raffleId: "raffle-007",
+        name: "Valorant 10.000 VP",
+        quantity: 5,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-107",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-008",
+    title: "Nintendo Switch 2 Ön Kayıt Çekilişi",
+    type: RaffleType.FREE,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-03T09:00:00Z",
+    endDate: "2025-03-31T23:59:00Z",
+    currencyId: 1,
+    totalCost: "0.00",
+    creatorType: CreatorType.PUBLISHER,
+    creatorId: "103",
+    creator: {
+      name: "DGRMURAT",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/8/mainpage/dgrmurat-65.webp",
+    },
+    createdAt: "2025-03-01T10:00:00Z",
+    updatedAt: "2025-03-03T09:00:00Z",
+    rewards: [
+      {
+        id: "reward-008",
+        raffleId: "raffle-008",
+        name: "Nintendo Switch 2 (Standart)",
+        quantity: 1,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-108",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-009",
+    title: "GTA VI Pre-Order Kod Çekilişi",
+    type: RaffleType.COUPON,
+    status: RaffleStatus.ANNOUNCED,
+    startDate: "2025-02-14T10:00:00Z",
+    endDate: "2025-02-28T23:59:00Z",
+    currencyId: 1,
+    totalCost: "0.00",
+    creatorType: CreatorType.PUBLISHER,
+    creatorId: "104",
+    creator: {
+      name: "MAGLOR",
+      image: "https://cdn.epinpay.com/image/ep/2025/8/mainpage/maglor-22.webp",
+    },
+    createdAt: "2025-02-10T08:00:00Z",
+    updatedAt: "2025-03-01T09:00:00Z",
+    rewards: [
+      {
+        id: "reward-009",
+        raffleId: "raffle-009",
+        name: "GTA VI Pre-Order (PS5)",
+        quantity: 2,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-109",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-010",
+    title: "League of Legends 20.000 RP Çekilişi",
+    type: RaffleType.EP,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-07T12:00:00Z",
+    endDate: "2025-03-18T20:00:00Z",
+    currencyId: 4,
+    totalCost: "400.00",
+    creatorType: CreatorType.PUBLISHER,
+    creatorId: "105",
+    creator: {
+      name: "SAVASBERKE",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/9/mainpage/savas-berke-18.webp",
+    },
+    createdAt: "2025-03-04T14:00:00Z",
+    updatedAt: "2025-03-07T12:00:00Z",
+    rewards: [
+      {
+        id: "reward-010",
+        raffleId: "raffle-010",
+        name: "League of Legends 20.000 RP",
+        quantity: 3,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-110",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-011",
+    title: "Hogwarts Legacy Deluxe Edition",
+    type: RaffleType.FREE,
+    status: RaffleStatus.CANCELLED,
+    startDate: "2025-01-20T10:00:00Z",
+    endDate: "2025-02-03T23:59:00Z",
+    currencyId: 1,
+    totalCost: "0.00",
+    creatorType: CreatorType.PUBLISHER,
+    creatorId: "106",
+    creator: {
+      name: "SEYDICAN",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/seydican-53.webp",
+    },
+    createdAt: "2025-01-18T09:00:00Z",
+    updatedAt: "2025-02-04T11:00:00Z",
+    rewards: [
+      {
+        id: "reward-011",
+        raffleId: "raffle-011",
+        name: "Hogwarts Legacy Deluxe Edition (PC)",
+        quantity: 2,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-111",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-012",
+    title: "Monster Hunter Wilds Collector's Edition",
+    type: RaffleType.MIXED,
+    status: RaffleStatus.DRAWN,
+    startDate: "2025-02-20T10:00:00Z",
+    endDate: "2025-03-02T23:59:00Z",
+    currencyId: 1,
+    totalCost: "150.00",
+    creatorType: CreatorType.PUBLISHER,
+    creatorId: "publisher-014",
+    creator: {
+      name: "Capcom Official",
+      image: "https://placehold.co/64x64?text=Capcom",
+    },
+    createdAt: "2025-02-17T10:00:00Z",
+    updatedAt: "2025-03-03T08:00:00Z",
+    rewards: [
+      {
+        id: "reward-012",
+        raffleId: "raffle-012",
+        name: "Monster Hunter Wilds Collector's Edition",
+        quantity: 1,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-112",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-013",
+    title: "Diablo IV + Vessel of Hatred DLC",
+    type: RaffleType.EP,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-09T10:00:00Z",
+    endDate: "2025-03-24T20:00:00Z",
+    currencyId: 4,
+    totalCost: "600.00",
+    creatorType: CreatorType.STORE,
+    creatorId: "store-091",
+    creator: {
+      name: "Sanctuary Store",
+      image: "https://placehold.co/64x64?text=D4",
+    },
+    createdAt: "2025-03-07T09:00:00Z",
+    updatedAt: "2025-03-09T10:00:00Z",
+    rewards: [
+      {
+        id: "reward-013",
+        raffleId: "raffle-013",
+        name: "Diablo IV + Vessel of Hatred Bundle (Battle.net)",
+        quantity: 2,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-113",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-014",
+    title: "Spotify Premium 6 Ay Hediye",
+    type: RaffleType.COUPON,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-06T09:00:00Z",
+    endDate: "2025-03-19T23:59:00Z",
+    currencyId: 2,
+    totalCost: "0.00",
+    creatorType: CreatorType.PLATFORM,
+    creatorId: "platform-001",
+    creator: {
+      name: "EpinGame Platform",
+      image:
+        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/arena-of-valor-story-93.webp?width=88/height=88/format=webp",
+    },
+    createdAt: "2025-03-04T08:00:00Z",
+    updatedAt: "2025-03-06T09:00:00Z",
+    rewards: [
+      {
+        id: "reward-014",
+        raffleId: "raffle-014",
+        name: "Spotify Premium 6 Ay",
+        quantity: 8,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-114",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+  {
+    id: "raffle-015",
+    title: "The Last of Us Part II Remastered",
+    type: RaffleType.FREE,
+    status: RaffleStatus.ACTIVE,
+    startDate: "2025-03-10T11:00:00Z",
+    endDate: "2025-03-25T22:00:00Z",
+    currencyId: 1,
+    totalCost: "0.00",
+    creatorType: CreatorType.STORE,
+    creatorId: "store-066",
+    creator: {
+      name: "Naughty Dog Fans TR",
+      image: "https://placehold.co/64x64?text=TLOU",
+    },
+    createdAt: "2025-03-08T10:00:00Z",
+    updatedAt: "2025-03-10T11:00:00Z",
+    rewards: [
+      {
+        id: "reward-015",
+        raffleId: "raffle-015",
+        name: "The Last of Us Part II Remastered (PS5)",
+        quantity: 3,
+        image: 
+          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        offerId: "offer-115",
+      },
+    ],
+    constraint: ParticipationConstraint.EVERYONE,
+    participationCount: 1289,
+  },
+];
+
+export const rafflesFaqMockData: FAQ[] = [
+  {
+    id: 1,
+    name: "How do I enter a raffle?",
+    description:
+      "To enter a raffle, simply navigate to the active raffle on the Raffles page and click the 'Enter Raffle' button. You must be logged in to participate. Each raffle may have different entry requirements, such as a minimum account age or a specific number of points.",
+  },
+  {
+    id: 2,
+    name: "How are winners selected?",
+    description:
+      "Winners are selected randomly and fairly using a certified random number generator once the raffle period ends. Every eligible entry has an equal chance of winning. The draw is automated and cannot be influenced by any party.",
+  },
+  {
+    id: 3,
+    name: "How will I be notified if I win?",
+    description:
+      "If you are selected as a winner, you will receive an instant notification via the platform and an email to your registered address. You have 48 hours to claim your prize before it is forfeited and a new winner is drawn.",
+  },
+  {
+    id: 4,
+    name: "Can I enter the same raffle multiple times?",
+    description:
+      "No, each user is limited to one entry per raffle to ensure fairness for all participants. Attempts to create multiple accounts to gain extra entries will result in disqualification and a permanent account ban.",
+  },
+  {
+    id: 5,
+    name: "What happens if I don't claim my prize?",
+    description:
+      "Unclaimed prizes expire after 48 hours of the winner announcement. Once expired, a re-draw is conducted automatically and a new winner is selected from the remaining eligible entries. Make sure your notification settings are enabled so you never miss a win.",
+  },
+];
+
+export const rafflesWinnersMockData: Winner[] = [
+  {
+    name: "Jane D***",
+    date: "2025-06-13T11:48:00.000Z",
+    id: "001",
+  },
+  {
+    name: "Marcus T***",
+    date: "2025-06-12T09:22:00.000Z",
+    id: "002",
+  },
+  {
+    name: "Sofia R***",
+    date: "2025-06-11T14:05:00.000Z",
+    id: "003",
+  },
+  {
+    name: "Ahmed K***",
+    date: "2025-06-10T16:33:00.000Z",
+    id: "004",
+  },
+  {
+    name: "Priya M***",
+    date: "2025-06-09T08:17:00.000Z",
+    id: "005",
+  },
+  {
+    name: "Lucas B***",
+    date: "2025-06-08T20:44:00.000Z",
+    id: "006",
+  },
+  {
+    name: "Elena V***",
+    date: "2025-06-07T13:59:00.000Z",
+    id: "007",
+  },
+  {
+    name: "Omar S***",
+    date: "2025-06-06T10:30:00.000Z",
+    id: "008",
+  },
+];

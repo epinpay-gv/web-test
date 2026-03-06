@@ -45,12 +45,10 @@ function OutOfStockContent({
                   orientation={ProductCardOrientation.HORIZONTAL}
                   isInCart={true}
                   isReadOnly={true}
-                  isOutOfStock={true}
                   addToCart={noop}
                   notifyWhenAvailable={noop}
                   addToFavorites={noop}
                   changeQuantity={noop}
-                  cardActions={false}
                 />
               </div>             
             </div>

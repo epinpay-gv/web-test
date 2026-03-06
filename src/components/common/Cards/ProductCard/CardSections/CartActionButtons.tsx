@@ -24,7 +24,6 @@ export function CartActionButtons({ product, changeQuantity, onRemove }: CartAct
 
   const handleQuantitySelect = (selectedQuantity: number) => {
     if (selectedQuantity === product.quantity) return;
-    console.log("Deneme")
     changeQuantity({
       productId: Number(product.id),
       offerId: Number(product.cheapestOffer),

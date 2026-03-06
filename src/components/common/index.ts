@@ -1,7 +1,7 @@
 import Badge from "./Badges/Badge";
 import Breadcrumb from "./Breadcrumb/Breadcrumb";
 import { Button, FavButton } from "./Button";
-import { ProductCard, CategoryCard, RatingCard } from "./Cards";
+import { ProductCard, CategoryCard, RatingCard, RaffleCard } from "./Cards";
 import { CheckBox } from "./CheckBox/CheckBox";
 import { Input } from "./Form";
 import { IconShape } from "./IconShape/IconShape";
@@ -23,6 +23,7 @@ export {
   ProductCard,
   CategoryCard,
   RatingCard,
+  RaffleCard,
   CheckBox,
   Input,
   IconShape,
