@@ -53,9 +53,9 @@ export interface BlogDetail {
   locale: string;
   title: string;
   description: string;
-  thumbnail: string;
+  thumbnail?: string;
   publishedAt: string;
-  content: string; 
+  content?: string; 
   sections: BlogDetailSection[]; 
   relatedPosts: BlogCard[];
 }

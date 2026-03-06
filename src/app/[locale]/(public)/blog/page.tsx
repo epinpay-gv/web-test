@@ -1,6 +1,6 @@
 import AllBlogSection from "@/features/blog/section/AllBlogSection";
 import HeroSection from "@/features/blog/section/HeroSection";
-import PopularSection from "@/features/blog/section/PopularSection";
+import MostReadSection from "@/features/blog/section/MostReadSection";
 import { blogListMock } from "@/mocks/blogs.mock";
 
 
@@ -9,8 +9,8 @@ export default function BlogPage() {
     <div>
       <p>Ana Sayfa = Blog</p>
       <HeroSection data={blogListMock.hero} />
-      <PopularSection data={blogListMock.popular}/>
-      <AllBlogSection data={blogListMock.blogs}/>
+      <MostReadSection data={blogListMock.popular}/>
+      <AllBlogSection data={blogListMock.blogs} pagination={blogListMock.pagination}/>
     </div>
 
   );

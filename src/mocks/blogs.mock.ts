@@ -62,7 +62,7 @@ const heroSide: BlogCard[] = [
   },
 ];
 
-// ─── Popular ──────────────────────────────────────────────────────────────────
+// Popular 
 
 const popularList: BlogPopularItem[] = [
   {
@@ -121,7 +121,7 @@ const popularList: BlogPopularItem[] = [
   },
 ];
 
-// ─── Grid ─────────────────────────────────────────────────────────────────────
+// Grid
 
 const gridTitles = [
   "En İyi 15 PC Simülasyon Oyunu (2025)",
@@ -138,7 +138,7 @@ const gridBlogs: BlogCard[] = gridTitles.map((title, i) =>
   createBlogCard(i + 10, title)
 );
 
-// ─── Export ───────────────────────────────────────────────────────────────────
+// Export
 
 export const blogListMock: BlogListPageData = {
   hero: {
@@ -151,45 +151,44 @@ export const blogListMock: BlogListPageData = {
     count: 120,
     per_page: 8,
     current_page: 1,
-    total_page: 15,
+    total_page: 6,
     has_more: true,
   },
 };
 
-// ─── Detail ───────────────────────────────────────────────────────────────────
+// Detail
 
 export const blogDetailMock: BlogDetail = {
   id: 1,
   slug: "en-iyi-15-pc-simulasyon-oyunu-2025",
   locale: "tr",
   title: "En İyi 15 PC Simülasyon Oyunu (2025)",
-  description: "Simülasyon oyunları, oyunculara gerçek hayatta deneyimleyemeyecekleri senaryolar sunan, gerçekçiliği ve detaylarıyla dikkat çeken oyun türlerindendir.",
-  thumbnail: "/images/blog/featuredcard-mock-img.png",
+  description: "Simülasyon oyunları, oyunculara gerçek hayatta deneyimleyemeyecekleri senaryoları sunan, gerçekçiliği ve detaylarıyla dikkat çeken oyun türlerinden biridir. Bu listeyi oluştururken şu kriterlere dikkat ettik:",
   publishedAt: "05.01.2025",
-  content: `
-    <p>Simülasyon oyunları, oyunculara gerçek hayatta deneyimleyemeyecekleri senaryolar sunan, gerçekçiliği ve detaylarıyla dikkat çeken oyun türlerindendir. Biz listeyi oluştururken şu kriterlere dikkat ettik;</p>
-    <div class="criteria-box">
-      <h3>Simülasyon Oyunlarını Nasıl Sıraladık?</h3>
-      <ul>
-        <li><strong>Gerçekçilik:</strong> Oyunun sunduğu deneyimin ne kadar gerçekçi olduğu.</li>
-        <li><strong>Oynanış Mekanikleri:</strong> Kullanıcı dostu arayüz ve oyun mekanikleri.</li>
-        <li><strong>Grafik ve Ses Kalitesi:</strong> Oyunun sunduğu görsel ve işitsel deneyim.</li>
-        <li><strong>Topluluk ve Mod Desteği:</strong> Oyunun uzun ömürlü olmasını sağlayan topluluk desteği.</li>
-        <li><strong>Geliştirici ve Kullanıcı İncelemeleri:</strong> Uzmanlar tarafından ne kadar sevildiği.</li>
-      </ul>
-      <p>Liste, 15. sıradan başlayarak en iyi simülasyon oyununa kadar sıralanmıştır.</p>
-    </div>
-  `,
+
   sections: [
+{
+  title: "Simülasyon Oyunlarını Nasıl Sıraladık?",
+  content: `<p>Simülasyon oyunları, oyunculara gerçek hayatta deneyimleyemeyecekleri senaryoları sunan, gerçekçiliği ve detaylarıyla dikkat çeken oyun türlerinden biridir. Bu listeyi oluştururken şu kriterlere dikkat ettik:</p>
+  <ul>
+    <li><strong>Gerçekçilik:</strong> Oyunun sunduğu deneyimin ne kadar gerçekçi olduğu.</li>
+    <li><strong>Oynanış Mekanikleri:</strong> Kullanıcı dostu arayüz, detaylı mekanikler ve derinlik.</li>
+    <li><strong>Grafik ve Ses Kalitesi:</strong> Oyunun sunduğu görsel ve işitsel deneyim.</li>
+    <li><strong>Topluluk ve Mod Desteği:</strong> Oyunun uzun ömürlü olmasını sağlayan topluluk desteği.</li>
+    <li><strong>Popülerlik ve Kullanıcı İncelemeleri:</strong> Oyuncular tarafından ne kadar sevildiği.</li>
+  </ul>
+  <p>Liste, 15. sıradan başlayarak en iyi simülasyon oyununa kadar sıralanmıştır.</p>`,
+  image: "/image/blog/blog-detail1.png",
+},
     {
       title: "15. House Flipper",
       content: "Ev tadilatı ve dekorasyonuna ilgi duyanlar için mükemmel bir simülasyon oyunu olan House Flipper, oyunculara harabe haldeki evleri satın alıp restore edip kar elde etmelerini sağlıyor.",
-      image: "/images/blog/featuredcard-mock-img.png",
+      image: "/image/blog/featuredcard-mock-img.png",
     },
     {
       title: "14. Planet Coaster",
       content: "<p>Tycoon türünü sevenler için Planet Coaster, kendi eğlence parkınızı yaratmanızı sağlayan en iyi oyunlardan biri.</p><p>Oyunun derinlikli ekonomi ve yönetim sistemleri, her oyuncuya farklı deneyimler sunuyor.</p>",
-      image: "/images/blog/featuredcard-mock-img.png",
+      image: "/image/blog/blog-detail1.png",
     },
   ],
   relatedPosts: [
