@@ -2,9 +2,10 @@ import { Raffle } from "../types";
 
 interface CardInfoProps {
   card: Raffle;
+  orientation?: "horizontal" | "vertical";
 }
 
-export default function CardInfo({ card }: CardInfoProps) {
+export default function CardInfo({ card, orientation = "vertical" }: CardInfoProps) {
   const raffleInfo = [
     {
       title: "Ödül Değeri",
@@ -18,9 +19,9 @@ export default function CardInfo({ card }: CardInfoProps) {
     },
   ];
   return (
-    <div className="flex flex-col px-4 gap-4">
+    <div className={`${orientation === "vertical" ? "" : "py-4"} flex flex-col px-4 gap-4 `}>
       {/* TITLE */}
-      <p className="h-10.5 text-sm font-semibold leading-[150%] text-(--text-heading)">
+      <p className={`${orientation === "vertical" ? "text-(--text-heading)" : "text-(--text-black) w-37.25"} h-10.5 text-sm font-semibold leading-[150%] `}>
         {card.title}
       </p>
 
@@ -28,7 +29,7 @@ export default function CardInfo({ card }: CardInfoProps) {
       <div className="flex justify-around w-full">
         {raffleInfo.map((i, index) => (
           <div key={index} className="flex flex-col gap-0 items-center">
-            <p className="text-xs text-(--text-body leading-[150%])">
+            <p className="text-xs text-(--text-body) leading-[150%])">
               {i.title}
             </p>
             <p className={`text-sm font-bold leading-[150%] ${i.class}`}>
@@ -39,7 +40,7 @@ export default function CardInfo({ card }: CardInfoProps) {
       </div>
 
       {/* BUTTON */}
-      <button className="cursor-pointer text-xs font-base w-48 h-14 rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center">
+      <button className={`${orientation === "vertical" ? "w-48 h-14" : "w-37.25 h-14.5"} cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center`}>
         <p className="text-black leading-5">Hemen katıl</p>
         <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
           Son {} dakika

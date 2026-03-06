@@ -29,7 +29,7 @@ export const rafflesMockData: Raffle[] = [
     updatedAt: "2025-03-01T10:00:00Z",
     rewards: [
       {
-        id: "99",
+        id: "reward-001",
         raffleId: "raffle-001",
         name: "PUBG Mobile 660 UC TR",
         quantity: 10,
@@ -71,7 +71,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-102",
       },
       {
-        id: "reward-012",
+        id: "reward-002-b",
         raffleId: "raffle-002",
         name: "PUBG Mobile 3850 UC TR",
         quantity: 10,
@@ -80,7 +80,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-102",
       },
       {
-        id: "reward-022",
+        id: "reward-002-c",
         raffleId: "raffle-002",
         name: "PUBG Mobile 8100 UC TR",
         quantity: 10,
@@ -103,12 +103,11 @@ export const rafflesMockData: Raffle[] = [
     endDate: "2025-02-25T23:59:00Z",
     currencyId: 1,
     totalCost: "0.00",
-    creatorType: CreatorType.PUBLISHER,
-    creatorId: "101",
+    creatorType: CreatorType.PLATFORM,
+    creatorId: "1",
     creator: {
-      name: "İLKİNSAN",
-      image:
-        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/ilkinsan-38.webp",
+      name: "Epinpay",
+      image: "/logos/logo-circle.webp",
     },
     createdAt: "2025-02-05T11:00:00Z",
     updatedAt: "2025-02-26T08:00:00Z",
@@ -137,12 +136,11 @@ export const rafflesMockData: Raffle[] = [
     endDate: "2025-01-14T23:59:00Z",
     currencyId: 4,
     totalCost: "750.00",
-    creatorType: CreatorType.PUBLISHER,
-    creatorId: "106",
+    creatorType: CreatorType.PLATFORM,
+    creatorId: "1",
     creator: {
-      name: "SEYDICAN",
-      image:
-        "https://cdn.epinpay.com/image/ep/2025/10/mainpage/seydican-53.webp",
+      name: "Epinpay",
+      image: "/logos/logo-circle.webp",
     },
     createdAt: "2024-12-28T10:00:00Z",
     updatedAt: "2025-01-15T12:00:00Z",
@@ -181,8 +179,8 @@ export const rafflesMockData: Raffle[] = [
     updatedAt: "2025-03-10T20:01:00Z",
     rewards: [
       {
-        id: "reward-005",
-        raffleId: "raffle-505",
+        id: "reward-005-a",
+        raffleId: "raffle-005",
         name: "5 USD Steam Cüzdan Kodu",
         quantity: 10,
         image:
@@ -190,8 +188,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-105",
       },
       {
-        id: "reward-00545",
-        raffleId: "raffle-605",
+        id: "reward-005-b",
+        raffleId: "raffle-005",
         name: "75 USD Steam Cüzdan Kodu",
         quantity: 10,
         image:
@@ -199,8 +197,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-105",
       },
       {
-        id: "reward-00567",
-        raffleId: "raffle-705",
+        id: "reward-005-c",
+        raffleId: "raffle-005",
         name: "100 USD Steam Cüzdan Kodu",
         quantity: 10,
         image:
@@ -235,7 +233,7 @@ export const rafflesMockData: Raffle[] = [
     updatedAt: "2025-03-08T14:00:00Z",
     rewards: [
       {
-        id: "reward-126",
+        id: "reward-006-a",
         raffleId: "raffle-006",
         name: "Gameforge 1000 TRY E-Pin – Metin2 4800 EP",
         quantity: 20,
@@ -244,7 +242,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-106",
       },
       {
-        id: "reward-136",
+        id: "reward-006-b",
         raffleId: "raffle-006",
         name: "Metin2 2100 EP",
         quantity: 10,
@@ -253,7 +251,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-106",
       },
       {
-        id: "reward-006",
+        id: "reward-006-c",
         raffleId: "raffle-006",
         name: "Metin2 Dragon 30 Gün Oyun Süresi",
         quantity: 10,
@@ -287,8 +285,8 @@ export const rafflesMockData: Raffle[] = [
     updatedAt: "2025-03-04T11:00:00Z",
     rewards: [
       {
-        id: "reward-007",
-        raffleId: "raffle-0071",
+        id: "reward-007-a",
+        raffleId: "raffle-007",
         name: "Valorant 375 VP",
         quantity: 5,
         image:
@@ -296,7 +294,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-107",
       },
       {
-        id: "reward-0072",
+        id: "reward-007-b",
         raffleId: "raffle-007",
         name: "Valorant 825 VP",
         quantity: 5,
@@ -305,7 +303,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-107",
       },
       {
-        id: "reward-0073",
+        id: "reward-007-c",
         raffleId: "raffle-007",
         name: "Valorant 2925 VP",
         quantity: 5,
@@ -441,7 +439,7 @@ export const rafflesMockData: Raffle[] = [
     updatedAt: "2025-02-04T11:00:00Z",
     rewards: [
       {
-        id: "reward-004",
+        id: "reward-011-a",
         raffleId: "raffle-011",
         name: "Pubg Mobile 60 UC Top-Up",
         quantity: 10,
@@ -450,7 +448,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-104",
       },
       {
-        id: "reward-003",
+        id: "reward-011-b",
         raffleId: "raffle-011",
         name: "1005 League of Legends RP",
         quantity: 5,
@@ -516,7 +514,7 @@ export const rafflesMockData: Raffle[] = [
     updatedAt: "2025-03-09T10:00:00Z",
     rewards: [
       {
-        id: "reward-01312",
+        id: "reward-013-a",
         raffleId: "raffle-013",
         name: "1.000 Joypara",
         quantity: 5,
@@ -525,7 +523,7 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-113",
       },
       {
-        id: "reward-01323",
+        id: "reward-013-b",
         raffleId: "raffle-013",
         name: "12.750 Joypara",
         quantity: 5,
@@ -558,8 +556,8 @@ export const rafflesMockData: Raffle[] = [
     updatedAt: "2025-03-06T09:00:00Z",
     rewards: [
       {
-        id: "reward-01412",
-        raffleId: "raffle-01411",
+        id: "reward-014-a",
+        raffleId: "raffle-014",
         name: "Knight Online 2000 Cash",
         quantity: 8,
         image:
@@ -567,8 +565,8 @@ export const rafflesMockData: Raffle[] = [
         offerId: "offer-114",
       },
       {
-        id: "reward-01434",
-        raffleId: "raffle-01423",
+        id: "reward-014-b",
+        raffleId: "raffle-014",
         name: "Knight Online 2400 Cash",
         quantity: 8,
         image:

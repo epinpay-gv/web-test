@@ -12,6 +12,7 @@ export async function GET() {
   const featuredBannerData = rafflesMockData
     .filter((i) => i.creatorId === "1")
     .map((i) => ({
+      id: i.creatorId,
       name: i.creator.name,
       image: i.creator.image,
       raffle: i,
@@ -21,6 +22,7 @@ export async function GET() {
   const streamerBannerData = rafflesMockData
     .filter((i) => STREAMER_IDS.includes(i.creatorId))
     .map((i) => ({
+      id: i.creatorId,
       name: i.creator.name,
       image: i.creator.image,
       raffle: i,

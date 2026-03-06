@@ -5,6 +5,8 @@ import {
   MainBannerLeft,
   MainBannerRight,
   SliderSection,
+  StreamerBannerRight,
+  StreamerBannerLeft,
 } from "@/features/raffles/components";
 import {
   Winner,
@@ -12,6 +14,7 @@ import {
   BannerSectionData,
 } from "@/features/raffles/raffle.types";
 import { FAQ } from "@/types/types";
+import { useState } from "react";
 
 interface RafflesClientProps {
   data: {
@@ -27,12 +30,20 @@ interface RafflesClientProps {
 }
 
 export default function RafflesClientPage({ data }: RafflesClientProps) {
+  // PAGE DATA
   const { activeParticipantCount, winners, faq, sliders, banners } = data;
   const { featured, streamers } = banners;
 
   const slider1Data = sliders.find((i) => i.line === 1);
   const slider2Data = sliders.find((i) => i.line === 2);
   const slider3Data = sliders.find((i) => i.line === 3);
+
+  // STREAMER BANNER
+  const [selectedStreamer, setSelectedStreamer] = useState("101");
+
+  const handleStreamerChange = (id: string) => {
+    return setSelectedStreamer(id);
+  };
 
   return (
     <>
@@ -42,7 +53,17 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
         right={<MainBannerRight />}
       />
       {slider1Data && <SliderSection data={slider1Data} />}
-      {/* <BannerSection /> */}
+      <BannerSection
+        background="with-light"
+        left={
+          <StreamerBannerLeft
+            data={streamers}
+            selectedId={selectedStreamer}
+            onSelect={handleStreamerChange}
+          />
+        }
+        right={<StreamerBannerRight data={streamers} selectedId={selectedStreamer}/>}
+      />
       {slider2Data && <SliderSection data={slider2Data} />}
 
       {/* <BannerSection /> */}

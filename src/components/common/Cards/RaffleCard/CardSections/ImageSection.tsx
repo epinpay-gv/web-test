@@ -21,20 +21,20 @@ const SPRING = {
 const IMAGE_VARIANTS_SINGLE_CATEGORY = [
   //Center image
   {
-    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
-    hover:   { x: 0,   y: 0, rotate: 0,   scale: 1 },
+    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
+    hover: { x: 0, y: 0, rotate: 0, scale: 1 },
     zIndex: 3,
   },
   // Right image
   {
-    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
-    hover:   { x: 10,  y: -10,  rotate: 10,  scale: 1},
+    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
+    hover: { x: 10, y: -10, rotate: 10, scale: 1 },
     zIndex: 2,
   },
   // Left image
   {
-    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
-    hover:   { x: -10, y: 5,  rotate: -10, scale: 1 },
+    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
+    hover: { x: -10, y: 5, rotate: -10, scale: 1 },
     zIndex: 1,
   },
 ] as const;
@@ -42,34 +42,40 @@ const IMAGE_VARIANTS_SINGLE_CATEGORY = [
 const IMAGE_VARIANTS_MULTI_CATEGORY = [
   //Center image
   {
-    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
-    hover:   { x: 0,   y: 0, rotate: 0,   scale: 1 },
+    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
+    hover: { x: 0, y: 0, rotate: 0, scale: 1 },
     zIndex: 3,
   },
   // Right image
   {
-    initial: { x: 10,   y: -10,  rotate: 10,   scale: 1 },
-    hover:   { x: 25,  y: -15,  rotate: 20,  scale: 1},
+    initial: { x: 10, y: -10, rotate: 10, scale: 1 },
+    hover: { x: 25, y: -15, rotate: 20, scale: 1 },
     zIndex: 2,
   },
   // Left image
   {
-    initial: { x: -10,   y: -10,  rotate: -10,   scale: 1 },
-    hover:   { x: -25, y: -15,  rotate: -20, scale: 1 },
+    initial: { x: -10, y: -10, rotate: -10, scale: 1 },
+    hover: { x: -25, y: -15, rotate: -20, scale: 1 },
     zIndex: 1,
   },
 ] as const;
 
-
 interface ImageSectionProps {
   card: Raffle;
+  orientation?: "horizontal" | "vertical";
 }
 
-export default function ImageSection({ card }: ImageSectionProps) {
+export default function ImageSection({
+  card,
+  orientation = "vertical",
+}: ImageSectionProps) {
   const rewards = card.rewards ?? [];
 
   // If categoryCount > 1, multi-reward fan in first state else 1 image only
-  const visibleRewards = card.categoryCount > 1 ? rewards.slice(0, 3) : [rewards[0], rewards[0], rewards[0]];
+  const visibleRewards =
+    card.categoryCount > 1
+      ? rewards.slice(0, 3)
+      : [rewards[0], rewards[0], rewards[0]];
 
   const isMulti = card.categoryCount > 1 && visibleRewards.length > 1;
 
@@ -77,18 +83,27 @@ export default function ImageSection({ card }: ImageSectionProps) {
     <div
       className={`
         ${
-          card.constraint === ParticipationConstraint.PREMIUM ||
-          ParticipationConstraint.REFERENCE
+          orientation === "vertical" &&
+          (card.constraint === ParticipationConstraint.PREMIUM ||
+          card.constraint === ParticipationConstraint.REFERENCE
             ? BACKGROUND_CLASSES[card.constraint]
-            : ""
-        } 
-      ${card.creatorType === CreatorType.PLATFORM ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center" : ""}}
-        h-53.75 rounded-t-2xl flex items-center justify-center relative`}
+            : "")
+        }
+        ${card.creatorType === CreatorType.PLATFORM ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center" : ""}
+        flex items-center justify-center relative shrink-0
+        ${
+          orientation === "horizontal"
+            ? "w-53.75 h-full rounded-l-2xl"
+            : "h-53.75 w-full rounded-t-2xl"
+        }
+      `}
     >
       {/* Image stack container */}
       <div className="relative w-33.75 h-33.75">
         {visibleRewards.map((reward, index) => {
-          const variant = isMulti ? IMAGE_VARIANTS_MULTI_CATEGORY[index] : IMAGE_VARIANTS_SINGLE_CATEGORY[index];
+          const variant = isMulti
+            ? IMAGE_VARIANTS_MULTI_CATEGORY[index]
+            : IMAGE_VARIANTS_SINGLE_CATEGORY[index];
 
           return (
             <motion.div
