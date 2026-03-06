@@ -92,7 +92,7 @@ export const rafflesMockData: Raffle[] = [
     constraint: ParticipationConstraint.PREMIUM,
     participationCount: 1289,
     productCount: 30,
-    categoryCount: 1,
+    categoryCount: 2,
   },
   {
     id: "raffle-003",

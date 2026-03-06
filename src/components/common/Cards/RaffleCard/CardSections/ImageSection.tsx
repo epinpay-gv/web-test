@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { ParticipationConstraint, CreatorType, Raffle } from "../types";
 import { motion } from "framer-motion";
@@ -10,11 +11,68 @@ const BACKGROUND_CLASSES: Record<ParticipationConstraint, string> = {
   ROLE: "",
 };
 
+const SPRING = {
+  type: "spring" as const,
+  mass: 1,
+  stiffness: 400,
+  damping: 30,
+};
+
+const IMAGE_VARIANTS_SINGLE_CATEGORY = [
+  //Center image
+  {
+    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
+    hover:   { x: 0,   y: 0, rotate: 0,   scale: 1 },
+    zIndex: 3,
+  },
+  // Right image
+  {
+    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
+    hover:   { x: 10,  y: -10,  rotate: 10,  scale: 1},
+    zIndex: 2,
+  },
+  // Left image
+  {
+    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
+    hover:   { x: -10, y: 5,  rotate: -10, scale: 1 },
+    zIndex: 1,
+  },
+] as const;
+
+const IMAGE_VARIANTS_MULTI_CATEGORY = [
+  //Center image
+  {
+    initial: { x: 0,   y: 0,  rotate: 0,   scale: 1 },
+    hover:   { x: 0,   y: 0, rotate: 0,   scale: 1 },
+    zIndex: 3,
+  },
+  // Right image
+  {
+    initial: { x: 10,   y: -10,  rotate: 10,   scale: 1 },
+    hover:   { x: 25,  y: -15,  rotate: 20,  scale: 1},
+    zIndex: 2,
+  },
+  // Left image
+  {
+    initial: { x: -10,   y: -10,  rotate: -10,   scale: 1 },
+    hover:   { x: -25, y: -15,  rotate: -20, scale: 1 },
+    zIndex: 1,
+  },
+] as const;
+
+
 interface ImageSectionProps {
   card: Raffle;
 }
 
 export default function ImageSection({ card }: ImageSectionProps) {
+  const rewards = card.rewards ?? [];
+
+  // If categoryCount > 1, multi-reward fan in first state else 1 image only
+  const visibleRewards = card.categoryCount > 1 ? rewards.slice(0, 3) : [rewards[0], rewards[0], rewards[0]];
+
+  const isMulti = card.categoryCount > 1 && visibleRewards.length > 1;
+
   return (
     <div
       className={`
@@ -27,18 +85,34 @@ export default function ImageSection({ card }: ImageSectionProps) {
       ${card.creatorType === CreatorType.PLATFORM ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center" : ""}}
         h-53.75 rounded-t-2xl flex items-center justify-center relative`}
     >
-      {card.rewards &&
-        card.rewards.map((i) => (
-          <Image
-            key={i.id}
-            src={i.image ?? ""}
-            alt={""}
-            width={135}
-            height={135}
-            className="rounded-2xl border border-(--border-default)"
-          />
-        ))}
+      {/* Image stack container */}
+      <div className="relative w-33.75 h-33.75">
+        {visibleRewards.map((reward, index) => {
+          const variant = isMulti ? IMAGE_VARIANTS_MULTI_CATEGORY[index] : IMAGE_VARIANTS_SINGLE_CATEGORY[index];
 
+          return (
+            <motion.div
+              key={reward.id}
+              variants={{
+                initial: variant.initial,
+                hover: variant.hover,
+              }}
+              transition={SPRING}
+              style={{ zIndex: variant.zIndex }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={reward.image ?? ""}
+                alt={reward.name}
+                width={135}
+                height={135}
+                className="rounded-2xl border border-(--border-default)"
+              />
+            </motion.div>
+          );
+        })}
+      </div>
+      {/* Quantity badge */}
       <div className="bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute top-4 right-6 w-13 h-13 flex items-center justify-center">
         <p className="text-extrabold leading-[150%] text-(--text-fg-info)">
           x{card.productCount ?? 0}
