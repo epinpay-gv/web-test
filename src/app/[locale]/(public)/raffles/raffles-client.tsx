@@ -7,6 +7,8 @@ import {
   SliderSection,
   StreamerBannerRight,
   StreamerBannerLeft,
+  FeaturedBannerRight,
+  FeaturedBannerLeft,
 } from "@/features/raffles/components";
 import {
   Winner,
@@ -55,6 +57,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
       {slider1Data && <SliderSection data={slider1Data} />}
       <BannerSection
         background="with-light"
+        accentColor="#8B0836"
         left={
           <StreamerBannerLeft
             data={streamers}
@@ -62,11 +65,19 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
             onSelect={handleStreamerChange}
           />
         }
-        right={<StreamerBannerRight data={streamers} selectedId={selectedStreamer}/>}
+        right={
+          <StreamerBannerRight data={streamers} selectedId={selectedStreamer} />
+        }
       />
       {slider2Data && <SliderSection data={slider2Data} />}
 
-      {/* <BannerSection /> */}
+      <BannerSection
+        background="with-light"
+        accentColor="#615FFF"
+        left={<FeaturedBannerLeft data={featured}/>}
+        right={<FeaturedBannerRight data={featured}/>}
+      />
+
       {/* <DescriptionCards /> */}
       {/* <SliderSection /> */}
       {/* <Winners /> */}
