@@ -84,6 +84,8 @@ export interface Raffle {
   //   logs?: RaffleLog[]; // ! Bu bana lazım değil
 
   participationCount: number; // ! bu backende eklenmeli
+  productCount: number; // ! bu backende eklenmeli
+  categoryCount: number; // ! bu backende eklenmeli
 
 }
 

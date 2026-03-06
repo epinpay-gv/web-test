@@ -30,9 +30,9 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
   const { activeParticipantCount, winners, faq, sliders, banners } = data;
   const { featured, streamers } = banners;
 
-  const slider1Data = sliders.find(i => i.line === 1);
-  const slider2Data = sliders.find(i => i.line === 2);
-  const slider3Data = sliders.find(i => i.line === 3);
+  const slider1Data = sliders.find((i) => i.line === 1);
+  const slider2Data = sliders.find((i) => i.line === 2);
+  const slider3Data = sliders.find((i) => i.line === 3);
 
   return (
     <>
@@ -43,7 +43,8 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
       />
       {slider1Data && <SliderSection data={slider1Data} />}
       {/* <BannerSection /> */}
-      {/* <SliderSection /> */}
+      {slider2Data && <SliderSection data={slider2Data} />}
+
       {/* <BannerSection /> */}
       {/* <DescriptionCards /> */}
       {/* <SliderSection /> */}
