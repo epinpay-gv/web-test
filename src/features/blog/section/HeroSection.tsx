@@ -14,13 +14,13 @@ export default function HeroSection({ data }: Props) {
           <h1 className="text-(--text-heading) font-semibold text-[20px]">Blog</h1>
           <p className="text-(--text-body) text-[14px]">Epinpay'den Haberler</p>
         </div>
-        <div className="flex gap-6 mt-6">
+        <div className="flex flex-col lg:flex-row gap-6 mt-6">
           <FeaturedCard data={data.featured} />
-         <div className="flex flex-col gap-3">
-  {data.sideList.map((item) => (
-    <BlogListItemCard key={item.id} data={item} />
-  ))}
-</div>
+          <div className="flex flex-col lg:gap-3 gap-6 lg:w-[500px]">
+            {data.sideList.map((item) => (
+              <BlogListItemCard key={item.id} data={item} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

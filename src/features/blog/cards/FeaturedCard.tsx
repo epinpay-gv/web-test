@@ -10,14 +10,16 @@ export default function FeaturedCard({ data }: Props) {
       <img
         src={data.thumbnail}
         alt={data.title}
-        className="w-125 h-63 rounded-xs object-cover"
+        className="w-[348px] h-[175px] lg:w-[500px] lg:h-[252px] rounded-xs object-cover"
       />
-      <h2 className="w-125 font-semibold text-[20px] text-(--text-heading)">
-        {data.title}
-      </h2>
-      <p className="w-125 text-[14px] text-(--text-body)">
-        {data.description}
-      </p>
+      <div className="w-[348px] lg:w-[500px]">
+        <h2 className="font-semibold text-[20px] text-(--text-heading) leading-[150%]">
+          {data.title}
+        </h2>
+        <p className="text-[14px] font-medium text-(--text-body) leading-[150%]">
+          {data.description}
+        </p>
+      </div>
     </div>
   );
 }

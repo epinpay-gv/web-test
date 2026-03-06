@@ -20,13 +20,13 @@ export default function PopularSection({ data }: Props) {
       <h2 className="text-(--text-heading) font-semibold text-[20px] mb-6">
         En Çok Okunanlar
       </h2>
-<div className="grid grid-cols-2 gap-6">
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
   {data.map((item) => (
-    <div key={item.id} className="flex items-start gap-6">
+    <div key={item.id} className="flex items-start gap-2 lg:gap-6 w-full lg:w-[504px] h-[68px] lg:h-[116px]">
       <img
         src={rankImages[item.rank]}
         alt={`${item.rank}. sıra`}
-        className="w-8 h-10 object-contain shrink-0"
+        className="w-6 lg:w-8 h-8 lg:h-10 object-contain shrink-0"
       />
       <BlogListItemCard
         data={item}

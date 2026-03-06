@@ -12,7 +12,7 @@ export default function AllBlogSection({ data }: Props) {
         Tüm Yazılar
       </h2>
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 lg:gap-6 gap-2">
         {data.map((item) => (
           <BlogGridCard key={item.id} data={item} />
         ))}

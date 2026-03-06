@@ -7,13 +7,13 @@ interface Props {
 
 export default function BlogListItemCard({ data, imagePosition = "left" }: Props) {
   return (
-    <div className={`flex gap-2 h-29 shrink-0 ${imagePosition === "right" ? "flex-row-reverse" : "flex-row"}`}>
+    <div className={`flex gap-2 h-[68px] lg:h-[116px] ${imagePosition === "right" ? "flex-row-reverse" : "flex-row"}`}>
       <img
         src={data.thumbnail}
         alt={data.title}
-        className=" object-cover rounded-xs shrink-0 w-[116.25px] h-[116.25px]"
+         className="w-[68px] h-[68px] lg:w-[116px] lg:h-[116px] object-cover rounded-xs flex-shrink-0"
       />
-      <div className="flex flex-col gap-2 justify-start w-76">
+      <div className="flex flex-col lg:gap-2 gap-1 justify-start lg:w-76 w-[240px]">
         <p className="text-(--text-heading) font-semibold text-[16px] line-clamp-2">
           {data.title}
         </p>
