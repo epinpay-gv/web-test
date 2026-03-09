@@ -111,7 +111,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
           {slider3Data && <SliderSection data={slider3Data} isBg={false} />}
 
           {/* WINNERS */}
-          {/* <Winners data={winners} /> */}
+          <Winners data={winners} />
 
           {/* FAQ */}
           <FAQSection data={faq} />

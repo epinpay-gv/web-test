@@ -9,13 +9,13 @@ export default function Winners({ data }: WinnersProps) {
   return (
     <section className="relative flex justify-between items-center p-10 h-82.5 w-full max-w-5xl rounded-xl bg-yellow-400">
       {/* LEFT SIDE */}
-      <div className="text-yellow-950 text-4xl font-bold">
+      <div className="text-yellow-950 text-4xl font-bold z-10">
         <p>Gerçek katılımcılar</p>
         <p>Gerçek kazananlar</p>
       </div>
       {/* RIGHT SIDE */}
       <div>
-        {data.map((i, index) => (
+        {/* {data.map((i, index) => (
           <div
             key={i.id}
             className={`rounded-xl flex justify-between p-4 shadow-xs w-67 h-auto`}
@@ -23,7 +23,8 @@ export default function Winners({ data }: WinnersProps) {
             <p>{i.name}</p>
             <p>{formatDateTR(i.date)}</p>
           </div>
-        ))}
+        ))} */}
+        Yorumlar buraya gelecek
       </div>
 
       {/* BG */}

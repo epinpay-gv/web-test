@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function MainBannerRight() {
   return (
-    <div className="flex flex-col gap-6 items-end justify-end h-full">
+    <div className="flex flex-col items-end justify-end h-full">
       <Image
         src="/raffles-page/main-banner-right-image.webp"
         alt="Main Banner Image"
