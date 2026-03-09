@@ -81,7 +81,7 @@ export interface Raffle {
   rewards?: RaffleReward[];
   participations?: Participation[];
   pool?: RafflePool[];
-  //   logs?: RaffleLog[]; // ! Bu bana lazım değil
+  // logs?: RaffleLog[]; // ! Bu bana lazım değil
 
   participationCount: number; // ! bu backende eklenmeli
   productCount: number; // ! bu backende eklenmeli

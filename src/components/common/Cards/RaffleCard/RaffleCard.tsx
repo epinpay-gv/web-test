@@ -1,18 +1,36 @@
+"use client";
 import { ImageSection, CardInfo, StoreInfo } from "./CardSections";
 import { Raffle } from "./types";
+import { motion } from "framer-motion";
 
 interface RaffleCardProps {
   card: Raffle;
+  type?: "special" | "default";
+  orientation?: "horizontal" | "vertical";
 }
 
-export default function RaffleCard({ card }: RaffleCardProps) {
-
-
+export default function RaffleCard({
+  card,
+  type = "special",
+  orientation = "vertical",
+}: RaffleCardProps) {
   return (
-    <div className="w-56 h-117.5 rounded-2xl border border-(--border-default) bg-(--bg-neutral-primary) flex flex-col justify-between gap-4">
-        <ImageSection card={card}/>
-        <CardInfo card={card}/>
-        <StoreInfo card={card}/>
-    </div>
+    <motion.div
+      initial="initial"
+      whileHover="hover"
+      className={`rounded-2xl border border-(--border-default) flex  gap-4
+        ${
+          orientation === "horizontal"
+            ? "bg-white h-53.75 w-103.25  justify-between"
+            : type === "default"
+              ? "bg-(--bg-neutral-primary) hover:bg-(--bg-neutral-primary-medium) w-45.25 h-93 flex-col shadow-xs shadow-white/20 p-2"
+              : "bg-(--bg-neutral-primary) hover:bg-(--bg-neutral-primary-medium) w-56 h-117.5 flex-col shadow-xs shadow-white/20 justify-between"
+        } 
+        `}
+    >
+      <ImageSection card={card} orientation={orientation} type={type} />
+      <CardInfo card={card} orientation={orientation} type={type}/>
+      {orientation === "vertical" && type === "special" && <StoreInfo card={card} />}
+    </motion.div>
   );
 }

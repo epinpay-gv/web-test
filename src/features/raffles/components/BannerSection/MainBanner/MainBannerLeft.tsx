@@ -19,7 +19,7 @@ export default function MainBannerLeft({ data }: MainBannerLeftProps) {
     { id: 3, image: "/raffles-page/raffle-card-3.webp", text: "1234 Kazanan" },
   ];
   return (
-    <div className="flex flex-col gap-6 max-w-127.25">
+    <div className="flex flex-col gap-6 max-w-127.25 px-4 md:px-0">
       {/* ACTIVE PARTICIPANTS */}
       <div className="flex items-center gap-3 text-(--text-black) leading-[150%]">
         <Users size={24}/>
@@ -33,7 +33,7 @@ export default function MainBannerLeft({ data }: MainBannerLeftProps) {
       </h1>
 
       {/* CARDS */}
-      <div className="flex justify-between">
+      <div className="hidden md:flex justify-between">
         {cardData.map((i) => (
           <div
             key={i.id}

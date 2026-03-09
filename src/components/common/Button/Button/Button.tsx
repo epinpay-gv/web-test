@@ -10,12 +10,20 @@ type ButtonArrow = {
   right?: boolean;
 };
 
-
 type ButtonPadding = "rounded" | "xs" | "sm" | "base" | "lg" | "xl";
 
-type ButtonVariant = "brand" | "secondary" | "tertiatry" | "success" | "danger" | "warning" | "dark" | "ghost";
-type ButtonAppearance = "filled" | "outline" ;
-type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl" | "full"
+type ButtonVariant =
+  | "brand"
+  | "secondary"
+  | "tertiatry"
+  | "success"
+  | "danger"
+  | "warning"
+  | "dark"
+  | "ghost"
+  | "white";
+type ButtonAppearance = "filled" | "outline";
+type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl" | "full";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
@@ -53,8 +61,7 @@ const BUTTON_SIZE: Record<ButtonSize, string> = {
   base: "w-10 h-10",
   lg: "w-11 h-11",
   xl: "w-12 h-12",
-
-}
+};
 
 const VARIANT_CLASSES: Record<
   ButtonVariant,
@@ -70,28 +77,32 @@ const VARIANT_CLASSES: Record<
   },
   tertiatry: {
     filled: "btn-tertiatry-filled",
-    outline: "btn-tertiatry-outline"
+    outline: "btn-tertiatry-outline",
   },
   success: {
     filled: "btn-success-filled",
-    outline: "btn-success-outline"
+    outline: "btn-success-outline",
   },
   danger: {
     filled: "btn-danger-filled",
-    outline: "btn-danger-outline"
+    outline: "btn-danger-outline",
   },
   warning: {
     filled: "btn-warning-filled",
-    outline: "btn-warning-outline"
+    outline: "btn-warning-outline",
   },
   dark: {
     filled: "btn-dark-filled",
-    outline: "btn-dark-outline"
+    outline: "btn-dark-outline",
   },
   ghost: {
     filled: "btn-ghost-filled",
-    outline: "btn-ghost-outline"
-  }
+    outline: "btn-ghost-outline",
+  },
+  white: {
+    filled: "btn-white-filled",
+    outline: "btn-white-outline",
+  },
 };
 
 export default function Button({
@@ -119,10 +130,10 @@ export default function Button({
         ${className ?? ""}
       `}
     >
-      {arrows?.left && <ArrowLeft size={arrowSize}/>}
+      {arrows?.left && <ArrowLeft size={arrowSize} />}
       {text && <span>{text}</span>}
       {icon}
-      {arrows?.right && <ArrowRight size={arrowSize}/>}
+      {arrows?.right && <ArrowRight size={arrowSize} />}
     </button>
   );
 }
