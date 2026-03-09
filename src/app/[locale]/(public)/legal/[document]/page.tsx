@@ -15,37 +15,37 @@ export default async function LegalDetailPage({
 
     return (
         <>
-        <div className=" max-w-5xl mx-auto py-12 px-4">
-            <div className="space-y-6 ">
-                <h1 className="text-xl font-semibold ">
-                    {data.title}
-                </h1>
+     <div className="max-w-5xl mx-auto py-12 px-4">
+  <div className="space-y-10 flex flex-col items-center">
 
+    <h1 className="text-xl font-semibold text-center">
+      {data.title}
+    </h1>
+
+    
                 {/* {data.description && (
           <p className="text-muted-foreground">
             {data.description}
           </p>
         )} */}
 
-                {data.blocks.map((block) => (
-                    <div key={block.id}>
-                        {block.title && (
-                            <h2 className="text-(--text-heading) font-semibold py-4">
-                                {block.title} 
-                            </h2>
-                        )}
+    {data.blocks.map((block) => (
+      <div key={block.id} className="w-full max-w-3xl">
+        {block.title && (
+          <h2 className="font-semibold py-4 text-(--text-heading)">
+            {block.title}
+          </h2>
+        )}
 
-                        <div className="w-191 h-69.75 p-6 rounded-xl border border-(--border-default) bg-(--bg-neutral-primary-soft)">
-                            <p className="text-sm text-(--text-body) leading-relaxed">
-                                {block.content}
-                            </p>
-                        </div>
-                    </div>
-                ))}
-
-            </div>
-        
+        <div className="w-full p-6 rounded-xl border border-(--border-default) bg-(--bg-neutral-primary-soft)">
+          <p className="text-sm text-(--text-body) leading-relaxed">
+            {block.content}
+          </p>
         </div>
+      </div>
+    ))}
+  </div>
+</div>
         {/* <BestSellers hideTimeRanges /> */}
         </>
     );

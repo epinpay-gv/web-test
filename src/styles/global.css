@@ -66,7 +66,7 @@
 
   --bg-gray: #4a5565;
   --bg-danger-soft: #4d0218;
-  --bg-neutral-secondary-medium: #1d303a;
+  --bg-neutral-secondary-medium: rgb(29, 48, 58);
   --bg-overlay: rgba(0, 0, 0, 0.64);
 
   /* colors/border */
@@ -77,7 +77,7 @@
   --border-default-strong: #4a5565;
 
   --border-danger-subtle: #8b0836;
-  --border-default-medium: #33444e;
+  --border-default-medium: rgb(51, 68, 78);
   --border-success: #009966;
   --border-default: #1d303a;
 
@@ -214,7 +214,7 @@
 }
 
 .dark {
-  --bg-neutral-primary-soft: #081d28;
+  --bg-neutral-primary-soft: rgb(8, 29, 40);
   --background: var(--bg-variants-gray);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -354,7 +354,7 @@ div {
   --border-default-strong: #9ca3af;
   --border-default-subtle: #f3f4f6;
 
-  --border-brand: #00bbe5;
+  --border-brand: rgb(0, 187, 229);
   --border-brand-subtle: #67e8f9;
   --border-brand-light: #a5f3fc;
 
@@ -472,7 +472,7 @@ div {
 }
 
 .mega-menu-left-bg {
-  background-color: #081D28;
+  background-color: #081d28;
 
   /* gradient layers */
   background-image:
@@ -482,13 +482,12 @@ div {
       rgba(255, 255, 255, 0.06) 0%,
       rgba(255, 255, 255, 0) 60%
     ),
-
     /* ALTTAN KIRMIZI GLOW */
     radial-gradient(
-      159.4% 111.11% at 17.46% 117.36%,
-      rgba(255, 95, 95, 0.55) 0%,
-      rgba(255, 95, 95, 0) 65.43%
-    );
+        159.4% 111.11% at 17.46% 117.36%,
+        rgba(255, 95, 95, 0.55) 0%,
+        rgba(255, 95, 95, 0) 65.43%
+      );
 }
 
 /* SKELETON İÇİN ANİMASYON */
@@ -504,9 +503,9 @@ div {
 .shimmer {
   background: linear-gradient(
     90deg,
-    rgba(229, 231, 235, 0.6) 25%,
-    rgba(243, 244, 246, 1) 50%,
-    rgba(229, 231, 235, 0.6) 75%
+    rgba(29, 48, 58) 25%,
+    rgb(51, 68, 78) 50%,
+    rgba(29, 48, 58) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite linear;

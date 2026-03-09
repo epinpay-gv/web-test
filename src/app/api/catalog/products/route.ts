@@ -17,7 +17,7 @@ export async function GET(req: Request) {
 
   // pagination
   const page = Number(searchParams.get("page") ?? 1);
-  const perPage = Number(searchParams.get("perPage") ?? 15);
+  const perPage = Number(searchParams.get("perPage") ?? 12);
 
   let data = [...mockProducts];
 
@@ -59,17 +59,15 @@ export async function GET(req: Request) {
   await new Promise((r) => setTimeout(r, 300));
 
   return NextResponse.json({
-    data: {
-      data: paginatedData,
-      pagination: {
-        count: totalCount,
-        per_page: perPage,
-        current_page: page,
-        total_page: totalPage,
-        has_more: page < totalPage,
-      } as PaginationData,
-      filters: filterGroups,
-    },
+    data: paginatedData,
+    pagination: {
+      count: totalCount,
+      per_page: perPage,
+      current_page: page,
+      total_page: totalPage,
+      has_more: page < totalPage,
+    } as PaginationData,
+    filters: filterGroups,
     metadata: mockMetadata.filter((m) => m.pageId === 2 || m.pageId === 1),
   });
 }

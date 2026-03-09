@@ -1,0 +1,24 @@
+{
+  "filters": {
+    "title": "Filtern",
+    "sort": "Sortieren",
+    "clearSelections": "Auswahl löschen",
+    "noResults": "Keine Ergebnisse für \"{searchValue}\" gefunden"
+  },
+  "productDetail": {
+    "productDescription": "Produktbeschreibung",
+    "aboutGame": "Über das Spiel",
+    "howToActivate": "Wie aktivieren",
+    "reviews": "Bewertungen",
+    "faq": "Häufig gestellte Fragen",
+    "epPointTitle": "Wozu dienen EP-Punkte?",
+    "epPointDesc1": "Mit EP-Punkten können Sie exklusive Produkte kaufen",
+    "epPointDesc2": "Sie verdienen EP-Punkte für den ausgegebenen Betrag",
+    "securePaymentTitle": "Sicheres Einkaufen",
+    "securePaymentDesc": "Vertrauenswürdige +200 Zahlungsmethoden"
+  },
+  "pageTitle": {
+    "productSuffix": "Produkte",
+    "allProducts": "Alle Produkte"
+  }
+}

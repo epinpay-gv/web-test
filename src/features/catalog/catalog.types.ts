@@ -15,21 +15,7 @@ export interface CategoriesPageResponse {
 }
 
 /* FILTER TYPES */
-
-export type FilterKey = "category" | "region" | "platform";
-export type ToggleBooleanKey = "inTr" | "inStock";
 export type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc";
-
-export type CatalogFilterState = {
-  category: string[];
-  region: string[];
-  platform: string[];
-  productType: string[];
-  price?: { min?: number; max?: number };
-  inTr?: boolean;
-  inStock?: boolean;
-  sort?: SortOption;
-};
 
 export type FilterElementConfig =
   | {
@@ -71,17 +57,18 @@ export type FilterElementConfig =
 
 export interface FilterGroupConfig {
   isTab: boolean;
+  isTitle: boolean;
   titleData?: TitleData;
   elements: FilterElementConfig[];
+  locale: string;
 }
-
-export type ToggleKeyMap = "inTr" | "inStock";
 
 export type ActiveFilterChip = {
   key: string;
   value: string;
   label: string;
 };
+
 
 /* PRODUCT DETAIL TYPES */
 export interface CategoryWithProductDetail {
@@ -91,23 +78,23 @@ export interface CategoryWithProductDetail {
   categoryData: Category;
 }
 
-/* PAGE DATA */
-export interface ProductsData {
+/* RESPONSE & PAYLOAD TYPES */
+
+export interface ProductsApiResponse {
+  metadata: PageMetadata[];
   data: Product[];
   pagination: PaginationData;
   filters: FilterGroupConfig[];
 }
 
-/* RESPONSE & PAYLOAD TYPES */
-
-export interface ProductsApiResponse {
-  metadata: PageMetadata[];
-  data: ProductsData;
+export interface CategoriesApiResponse {
+  metadata: PageMetadata;
+  data: Category[];
+  pagination: PaginationData;
 }
 
-export type CategoriesApiResponse = CategoriesPageResponse;
-
 export interface CategoryApiResponse {
+  metadata: PageMetadata;
   data: Product[];
   category: Category;
   pagination: PaginationData;
@@ -115,8 +102,9 @@ export interface CategoryApiResponse {
 }
 
 export interface ProductDetailApiResponse {
-  data: { data: Product; category: CategoryWithProductDetail };
   metadata: PageMetadata;
+  data: Product;
+  category: CategoryWithProductDetail;
 }
 
 export interface AddToCartPayload {
@@ -133,7 +121,7 @@ export interface ChangeQuantityPayload {
   productId: number;
   offerId: number;
   quantity: number;
-  action: "add" | "remove";
+  action: "add" | "remove" | "update";
 }
 export interface NotifyWhenAvailablePayload {
   productId: number;

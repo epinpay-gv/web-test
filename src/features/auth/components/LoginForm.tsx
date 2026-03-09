@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Input } from '@/components/common';
 import { ForgotPasswordForm } from './ForgotPasswordForm';
 import { AuthView } from '../auth.types';
+import { useTranslations } from 'next-intl';
 
 export function LoginForm() {
   const {
@@ -26,6 +27,9 @@ export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [currentView, setCurrentView] = useState<AuthView>('login');
   const router = useRouter();
+  const t = useTranslations('auth.login');
+  const tBtn = useTranslations('common.buttons');
+  const tLabels = useTranslations('common.labels');
 
   // ── Şifremi Unuttum ekranına geç ──
   if (currentView === 'forgot-password') {
@@ -52,19 +56,19 @@ export function LoginForm() {
       {/* Title */}
       <div className="mb-8">
         <h2 className="text-(--text-heading) font-semibold text-xl mb-2">
-          Hesabına Giriş Yap
+          {t('title')}
         </h2>
         <p className="text-(--text-body) font-normal text-sm leading-relaxed">
-          Fırsatlardan faydalanmak ve alışveriş yapabilmek için hemen üye ol ya da giriş yap.
+          {t('subtitle')}
         </p>
         <div className="text-(--text-body) flex gap-1 text-sm mt-2">
-          Hesabın yok mu?{' '}
+          {t('noAccount')}{' '}
           <button
             type="button"
             className="text-(--text-fg-brand) hover:underline transition-colors font-medium"
             onClick={() => router.push('/signup')}
           >
-            Kayıt Ol
+            {tBtn('signup')}
           </button>
         </div>
       </div>
@@ -77,12 +81,12 @@ export function LoginForm() {
         {/* Email Field */}
         <div className="flex flex-col gap-1.5 w-full">
           <label className="text-(--text-heading) text-sm font-medium">
-            Email <span className="text-(--text-fg-danger)">*</span>
+            {tLabels('email')} <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input
             type="text"
             name="email"
-            placeholder="Email adresini girin"
+            placeholder={t('emailPlaceholder')}
             leftIcon={<Envelope />}
             value={formData.email}
             onChange={handleChange('email')}
@@ -102,7 +106,7 @@ export function LoginForm() {
         {/* Password Field */}
         <div className="flex flex-col gap-1.5">
           <label className="text-(--text-heading) text-sm font-medium">
-            Şifre <span className="text-(--text-fg-danger)">*</span>
+            {tLabels('password')} <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input
             type={showPassword ? 'text' : 'password'}
@@ -148,7 +152,7 @@ export function LoginForm() {
               className="w-4 h-4 rounded border-gray-600 bg-gray-700 accent-(--text-fg-brand) cursor-pointer"
             />
             <span className="text-(--text-body) text-sm group-hover:text-white transition-colors">
-              Beni hatırla
+              {t('rememberMe')}
             </span>
           </label>
 
@@ -158,7 +162,7 @@ export function LoginForm() {
             onClick={() => setCurrentView('forgot-password')}
             className="text-(--text-fg-brand) hover:underline text-sm transition-colors font-medium"
           >
-            Şifremi unuttum
+            {t('forgotPassword')}
           </button>
         </div>
 
@@ -174,7 +178,7 @@ export function LoginForm() {
         {/* Login Button */}
         <Button
           variant="brand"
-          text={isLoading ? 'Giriş Yapılıyor... ' : 'Giriş Yap'}
+          text={isLoading ? tBtn('loggingIn') : tBtn('login')}
           type="submit"
           disabled={isLoading}
           className="w-full py-3 text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed transition-all active:scale-[0.98]"
@@ -188,7 +192,7 @@ export function LoginForm() {
           className="flex items-center justify-center gap-2 w-full py-3 rounded-(--radius-base) border border-(--border-default-medium) bg-white/5 hover:bg-white/10 text-(--text-body) text-sm font-medium transition-colors disabled:opacity-50"
         >
           <Google className="w-5 h-5" />
-          Google ile Giriş Yap
+          {tBtn('loginWithGoogle')}
         </button>
       </form>
     </div>

@@ -5,6 +5,7 @@
 import { Envelope } from 'flowbite-react-icons/outline';
 import { Button, Input } from '@/components/common';
 import { useForgotPassword } from '../../hooks/useForgotPassword';
+import { useTranslations } from 'next-intl';
 
 interface EmailStepProps {
   hook: ReturnType<typeof useForgotPassword>;
@@ -23,6 +24,11 @@ export function EmailStep({ hook, onBack }: EmailStepProps) {
     handleSubmit,
   } = hook;
 
+  const t = useTranslations('auth.forgotPassword');
+  const tLabels = useTranslations('common.labels');
+  const tBtn = useTranslations('common.buttons');
+  const tLogin = useTranslations('auth.login');
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -31,7 +37,7 @@ export function EmailStep({ hook, onBack }: EmailStepProps) {
       {/* Email Field */}
       <div className="flex flex-col gap-1.5 w-full">
         <label className="text-(--text-heading) text-sm font-medium">
-          E-posta <span className="text-(--text-fg-danger)">*</span>
+          {tLabels('emailLabel')} <span className="text-(--text-fg-danger)">*</span>
         </label>
         <Input
           type="text"
@@ -65,7 +71,7 @@ export function EmailStep({ hook, onBack }: EmailStepProps) {
       {/* Submit */}
       <Button
         variant="brand"
-        text={isLoading ? 'Gönderiliyor...' : 'Yenileme Bağlantısı Gönder'}
+        text={isLoading ? tBtn('sending') : tBtn('sendResetLink')}
         type="submit"
         disabled={isLoading}
         className="w-full py-3 text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed transition-all active:scale-[0.98]"
@@ -74,7 +80,7 @@ export function EmailStep({ hook, onBack }: EmailStepProps) {
       {/* Geri Dön */}
       <Button
         type="button"
-        text='Geri Dön'
+        text={tBtn('goBack')}
         variant='ghost'
         arrows={{left: true}}
         onClick={onBack}

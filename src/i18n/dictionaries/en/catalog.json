@@ -1,0 +1,24 @@
+{
+  "filters": {
+    "title": "Filter",
+    "sort": "Sort",
+    "clearSelections": "Clear Selections",
+    "noResults": "No results found for \"{searchValue}\""
+  },
+  "productDetail": {
+    "productDescription": "Product Description",
+    "aboutGame": "About the Game",
+    "howToActivate": "How to Activate",
+    "reviews": "Reviews",
+    "faq": "Frequently Asked Questions",
+    "epPointTitle": "What are EP Points?",
+    "epPointDesc1": "You can buy exclusive products with EP points",
+    "epPointDesc2": "You earn EP points for the amount you spend",
+    "securePaymentTitle": "Secure Shopping",
+    "securePaymentDesc": "Trusted +200 payment methods"
+  },
+  "pageTitle": {
+    "productSuffix": "products",
+    "allProducts": "All products"
+  }
+}

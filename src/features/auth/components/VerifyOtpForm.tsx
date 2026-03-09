@@ -3,6 +3,7 @@
 import { OtpInput } from '@/components/common/Form/OtpInput.tsx/OtpInput';
 import { Button, Badge } from '@/components/common';
 import { useVerifyOtp } from '../hooks/useVerifyOtp';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   email: string;
@@ -31,21 +32,24 @@ export function VerifyOtpForm({ email, onVerify, onResend, isLoading, serverErro
     expiresIn,
   }); 
 
+  const t = useTranslations('auth.verifyOtp');
+  const tBtn = useTranslations('common.buttons');
+
   return (
     <div className="w-full max-w-96 mx-auto animate-in fade-in zoom-in-95 duration-300">
       <form onSubmit={handleSubmit} className="bg-(--bg-neutral-primary-soft) p-8 rounded-(--radius-base) border border-(--border-default) space-y-6 shadow-xl">
         <div className='w-full flex flex-col gap-3'>
           <div className='text-(--text-heading) font-semibold text-xl leading-7'>
-            Mailinizi kontrol edin 
+            {t('title')} 
           </div>
           <div>   
             <p className='text-sm text-(--text-heading)'>
               {email}
-              <span className='text-(--text-body)'> adresine gönderilen</span>
+              <span className='text-(--text-body)'> {t('sentTo')}</span>
             </p>
             <p className='text-sm text-(--text-heading)'>
-              doğrulama kodunu
-              <span className='text-(--text-body)'> aşağıya girin.</span>
+              {t('verificationCode')}
+              <span className='text-(--text-body)'> {t('enterBelow')}</span>
             </p>
           </div>
         </div>
@@ -53,7 +57,7 @@ export function VerifyOtpForm({ email, onVerify, onResend, isLoading, serverErro
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <label className="text-[11px] font-semibold text-(--text-heading) text-left">
-              Giriş kodu
+              {t('codeLabel')}
             </label>
             
           </div>
@@ -65,7 +69,7 @@ export function VerifyOtpForm({ email, onVerify, onResend, isLoading, serverErro
           />
           {isExpired && (
             <p className="text-xs text-(--text-fg-danger) mt-1">
-              Doğrulama kodunun süresi doldu. Lütfen yeni kod isteyin.
+              {t('expired')}
             </p>
           )}
         </div>
@@ -79,7 +83,7 @@ export function VerifyOtpForm({ email, onVerify, onResend, isLoading, serverErro
         {isLoading && (
           <div className="flex items-center justify-center py-3">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-            <span className="ml-3 text-(--text-body) text-sm">Doğrulanıyor...</span>
+            <span className="ml-3 text-(--text-body) text-sm">{t('verifying')}</span>
           </div>
         )}
 
@@ -89,20 +93,20 @@ export function VerifyOtpForm({ email, onVerify, onResend, isLoading, serverErro
             variant='secondary'
             text={
               isLoading 
-                ? 'Gönderiliyor...' 
+                ? tBtn('sending') 
                 : canResend 
-                ? 'Tekrar Gönder' 
-                : `Tekrar Gönder (${timeLeft} sn)`
+                ? tBtn('resend') 
+                : `${tBtn('resend')} (${timeLeft} sn)`
             }
             disabled={isLoading || !canResend}
             onClick={handleResend}
           />
           {canResend && !isExpired && (
             <p className="text-xs text-(--text-body)">
-              Kod gelmedi mi? Tekrar gönder butonuna tıklayın.
+              {t('resendHint')}
             </p>
           )}
-          <Button text='Geri Dön' variant='secondary' onClick={() => returnRegisterForm()}/>
+          <Button text={tBtn('goBack')} variant='secondary' onClick={() => returnRegisterForm()}/>
         </div>
       </form>    
     </div>

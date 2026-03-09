@@ -21,7 +21,7 @@ type ProductsSchemaProps = {
 type schemaData = {
   "@context": string;
   "@type": string;
-  "@id": string; //"https://www.epinpay.com/pubg-mobile-uc/pubg-mobile-60-uc-tr#product";
+  "@id": string; 
   name: string;
   image: string[];
   description: string;
@@ -96,7 +96,7 @@ export function ProductSchema({
   const schema: schemaData = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "@id": `${pageUrl}#product`, //"https://www.epinpay.com/pubg-mobile-uc/pubg-mobile-60-uc-tr#product";
+    "@id": `${pageUrl}#product`, 
     name,
     image,
     description,

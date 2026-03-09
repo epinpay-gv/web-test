@@ -1,4 +1,5 @@
-import { NavLink, TrustLabels } from "@/components/common";
+import { NavLink } from "@/components/common";
+import { useTranslations } from "next-intl";
 
 interface PromotedProductListProps {
   product: {
@@ -19,12 +20,14 @@ export default function PromotedProductList({
   productVariants,
   className,
 }: PromotedProductListProps) {
+  const t = useTranslations("mainpage.promoted");
+
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       <div className="flex items-center gap-2 w-full">
         <p>{product.name}</p>
         <NavLink
-          title="Tüm Ürünleri Gör"
+          title={t("viewAllProducts")}
           url={product.slug}
           titleType="highlight"
         />

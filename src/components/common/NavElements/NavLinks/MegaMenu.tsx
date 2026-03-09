@@ -52,7 +52,7 @@ export default function MegaMenu({
       </div>
 
       {/* RIGHT SIDE */}
-      <div className=" w-56 p-6 gap-4 text-sm rounded-r-lg flex flex-col bg-[linear-gradient(rgba(29,48,58,0.6),rgba(29,48,58,0.6)),url('/bg-image.png')] bg-cover bg-center bg-no-repeat">
+      <div className=" w-56 p-6 gap-4 text-sm rounded-r-lg flex flex-col bg-[linear-gradient(rgba(29,48,58,0.6),rgba(29,48,58,0.6)),url('/bg-image.webp')] bg-cover bg-center bg-no-repeat">
         <p className="font-semibold">Oyunlar</p>
 
         <div className="flex flex-col font-base gap-3">

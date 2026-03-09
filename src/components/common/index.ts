@@ -1,7 +1,7 @@
 import Badge from "./Badges/Badge";
 import Breadcrumb from "./Breadcrumb/Breadcrumb";
 import { Button, FavButton } from "./Button";
-import { ProductCard, CategoryCard, RatingCard } from "./Cards";
+import { ProductCard, CategoryCard, RatingCard, RaffleCard } from "./Cards";
 import { CheckBox } from "./CheckBox/CheckBox";
 import { Input } from "./Form";
 import { IconShape } from "./IconShape/IconShape";
@@ -13,6 +13,7 @@ import { Accordion, AccordionItem, ExpandableContent } from "./Accordion";
 import { MegaMenu, NavLink, NavLinkCard, NavItem, NavTab } from "./NavElements";
 import DropdownMenu from "./Dropdown/DropdownMenu";
 import { ActionButtons } from "./Cards/ProductCard/CardSections";
+import { Modal } from "./Modal/Modal";
 
 export {
   Badge,
@@ -22,6 +23,7 @@ export {
   ProductCard,
   CategoryCard,
   RatingCard,
+  RaffleCard,
   CheckBox,
   Input,
   IconShape,
@@ -41,4 +43,5 @@ export {
   NavTab,
   DropdownMenu,
   ActionButtons,
+  Modal
 };

@@ -1,4 +1,4 @@
-import { FilterGroupConfig, FilterElementConfig, CatalogFilterState } from "../catalog.types";
+import { FilterGroupConfig, FilterElementConfig } from "../catalog.types";
 
 type FilterOption = { label: string; value: string };
 
@@ -6,9 +6,9 @@ type FilterOption = { label: string; value: string };
  * Belirtilen filter key için seçili option'ı döndürür.
  * Checkbox ve Dropdown tiplerini destekler.
  */
-export function extractSelectedFilterOption<K extends keyof CatalogFilterState>(
+export function extractSelectedFilterOption(
   filters: FilterGroupConfig[],
-  key: K,
+  key: string,
   selectedValue?: string,
 ): FilterOption | undefined {
   if (!selectedValue) return undefined;

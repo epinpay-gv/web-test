@@ -1,15 +1,15 @@
 // "use client";
 type OrganizationSchemaProps = {
-  baseUrl: string;
   locale: string;
   description: string;
 };
 
 export function OrganizationSchema({
-  baseUrl,
   locale,
   description,
 }: OrganizationSchemaProps) {
+  const baseUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`;
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",

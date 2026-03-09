@@ -9,6 +9,7 @@ import { useRegister } from '../hooks/useRegister';
 import { ProgressBar } from '@/components/common/ProgressBar/ProgressBar';
 import { VerifyOtpForm } from './VerifyOtpForm';
 import { Button, Input } from '@/components/common';
+import { useTranslations } from 'next-intl';
 
 export function RegisterForm() {
   const router = useRouter();
@@ -29,6 +30,10 @@ export function RegisterForm() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordAgain, setShowPasswordAgain] = useState(false);
+  const t = useTranslations('auth.register');
+  const tPw = useTranslations('auth.passwordStrength');
+  const tBtn = useTranslations('common.buttons');
+  const tLabels = useTranslations('common.labels');
 
   if (step === 'otp') {
     return (
@@ -50,14 +55,14 @@ export function RegisterForm() {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-(--text-heading) font-semibold text-xl mb-2">Üye Ol</h2>
+        <h2 className="text-(--text-heading) font-semibold text-xl mb-2">{t('title')}</h2>
         <p className="text-(--text-body) text-sm mb-2">
-          Fırsatlardan faydalanmak ve alışveriş yapmak için hemen üye ol ya da giriş yap.
+          {t('subtitle')}
         </p>
         <div className='flex gap-1 text-sm'>
-          <span className="text-(--text-body)">Hesabın var mı?</span>
+          <span className="text-(--text-body)">{t('hasAccount')}</span>
           <button onClick={() => router.push("/login")} className="text-(--text-fg-brand) font-medium hover:underline transition-all">
-            Giriş Yap
+            {tBtn('login')}
           </button>
         </div>
       </div>
@@ -66,11 +71,11 @@ export function RegisterForm() {
         {/* Email */}
         <div className="flex flex-col gap-1.5 w-full">
           <label className="text-(--text-heading) text-sm font-medium">
-            Email <span className="text-red-500">*</span>
+            {tLabels('email')} <span className="text-red-500">*</span>
           </label>
           <Input
             type="email"
-            placeholder="Email adresinizi girin"
+            placeholder={t('emailPlaceholder')}
             leftIcon={<Envelope />}
             value={formData.email}
             onChange={handleChange('email')}
@@ -82,7 +87,7 @@ export function RegisterForm() {
         {/* Password */}
         <div className="flex flex-col gap-1.5">
           <label className="text-(--text-heading) text-sm font-medium">
-            Şifre <span className="text-red-500">*</span>
+            {tLabels('password')} <span className="text-red-500">*</span>
           </label>
           <Input
             type={showPassword ? 'text' : 'password'}
@@ -105,13 +110,13 @@ export function RegisterForm() {
             <ProgressBar progress={strength} variant='dynamic' size='sm' showLabels={false} />
             <div className="space-y-2">
               <p className="text-xs font-medium text-(--text-heading)">
-                {isPasswordSecure ? "Şifre güçlü" : "Şifre zayıf. Şunlar zorunlu:"}
+                {isPasswordSecure ? tPw('strong') : tPw('weak')}
               </p>
               <ul className="grid grid-cols-1 gap-1.5">
-                <ValidationItem label="En az 10 karakter" isValid={validationRules.minLength} />
-                <ValidationItem label="En az bir sayı" isValid={validationRules.hasNumber} />
-                <ValidationItem label="Büyük ve küçük harf" isValid={validationRules.hasUpperCase && validationRules.hasLowerCase} />
-                <ValidationItem label="En az bir sembol" isValid={validationRules.hasSymbol} />
+                <ValidationItem label={tPw('minLength')} isValid={validationRules.minLength} />
+                <ValidationItem label={tPw('hasNumber')} isValid={validationRules.hasNumber} />
+                <ValidationItem label={tPw('hasCase')} isValid={validationRules.hasUpperCase && validationRules.hasLowerCase} />
+                <ValidationItem label={tPw('hasSymbol')} isValid={validationRules.hasSymbol} />
               </ul>
             </div>
           </div>
@@ -120,7 +125,7 @@ export function RegisterForm() {
         {/* Password Again */}
         <div className="flex flex-col gap-1.5">
           <label className="text-(--text-heading) text-sm font-medium">
-            Şifre Tekrar <span className="text-red-500">*</span>
+            {tLabels('confirmPassword')} <span className="text-red-500">*</span>
           </label>
           <Input
             type={showPasswordAgain ? 'text' : 'password'}
@@ -140,9 +145,9 @@ export function RegisterForm() {
 
         {/* Referral */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Referans Kodu</label>
+          <label className="text-(--text-heading) text-sm font-medium">{tLabels('referralCode')}</label>
           <Input
-            placeholder="Referans kodunu girin"
+            placeholder={t('referralPlaceholder')}
             value={formData.referal || ''}
             onChange={handleChange('referal')}
             disabled={isLoading}
@@ -157,7 +162,7 @@ export function RegisterForm() {
 
         <Button 
           variant='brand' 
-          text={isLoading ? "İşleniyor..." : "Kayıt Ol"} 
+          text={isLoading ? tBtn('processing') : tBtn('signup')} 
           type="submit" 
           disabled={isLoading || !isPasswordSecure || formData.password !== formData.passwordAgain}
         />
@@ -166,7 +171,7 @@ export function RegisterForm() {
           type="button" 
           className="flex items-center text-(--text-body) justify-center gap-2 w-full py-3 rounded-(--radius-base) border border-(--border-default-medium) bg-white/5 text-sm font-medium hover:bg-white/10 transition-colors"
         >
-          <Google className="w-5 h-5" /> Google ile Kaydol
+          <Google className="w-5 h-5" /> {tBtn('signupWithGoogle')}
         </button>
       </form>
     </div>

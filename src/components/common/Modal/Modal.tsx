@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 
 import { Close } from "flowbite-react-icons/outline";
-import { Button } from "../Button";
+import { Button } from "@/components/common";
 
 type ModalTheme = "info" | "popup";
 type ModalSize = "sm" | "md" | "lg";
@@ -51,7 +51,7 @@ export function Modal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4">
+    <div className="fixed inset-0 flex items-center justify-center z-999! p-4 bg-(--bg-overlay)">
       <div
         className={`
           w-full
@@ -61,7 +61,7 @@ export function Modal({
           shadow-xl
           p-6
           relative
-          z-20
+          z-999
         `}
       >
         {/* Close Button */}
@@ -126,11 +126,11 @@ export function Modal({
             {confirmText && (
               <Button
                 text={confirmText}
-                variant="brand"
+                variant="dark"
                 appearance="filled"
                 padding="xl"
                 size="base"
-                textSize="sm"
+                textSize="xs"
                 onClick={onConfirm}
               />
             )}

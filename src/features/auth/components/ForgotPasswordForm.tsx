@@ -8,6 +8,7 @@ import { EmailStep } from './forgot-password/EmailStep';
 import { SuccessStep } from './forgot-password/SuccessStep';
 import { useTheme } from 'next-themes';
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 interface ForgotPasswordFormProps {
   onBack: () => void;
@@ -17,6 +18,7 @@ export function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) {
   const hook = useForgotPassword();
   const { formData, isSuccess, handleReset } = hook;
   const { resolvedTheme } = useTheme();
+  const t = useTranslations('auth.forgotPassword');
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
   const logoSrc = `/image/logos/epinpay-${themeSuffix}-sm.png`;
 
@@ -36,20 +38,20 @@ export function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) {
         {!isSuccess && (
           <>
             <h2 className="text-(--text-heading) font-semibold text-xl mb-2">
-              Şifreni unuttum
+              {t('title')}
             </h2>
             <p className="text-(--text-body) font-normal text-sm leading-relaxed">
-              Mail adresinizi girerek şifrenizi sıfırlayın.
+              {t('subtitle')}
             </p>
           </>
         )}
         {isSuccess && (
           <>
             <h2 className="text-(--text-heading) font-semibold text-xl mb-2">
-              Bağlantı gönderdik, <br />mailinizi kontrol edin
+              {t('successTitle')}
             </h2>
             <p className="text-(--text-body) font-normal text-sm leading-relaxed">
-              <span className='text-(--text-heading)'>{formData.email}</span> adresine <span className='text-(--text-heading)'>şifre yenileme bağlantısı</span> gönderdik. Bağlantıya giderek şifenizi yenileyebilirsiniz.
+              <span className='text-(--text-heading)'>{formData.email}</span> {t('successSubtitle')}
             </p>
           </>
         )}

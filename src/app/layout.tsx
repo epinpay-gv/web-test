@@ -41,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="tr" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        {/* --- ORİJİNAL SCRİPTLERİN (Bozmadan Geri Getirildi) --- */}
         {/* <Script
           id="gtm"
           strategy="afterInteractive"
@@ -92,14 +93,15 @@ export default function RootLayout({
           }}
         /> 
 
-        <noscript>
+        {/* <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-WKCNWN7N"
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
-        </noscript>*/}
+        </noscript> */}
+        {/* --- SCRİPTLER SONU --- */}
 
         <ThemeProvider>
           <SessionProvider>

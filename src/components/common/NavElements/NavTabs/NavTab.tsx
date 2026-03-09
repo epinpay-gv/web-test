@@ -1,5 +1,3 @@
-"use client";
-
 import { ComponentType } from "react";
 import NavItem from "./NavItem";
 

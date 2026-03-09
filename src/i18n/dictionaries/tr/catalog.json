@@ -1,0 +1,24 @@
+{
+  "filters": {
+    "title": "Filtrele",
+    "sort": "Sırala",
+    "clearSelections": "Seçimleri Temizle",
+    "noResults": "\"{searchValue}\" için sonuç bulunamadı"
+  },
+  "productDetail": {
+    "productDescription": "Ürün Açıklaması",
+    "aboutGame": "Oyun Hakkında",
+    "howToActivate": "Nasıl Aktif Edilir",
+    "reviews": "Değerlendirmeler",
+    "faq": "Sık Sorulan Sorular",
+    "epPointTitle": "Ep Puan ne işe yarar?",
+    "epPointDesc1": "Ep puan ile satılan özel ürünleri alabilirsiniz",
+    "epPointDesc2": "Harcadığınız tutarda ep puan kazanırsınız",
+    "securePaymentTitle": "Güvenli alışveriş",
+    "securePaymentDesc": "Güvenilir +200 ödeme yöntemi"
+  },
+  "pageTitle": {
+    "productSuffix": "ürünleri",
+    "allProducts": "Tüm ürünler"
+  }
+}

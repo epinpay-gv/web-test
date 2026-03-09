@@ -5,15 +5,42 @@ import { AddToCartPayload } from "@/features/catalog/catalog.types";
 import { Product } from "@/types/types";
 
 interface ActionButtonsProps {
+  isLoading?: boolean;
   product: Product;
-  isHorizontal : boolean;
+  isHorizontal: boolean;
   orientation?: "horizontal" | "vertical";
   addToCart: (payload: AddToCartPayload) => void;
 }
 
-export function ActionButtons({ product, isHorizontal, orientation = "horizontal", addToCart }: ActionButtonsProps) {
+export function ActionButtons({
+  isLoading = false,
+  product,
+  isHorizontal,
+  orientation = "horizontal",
+  addToCart,
+}: ActionButtonsProps) {
+  if (isLoading) {
+    return (
+      <div
+        className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${
+          orientation === "horizontal" ? "flex-row" : "flex-col"
+        }`}
+      >
+        {/* Sepete Ekle */}
+        <div className="hidden md:block w-full h-10 rounded-md bg-gray-200 shimmer" />
+
+        {/* Icon-only cart button */}
+        <div className="block md:hidden w-12 h-10 rounded-md bg-gray-200 shimmer" />
+
+        {/* Hemen Al */}
+        <div className="w-full h-10 rounded-md bg-gray-200 shimmer" />
+      </div>
+    );
+  }
   return (
-    <div className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${orientation === "horizontal" ? "flex-row" : "flex-col"}`}>
+    <div
+      className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${orientation === "horizontal" ? "flex-row" : "flex-col"}`}
+    >
       <Button
         padding="sm"
         textSize="xs"
@@ -24,7 +51,7 @@ export function ActionButtons({ product, isHorizontal, orientation = "horizontal
           addToCart?.({
             productId: product.id,
             offerId: product.cheapestOffer?.id || 0,
-            quantity: 1
+            quantity: 1,
           })
         }
       />
@@ -33,12 +60,12 @@ export function ActionButtons({ product, isHorizontal, orientation = "horizontal
         textSize="xs"
         variant="secondary"
         icon={<CartPlusAlt />}
-        className="block md:hidden"
+        className="block md:hidden max-w-12"
         onClick={() =>
           addToCart?.({
             productId: product.id,
             offerId: product.cheapestOffer?.id || 0,
-            quantity: 1
+            quantity: 1,
           })
         }
       />
@@ -52,7 +79,7 @@ export function ActionButtons({ product, isHorizontal, orientation = "horizontal
           addToCart?.({
             productId: product.id,
             offerId: product.cheapestOffer?.id || 0,
-            quantity: 1
+            quantity: 1,
           })
         }
       />

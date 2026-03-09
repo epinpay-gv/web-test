@@ -60,7 +60,7 @@ export default function NavLink({
         ) : (
           rigthIcon
         ))}
-      <div className={`flex  gap-1 w-61 ${type === "withContainer" ? "justify-between" : "flex-col"}`}>
+      <div className={`flex gap-1 w-61 ${type === "withContainer" ? "justify-between" : "flex-col"}`}>
         <p className={`${TITLE_CLASSES[titleType]}`}>{title}</p>
         {helper && <p className={`${HELPER_CLASSES[helperType]}`}>{helper}</p>}
       </div>

@@ -11,10 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useNotificationStore } from "../stores/notification.store";
 import { Button } from "@/components/common";
+import { useTranslations } from "next-intl";
 
 export function NotificationDropdown() {
   const { notifications, markAsRead } = useNotificationStore();
   const unreadCount = notifications.filter((n) => !n.isRead).length;
+  const t = useTranslations("notifications");
 
   return (
     <DropdownMenu>
@@ -43,7 +45,7 @@ export function NotificationDropdown() {
         className="w-80 bg-(--bg-neutral-secondary-soft) border-(--border-default-medium) p-1"
       >
         <DropdownMenuLabel className="text-(--text-body) px-2 py-2">
-          Bildirimler
+          {t("title")}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="max-h-[300px] overflow-y-auto">
@@ -75,7 +77,7 @@ export function NotificationDropdown() {
             ))
           ) : (
             <div className="p-8 text-center text-sm text-neutral-500">
-              Bildirim bulunmuyor.
+              {t("empty")}
             </div>
           )}
         </div>

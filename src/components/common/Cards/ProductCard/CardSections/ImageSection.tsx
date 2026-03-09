@@ -13,6 +13,7 @@ const sizeClasses = {
 };
 
 interface ImageSectionProps {
+  isLoading?: boolean;
   product: Product;
   isHorizontal: boolean;
   isInCart?: boolean;
@@ -20,6 +21,7 @@ interface ImageSectionProps {
 }
 
 export function ImageSection({
+  isLoading = false,
   product,
   isHorizontal,
   isInCart,
@@ -46,17 +48,23 @@ export function ImageSection({
         />
       </div>
 
-      <Image
-        src={product.translation.imgUrl}
-        alt={product.translation.imgAlt}
-        fill
-        sizes="      
+      {isLoading ? (
+        <>
+          <div className="w-36.5 h-36.5 md:w-50 md:h-50 rounded-md bg-gray-200 shimmer" />
+        </>
+      ) : (
+        <Image
+          src={product.translation.imgUrl}
+          alt={product.translation.imgAlt}
+          fill
+          sizes="      
           (max-width: 768px) 146px,
           (max-width: 1024px) 200px,
           224px
         "
-        className="object-contain rounded mx-auto"
-      />
+          className="object-contain rounded mx-auto"
+        />
+      )}
     </div>
   );
 }

@@ -29,15 +29,14 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.epinpay.com";
 
   const res = await getMainPageData();
 
   return (
     <>
       {/* SEO Content */}
-      <OrganizationSchema baseUrl={baseUrl} locale={locale} description={res.metadata.title} />
-      <WebsiteSchema baseUrl={baseUrl} locale={locale} description={res.metadata.title} />
+      <OrganizationSchema description={res.metadata.title} locale={locale} />
+      <WebsiteSchema description={res.metadata.title} locale={locale} />
 
       {/* Page Content */}
       <PromotedSection data={res.data.promoted} />

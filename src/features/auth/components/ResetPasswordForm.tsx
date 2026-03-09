@@ -1,7 +1,5 @@
 'use client';
 
-// components/ResetPasswordForm.tsx
-
 import { Lock, Eye, EyeSlash, CheckCircle, ExclamationCircle, Check, Close } from 'flowbite-react-icons/outline';
 import { Button, Input } from '@/components/common';
 import { useResetPassword } from '../hooks/useResetPassword';
@@ -9,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import Image from "next/image";
 import { ProgressBar } from '@/components/common/ProgressBar/ProgressBar';
+import { useTranslations } from 'next-intl';
 
 interface ResetPasswordFormProps {
   oobCode: string;
@@ -45,6 +44,10 @@ function FormView({ hook }: { hook: ReturnType<typeof useResetPassword> }) {
   } = hook;
 
   const { resolvedTheme } = useTheme();
+  const t = useTranslations('auth.resetPassword');
+  const tPw = useTranslations('auth.passwordStrength');
+  const tBtn = useTranslations('common.buttons');
+  const tLabels = useTranslations('common.labels');
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
   const logoSrc = `/image/logos/epinpay-${themeSuffix}-sm.png`;
 
@@ -65,10 +68,10 @@ function FormView({ hook }: { hook: ReturnType<typeof useResetPassword> }) {
       {/* Başlık */}
       <div className="mb-8">
         <h2 className="text-(--text-heading) font-semibold text-xl mb-2">
-          Şifre oluştur
+          {t('title')}
         </h2>
         <p className="text-(--text-body) font-normal text-sm leading-relaxed">
-          Yeni şifrenizi oluşturun
+          {t('subtitle')}
         </p>
       </div>
 
@@ -79,7 +82,7 @@ function FormView({ hook }: { hook: ReturnType<typeof useResetPassword> }) {
         {/* Yeni Şifre */}
         <div className="flex flex-col gap-1.5">
           <label className="text-(--text-heading) text-sm font-medium">
-            Yeni Şifre <span className="text-(--text-fg-danger)">*</span>
+            {tLabels('newPassword')} <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input
             type={showPassword ? 'text' : 'password'}
@@ -112,13 +115,13 @@ function FormView({ hook }: { hook: ReturnType<typeof useResetPassword> }) {
             <ProgressBar progress={strength} variant='dynamic' size='sm' showLabels={false} />
             <div className="space-y-2">
               <p className="text-xs font-medium text-(--text-heading)">
-                {isPasswordSecure ? "Şifre güçlü" : "Şifre zayıf. Şunlar zorunlu:"}
+                {isPasswordSecure ? tPw('strong') : tPw('weak')}
               </p>
               <ul className="grid grid-cols-1 gap-1.5">
-                <ValidationItem label="En az 10 karakter" isValid={validationRules.minLength} />
-                <ValidationItem label="En az bir sayı" isValid={validationRules.hasNumber} />
-                <ValidationItem label="Büyük ve küçük harf" isValid={validationRules.hasUpperCase && validationRules.hasLowerCase} />
-                <ValidationItem label="En az bir sembol" isValid={validationRules.hasSymbol} />
+                <ValidationItem label={tPw('minLength')} isValid={validationRules.minLength} />
+                <ValidationItem label={tPw('hasNumber')} isValid={validationRules.hasNumber} />
+                <ValidationItem label={tPw('hasCase')} isValid={validationRules.hasUpperCase && validationRules.hasLowerCase} />
+                <ValidationItem label={tPw('hasSymbol')} isValid={validationRules.hasSymbol} />
               </ul>
             </div>
           </div>
@@ -127,7 +130,7 @@ function FormView({ hook }: { hook: ReturnType<typeof useResetPassword> }) {
         {/* Şifre Tekrar */}
         <div className="flex flex-col gap-1.5">
           <label className="text-(--text-heading) text-sm font-medium">
-            Şifre Tekrar <span className="text-(--text-fg-danger)">*</span>
+            {tLabels('confirmPassword')} <span className="text-(--text-fg-danger)">*</span>
           </label>
           <Input
             type={showConfirmPassword ? 'text' : 'password'}
@@ -173,7 +176,7 @@ function FormView({ hook }: { hook: ReturnType<typeof useResetPassword> }) {
         {/* Submit */}
         <Button
           variant="brand"
-          text={isLoading ? 'Kaydediliyor...' : 'Şifre Yenile'}
+          text={isLoading ? tBtn('saving') : tBtn('resetPassword')}
           type="submit"
           disabled={isLoading || !isPasswordSecure || formData.password !== formData.confirmPassword}
           className="w-full py-3 text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed transition-all active:scale-[0.98]"
@@ -198,6 +201,8 @@ function ValidationItem({ label, isValid }: { label: string; isValid: boolean })
 function SuccessView() {
    const router = useRouter();
   const { resolvedTheme } = useTheme();
+  const t = useTranslations('auth.resetPassword');
+  const tBtn = useTranslations('common.buttons');
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
   const logoSrc = `/image/logos/epinpay-${themeSuffix}-sm.png`;
   return (
@@ -214,17 +219,17 @@ function SuccessView() {
       </div>
       <div>
         <h2 className="text-(--text-heading) font-semibold text-xl mb-2">
-          Şifreniz yenilendi
+          {t('successTitle')}
         </h2>
         <p className="text-(--text-body) font-normal text-sm leading-relaxed">
-          Yeni şifreniz ile giriş yapabilirsiniz.
+          {t('successSubtitle')}
         </p>
       </div>
       <div className="bg-(--bg-neutral-primary-soft) mt-6 p-6 rounded-(--radius-base) border border-(--border-default) text-center space-y-4 animate-in fade-in duration-300">        
         <div className="flex flex-col gap-2 pt-1">
           <Button
             variant="brand"
-            text="Giriş Yap"            
+            text={tBtn('login')}            
             onClick={() => router.push('/login')}
             className="w-full py-3 text-sm font-semibold transition-all active:scale-[0.98]"
           />
@@ -239,6 +244,8 @@ function SuccessView() {
 function InvalidLinkView() {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
+  const t = useTranslations('auth.resetPassword');
+  const tBtn = useTranslations('common.buttons');
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
   const logoSrc = `/image/logos/epinpay-${themeSuffix}-sm.png`;
   return (
@@ -255,17 +262,17 @@ function InvalidLinkView() {
       </div>
       <div>
         <h2 className="text-(--text-heading) font-semibold text-xl mb-2">
-          Bağlantının süresi dolmuş
+          {t('invalidLinkTitle')}
         </h2>
         <p className="text-(--text-body) font-normal text-sm leading-relaxed">
-          Şifrenizi değiştirmek için lütfen yeni bağlantı oluşturun.
+          {t('invalidLinkSubtitle')}
         </p>
       </div>
       <div className="bg-(--bg-neutral-primary-soft) mt-6 p-6 rounded-(--radius-base) border border-(--border-default) text-center space-y-4 animate-in fade-in duration-300">        
         <div className="flex flex-col gap-2 pt-1">
           <Button
             variant="secondary"
-            text="Yeni Bağlantı Talep Et"            
+            text={tBtn('requestNewLink')}            
             onClick={() => router.push('/login')}
             className="w-full py-3 text-sm font-semibold transition-all active:scale-[0.98]"
           />

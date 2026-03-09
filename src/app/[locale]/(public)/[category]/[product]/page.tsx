@@ -31,8 +31,8 @@ export async function generateMetadata({
   const res = await getProduct("", category, product);
 
   return createSeo({
-    title: res.data.data.translation.metaTitle,
-    description: res.data.data.translation.metaDescription,
+    title: res.data.translation.metaTitle,
+    description: res.data.translation.metaDescription,
     canonical: `/${locale}/${category}/${product}`,
     locale,
   });
@@ -48,45 +48,37 @@ export default async function ProductPage({ params }: Props) {
 
   const breadcrumbItems = createProductBreadcrumb(
     locale,
-    res.data.category.categoryData.translation.name,
+    res.category.categoryData.translation.name,
     category,
-    res.data.data.translation.name,
+    res.data.translation.name,
     product,
   );
 
   return (
     <>
       {/* SEO Content */}
-      <OrganizationSchema
-        baseUrl={baseUrl}
-        locale={locale}
-        description={res.metadata.title}
-      />
-      <WebsiteSchema
-        baseUrl={baseUrl}
-        locale={locale}
-        description={res.metadata?.title}
-      />
+      <OrganizationSchema locale={locale} description={res.metadata.title} />
+      <WebsiteSchema locale={locale} description={res.metadata?.title} />
       <BreadcrumbSchema items={breadcrumbItems} />
       <ProductSchema
         pageUrl={pageUrl}
-        name={res.data.data.translation.metaTitle}
-        description={res.data.data.translation.metaDescription}
-        image={[`${res.data.data.translation.imgUrl}`]}
-        sku={res.data.data.translation.name}
-        category={res.data.category.categoryData.translation.name}
-        price={res.data.data.basePrice || 0}
-        currency={"TRY"} // ! bu nereden gelecek sonra bakılmalı
-        stock={res.data.data.totalStock || 0}
+        name={res.data.translation.metaTitle}
+        description={res.data.translation.metaDescription}
+        image={[`${res.data.translation.imgUrl}`]}
+        sku={res.data.translation.name}
+        category={res.category.categoryData.translation.name}
+        price={res.data.basePrice || 0}
+        currency={"TRY"} // TODO : bu nereden gelecek sonra bakılmalı
+        stock={res.data.totalStock || 0}
       />
-      <FaqSchema pageUrl={pageUrl} faqData={res.data.data.translation.faq || []} />
+      <FaqSchema pageUrl={pageUrl} faqData={res.data.translation.faq || []} />
 
       {/* Page Content */}
       <Suspense fallback={null}>
         <ProductClient
           breadcrumbItems={breadcrumbItems}
-          initialProduct={res.data.data}
-          initialCategory={res.data.category}
+          initialProduct={res.data}
+          initialCategory={res.category}
         />
       </Suspense>
     </>

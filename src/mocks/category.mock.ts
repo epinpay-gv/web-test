@@ -2,14 +2,16 @@
 import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 
 export const categoryFilterGroups: FilterGroupConfig[] = [
+  //TR
   {
     titleData: {
       title: "Fiyat",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [{ type: "range", key: "price", min: 0, max: 10000 }],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     elements: [
@@ -20,6 +22,8 @@ export const categoryFilterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     elements: [
@@ -30,11 +34,12 @@ export const categoryFilterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
       title: "Platform",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [
@@ -43,8 +48,8 @@ export const categoryFilterGroups: FilterGroupConfig[] = [
         key: "platform",
         options: [
           { label: "Riot Games", value: "1" },
-          { label: "Playstation Gift Cards", value: "2",},
-          { label: "Google Play Gift Cards", value: "3",},
+          { label: "Playstation Gift Cards", value: "2" },
+          { label: "Google Play Gift Cards", value: "3" },
           { label: "Mobile Games", value: "4" },
           { label: "Steam", value: "5" },
           { label: "PC Games", value: "6" },
@@ -55,11 +60,12 @@ export const categoryFilterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
       title: "Bölge",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [
@@ -101,17 +107,18 @@ export const categoryFilterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: false,
+    locale: "tr",
+    isTitle: false,
   },
   {
     titleData: {
       title: "Ürün Tipi",
-      isUnderlined: true,
       titleColor: "text-body",
     },
     elements: [
       {
         type: "checkbox",
-        key: "productType",
+        key: "type",
         options: [
           { label: "Tüm Ürünler", value: "all" },
           { label: "Yazılım ve Lisanlar", value: "1" },
@@ -126,5 +133,28 @@ export const categoryFilterGroups: FilterGroupConfig[] = [
       },
     ],
     isTab: true,
+    locale: "tr",
+    isTitle: false,
   },
+  {
+    elements: [
+      {
+        type: "dropdown",
+        key: "type",
+        options: [
+          { label: "En İyi Eşleşme", value: "best_match" },
+          { label: "En Çok Satanlar", value: "best_seller" },
+          { label: "Artan Fiyat", value: "price_asc" },
+          { label: "Azalan Fiyat", value: "price_desc" },
+          { label: "A'dan Z'ye", value: "name_asc" },
+          { label: "Z'den A'ya", value: "name_desc" },
+        ],
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: true,
+  },
+
+  //EN
 ];

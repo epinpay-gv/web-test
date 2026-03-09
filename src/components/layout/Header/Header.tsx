@@ -14,7 +14,10 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { AuthDropdown } from "@/features/auth/components/AuthDropdown"; 
 
+
+
 export function Header() {
+
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
@@ -30,6 +33,9 @@ export function Header() {
   return (
     <>
       <header className="relative border-b border-gray-200 dark:border-(--border-default) bg-white dark:bg-(--bg-neutral-primary-soft) transition-colors h-16 md:h-22 flex items-center z-50 overflow-visible">
+        {/* Arka Plan Parlama Efekti */}
+        <div className="absolute max-lg:hidden w-193.5 h-166 -left-60.5 -top-76 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />
+
         <div className="max-w-7xl w-full mx-auto px-4 flex justify-between items-center gap-4 md:gap-8 z-10">
           <button onClick={() => router.push("/")} className="shrink-0">
             <Image
@@ -40,7 +46,7 @@ export function Header() {
               className="h-6 md:h-10 w-auto object-contain cursor-pointer"
               priority
             />
-          </button>
+          </button> 
 
           <div className="hidden md:block max-w-lg flex-1">
             <SearchInput />
@@ -96,7 +102,7 @@ export function Header() {
               <SearchInput />
             </div>
             <button
-              onClick={() => setIsSearchOpen(false)}
+            onClick={() => setIsSearchOpen(false)}
               className="ml-4 p-2 text-red-500"
             >
               <X className="w-6 h-6" />
