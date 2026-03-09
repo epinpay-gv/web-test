@@ -9,6 +9,7 @@ import {
   StreamerBannerLeft,
   FeaturedBannerRight,
   FeaturedBannerLeft,
+  DescriptionCards,
 } from "@/features/raffles/components";
 import {
   Winner,
@@ -69,6 +70,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
           <StreamerBannerRight data={streamers} selectedId={selectedStreamer} />
         }
       />
+
       {slider2Data && <SliderSection data={slider2Data} />}
 
       <BannerSection
@@ -77,9 +79,10 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
         left={<FeaturedBannerLeft data={featured} />}
         right={<FeaturedBannerRight data={featured} />}
       />
-      <div>
-        {/* <DescriptionCards /> */}
-        {/* <SliderSection /> */}
+      <div className="flex flex-col gap-10 pt-20 items-center">
+        <DescriptionCards activeParticipantCount={activeParticipantCount} />
+        {slider3Data && <SliderSection data={slider3Data} />}
+
         {/* <Winners /> */}
         {/* <FAQSection /> */}
       </div>
