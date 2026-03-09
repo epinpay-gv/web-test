@@ -33,6 +33,7 @@ export default function ProductInfo({
   const variantItems = useMemo(
     () =>
       variants.map((v) => ({
+        value: v.name,
         id: v.slug,
         text: v.name,
       })),
@@ -42,6 +43,7 @@ export default function ProductInfo({
   const regionItems = useMemo(
     () =>
       regions.map((r) => ({
+        value: r.translation.name,
         id: String(r.id),
         text: r.translation.name,
       })),
@@ -51,6 +53,7 @@ export default function ProductInfo({
   const platformItems = useMemo(
     () =>
       platforms.map((p) => ({
+        value: p.translation.name,
         id: String(p.id),
         text: p.translation.name,
       })),
@@ -72,7 +75,7 @@ export default function ProductInfo({
       <div className="flex flex-col gap-6 flex-1">
         {/* Header */}
         <div className="flex md:flex-row flex-col md:items-center gap-2">
-          <Badge text={data.type} theme="success" className="max-w-12"/>
+          <Badge text={data.type} theme="success" className="max-w-12" />
           <h1 className="font-semibold text-xl text-(--text-heading)">
             {data.translation.name}
           </h1>
@@ -83,7 +86,6 @@ export default function ProductInfo({
           {/* Points / Variant */}
           <div className="col-span-2">
             <FilterDropdownContainer
-              title="Points"
               selectedId={data.translation.slug}
               items={variantItems}
               onSelect={(slug) => onVariantChange(slug)}
@@ -92,7 +94,6 @@ export default function ProductInfo({
 
           {/* Platform */}
           <FilterDropdownContainer
-            title="Platform"
             selectedId={String(data.platform_id)}
             items={platformItems}
             onSelect={(id) => onPlatformChange?.(Number(id))}
@@ -100,7 +101,6 @@ export default function ProductInfo({
 
           {/* Region */}
           <FilterDropdownContainer
-            title="Region"
             selectedId={String(data.region_id)}
             items={regionItems}
             onSelect={(id) => onRegionChange?.(Number(id))}

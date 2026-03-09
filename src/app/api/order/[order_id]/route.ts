@@ -4,7 +4,7 @@ import { PRODUCT_STATUS } from '@/types/types';
 
 export async function POST(
   request: Request,
-  { params }: { params: { order_id: string } }
+  { params }: { params: Promise<{ order_id: string }> }
 ) {
   const resolvedParams = await params
   const orderId = resolvedParams.order_id

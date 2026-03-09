@@ -96,11 +96,6 @@ export function FilledCart({
                       product={item}
                       orientation={ProductCardOrientation.HORIZONTAL}
                       isInCart={true}
-                      isOutOfStock={isOutOfStock}
-                      onOutOfStockClick={() => openOutOfStockModal(
-                        items.filter((i) => !i.basePrice)
-                      )}
-                      onRemoveItem={() => onRemoveItem(String(item.id))}
                       changeQuantity={(p) => {
                         if (p.action === "remove") {
                           onRemoveItem(String(item.id));
