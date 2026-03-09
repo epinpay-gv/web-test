@@ -87,17 +87,12 @@ export default function ImageSection({
         ${
           orientation === "vertical" &&
           type === "special" &&
-          (card.constraint === ParticipationConstraint.PREMIUM ||
-          card.constraint === ParticipationConstraint.REFERENCE
-            ? BACKGROUND_CLASSES[card.constraint]
-            : "")
-        }
-        ${
-          orientation === "vertical" &&
-          type === "special" &&
-          card.creatorType === CreatorType.PLATFORM
+          (card.creatorType === CreatorType.PLATFORM
             ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center"
-            : ""
+            : (card.constraint === ParticipationConstraint.PREMIUM ||
+                card.constraint === ParticipationConstraint.REFERENCE)
+              ? BACKGROUND_CLASSES[card.constraint]
+              : "")
         }
         flex items-center justify-center relative shrink-0
         ${
@@ -120,7 +115,7 @@ export default function ImageSection({
 
           return (
             <motion.div
-              key={reward.id}
+              key={index}
               variants={{
                 initial: variant.initial,
                 hover: variant.hover,

@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { Raffle } from "../types";
+import { Raffle, CreatorType } from "../types";
+
+const CreatorTypeMap: Record<CreatorType, string> = {
+  STORE : "Mağaza",
+  PUBLISHER : "Yayıncı",
+  PLATFORM : "Mağaza",
+};
 interface StoreInfoProps {
   card: Raffle;
 }
@@ -21,7 +27,7 @@ export default function StoreInfo({ card }: StoreInfoProps) {
 
       <div className="flex flex-col text-xs">
         <p className="text-(--text-heading)">{card.creator.name}</p>
-        <p className="text-(--text-body)">{card.creatorType}</p>
+        <p className="text-(--text-body)">{CreatorTypeMap[card.creatorType]}</p>
       </div>
     </div>
   );

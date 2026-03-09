@@ -16,11 +16,16 @@ export default function StreamerBannerLeft({
     <div className="flex flex-col gap-10 max-w-128.5">
       {/* TITLE */}
       <div className="flex flex-col gap-4">
-        <p className="text-3xl font-semibold text-(--text-heading)">Capcanlı</p>
-        <h2 className="text-4xl font-semibold text-(--text-fg-info)">
-          Yayıncı Çekilişleri
-        </h2>
-        <Button text="Yayıncı ol" variant="brand" />
+        <div className="flex flex-col gap-0">
+          <p className="text-3xl font-semibold text-(--text-heading)">
+            Capcanlı
+          </p>
+          <h2 className="text-4xl font-semibold text-(--text-fg-info)">
+            Yayıncı Çekilişleri
+          </h2>
+        </div>
+
+        <Button text="Yayıncı ol" variant="white" className="max-w-25" />
       </div>
 
       {/* YAYINCILAR */}

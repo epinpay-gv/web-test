@@ -14,7 +14,7 @@ export default function StreamerBannerRight({
     return i.raffle.creatorId === selectedId;
   });
   return (
-    <div>
+    <div className="px-4 md:px-0">
       {selectedCard && !Array.isArray(selectedCard.raffle) && (
         <RaffleCard card={selectedCard.raffle} orientation="horizontal" />
       )}

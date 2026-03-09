@@ -42,14 +42,25 @@ export default function BannerSection({
       }}
     >
       {background === "brand" && (
-        <Image
-          src="/raffles-page/banner-brand-texture.svg"
-          alt=""
-          aria-hidden="true"
-          width={485}
-          height={340}
-          className="absolute right-0 top-01/2 -translate-y-1/2 pointer-events-none select-none"
-        />
+        <div
+          className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none select-none"
+          style={{
+            width: 582,
+            height: 400,
+          }}
+        >
+          <Image
+            src="/raffles-page/banner-brand-texture.svg"
+            alt=""
+            aria-hidden="true"
+            fill
+            className="object-cover"
+            style={{
+              opacity: 0.4,
+              mixBlendMode: "plus-lighter",
+            }}
+          />
+        </div>
       )}
       {background === "with-light" && (
         <div

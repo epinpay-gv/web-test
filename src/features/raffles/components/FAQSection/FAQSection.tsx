@@ -8,7 +8,7 @@ interface FAQSectionProps {
 
 export default function FAQSection({ data }: FAQSectionProps) {
   return (
-    <section className="flex flex-col gap-2 max-w-5xl">
+    <section className="flex flex-col gap-2 max-w-5xl px-4 md:px-0">
       <BoxWrapper title={"Çekilişler hakkında sık sorulan sorular"}>
         {data.map((item) => (
           <AccordionItem key={item.id} title={item.name}>

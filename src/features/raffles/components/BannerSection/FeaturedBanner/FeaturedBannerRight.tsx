@@ -1,6 +1,5 @@
 import { Button } from "@/components/common";
 import { BannerSectionData } from "@/features/raffles/raffle.types";
-import Image from "next/image";
 
 interface FeaturedBannerRightProps {
   data: BannerSectionData;
@@ -20,7 +19,7 @@ export default function FeaturedBannerRight({
         Oluşturan <span className="underline">Epinpay</span>
       </p>
       <div className="py-3 px-4 gap-1.5 w-68 h-14 bg-black/64 rounded-xl"></div>
-      <Button text="Katıl" className="max-w-18.5"/>
+      {/* <Button text="Katıl" className="max-w-18.5" variant="white"/> */}
     </div>
   );
 }
