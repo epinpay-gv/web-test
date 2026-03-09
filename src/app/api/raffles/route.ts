@@ -9,14 +9,15 @@ import { ParticipationConstraint } from "@/components/common/Cards/RaffleCard/ty
 
 export async function GET() {
   //BANNER DATAS
-  const featuredBannerData = rafflesMockData
-    .filter((i) => i.creatorId === "1")
-    .map((i) => ({
-      id: i.creatorId,
-      name: i.creator.name,
-      image: i.creator.image,
-      raffle: i,
-    }));
+  const epinpayRaffles = rafflesMockData
+    .filter((i) => i.creatorId === "1");
+
+  const featuredBannerData = {
+      id: "1",
+      name: "Epinpay Raffles",
+      image: "",
+      raffle: epinpayRaffles,
+  }
 
   const STREAMER_IDS = ["101", "102", "103", "104", "105", "106"];
   const streamerBannerData = rafflesMockData

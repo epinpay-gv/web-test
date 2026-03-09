@@ -62,11 +62,13 @@ const IMAGE_VARIANTS_MULTI_CATEGORY = [
 
 interface ImageSectionProps {
   card: Raffle;
+  type?: "special" | "default";
   orientation?: "horizontal" | "vertical";
 }
 
 export default function ImageSection({
   card,
+  type = "special",
   orientation = "vertical",
 }: ImageSectionProps) {
   const rewards = card.rewards ?? [];
@@ -84,22 +86,33 @@ export default function ImageSection({
       className={`
         ${
           orientation === "vertical" &&
+          type === "special" &&
           (card.constraint === ParticipationConstraint.PREMIUM ||
           card.constraint === ParticipationConstraint.REFERENCE
             ? BACKGROUND_CLASSES[card.constraint]
             : "")
         }
-        ${card.creatorType === CreatorType.PLATFORM ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center" : ""}
+        ${
+          orientation === "vertical" &&
+          type === "special" &&
+          card.creatorType === CreatorType.PLATFORM
+            ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center"
+            : ""
+        }
         flex items-center justify-center relative shrink-0
         ${
           orientation === "horizontal"
             ? "w-53.75 h-full rounded-l-2xl"
-            : "h-53.75 w-full rounded-t-2xl"
+            : type === "special"
+              ? "h-53.75 w-full rounded-t-2xl"
+              : "h-38.25 w-full rounded-t-2xl"
         }
       `}
     >
       {/* Image stack container */}
-      <div className="relative w-33.75 h-33.75">
+      <div
+        className={`relative ${type === "default" ? "w-25 h-25" : "w-33.75 h-33.75"}`}
+      >
         {visibleRewards.map((reward, index) => {
           const variant = isMulti
             ? IMAGE_VARIANTS_MULTI_CATEGORY[index]
@@ -119,16 +132,20 @@ export default function ImageSection({
               <Image
                 src={reward.image ?? ""}
                 alt={reward.name}
-                width={135}
-                height={135}
-                className="rounded-2xl border border-(--border-default)"
+                width={type === "default" ? 100 : 135}
+                height={type === "default" ? 100 : 135}
+                className={`rounded-2xl border border-(--border-default) 
+                  ${type === "special" ? "border-(--border-default)" : "border-white"}`}
               />
             </motion.div>
           );
         })}
       </div>
       {/* Quantity badge */}
-      <div className="bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute top-4 right-6 w-13 h-13 flex items-center justify-center">
+      <div
+        className={`bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute  w-13 h-13 flex items-center justify-center 
+          ${type === "default" ? "top-2 right-4" : "top-4 right-6"}`}
+      >
         <p className="text-extrabold leading-[150%] text-(--text-fg-info)">
           x{card.productCount ?? 0}
         </p>

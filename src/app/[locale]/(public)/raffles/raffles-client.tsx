@@ -74,14 +74,15 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
       <BannerSection
         background="with-light"
         accentColor="#615FFF"
-        left={<FeaturedBannerLeft data={featured}/>}
-        right={<FeaturedBannerRight data={featured}/>}
+        left={<FeaturedBannerLeft data={featured} />}
+        right={<FeaturedBannerRight data={featured} />}
       />
-
-      {/* <DescriptionCards /> */}
-      {/* <SliderSection /> */}
-      {/* <Winners /> */}
-      {/* <FAQSection /> */}
+      <div>
+        {/* <DescriptionCards /> */}
+        {/* <SliderSection /> */}
+        {/* <Winners /> */}
+        {/* <FAQSection /> */}
+      </div>
     </>
   );
 }
