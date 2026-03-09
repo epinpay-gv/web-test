@@ -7,6 +7,7 @@ import StreamerBannerRight from "./BannerSection/StreamerBanner/StreamerBannerRi
 import FeaturedBannerLeft from "./BannerSection/FeaturedBanner/FeaturedBannerLeft";
 import FeaturedBannerRight from "./BannerSection/FeaturedBanner/FeaturedBannerRight";
 import DescriptionCards from "./DescriptionCards/DescriptionCards";
+import Winners from "./Winners/Winners";
 
 export {
   BannerSection,
@@ -18,4 +19,5 @@ export {
   FeaturedBannerLeft,
   FeaturedBannerRight,
   DescriptionCards,
+  Winners,
 };

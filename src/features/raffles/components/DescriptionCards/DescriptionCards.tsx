@@ -56,7 +56,7 @@ export default function DescriptionCards({
   ];
 
   return (
-    <section className="flex gap-4 w-full max-w-5xl">
+    <section className="flex flex-col md:flex-row gap-4 w-full max-w-5xl">
       {cardData.map((i) => (
         <div
           key={i.id}

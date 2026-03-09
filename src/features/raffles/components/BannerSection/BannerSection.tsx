@@ -74,7 +74,7 @@ export default function BannerSection({
           }}
         />
       )}
-      <div className="relative z-10 mx-auto w-full flex justify-between items-center max-w-5xl py-6">
+      <div className="relative z-10 mx-auto w-full flex flex-col md:flex-row justify-between items-center max-w-5xl py-6">
         <div>{left}</div>
         <div>{right}</div>
       </div>

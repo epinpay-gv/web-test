@@ -24,7 +24,7 @@ export default function StreamerBannerLeft({
       </div>
 
       {/* YAYINCILAR */}
-      <div className="flex justify-between gap-8.5">
+      <div className="flex flex-wrap justify-between gap-8.5">
         {data.map((i) => (
           <button
             key={i.id}

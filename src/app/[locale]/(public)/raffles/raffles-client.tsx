@@ -10,6 +10,7 @@ import {
   FeaturedBannerRight,
   FeaturedBannerLeft,
   DescriptionCards,
+  Winners,
 } from "@/features/raffles/components";
 import {
   Winner,
@@ -79,11 +80,10 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
         left={<FeaturedBannerLeft data={featured} />}
         right={<FeaturedBannerRight data={featured} />}
       />
-      <div className="flex flex-col gap-10 pt-20 items-center">
+      <div className="flex flex-col gap-4 pt-20 items-center">
         <DescriptionCards activeParticipantCount={activeParticipantCount} />
-        {slider3Data && <SliderSection data={slider3Data} />}
-
-        {/* <Winners /> */}
+        {slider3Data && <SliderSection data={slider3Data} isBg={false}/>}
+        <Winners />
         {/* <FAQSection /> */}
       </div>
     </>
