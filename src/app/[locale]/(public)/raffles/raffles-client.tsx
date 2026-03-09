@@ -11,6 +11,7 @@ import {
   FeaturedBannerLeft,
   DescriptionCards,
   Winners,
+  FAQSection,
 } from "@/features/raffles/components";
 import {
   Winner,
@@ -18,6 +19,7 @@ import {
   BannerSectionData,
 } from "@/features/raffles/raffle.types";
 import { FAQ } from "@/types/types";
+import Image from "next/image";
 import { useState } from "react";
 
 interface RafflesClientProps {
@@ -82,9 +84,17 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
       />
       <div className="flex flex-col gap-4 pt-20 items-center">
         <DescriptionCards activeParticipantCount={activeParticipantCount} />
-        {slider3Data && <SliderSection data={slider3Data} isBg={false}/>}
+        {slider3Data && <SliderSection data={slider3Data} isBg={false} />}
         <Winners />
-        {/* <FAQSection /> */}
+        <FAQSection data={faq} />
+        <div className="relative w-full h-88.25">
+          <Image
+            src="/raffles-page/raffles-footer.webp"
+            alt="Raffle Cards"
+            fill
+            className="object-cover"
+          />
+        </div>
       </div>
     </>
   );
