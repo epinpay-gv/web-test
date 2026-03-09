@@ -12,7 +12,7 @@ export default function HeroSection({ data }: Props) {
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex flex-col gap-3">
           <h1 className="text-(--text-heading) font-semibold text-[20px]">Blog</h1>
-          <p className="text-(--text-body) text-[14px]">Epinpay'den Haberler</p>
+          <p className="text-(--text-body) text-[14px]">{"Epinpay'den Haberler"}</p>
         </div>
         <div className="flex flex-col lg:flex-row gap-6 mt-6">
           <FeaturedCard data={data.featured} />
