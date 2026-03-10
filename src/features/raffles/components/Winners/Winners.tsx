@@ -1,30 +1,33 @@
 import { formatDateTR } from "@/lib/utils";
 import { Winner } from "../../raffle.types";
-import Image from "next/image";
+import { motion } from "framer-motion";
+import ScrollColumn from "./ScrollColumn";
 
 interface WinnersProps {
   data: Winner[];
 }
 export default function Winners({ data }: WinnersProps) {
+  const loopedData = [...data, ...data];
+
   return (
-    <section className="relative flex justify-between items-center p-10 h-82.5 w-full max-w-5xl rounded-xl bg-yellow-400">
+    <section className="relative flex justify-between items-center h-82.5 w-full max-w-5xl rounded-xl bg-yellow-400">
       {/* LEFT SIDE */}
-      <div className="text-yellow-950 text-4xl font-bold z-10">
+      <div className="text-yellow-950 text-4xl font-bold z-10 p-10 ">
         <p>Gerçek katılımcılar</p>
         <p>Gerçek kazananlar</p>
       </div>
+
       {/* RIGHT SIDE */}
-      <div>
-        {/* {data.map((i, index) => (
-          <div
-            key={i.id}
-            className={`rounded-xl flex justify-between p-4 shadow-xs w-67 h-auto`}
-          >
-            <p>{i.name}</p>
-            <p>{formatDateTR(i.date)}</p>
-          </div>
-        ))} */}
-        Yorumlar buraya gelecek
+      <div className="z-10 flex gap-3 h-full">
+        {/* Column 1 */}
+        <ScrollColumn data={data} duration={data.length * 2} />
+
+        {/* Column 2 */}
+        <ScrollColumn
+          data={data}
+          duration={data.length * 2} // offset so they don't move in sync
+          className="opacity-40 w-32 mask-[linear-gradient(to_right,black,transparent)]"
+        />
       </div>
 
       {/* BG */}
@@ -36,7 +39,6 @@ export default function Winners({ data }: WinnersProps) {
           opacity: 0.6,
         }}
       />
-
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
