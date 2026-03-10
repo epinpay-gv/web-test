@@ -1,5 +1,8 @@
 "use client";
 
+import { Modal } from "@/components/common";
+import CardModal from "@/components/common/Cards/RaffleCard/CardModal/CardModal";
+import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import {
   BannerSection,
   MainBannerLeft,
@@ -13,10 +16,12 @@ import {
   Winners,
   FAQSection,
 } from "@/features/raffles/components";
+import { useRaffleActions } from "@/features/raffles/hooks";
 import {
   Winner,
   SliderSectionData,
   BannerSectionData,
+  JoinRaffleApiPayload,
 } from "@/features/raffles/raffle.types";
 import { FAQ } from "@/types/types";
 import Image from "next/image";
@@ -36,6 +41,8 @@ interface RafflesClientProps {
 }
 
 export default function RafflesClientPage({ data }: RafflesClientProps) {
+  const { joinToTheRaffle } = useRaffleActions();
+
   // PAGE DATA
   const { activeParticipantCount, winners, faq, sliders, banners } = data;
   const { featured, streamers } = banners;
@@ -46,6 +53,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
 
   // STREAMER BANNER
   const [selectedStreamer, setSelectedStreamer] = useState(streamers[0].id);
+  const [selectedRaffle, setSelectedRaffle] = useState<Raffle | null>(null);
 
   const handleStreamerChange = (id: string) => {
     return setSelectedStreamer(id);
@@ -61,7 +69,12 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
       />
 
       {/* PREMIUM SLIDER */}
-      {slider1Data && <SliderSection data={slider1Data} />}
+      {slider1Data && (
+        <SliderSection
+          data={slider1Data}
+          onCardClick={(raffle) => setSelectedRaffle(raffle)}
+        />
+      )}
 
       {/* STREAMER BANNER */}
       <BannerSection
@@ -127,6 +140,11 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
           </div>
         </div>
       </div>
+
+      {/* MODAL */}
+      <Modal open={!!selectedRaffle} onClose={() => setSelectedRaffle(null)}>
+        {selectedRaffle && <CardModal data={selectedRaffle} joinToTheRaffle={joinToTheRaffle}/>}
+      </Modal>
     </>
   );
 }

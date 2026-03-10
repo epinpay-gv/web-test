@@ -42,3 +42,7 @@ export interface AllRafflesApiResponse {
   pagination: PaginationData;
   //   filters: FilterGroupConfig[];
 }
+
+export interface JoinRaffleApiPayload {
+  raffleId: string;
+}

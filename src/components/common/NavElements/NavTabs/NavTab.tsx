@@ -92,7 +92,7 @@ export default function NavTab({
   const containerClasses = `${variantClasses.base} ${variantClasses.size[size]}`;
 
   return (
-    <nav className="w-full overflow-x-auto scrollbar-hide">
+    <nav className="w-full overflow-x-auto overflow-y-hidden scrollbar-hide">
       <div className={`${containerClasses} ${containerClassName ?? ""} `}>
         {items.map((item) => (
           <NavItem

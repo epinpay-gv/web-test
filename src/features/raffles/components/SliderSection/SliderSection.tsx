@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { SliderSectionData } from "../../raffle.types";
 import RaffleCarousel from "./RaffleCarousel";
+import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 
 interface SliderSectionProps {
   data: SliderSectionData;
   isBg?: boolean;
+  onCardClick?: (card: Raffle) => void;
 }
 export default function SliderSection({
   data,
   isBg = true,
+  onCardClick
 }: SliderSectionProps) {
   return (
     <section
@@ -17,9 +20,14 @@ export default function SliderSection({
       <div className="max-w-5xl mx-auto flex flex-col gap-10">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <h2 className="text-2xl font-semibold">{data.title}</h2>
-          <Link href="/all-raffles" className="text-(--text-fg-brand) text-sm hover:underline">Tümünü gör</Link>
+          <Link
+            href="/all-raffles"
+            className="text-(--text-fg-brand) text-sm hover:underline"
+          >
+            Tümünü gör
+          </Link>
         </div>
-        <RaffleCarousel data={data.raffles} />
+        <RaffleCarousel data={data.raffles} onCardClick={onCardClick}/>
       </div>
     </section>
   );

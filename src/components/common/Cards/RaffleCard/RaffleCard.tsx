@@ -1,4 +1,3 @@
-"use client";
 import { ImageSection, CardInfo, StoreInfo } from "./CardSections";
 import { Raffle } from "./types";
 import { motion } from "framer-motion";
@@ -7,18 +6,21 @@ interface RaffleCardProps {
   card: Raffle;
   type?: "special" | "default";
   orientation?: "horizontal" | "vertical";
+  onCardClick?: (card: Raffle) => void;
 }
 
 export default function RaffleCard({
   card,
   type = "special",
   orientation = "vertical",
+  onCardClick,
 }: RaffleCardProps) {
   return (
     <motion.div
+      onClick={() => onCardClick?.(card)}
       initial="initial"
       whileHover="hover"
-      className={`rounded-2xl border border-(--border-default) flex  gap-4
+      className={`rounded-2xl border border-(--border-default) flex  gap-4 cursor-pointer
         ${
           orientation === "horizontal"
             ? "bg-white h-53.75 w-103.25  justify-between"
@@ -29,8 +31,14 @@ export default function RaffleCard({
         `}
     >
       <ImageSection card={card} orientation={orientation} type={type} />
-      <CardInfo card={card} orientation={orientation} type={type}/>
-      {orientation === "vertical" && type === "special" && <StoreInfo card={card} />}
+      <CardInfo
+        card={card}
+        orientation={orientation}
+        type={type}
+      />
+      {orientation === "vertical" && type === "special" && (
+        <StoreInfo card={card} />
+      )}
     </motion.div>
   );
 }

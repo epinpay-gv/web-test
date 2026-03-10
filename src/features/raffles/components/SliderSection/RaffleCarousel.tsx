@@ -12,11 +12,13 @@ interface RaffleCarouselProps {
   data: Raffle[];
   showControls?: boolean;
   loop?: boolean;
+  onCardClick?: (card: Raffle) => void;
 }
 export default function RaffleCarousel({
   data,
   showControls,
   loop,
+  onCardClick,
 }: RaffleCarouselProps) {
     
   return (
@@ -30,7 +32,7 @@ export default function RaffleCarousel({
       <CarouselContent className="-ml-4">
         {data.map((item) => (
           <CarouselItem key={item.id} className="pl-4 basis-auto">
-            <RaffleCard card={item} />
+            <RaffleCard card={item} onCardClick={onCardClick}/>
           </CarouselItem>
         ))}
       </CarouselContent>

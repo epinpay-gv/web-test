@@ -1,21 +1,14 @@
 "use client";
 import { getTimeLeft } from "@/lib/utils";
 import { Raffle } from "../types";
-import { useState } from "react";
-import { Modal } from "@/components/common";
-import CardModal from "../CardModal/CardModal";
+import { JoinRaffleApiPayload } from "@/features/raffles/raffle.types";
 
-interface CardInfoProps {
+interface InfoSectionProps {
   card: Raffle;
-  type?: "special" | "default";
-  orientation?: "horizontal" | "vertical";
+  joinToTheRaffle: (payload: JoinRaffleApiPayload) => Promise<void>;
 }
 
-export default function CardInfo({
-  card,
-  type = "special",
-  orientation = "vertical",
-}: CardInfoProps) {
+export default function InfoSection({ card, joinToTheRaffle }: InfoSectionProps) {
   const raffleInfo = [
     {
       title: "Ödül Değeri",
@@ -29,20 +22,18 @@ export default function CardInfo({
     },
   ];
 
-
+  const payload = {
+    raffleId : card.id
+  }
 
   return (
-    <>
-      <div
-        className={`${orientation === "vertical" ? "" : "py-4"} flex flex-col px-4 gap-4 `}
-      >
-        {/* TITLE */}
-        <p
-          className={`${orientation === "vertical" ? "text-(--text-heading)" : "text-(--text-black) w-37.25"} h-10.5 text-sm font-semibold leading-[150%] `}
-        >
-          {card.title}
-        </p>
+    <div className="flex flex-col px-4 gap-4 w-full justify-between">
+      {/* TITLE */}
+      <p className="text-white w-full h-10.5 text-sm font-semibold leading-[150%]">
+        {card.title}
+      </p>
 
+      <div className="flex flex-col gap-4">
         {/* INFO */}
         <div className="flex justify-around w-full">
           {raffleInfo.map((i, index) => (
@@ -57,17 +48,17 @@ export default function CardInfo({
           ))}
         </div>
 
-        {/* ACTION DIV */}
-        <div
-          className={`${orientation === "vertical" ? "w-full h-14" : type === "special" ? "h-14.5" : "w-full h-14.5"} 
-        cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center`}
+        {/* BUTTON */}
+        <button
+          className=" w-full h-14.5 cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center"
+          onClick={() => joinToTheRaffle(payload)}
         >
           <p className="text-black leading-5">Hemen katıl</p>
           <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
             Son {getTimeLeft(card.endDate)}
           </div>
-        </div>
+        </button>
       </div>
-    </>
+    </div>
   );
 }

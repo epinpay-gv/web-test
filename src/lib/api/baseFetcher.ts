@@ -18,6 +18,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
 
   const finalHeaders = {
     "Content-Type": "application/json",
+    "EP-Language" : "", // TODO : Backendin istediği şekilde yollanacak
     ...options.headers,
   };
 
