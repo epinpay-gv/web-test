@@ -8,7 +8,10 @@ interface InfoSectionProps {
   joinToTheRaffle: (payload: JoinRaffleApiPayload) => Promise<void>;
 }
 
-export default function InfoSection({ card, joinToTheRaffle }: InfoSectionProps) {
+export default function InfoSection({
+  card,
+  joinToTheRaffle,
+}: InfoSectionProps) {
   const raffleInfo = [
     {
       title: "Ödül Değeri",
@@ -23,8 +26,8 @@ export default function InfoSection({ card, joinToTheRaffle }: InfoSectionProps)
   ];
 
   const payload = {
-    raffleId : card.id
-  }
+    raffleId: card.id,
+  };
 
   return (
     <div className="flex flex-col px-4 gap-4 w-full justify-between">
@@ -48,16 +51,25 @@ export default function InfoSection({ card, joinToTheRaffle }: InfoSectionProps)
           ))}
         </div>
 
-        {/* BUTTON */}
-        <button
-          className=" w-full h-14.5 cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center"
-          onClick={() => joinToTheRaffle(payload)}
-        >
-          <p className="text-black leading-5">Hemen katıl</p>
-          <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
-            Son {getTimeLeft(card.endDate)}
+        {/* BUTTON - ACTIVE */}
+        {card.status === "ACTIVE" && (
+          <button
+            className=" w-full h-14.5 cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center"
+            onClick={() => joinToTheRaffle(payload)}
+          >
+            <p className="text-black leading-5">Hemen katıl</p>
+            <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
+              Son {getTimeLeft(card.endDate)}
+            </div>
+          </button>
+        )}
+
+        {/* DIV - ENDED */}
+        {card.status !== "ACTIVE" && (
+          <div className=" w-full h-14.5 text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-orange) shadow-xs flex items-center justify-center">
+            <p className="text-black leading-5">Sona erdi</p>
           </div>
-        </button>
+        )}
       </div>
     </div>
   );

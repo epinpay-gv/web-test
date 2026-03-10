@@ -18,14 +18,15 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
 
   const navItems: NavTabItem[] = [
     { label: "Katılımcılar", value: "participations" },
-    { label: "Çekilişi Kazananlar", value: "pool" },
+    ...(["DRAWN", "ANNOUNCED", "COMPLETED"].includes(card.status)
+      ? [{ label: "Çekilişi Kazananlar", value: "pool" }]
+      : []),
   ];
 
   const [selectedTab, setSelectedTab] = useState("participations");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Reset page when tab or search changes
   const handleTabChange = (value: string) => {
     setSelectedTab(value);
     setCurrentPage(1);
@@ -34,10 +35,9 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
-    setCurrentPage(1); // always reset to page 1 on new search
+    setCurrentPage(1);
   };
 
-  // Derive the active dataset based on selected tab
   const activeData = selectedTab === "participations" ? participations : pool;
 
   // Filter by search
@@ -58,7 +58,6 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
     });
   }, [activeData, search]);
 
-  // Slice the filtered data for current page
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * PER_PAGE;
     return filteredData.slice(start, start + PER_PAGE);
@@ -73,7 +72,7 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
   };
 
   return (
-    <div className="flex flex-col px-4 gap-4 w-full justify-between">
+    <div className="flex flex-col gap-4 w-full justify-between">
       {/* NAV */}
       <NavTab
         items={navItems}
@@ -86,6 +85,12 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
       <ParticipantSearch value={search} onChange={handleSearchChange} />
 
       {/* LIST : participants, winners*/}
+      {paginatedData.length === 0 && (
+        <p className="text-xs text-(--text-body) text-center">
+          Katılımcı bulunamadı. İlk katılan sen ol!
+        </p>
+      )}
+
       {selectedTab === "participations" && (
         <div className="grid grid-cols-3 gap-2 max-h-35.75 overflow-y-auto">
           {paginatedData.map((i) => {
@@ -107,26 +112,28 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
         </div>
       )}
 
-      {selectedTab === "pool" && (
-        <div className="grid grid-cols-3 gap-2 max-h-115.75">
-          {paginatedData.map((i) => {
-            const item = i as (typeof pool)[number];
-            return (
-              <div
-                key={item.id}
-                className="flex flex-col gap-2 border-b border-(--border-default) pb-2"
-              >
-                <p className="text-xs font-medium leading-[150%] text-(--text-fg-success-strong)">
-                  {item.winnerName}
-                </p>
-                <p className="text-xs font-normal leading-[150%] text-(--text-body)">
-                  {formatDateTR(item.claimedAt)}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      )}
+      {selectedTab === "pool" &&
+        card.status !== "DRAFT" &&
+        card.status !== "ACTIVE" && (
+          <div className="grid grid-cols-3 gap-2 max-h-115.75">
+            {paginatedData.map((i) => {
+              const item = i as (typeof pool)[number];
+              return (
+                <div
+                  key={item.id}
+                  className="flex flex-col gap-2 border-b border-(--border-default) pb-2"
+                >
+                  <p className="text-xs font-medium leading-[150%] text-(--text-fg-success-strong)">
+                    {item.winnerName}
+                  </p>
+                  <p className="text-xs font-normal leading-[150%] text-(--text-body)">
+                    {formatDateTR(item.createdAt)}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
       {/* PAGINATION */}
       <div className="mx-auto">

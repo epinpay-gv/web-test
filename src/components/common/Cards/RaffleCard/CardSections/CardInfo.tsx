@@ -29,8 +29,6 @@ export default function CardInfo({
     },
   ];
 
-
-
   return (
     <>
       <div
@@ -58,15 +56,23 @@ export default function CardInfo({
         </div>
 
         {/* ACTION DIV */}
-        <div
-          className={`${orientation === "vertical" ? "w-full h-14" : type === "special" ? "h-14.5" : "w-full h-14.5"} 
+        {card.status === "ACTIVE" && (
+          <div
+            className={`${orientation === "vertical" ? "w-full h-14" : type === "special" ? "h-14.5" : "w-full h-14.5"} 
         cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center`}
-        >
-          <p className="text-black leading-5">Hemen katıl</p>
-          <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
-            Son {getTimeLeft(card.endDate)}
+          >
+            <p className="text-black leading-5">Hemen katıl</p>
+            <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
+              Son {getTimeLeft(card.endDate)}
+            </div>
           </div>
-        </div>
+        )}
+
+        {card.status !== "ACTIVE" && (
+          <div className=" w-full h-14.5 text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-orange) shadow-xs flex items-center justify-center">
+            <p className="text-black leading-5">Sona erdi</p>
+          </div>
+        )}
       </div>
     </>
   );
