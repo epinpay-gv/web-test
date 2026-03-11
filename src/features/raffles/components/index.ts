@@ -1,14 +1,15 @@
-import BannerSection from "./BannerSection/BannerSection";
-import MainBannerLeft from "./BannerSection/MainBanner/MainBannerLeft";
-import MainBannerRight from "./BannerSection/MainBanner/MainBannerRight";
-import SliderSection from "./SliderSection/SliderSection";
-import StreamerBannerLeft from "./BannerSection/StreamerBanner/StreamerBannerLeft";
-import StreamerBannerRight from "./BannerSection/StreamerBanner/StreamerBannerRight";
-import FeaturedBannerLeft from "./BannerSection/FeaturedBanner/FeaturedBannerLeft";
-import FeaturedBannerRight from "./BannerSection/FeaturedBanner/FeaturedBannerRight";
-import DescriptionCards from "./DescriptionCards/DescriptionCards";
-import Winners from "./Winners/Winners";
-import FAQSection from "./FAQSection/FAQSection";
+import BannerSection from "./raffles/BannerSection/BannerSection";
+import MainBannerLeft from "./raffles/BannerSection/MainBanner/MainBannerLeft";
+import MainBannerRight from "./raffles/BannerSection/MainBanner/MainBannerRight";
+import SliderSection from "./raffles/SliderSection/SliderSection";
+import StreamerBannerLeft from "./raffles/BannerSection/StreamerBanner/StreamerBannerLeft";
+import StreamerBannerRight from "./raffles/BannerSection/StreamerBanner/StreamerBannerRight";
+import FeaturedBannerLeft from "./raffles/BannerSection/FeaturedBanner/FeaturedBannerLeft";
+import FeaturedBannerRight from "./raffles/BannerSection/FeaturedBanner/FeaturedBannerRight";
+import DescriptionCards from "./raffles/DescriptionCards/DescriptionCards";
+import Winners from "./raffles/Winners/Winners";
+import FAQSection from "./raffles/FAQSection/FAQSection";
+import RaffleGrid from "./all-raffles/RaffleGrid/RaffleGrid"
 
 export {
   BannerSection,
@@ -22,4 +23,5 @@ export {
   DescriptionCards,
   Winners,
   FAQSection,
+  RaffleGrid,
 };

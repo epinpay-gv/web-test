@@ -11,11 +11,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const safeLocale = routing.locales.includes(locale as any) ? locale : "tr";
-
+  
   // ! NOT : as-needed olduğu için TR prefix'siz gelecek (seo için)
   const alternates: Record<string, string> = {};
   routing.locales.forEach((l) => {

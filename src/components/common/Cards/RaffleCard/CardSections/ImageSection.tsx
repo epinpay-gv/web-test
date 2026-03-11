@@ -3,6 +3,14 @@ import Image from "next/image";
 import { ParticipationConstraint, CreatorType, Raffle } from "../types";
 import { motion } from "framer-motion";
 
+const BADGE_TEXT: Record<ParticipationConstraint, string> = {
+  EVERYONE: "Epinpay çekilişi",
+  PREMIUM: "Premium üyelere özel",
+  REFERENCE: "Referanslı üyelere özel",
+  FOLLOWER: "",
+  ROLE: "",
+};
+
 const BACKGROUND_CLASSES: Record<ParticipationConstraint, string> = {
   EVERYONE: "",
   PREMIUM: "bg-[url('/raffles-page/type-gold.webp')] bg-cover bg-center",
@@ -27,7 +35,7 @@ const IMAGE_VARIANTS_SINGLE_CATEGORY = [
   },
   // Right image
   {
-    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
+    initial: { x: 2, y: 0, rotate: 0, scale: 1 },
     hover: { x: 10, y: -10, rotate: 10, scale: 1 },
     zIndex: 2,
   },
@@ -89,8 +97,8 @@ export default function ImageSection({
           type === "special" &&
           (card.creatorType === CreatorType.PLATFORM
             ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center"
-            : (card.constraint === ParticipationConstraint.PREMIUM ||
-                card.constraint === ParticipationConstraint.REFERENCE)
+            : card.constraint === ParticipationConstraint.PREMIUM ||
+                card.constraint === ParticipationConstraint.REFERENCE
               ? BACKGROUND_CLASSES[card.constraint]
               : "")
         }
@@ -136,6 +144,7 @@ export default function ImageSection({
           );
         })}
       </div>
+
       {/* Quantity badge */}
       <div
         className={`bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute  w-13 h-13 flex items-center justify-center 
@@ -145,6 +154,18 @@ export default function ImageSection({
           x{card.productCount ?? 0}
         </p>
       </div>
+
+      {/* Special Badge */}
+      {type === "special" && (
+        <div
+          className={`absolute rounded-sm py-0 5 px-2 text-sm bg-neutral-700/50 bottom-2 text-neutral-700 font-base
+        `}
+        >
+          {card.creatorType === CreatorType.PLATFORM
+            ? BADGE_TEXT[ParticipationConstraint.EVERYONE]
+            : BADGE_TEXT[card.constraint]}
+        </div>
+      )}
     </div>
   );
 }

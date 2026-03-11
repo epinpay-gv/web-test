@@ -109,6 +109,8 @@ export interface RafflePool {
 
   winnerId?: string | null;
   claimedAt?: string | null;
+  winnerName: string; // ! bu backende eklenmeli
+
 
   createdAt: string;
 }
@@ -117,6 +119,7 @@ export interface Participation {
   id: string;
   raffleId: string;
   userId: string;
+  userName: string; // ! bu backende eklenmeli
 
   ticketNumber: number;
   status: ParticipationStatus;
