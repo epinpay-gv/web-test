@@ -63,7 +63,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
         left={<MainBannerLeft data={data.activeParticipantCount} />}
         right={<MainBannerRight />}
       />
-
+      
       {/* PREMIUM SLIDER */}
       {slider1Data && (
         <SliderSection

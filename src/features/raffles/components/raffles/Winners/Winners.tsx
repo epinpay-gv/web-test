@@ -10,9 +10,9 @@ export default function Winners({ data }: WinnersProps) {
   const loopedData = [...data, ...data];
 
   return (
-    <section className="relative flex justify-between items-center h-82.5 w-full max-w-5xl rounded-xl bg-yellow-400">
+    <section className="relative flex flex-col md:flex-row justify-between md:items-center h-82.5 w-full max-w-5xl rounded-xl bg-yellow-400">
       {/* LEFT SIDE */}
-      <div className="text-yellow-950 text-4xl font-bold z-10 p-10 ">
+      <div className="text-yellow-950 text-2xl md:text-4xl font-bold z-10 p-10 ">
         <p>Gerçek katılımcılar</p>
         <p>Gerçek kazananlar</p>
       </div>
@@ -25,8 +25,8 @@ export default function Winners({ data }: WinnersProps) {
         {/* Column 2 */}
         <ScrollColumn
           data={data}
-          duration={data.length * 2} // offset so they don't move in sync
-          className="opacity-40 w-32 mask-[linear-gradient(to_right,black,transparent)]"
+          duration={data.length * 2} // offset if they don't move in sync
+          className="opacity-60 w-32 mask-[linear-gradient(to_right,black,transparent)]"
         />
       </div>
 

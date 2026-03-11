@@ -6,8 +6,7 @@ const BACKGROUND_STYLES: Record<BackgroundType, React.CSSProperties> = {
   brand: {
     backgroundColor: "#FF8A4C",
     backgroundImage: `
-      linear-gradient(263.8deg, #F9D697 0.55%, #FFE7DD 24.87%, rgba(191, 195, 210, 0) 89.38%, rgba(255, 219, 173, 0) 97.8%),
-      url('/raffles-page/banner-brand-texture.svg')
+      linear-gradient(263.8deg, #F9D697 0.55%, #FFE7DD 24.87%, rgba(191, 195, 210, 0) 89.38%, rgba(255, 219, 173, 0) 97.8%)
     `,
     backgroundPosition: "left, right",
     backgroundRepeat: "no-repeat, no-repeat",
@@ -26,20 +25,17 @@ interface BannerSectionProps {
   left: React.ReactNode;
   right: React.ReactNode;
   accentColor?: string;
-  leftClass?: string;
-  rightClass?: string;
 }
+
 export default function BannerSection({
   background,
   left,
   right,
   accentColor = "#8B0836",
-  leftClass,
-  rightClass,
 }: BannerSectionProps) {
   return (
     <section
-      className={`w-full relative overflow-hidden ${PADDING_STYLES[background]} md:py-10 `}
+      className={`w-full relative overflow-hidden ${PADDING_STYLES[background]} `}
       style={{
         ...BACKGROUND_STYLES[background],
         ...(background === "with-light" && { backgroundColor: accentColor }),
@@ -68,9 +64,9 @@ export default function BannerSection({
           }}
         />
       )}
-      <div className="relative z-10 mx-auto w-full flex flex-col md:flex-row justify-between items-center max-w-5xl py-6">
-        <div className={`${leftClass}`}>{left}</div>
-        <div className={`${rightClass}`}>{right}</div>
+      <div className="z-10 mx-auto w-full flex flex-col md:flex-row justify-between items-center max-w-5xl">
+        <div>{left}</div>
+        <div>{right}</div>
       </div>
     </section>
   );
