@@ -51,7 +51,6 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
   const slider2Data = sliders.find((i) => i.line === 2);
   const slider3Data = sliders.find((i) => i.line === 3);
 
-  // STREAMER BANNER
   const [selectedStreamer, setSelectedStreamer] = useState(streamers[0].id);
   const [selectedRaffle, setSelectedRaffle] = useState<Raffle | null>(null);
 

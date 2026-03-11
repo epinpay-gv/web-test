@@ -1,5 +1,6 @@
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { FAQ, PageMetadata, PaginationData } from "@/types/types";
+import { FilterGroupConfig } from "../catalog/catalog.types";
 
 export interface BannerSectionData {
   id: string;
@@ -37,10 +38,10 @@ export interface RafflesApiResponse {
 }
 
 export interface AllRafflesApiResponse {
-  metadata: PageMetadata[];
+  metadata: PageMetadata;
   data: Raffle[];
   pagination: PaginationData;
-  //   filters: FilterGroupConfig[];
+  filters: FilterGroupConfig[];
 }
 
 export interface JoinRaffleApiPayload {

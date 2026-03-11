@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SliderSectionData } from "../../raffle.types";
+import { SliderSectionData } from "../../../raffle.types";
 import RaffleCarousel from "./RaffleCarousel";
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 
@@ -21,7 +21,7 @@ export default function SliderSection({
         <div className="flex flex-col md:flex-row justify-between items-center">
           <h2 className="text-2xl font-semibold">{data.title}</h2>
           <Link
-            href="/all-raffles"
+            href="/raffles/all-raffles"
             className="text-(--text-fg-brand) text-sm hover:underline"
           >
             Tümünü gör

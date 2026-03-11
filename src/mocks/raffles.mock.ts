@@ -6,6 +6,7 @@ import {
   ParticipationConstraint,
   ParticipationStatus,
 } from "@/components/common/Cards/RaffleCard/types";
+import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 import { Winner } from "@/features/raffles/raffle.types";
 import { FAQ } from "@/types/types";
 
@@ -1042,5 +1043,188 @@ export const rafflesWinnersMockData: Winner[] = [
     name: "Omar S***",
     date: "2025-06-06T10:30:00.000Z",
     id: "008",
+  },
+];
+
+export const rafflesFilters: FilterGroupConfig[] = [
+  {
+    elements: [
+      {
+        type: "toggle",
+        key: "viewAll",
+        label: "Tamamlanmış çekilişleri dahil et",
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: false,
+  },
+  {
+    titleData: {
+      title: "Fiyat",
+      titleColor: "text-body",
+    },
+    elements: [{ type: "range", key: "price", min: 0, max: 10000 }],
+    isTab: false,
+    locale: "tr",
+    isTitle: false,
+  },
+  {
+    titleData: {
+      title: "Oyunlar",
+      isUnderlined: true,
+      titleColor: "text-body",
+    },
+    elements: [
+      {
+        type: "checkbox",
+        key: "category",
+        options: [
+          { label: "League of Legends (LoL RP)", value: "10", count: 128 },
+          { label: "Steam Cüzdan Kodu", value: "11", count: 42 },
+          { label: "PUBG Mobile", value: "9", count: 76 },
+          { label: "Free Fire Elmas", value: "101", count: 33 },
+          { label: "Pasha Fencer", value: "102r", count: 9 },
+          { label: "Point Blank", value: "103", count: 18 },
+          { label: "Zula Altın", value: "104", count: 64 },
+          { label: "Xbox", value: "105", count: 90 },
+          {
+            label: "The Lord of the Rings: Rise to War",
+            value: "106",
+            count: 5,
+          },
+          {
+            label: "Google Play Hediye Kartı",
+            value: "107",
+            count: 154,
+          },
+          {
+            label: "Playstation Hediye Kartı",
+            value: "108",
+            count: 203,
+          },
+          { label: "Razer Gold", value: "109", count: 47 },
+        ],
+        search: {
+          placeholder: "Ara",
+        },
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: false,
+  },
+  {
+    titleData: {
+      title: "Platform",
+      titleColor: "text-body",
+    },
+    elements: [
+      {
+        type: "checkbox",
+        key: "platform",
+        options: [
+          { label: "Riot Games", value: "1" },
+          { label: "Playstation Gift Cards", value: "2" },
+          { label: "Google Play Gift Cards", value: "3" },
+          { label: "Mobile Games", value: "4" },
+          { label: "Steam", value: "5" },
+          { label: "PC Games", value: "6" },
+        ],
+        search: {
+          placeholder: "Ara",
+        },
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: false,
+  },
+  {
+    titleData: {
+      title: "Bölge",
+      titleColor: "text-body",
+    },
+    elements: [
+      {
+        type: "checkbox",
+        key: "region",
+        options: [
+          { label: "Global", value: "26" },
+          { label: "Turkey", value: "1" },
+          { label: "United States", value: "2" },
+          { label: "India", value: "3" },
+          { label: "Arab Emirates", value: "4" },
+          { label: "United Kingdom", value: "5" },
+          { label: "Hong Kong", value: "6" },
+          { label: "France", value: "7" },
+          { label: "Brasil", value: "8" },
+          { label: "South Africa", value: "9" },
+          { label: "Germany", value: "10" },
+          { label: "Saudi Arabia", value: "11" },
+          { label: "Poland", value: "12" },
+          { label: "Oman", value: "13" },
+          { label: "Indonesia", value: "14" },
+          { label: "Kuwait", value: "15" },
+          { label: "Lebanon", value: "16" },
+          { label: "Italy", value: "17" },
+          { label: "Canada", value: "18" },
+          { label: "Qatar", value: "19" },
+          { label: "Bahrein", value: "20" },
+          { label: "Spain", value: "21" },
+          { label: "Australia", value: "22" },
+          { label: "Romania", value: "23" },
+          { label: "New Zealand", value: "24" },
+          { label: "Malaysia", value: "25" },
+          { label: "USA", value: "56" },
+        ],
+        search: {
+          placeholder: "Ara",
+        },
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: false,
+  },
+  {
+    elements: [
+      {
+        type: "dropdown",
+        key: "type",
+        options: [
+          { label: "En İyi Eşleşme", value: "best_match" },
+          { label: "En Çok Satanlar", value: "best_seller" },
+          { label: "Artan Fiyat", value: "price_asc" },
+          { label: "Azalan Fiyat", value: "price_desc" },
+          { label: "A'dan Z'ye", value: "name_asc" },
+          { label: "Z'den A'ya", value: "name_desc" },
+        ],
+      },
+    ],
+    isTab: false,
+    locale: "tr",
+    isTitle: true,
+  },
+  {
+    titleData: {
+      title: "Çekiliş Tipi",
+      titleColor: "text-body",
+    },
+    elements: [
+      {
+        type: "checkbox",
+        key: "type",
+        options: [
+          { label: "Bitmek üzere", value: "abputToEnd" },
+          { label: "Yüksek değerli", value: "highValue" },
+          { label: "Premium üyelere özel", value: "forPremium" },
+          { label: "Yayıncılardan", value: "fromStreamers" }
+        ],
+      },
+    ],
+    isTab: true,
+    locale: "tr",
+    isTitle: false,
   },
 ];

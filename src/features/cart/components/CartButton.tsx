@@ -20,6 +20,7 @@ export function CartButton() {
         icon={<Cart className="md:w-5 md:h-5 w-4 h-4 transition-colors" />}
         onClick={() => router.push("/checkout")}
       />
+      
       {/* <IconShape 
         icon={Cart} 
         color="custom" 

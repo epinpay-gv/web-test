@@ -1,5 +1,5 @@
 import { formatDateTR } from "@/lib/utils";
-import { Winner } from "../../raffle.types";
+import { Winner } from "../../../raffle.types";
 import { motion } from "framer-motion";
 
 export default function ScrollColumn({

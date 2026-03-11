@@ -15,6 +15,7 @@ interface BadgeProps {
   type?: BadgeType;
   closable?: boolean;
   onClose?: () => void;
+  onClick?: () => void;
   className?: string;
 }
 
@@ -56,6 +57,7 @@ export default function Badge({
   type = "default",
   closable = false,
   onClose,
+  onClick,
   className,
 }: BadgeProps) {
   return (
@@ -73,6 +75,7 @@ export default function Badge({
     }
         ${closable ? "pr-2 hover:pr-3 cursor-pointer" : ""}
      `}
+     onClick={onClick}
     >
       {icon && (
         <span

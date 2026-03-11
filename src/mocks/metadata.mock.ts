@@ -55,4 +55,22 @@ export const mockMetadata: PageMetadata[] = [
     metaTitle: "Epinpay",
     metaDescription: "Join the raffles, gain the prices!",
   },
+  {
+    id: 7,
+    pageId: 4, // Tüm çekilişler sayfası
+    slug: "/raffles/all-raffles",
+    locale: "tr",
+    title: "Tüm Çekilişler | Epinpay",
+    metaTitle: "Epinpay",
+    metaDescription: "Çekilişlere katıl, ödülleri topla!",
+  },
+  {
+    id: 8,
+    pageId: 4, // Tüm çekilişler sayfası
+    slug: "/raffles/all-raffles",
+    locale: "en",
+    title: "Tüm Çekilişler | Epinpay",
+    metaTitle: "Epinpay",
+    metaDescription: "Join the raffles, gain the prices!",
+  },
 ];

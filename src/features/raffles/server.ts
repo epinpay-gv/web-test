@@ -1,5 +1,5 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
-import { JoinRaffleApiPayload, RafflesApiResponse } from "./raffle.types";
+import { AllRafflesApiResponse, JoinRaffleApiPayload, RafflesApiResponse } from "./raffle.types";
 
 export const getRaffles = () =>
   baseFetcher<RafflesApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/raffles`);
@@ -13,3 +13,6 @@ export const joinToRaffle = (payload: JoinRaffleApiPayload) =>
     },
     "Sepete eklenemedi",
   );
+
+export const getAllRaffles = () =>
+  baseFetcher<AllRafflesApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/raffles/all-raffles`);
