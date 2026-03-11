@@ -5,13 +5,13 @@ import {
   PageTitle,
   ProductGrid,
 } from "@/features/catalog/components";
-import { getActiveFilterLabels } from "@/features/catalog/utils";
 import { BreadcrumbItem, PaginationData, Product } from "@/types/types";
 import { Breadcrumb, Pagination, NavTab } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
-import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 import { useCatalogUrlFilters } from "@/features/catalog/hooks";
+import { FilterGroupConfig } from "@/features/filters/filters.types";
+import { getActiveFilterLabels } from "@/features/filters/utils/filters.utils";
 
 interface ProductsClientProps {
   initialProducts: Product[];

@@ -4,11 +4,9 @@ import {
   FilterContainer,
   FilterLabels,
   PageTitle,
-  ProductGrid,
 } from "@/features/catalog/components";
-import { getActiveFilterLabels } from "@/features/catalog/utils";
 import { BreadcrumbItem, PaginationData } from "@/types/types";
-import { Breadcrumb, Pagination, NavTab, Badge, Modal } from "@/components/common";
+import { Breadcrumb, Pagination, Badge, Modal } from "@/components/common";
 import {
   Cash,
   Clock,
@@ -16,14 +14,14 @@ import {
   Star,
   VideoCamera,
 } from "flowbite-react-icons/outline";
-import { FilterGroupConfig } from "@/features/catalog/catalog.types";
-import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 import { useCatalogUrlFilters } from "@/features/catalog/hooks";
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { RaffleGrid } from "@/features/raffles/components";
 import { useState } from "react";
 import CardModal from "@/components/common/Cards/RaffleCard/CardModal/CardModal";
 import { useRaffleActions } from "@/features/raffles/hooks";
+import { FilterGroupConfig } from "@/features/filters/filters.types";
+import { getActiveFilterLabels } from "@/features/filters/utils/filters.utils";
 
 interface AllRafflesClientProps {
   initialRaffles: Raffle[];
@@ -143,7 +141,10 @@ export default function AllRafflesClient({
               />
             )}
 
-            <RaffleGrid data={initialRaffles} onCardClick={(raffle) => setSelectedRaffle(raffle)}/>
+            <RaffleGrid
+              data={initialRaffles}
+              onCardClick={(raffle) => setSelectedRaffle(raffle)}
+            />
 
             <div className="mx-auto">
               <Pagination

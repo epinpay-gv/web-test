@@ -6,69 +6,13 @@ import {
   ProductRegion,
   PageMetadata,
 } from "@/types/types";
-import { TitleData } from "@/components/common/Title/types";
+import { FilterGroupConfig } from "../filters/utils/filters.utils";
 
 /* CATEGORY TYPES */
 export interface CategoriesPageResponse {
   data: Category[];
   pagination: PaginationData;
 }
-
-/* FILTER TYPES */
-export type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc";
-
-export type FilterElementConfig =
-  | {
-      type: "dropdown";
-      key: string;
-      label?: string;
-      options: { label: string; value: string }[];
-      search?: {
-        placeholder?: string;
-      };
-    }
-  | {
-      type: "toggle";
-      key: string;
-      label: string;
-    }
-  | {
-      type: "input";
-      key: string;
-      label: string;
-      placeholder?: string;
-    }
-  | {
-      type: "range";
-      key: string;
-      label?: string;
-      min: number;
-      max: number;
-    }
-  | {
-      type: "checkbox";
-      key: string;
-      label?: string;
-      options: { label: string; value: string; count?: number }[]; // varsa multi, yoksa single
-      search?: {
-        placeholder?: string;
-      };
-    };
-
-export interface FilterGroupConfig {
-  isTab: boolean;
-  isTitle: boolean;
-  titleData?: TitleData;
-  elements: FilterElementConfig[];
-  locale: string;
-}
-
-export type ActiveFilterChip = {
-  key: string;
-  value: string;
-  label: string;
-};
-
 
 /* PRODUCT DETAIL TYPES */
 export interface CategoryWithProductDetail {

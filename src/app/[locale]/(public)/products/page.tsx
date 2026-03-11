@@ -2,16 +2,14 @@ import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
 import ProductsClient from "./products-client";
 import { getProducts } from "@/features/catalog/service";
-import {
-  createProductsBreadcrumb,
-  extractSelectedFilterOption,
-} from "@/features/catalog/utils";
+import { createProductsBreadcrumb } from "@/features/catalog/utils";
 import {
   CollectionPageSchema,
   ItemListSchema,
   OrganizationSchema,
   WebsiteSchema,
 } from "@/components/seo";
+import { extractSelectedFilterOption } from "@/features/filters/utils/filters.utils";
 
 export async function generateMetadata({
   params,
@@ -24,7 +22,7 @@ export async function generateMetadata({
   const search = await searchParams;
 
   const res = await getProducts(search);
-  
+
   const metadata = res.metadata.find((m) => m.pageId === 2) || {
     title: "Ürünler",
     metaDescription: "Epinpay ürünlerini keşfedin",
@@ -63,7 +61,7 @@ export default async function ProductsPage({
   const selectedProductType = extractSelectedFilterOption(
     res.filters,
     "productType",
-    typeValue
+    typeValue,
   );
 
   const breadcrumbItems = createProductsBreadcrumb(locale, selectedProductType);

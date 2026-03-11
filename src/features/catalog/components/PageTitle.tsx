@@ -1,5 +1,5 @@
 import { Sort } from "flowbite-react-icons/outline";
-import FilterDropdownContainer from "./filters/Filters/FilterDropdownContainer";
+import FilterDropdownContainer from "../../filters/components/Filters/FilterDropdownContainer";
 import { useTranslations } from "next-intl";
 import { FilterGroupConfig } from "../catalog.types";
 

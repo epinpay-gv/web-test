@@ -1,10 +1,10 @@
 "use client";
-import { FilterElementConfig } from "@/features/catalog/catalog.types";
 import { Input, CheckBox, Toggle } from "@/components/common";
 import { FilterSearch } from "./FilterSearch";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { FilterElementConfig } from "../../filters.types";
 
 interface FilterElementProps {
   config: FilterElementConfig;

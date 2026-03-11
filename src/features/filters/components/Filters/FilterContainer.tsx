@@ -2,16 +2,13 @@
 import Title from "@/components/common/Title/Title";
 import { TitleData } from "@/components/common/Title/types";
 import FilterGroup from "./FilterGroup";
-import { countActiveFiltersByGroup } from "@/features/catalog/utils";
 import { BottomSheet, Button } from "@/components/common";
 import { useState } from "react";
 import { Sort, Filter } from "flowbite-react-icons/outline";
-import {
-  FilterGroupConfig,
-  ActiveFilterChip,
-} from "@/features/catalog/catalog.types";
 import { useTranslations } from "next-intl";
 import FilterDropdownContainer from "./FilterDropdownContainer";
+import { ActiveFilterChip, FilterGroupConfig } from "../../filters.types";
+import { countActiveFiltersByGroup } from "../../utils/filters.utils";
 
 interface FiltersProps {
   titleData: TitleData;

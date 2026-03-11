@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
-import { FilterGroupConfig } from "../catalog.types";
+import { FilterGroupConfig } from "../filters.types";
 
 export function useCatalogUrlFilters(initialFilters: FilterGroupConfig[]) {
   const router = useRouter();

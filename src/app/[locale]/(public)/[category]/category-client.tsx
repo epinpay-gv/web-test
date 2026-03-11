@@ -6,7 +6,6 @@ import {
   ProductGrid,
   SeoSection,
 } from "@/features/catalog/components";
-import { getActiveFilterLabels } from "@/features/catalog/utils";
 import {
   BreadcrumbItem,
   Category,
@@ -15,9 +14,10 @@ import {
 } from "@/types/types";
 import { Breadcrumb, NavTab, Pagination } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
-import { FilterGroupConfig } from "@/features/catalog/catalog.types";
 import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
 import { useCatalogUrlFilters } from "@/features/catalog/hooks";
+import { FilterGroupConfig } from "@/features/filters/filters.types";
+import { getActiveFilterLabels } from "@/features/filters/utils/filters.utils";
 
 interface CategoryClientProps {
   initialProducts: Product[];

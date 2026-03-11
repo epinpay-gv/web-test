@@ -9,11 +9,9 @@ import {
 } from "@/components/seo";
 import { getCategory } from "@/features/catalog/service";
 import CategoryClient from "./category-client";
-import {
-  createCategoryBreadcrumb,
-  extractSelectedFilterOption,
-} from "@/features/catalog/utils";
+import { createCategoryBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";
+import { extractSelectedFilterOption } from "@/features/filters/utils/filters.utils";
 
 export async function generateMetadata({
   params,

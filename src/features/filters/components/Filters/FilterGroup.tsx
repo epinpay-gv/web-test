@@ -3,9 +3,7 @@ import Title from "@/components/common/Title/Title";
 import FilterElement from "./FilterElement";
 import { useState } from "react";
 import { ChevronRight } from "flowbite-react-icons/outline";
-import {
-  FilterGroupConfig,
-} from "@/features/catalog/catalog.types";
+import { FilterGroupConfig } from "../../filters.types";
 
 interface FilterGroupProps {
   config: FilterGroupConfig;

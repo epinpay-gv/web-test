@@ -1,8 +1,7 @@
 "use client";
-
 import { Badge } from "@/components/common";
-import { ActiveFilterChip } from "@/features/catalog/catalog.types";
 import { useTranslations } from "next-intl";
+import { ActiveFilterChip } from "../../filters.types";
 
 interface FilterLabelsProps {
   isLoading?: boolean;
