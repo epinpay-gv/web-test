@@ -26,42 +26,25 @@ interface BannerSectionProps {
   left: React.ReactNode;
   right: React.ReactNode;
   accentColor?: string;
+  leftClass?: string;
+  rightClass?: string;
 }
 export default function BannerSection({
   background,
   left,
   right,
   accentColor = "#8B0836",
+  leftClass,
+  rightClass,
 }: BannerSectionProps) {
   return (
     <section
-      className={`w-full relative overflow-hidden ${PADDING_STYLES[background]}`}
+      className={`w-full relative overflow-hidden ${PADDING_STYLES[background]} md:py-10 `}
       style={{
         ...BACKGROUND_STYLES[background],
         ...(background === "with-light" && { backgroundColor: accentColor }),
       }}
     >
-      {background === "brand" && (
-        <div
-          className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none select-none"
-          style={{
-            width: 582,
-            height: 400,
-          }}
-        >
-          <Image
-            src="/raffles-page/banner-brand-texture.svg"
-            alt=""
-            aria-hidden="true"
-            fill
-            className="object-cover"
-            style={{
-              opacity: 0.4,
-              mixBlendMode: "plus-lighter",
-            }}
-          />
-        </div>
-      )}
       {background === "with-light" && (
         <div
           className="absolute inset-0 pointer-events-none"
@@ -86,8 +69,8 @@ export default function BannerSection({
         />
       )}
       <div className="relative z-10 mx-auto w-full flex flex-col md:flex-row justify-between items-center max-w-5xl py-6">
-        <div>{left}</div>
-        <div>{right}</div>
+        <div className={`${leftClass}`}>{left}</div>
+        <div className={`${rightClass}`}>{right}</div>
       </div>
     </section>
   );

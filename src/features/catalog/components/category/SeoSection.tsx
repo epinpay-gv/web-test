@@ -1,11 +1,7 @@
 "use client";
 import { useMemo } from "react";
 import { Category } from "@/types/types";
-import {
-  AccordionItem,
-  ExpandableContent,
-  RatingCard,
-} from "@/components/common";
+import { AccordionItem, ExpandableContent } from "@/components/common";
 import BoxWrapper from "@/components/common/Wrappers/BoxWrapper";
 import DOMPurify from "dompurify";
 import { useTranslations } from "next-intl";

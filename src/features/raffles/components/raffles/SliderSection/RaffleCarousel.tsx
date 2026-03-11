@@ -30,7 +30,7 @@ export default function RaffleCarousel({
       className="w-full py-5"
     >
       <CarouselContent className="-ml-4">
-        {data.map((item) => (
+        {data?.map((item) => (
           <CarouselItem key={item.id} className="pl-4 basis-auto">
             <RaffleCard card={item} onCardClick={onCardClick}/>
           </CarouselItem>

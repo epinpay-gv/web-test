@@ -68,7 +68,7 @@ export function Modal({
         {onClose && (
           <button
             onClick={onClose}
-            className="absolute right-4 top-4"
+            className="absolute right-4 top-4 cursor-pointer"
           >
             <Close size={18} />
           </button>

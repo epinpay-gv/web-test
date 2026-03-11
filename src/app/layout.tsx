@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ThemeProvider } from "@/features/theme/components/ThemeProvider";
-import { SessionProvider } from '@/features/auth/components/SessionProvider';
+import { SessionProvider } from "@/features/auth/components/SessionProvider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.epinpay.com"),
@@ -105,9 +106,11 @@ export default function RootLayout({
 
         <ThemeProvider>
           <SessionProvider>
-            <main className="min-h-screen">
-              {children}
-            </main>          
+            <main className="min-h-screen">{children}</main>
+            <ToastContainer
+              autoClose={3000}
+              theme="dark"
+            />
           </SessionProvider>
         </ThemeProvider>
       </body>

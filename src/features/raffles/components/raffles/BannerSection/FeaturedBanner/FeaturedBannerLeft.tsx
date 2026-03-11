@@ -6,8 +6,9 @@ import { BannerSectionData } from "@/features/raffles/raffle.types";
 
 interface FeaturedBannerLeftProps {
   data: BannerSectionData;
+  onCardClick?: ((card: Raffle) => void) | undefined
 }
-export default function FeaturedBannerLeft({ data }: FeaturedBannerLeftProps) {
+export default function FeaturedBannerLeft({ data, onCardClick }: FeaturedBannerLeftProps) {
   const { raffle } = data;
   let renderedRaffles: Raffle[] = [];
 
@@ -18,7 +19,7 @@ export default function FeaturedBannerLeft({ data }: FeaturedBannerLeftProps) {
   return (
     <div className="flex gap-4">
       {renderedRaffles.map((item) => (
-        <RaffleCard key={item.id} card={item} type="default"/>
+        <RaffleCard key={item.id} card={item} type="default" onCardClick={onCardClick}/>
       ))}
     </div>
   );

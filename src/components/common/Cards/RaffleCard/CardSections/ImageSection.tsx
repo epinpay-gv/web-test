@@ -29,20 +29,20 @@ const SPRING = {
 const IMAGE_VARIANTS_SINGLE_CATEGORY = [
   //Center image
   {
-    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
-    hover: { x: 0, y: 0, rotate: 0, scale: 1 },
+    initial: { x: 0, y: -5, rotate: 0, scale: 1 },
+    hover: { x: 0, y: -5, rotate: 0, scale: 1 },
     zIndex: 3,
   },
   // Right image
   {
-    initial: { x: 2, y: 0, rotate: 0, scale: 1 },
-    hover: { x: 10, y: -10, rotate: 10, scale: 1 },
+    initial: { x: 0, y: -5, rotate: 0, scale: 1 },
+    hover: { x: 10, y: -15, rotate: 10, scale: 1 },
     zIndex: 2,
   },
   // Left image
   {
-    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
-    hover: { x: -10, y: 5, rotate: -10, scale: 1 },
+    initial: { x: 0, y: -5, rotate: 0, scale: 1 },
+    hover: { x: -10, y: 0, rotate: -10, scale: 1 },
     zIndex: 1,
   },
 ] as const;
@@ -50,20 +50,20 @@ const IMAGE_VARIANTS_SINGLE_CATEGORY = [
 const IMAGE_VARIANTS_MULTI_CATEGORY = [
   //Center image
   {
-    initial: { x: 0, y: 0, rotate: 0, scale: 1 },
-    hover: { x: 0, y: 0, rotate: 0, scale: 1 },
+    initial: { x: 0, y: -5, rotate: 0, scale: 1 },
+    hover: { x: 0, y: -5, rotate: 0, scale: 1 },
     zIndex: 3,
   },
   // Right image
   {
-    initial: { x: 10, y: -10, rotate: 10, scale: 1 },
-    hover: { x: 25, y: -15, rotate: 20, scale: 1 },
+    initial: { x: 10, y: -15, rotate: 10, scale: 1 },
+    hover: { x: 25, y: -20, rotate: 20, scale: 1 },
     zIndex: 2,
   },
   // Left image
   {
-    initial: { x: -10, y: -10, rotate: -10, scale: 1 },
-    hover: { x: -25, y: -15, rotate: -20, scale: 1 },
+    initial: { x: -10, y: -15, rotate: -10, scale: 1 },
+    hover: { x: -25, y: -20, rotate: -20, scale: 1 },
     zIndex: 1,
   },
 ] as const;
@@ -156,7 +156,7 @@ export default function ImageSection({
       </div>
 
       {/* Special Badge */}
-      {type === "special" && (
+      {type === "special" && orientation === "vertical" && (
         <div
           className={`absolute rounded-sm py-0 5 px-2 text-sm bg-neutral-700/50 bottom-2 text-neutral-700 font-base
         `}

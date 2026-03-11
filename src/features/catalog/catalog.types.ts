@@ -6,7 +6,7 @@ import {
   ProductRegion,
   PageMetadata,
 } from "@/types/types";
-import { FilterGroupConfig } from "../filters/utils/filters.utils";
+import { FilterGroupConfig } from "../filters/filters.types";
 
 /* CATEGORY TYPES */
 export interface CategoriesPageResponse {

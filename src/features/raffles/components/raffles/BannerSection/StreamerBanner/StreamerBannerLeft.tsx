@@ -1,6 +1,8 @@
+"use client"
 import { Button } from "@/components/common";
 import { BannerSectionData } from "@/features/raffles/raffle.types";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 interface StreamerBannerLeftProps {
   data: BannerSectionData[];
@@ -12,6 +14,8 @@ export default function StreamerBannerLeft({
   selectedId,
   onSelect,
 }: StreamerBannerLeftProps) {
+   const router = useRouter();
+
   return (
     <div className="flex flex-col gap-10 max-w-128.5">
       {/* TITLE */}
@@ -25,7 +29,7 @@ export default function StreamerBannerLeft({
           </h2>
         </div>
 
-        <Button text="Yayıncı ol" variant="white" className="max-w-25" />
+        <Button text="Yayıncı ol" variant="white" className="max-w-25" onClick={() => router.push('/streamers')}/>
       </div>
 
       {/* YAYINCILAR */}
