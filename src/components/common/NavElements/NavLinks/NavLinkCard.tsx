@@ -54,7 +54,7 @@ export default function NavLinkCard({ card, className }: NavLinkCardProps) {
     >
       {/* Title */}
       <span
-        className={`absolute font-semibold text-sm z-50 ${titleLocation === "center" ? "top-6 left-8" : "top-2 left-3"}`}
+        className={`absolute font-semibold text-sm z-40 ${titleLocation === "center" ? "top-6 left-8" : "top-2 left-3"}`}
         style={{ color: titleColor }}
       >
         {title}

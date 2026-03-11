@@ -1,13 +1,15 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useSearch } from '@/features/search/fetcher/services';
 import { Search } from 'flowbite-react-icons/outline';
 import { Input } from '@/components/common';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/navigation';
 
 export function SearchInput() {
   const t = useTranslations("layout.header");
+  const router = useRouter();
 
   const { query, setQuery, results, isLoading, isOpen, setIsOpen } = useSearch();
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -23,14 +25,19 @@ export function SearchInput() {
   }, [setIsOpen]);
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-      }
+      if (event.key === 'Escape') setIsOpen(false);
     };
 
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [setIsOpen]);
+
+  const handleKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && query.trim()) {
+      setIsOpen(false);
+      router.push(`/products?search=${encodeURIComponent(query.trim())}`);
+    }
+  };
 
   return (
     <div ref={wrapperRef} className="relative w-full">
@@ -41,6 +48,7 @@ export function SearchInput() {
         value={query}
         onClear={() => setQuery("")}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
         onFocus={() => {
           if (query.trim()) setIsOpen(true);
         }}
@@ -49,7 +57,7 @@ export function SearchInput() {
       {/* Dropdown Liste */}
       {isOpen && (
         <div className="absolute top-full mt-2 w-full rounded-(--radius-base) border border-gray-700 bg-gray-800 shadow-xl z-50 overflow-hidden">
-          
+
           {/* Loading State */}
           {isLoading && (
             <div className="px-4 py-8 flex items-center justify-center">
