@@ -55,3 +55,10 @@ export function getTimeLeft(targetDate: string | Date | undefined | null): strin
   if (minutes > 0) return `${minutes} dakika`;
   return `${seconds} saniye`;
 }
+
+export const getCookie = (name: string): string | undefined => {
+  return document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(`${name}=`))
+    ?.split("=")[1];
+};

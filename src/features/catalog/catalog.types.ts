@@ -57,6 +57,20 @@ export interface AddToCartPayload {
   quantity: number;
 }
 
+export interface AddToCartResponse {
+  success: boolean;
+  data: {
+    cartType: "guest" | "user";
+    identifier: string;
+    items: {
+      offerId: string;
+      productId: number;
+      quantity: number;
+    }[];
+    itemCount: number;
+  };
+};
+
 export interface AddToFavoritesPayload {
   productId: number;
 }

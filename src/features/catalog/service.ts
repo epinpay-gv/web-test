@@ -5,6 +5,7 @@ import {
   CategoryApiResponse,
   ProductDetailApiResponse,
   AddToCartPayload,
+  AddToCartResponse,
   AddToFavoritesPayload,
   ChangeQuantityPayload,
   NotifyWhenAvailablePayload,
@@ -65,7 +66,7 @@ export const getProduct = (
 /* -------------------------- BASKET ACTIONS -------------------------- */
 
 export const addToCartService = (payload: AddToCartPayload) =>
-  baseFetcher<{ success: boolean }, AddToCartPayload>(
+  baseFetcher<AddToCartResponse, AddToCartPayload>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/add-to-cart`,
     {
       method: "POST",
