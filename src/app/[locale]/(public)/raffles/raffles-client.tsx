@@ -71,7 +71,6 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
 
       {/* STREAMER BANNER */}
       <BannerSection
-        background="with-light"
         accentColor="#8B0836"
         left={
           <StreamerBannerLeft
@@ -99,7 +98,6 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
 
       {/* EPINPAY BANNER */}
       <BannerSection
-        background="with-light"
         accentColor="#615FFF"
         left={
           <FeaturedBannerLeft
