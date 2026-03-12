@@ -31,7 +31,7 @@ export default function RaffleCarousel({
     >
       <CarouselContent className="-ml-4">
         {data?.map((item) => (
-          <CarouselItem key={item.id} className="pl-4 basis-auto">
+          <CarouselItem key={item.id} className="pl-2 md:pl-4 basis-auto">
             <RaffleCard card={item} onCardClick={onCardClick}/>
           </CarouselItem>
         ))}

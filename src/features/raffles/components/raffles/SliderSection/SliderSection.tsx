@@ -30,7 +30,7 @@ export default function SliderSection({
 
 
       <div className="max-w-5xl mx-auto flex flex-col gap-10">
-        <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col gap-4 md:flex-row justify-between md:items-center">
           <h2 className="text-2xl font-semibold">
             <div dangerouslySetInnerHTML={{ __html: title }} />
           </h2>

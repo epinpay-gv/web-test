@@ -9,7 +9,8 @@ import FeaturedBannerRight from "./raffles/BannerSection/FeaturedBanner/Featured
 import DescriptionCards from "./raffles/DescriptionCards/DescriptionCards";
 import Winners from "./raffles/Winners/Winners";
 import FAQSection from "./raffles/FAQSection/FAQSection";
-import RaffleGrid from "./all-raffles/RaffleGrid/RaffleGrid"
+import RaffleGrid from "./all-raffles/RaffleGrid/RaffleGrid";
+import MainBanner from "./raffles/BannerSection/MainBanner/MainBanner";
 
 export {
   BannerSection,
@@ -24,4 +25,5 @@ export {
   Winners,
   FAQSection,
   RaffleGrid,
+  MainBanner,
 };

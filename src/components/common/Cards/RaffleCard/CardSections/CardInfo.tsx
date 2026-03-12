@@ -1,9 +1,5 @@
-"use client";
 import { getTimeLeft } from "@/lib/utils";
 import { Raffle } from "../types";
-import { useState } from "react";
-import { Modal } from "@/components/common";
-import CardModal from "../CardModal/CardModal";
 
 interface CardInfoProps {
   card: Raffle;
@@ -32,7 +28,7 @@ export default function CardInfo({
   return (
     <>
       <div
-        className={`${orientation === "vertical" ? "" : "py-4"} flex flex-col px-4 gap-4 `}
+        className={`${orientation === "vertical" ? "" : "py-4"} flex flex-col px-4 gap-2 md:gap-4 `}
       >
         {/* TITLE */}
         <p
@@ -58,8 +54,8 @@ export default function CardInfo({
         {/* ACTION DIV */}
         {card.status === "ACTIVE" && (
           <div
-            className={`${orientation === "vertical" ? "w-full h-14" : type === "special" ? "h-14.5" : "w-full h-14.5"} 
-        cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center`}
+            className={`${(orientation === "vertical" && type === "special") ? "w-full h-13 md:h-14" : "w-full h-14.5"} 
+        cursor-pointer text-xs font-base rounded-lg py-0.5 md:py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center`}
           >
             <p className="text-black leading-5">Hemen katıl</p>
             <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
@@ -69,7 +65,7 @@ export default function CardInfo({
         )}
 
         {card.status !== "ACTIVE" && (
-          <div className=" w-full h-14.5 text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-orange) shadow-xs flex items-center justify-center">
+          <div className=" w-full h-13 md:h-14.5 text-xs font-base rounded-lg bg-(--bg-orange) shadow-xs flex items-center justify-center">
             <p className="text-black leading-5">Sona erdi</p>
           </div>
         )}

@@ -68,6 +68,17 @@ const IMAGE_VARIANTS_MULTI_CATEGORY = [
   },
 ] as const;
 
+const LAYOUT_CLASSES = {
+  horizontal: "w-53.75 h-full rounded-l-2xl",
+  special: "shrink-0 min-h-40 md:min-h-[215px] w-full rounded-t-2xl",
+  default: "shrink-0 min-h-40 md:min-h-[153px] w-full rounded-t-2xl",
+} as const;
+
+const IMAGE_STACK_CLASSES = {
+  default: "relative w-25 h-25",
+  special: "relative w-25 h-25 md:w-[135px] md:h-[135px]",
+} as const;
+
 interface ImageSectionProps {
   card: Raffle;
   type?: "special" | "default";
@@ -89,33 +100,32 @@ export default function ImageSection({
 
   const isMulti = card.categoryCount > 1 && visibleRewards.length > 1;
 
+  // Main div bg class
+  const backgroundClass = (() => {
+    if (orientation !== "vertical" || type !== "special") return "";
+    if (card.creatorType === CreatorType.PLATFORM)
+      return "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center";
+    if (
+      card.constraint === ParticipationConstraint.PREMIUM ||
+      card.constraint === ParticipationConstraint.REFERENCE
+    )
+      return BACKGROUND_CLASSES[card.constraint];
+    return "";
+  })();
+
+  // Main div layout class
+  const layoutClass = (() => {
+    if (orientation === "horizontal") return LAYOUT_CLASSES.horizontal;
+    if (type === "special") return LAYOUT_CLASSES.special;
+    return LAYOUT_CLASSES.default;
+  })();
+
   return (
     <div
-      className={`
-        ${
-          orientation === "vertical" &&
-          type === "special" &&
-          (card.creatorType === CreatorType.PLATFORM
-            ? "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center"
-            : card.constraint === ParticipationConstraint.PREMIUM ||
-                card.constraint === ParticipationConstraint.REFERENCE
-              ? BACKGROUND_CLASSES[card.constraint]
-              : "")
-        }
-        flex items-center justify-center relative shrink-0
-        ${
-          orientation === "horizontal"
-            ? "w-53.75 h-full rounded-l-2xl"
-            : type === "special"
-              ? "h-53.75 w-full rounded-t-2xl"
-              : "h-38.25 w-full rounded-t-2xl"
-        }
-      `}
+      className={`flex items-center justify-center relative shrink-0 ${backgroundClass} ${layoutClass}`}
     >
       {/* Image stack container */}
-      <div
-        className={`relative ${type === "default" ? "w-25 h-25" : "w-33.75 h-33.75"}`}
-      >
+      <div className={IMAGE_STACK_CLASSES[type]}>
         {visibleRewards.map((reward, index) => {
           const variant = isMulti
             ? IMAGE_VARIANTS_MULTI_CATEGORY[index]
@@ -147,7 +157,7 @@ export default function ImageSection({
 
       {/* Quantity badge */}
       <div
-        className={`bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute  w-13 h-13 flex items-center justify-center 
+        className={`bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute w-11 h-11 md:w-13 md:h-13 flex items-center justify-center 
           ${type === "default" ? "top-2 right-4" : "top-4 right-6"}`}
       >
         <p className="text-extrabold leading-[150%] text-(--text-fg-info)">
