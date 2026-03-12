@@ -14,7 +14,7 @@ import {
   Star,
   VideoCamera,
 } from "flowbite-react-icons/outline";
-import { useCatalogUrlFilters } from "@/features/catalog/hooks";
+import { useUrlFilters } from "@/features/catalog/hooks";
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { RaffleGrid } from "@/features/raffles/components";
 import { useState } from "react";
@@ -46,14 +46,14 @@ export default function AllRafflesClient({
   const {
     searchParams,
     isPending,
-    handleProductTypeChange,
+    handleTypeChange,
     handleToggleFilter,
     handleSetPriceRange,
     handleToggleBoolean,
     handleResetFilters,
     handlePageChange,
     handleSortChange,
-  } = useCatalogUrlFilters(initialFilters);
+  } = useUrlFilters(initialFilters);
 
   const pageTitle = breadcrumbItems[2]
     ? `${breadcrumbItems[2].name} çekilişleri`
@@ -85,7 +85,6 @@ export default function AllRafflesClient({
       ? (sortDropdownEl.options[0]?.value ?? "")
       : "";
   const currentSort = searchParams.get("sort") ?? defaultSort;
-  const activeType = searchParams.get("type") ?? "";
 
   const [selectedRaffle, setSelectedRaffle] = useState<Raffle | null>(null);
 
@@ -124,10 +123,16 @@ export default function AllRafflesClient({
           />
 
           <div className="flex-1 flex flex-col gap-4">
-            <div className="flex gap-2 w-full">
+            <div className="flex flex-wrap gap-2 w-full">
               {raffleTypeTabFilters.length > 0 &&
                 raffleTypeTabFilters.map((i) => (
-                  <Badge key={i.value} text={i.label} size="lg" icon={i.icon} />
+                  <Badge
+                    key={i.value}
+                    text={i.label}
+                    size="lg"
+                    icon={i.icon}
+                    onClick={() => handleTypeChange(i.value)}
+                  />
                 ))}
             </div>
 

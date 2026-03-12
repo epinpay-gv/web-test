@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { FilterGroupConfig } from "../filters.types";
 
-export function useCatalogUrlFilters(initialFilters: FilterGroupConfig[]) {
+export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -16,7 +16,7 @@ export function useCatalogUrlFilters(initialFilters: FilterGroupConfig[]) {
     });
   }
 
-  function handleProductTypeChange(value: string) {
+  function handleTypeChange(value: string) {
     navigate((p) => {
       value === "all" ? p.delete("type") : p.set("type", value);
       p.delete("page");
@@ -74,7 +74,7 @@ export function useCatalogUrlFilters(initialFilters: FilterGroupConfig[]) {
   return {
     searchParams,
     isPending,
-    handleProductTypeChange,
+    handleTypeChange,
     handleToggleFilter,
     handleSetPriceRange,
     handleToggleBoolean,

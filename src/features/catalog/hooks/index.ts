@@ -1,5 +1,5 @@
 import { useProductSearch } from "./product-detail/useProductSearch";
 import { useBasketActions } from "./basket/useBasketActions";
-import { useCatalogUrlFilters } from "../../filters/hooks/useCatalogUrlFilters";
+import { useUrlFilters } from "../../filters/hooks/useUrlFilters";
 
-export { useProductSearch, useBasketActions, useCatalogUrlFilters };
+export { useProductSearch, useBasketActions, useUrlFilters };
