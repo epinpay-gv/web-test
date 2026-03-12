@@ -31,6 +31,7 @@ interface ProductCardProps {
   addToFavorites: (payload: AddToFavoritesPayload) => void;
   changeQuantity: (payload: ChangeQuantityPayload) => void;
   isReadOnly?: boolean;
+  onRemove?: () => void;
   onClose?: () => void;
 }
 
@@ -52,6 +53,7 @@ export default function ProductCard({
   addToFavorites,
   changeQuantity,
   isReadOnly,
+  onRemove,
   onClose,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
@@ -73,7 +75,7 @@ export default function ProductCard({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  
+
 
 
   const content = (
@@ -130,6 +132,7 @@ export default function ProductCard({
               <CartActionButtons
                 product={product}
                 changeQuantity={changeQuantity}
+                onRemove={onRemove}
               />
             )}
             <PriceSection product={product} />

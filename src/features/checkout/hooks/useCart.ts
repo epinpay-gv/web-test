@@ -4,6 +4,7 @@ import { useAuthStore } from "@/features/auth/store/auth.store";
 import { cartService } from "../service";
 import { CartItem, CartStep, CartResponse } from "../types";
 import { baseFetcher } from "@/lib/api/baseFetcher";
+import { toast } from "react-toastify";
 
 export function useCart() {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -86,6 +87,7 @@ export function useCart() {
       try {
         const guestId = cartService.getOrCreateGuestId();
         await cartService.removeItem?.(id, user?.uid || user?.id, guestId);
+        toast.success("Ürün sepetten silindi");
       } catch (err) {
         const error = err as { status?: number; message?: string };
         console.error("Remove item error:", error.status, error.message, err);
