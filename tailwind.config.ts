@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Buraya özel CSS değişkenlerini (var(--bg-brand)) bağlayabilirsin
+        // Buraya özel CSS değişkenlerini gelebilir
       }
     },
   },

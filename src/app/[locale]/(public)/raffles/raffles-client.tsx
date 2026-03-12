@@ -14,6 +14,7 @@ import {
   DescriptionCards,
   Winners,
   FAQSection,
+  MainBanner,
 } from "@/features/raffles/components";
 import { useRaffleActions } from "@/features/raffles/hooks";
 import {
@@ -58,11 +59,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
   return (
     <>
       {/* MAIN BANNER */}
-      <BannerSection
-        background="brand"
-        left={<MainBannerLeft data={data.activeParticipantCount} />}
-        right={<MainBannerRight />}
-      />
+      <MainBanner data={data.activeParticipantCount} />
 
       {/* PREMIUM SLIDER */}
       {slider1Data && (
@@ -74,7 +71,6 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
 
       {/* STREAMER BANNER */}
       <BannerSection
-        background="with-light"
         accentColor="#8B0836"
         left={
           <StreamerBannerLeft
@@ -102,11 +98,14 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
 
       {/* EPINPAY BANNER */}
       <BannerSection
-        background="with-light"
         accentColor="#615FFF"
-        left={<FeaturedBannerLeft data={data.banners.featured} onCardClick={(raffle) => setSelectedRaffle(raffle)}/>}
+        left={
+          <FeaturedBannerLeft
+            data={data.banners.featured}
+            onCardClick={(raffle) => setSelectedRaffle(raffle)}
+          />
+        }
         right={<FeaturedBannerRight data={data.banners.featured} />}
-        
       />
 
       <div className="relative flex flex-col gap-4 pt-20 items-center overflow-hidden">

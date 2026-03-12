@@ -29,7 +29,7 @@ export default function ScrollColumn({
         {looped.map((i, index) => (
           <div
             key={`${i.id}-${index}`}
-            className={`text-yellow-950 rounded-xl flex justify-between p-4 shadow-xs w-67 shrink-0 ${
+            className={`text-yellow-950 rounded-xl flex justify-between p-4 shadow-sm w-67 shrink-0 ${
               index % 2 === 0 ? "bg-yellow-100" : "bg-yellow-200"
             }`}
           >
