@@ -3,7 +3,7 @@ import { Raffle } from "./types";
 import { motion } from "framer-motion";
 
 const LAYOUT_CLASSES = {
-  horizontal: "bg-white h-53.75 w-103.25  justify-between",
+  horizontal: "bg-white w-[332px] h-[171px] md:h-53.75 md:w-103.25 justify-start",
   special:
     "bg-(--bg-neutral-primary) hover:bg-(--bg-neutral-primary-medium) w-42.5 h-95.5 md:w-56 md:h-117.5 flex-col shadow-xs shadow-white/20 justify-between",
   default:

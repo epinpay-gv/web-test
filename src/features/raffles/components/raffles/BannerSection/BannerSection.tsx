@@ -14,6 +14,11 @@ export default function BannerSection({
       className="w-full relative overflow-hidden py-10 md:py-20 px-6 md:px-10"
       style={{ backgroundColor: accentColor }}
     >
+      <div className="mx-auto w-full flex flex-col md:flex-row justify-between items-center max-w-5xl">
+        <div className="z-20">{left}</div>
+        <div className="z-20">{right}</div>
+      </div>
+
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
@@ -33,11 +38,6 @@ export default function BannerSection({
           opacity: 0.3,
         }}
       />
-
-      <div className="z-20 mx-auto w-full flex flex-col md:flex-row justify-between items-center max-w-5xl">
-        <div>{left}</div>
-        <div>{right}</div>
-      </div>
     </section>
   );
 }

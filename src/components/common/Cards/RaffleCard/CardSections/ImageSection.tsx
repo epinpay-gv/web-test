@@ -69,7 +69,7 @@ const IMAGE_VARIANTS_MULTI_CATEGORY = [
 ] as const;
 
 const LAYOUT_CLASSES = {
-  horizontal: "w-53.75 h-full rounded-l-2xl",
+  horizontal: "w-[160px] md:w-53.75 h-full rounded-l-2xl",
   special: "shrink-0 min-h-40 md:min-h-[215px] w-full rounded-t-2xl",
   default: "shrink-0 min-h-40 md:min-h-[153px] w-full rounded-t-2xl",
 } as const;

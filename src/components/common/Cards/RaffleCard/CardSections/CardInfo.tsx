@@ -28,7 +28,7 @@ export default function CardInfo({
   return (
     <>
       <div
-        className={`${orientation === "vertical" ? "" : "py-4"} flex flex-col px-4 gap-2 md:gap-4 `}
+        className={`${orientation === "vertical" ? "" : "py-4"} flex flex-col md:px-4 gap-2 md:gap-4 `}
       >
         {/* TITLE */}
         <p
