@@ -44,7 +44,7 @@ export default function InfoSection({
               <p className="text-xs text-(--text-body) leading-[150%])">
                 {i.title}
               </p>
-              <p className={`text-sm font-bold leading-[150%] ${i.class}`}>
+              <p className={`text-xs md:text-sm font-bold leading-[150%] ${i.class}`}>
                 {i.value}
               </p>
             </div>
@@ -54,7 +54,7 @@ export default function InfoSection({
         {/* BUTTON - ACTIVE */}
         {card.status === "ACTIVE" && (
           <button
-            className=" w-full h-14.5 cursor-pointer text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center"
+            className=" w-full h-12 md:h-14.5 cursor-pointer text-xs font-base rounded-lg md:py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center"
             onClick={() => joinToTheRaffle(payload)}
           >
             <p className="text-black leading-5">Hemen katıl</p>
@@ -66,7 +66,7 @@ export default function InfoSection({
 
         {/* DIV - ENDED */}
         {card.status !== "ACTIVE" && (
-          <div className=" w-full h-14.5 text-xs font-base rounded-lg py-1.5 px-3 bg-(--bg-orange) shadow-xs flex items-center justify-center">
+          <div className=" w-full h-14.5 text-xs font-base rounded-lg bg-(--bg-orange) shadow-xs flex items-center justify-center">
             <p className="text-black leading-5">Sona erdi</p>
           </div>
         )}

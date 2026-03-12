@@ -22,6 +22,7 @@ export default function MainBanner({ data }: MainBannerProps) {
 
   return (
     <div
+    className="overflow-hidden relative"
       style={{
         backgroundColor: "#FF8A4C",
         backgroundImage: `linear-gradient(263.8deg, #F9D697 0.55%, #FFE7DD 24.87%, rgba(191, 195, 210, 0) 89.38%, rgba(255, 219, 173, 0) 97.8%)`,
@@ -30,7 +31,7 @@ export default function MainBanner({ data }: MainBannerProps) {
         backgroundSize: "100%, auto 100%",
       }}
     >
-      <div className="relative max-w-5xl mx-auto py-4 md:py-10 h-70.25 md:h-auto">
+      <div className="relative max-w-5xl mx-auto py-4 md:py-10 h-70.25 md:h-auto overflow-hidden">
         {/* LEFT SIDE */}
         <div className="flex flex-col gap-6 max-w-127.25 px-4 md:px-0 py-6">
           {/* ACTIVE PARTICIPANTS */}
@@ -41,7 +42,7 @@ export default function MainBanner({ data }: MainBannerProps) {
           </div>
 
           {/* TITLE */}
-          <h1 className="text-3xl font-bold leading-[150%] bg-linear-to-br from-black to-[#FFE26C] bg-clip-text text-transparent">
+          <h1 className="z-10 text-2xl md:text-3xl font-bold leading-[150%] bg-linear-to-br from-black to-[#FFE26C] bg-clip-text text-transparent">
             Lorem ipsum dolor sit amet, Lorem ipsum
           </h1>
 
@@ -53,7 +54,7 @@ export default function MainBanner({ data }: MainBannerProps) {
                 className="relative flex items-center justify-between w-41 rounded-lg gap-2 overflow-hidden "
                 style={{
                   background:
-                    "linear-gradient(263.8deg, #F9D697 0.55%, #FFE7DD 44.87%, #FFD6BC 89.38%, #FFDBA0 97.8%)",
+                    "linear-gradient(263.8deg, #F9D697 0.55%, #FFE7DD 44.87%, #BFC3D200 89.38%, #FFDBAD00 97.8%)",
                   mixBlendMode: "hard-light",
                 }}
               >
@@ -80,16 +81,15 @@ export default function MainBanner({ data }: MainBannerProps) {
         <img
           src="/raffles-page/main-banner-right-image.webp"
           alt="Main Banner Image"
-          className="w-62 h-auto md:w-100 md:h-auto object-contain absolute right-0 bottom-0"
+          className="w-62 h-auto md:w-100 object-contain absolute right-0 -bottom-8 md:bottom-0 z-10"
         />
-
-        {/* BG TEXTURE */}
-        {/* <img
-          src="/raffles-page/main-banner-right-image.webp"
-          alt="Main Banner Image"
-          className="w-62 h-auto md:w-100 md:h-auto object-contain absolute right-0 bottom-0"
-        /> */}
       </div>
+      {/* BG TEXTURE */}
+      <img
+        src="/raffles-page/banner-brand-texture.svg"
+        alt="Main Banner Image"
+        className="w-80 md:w-160 h-auto object-contain absolute -right-16 md:right-0 bottom-0 md:-bottom-16 z-0 opacity-10"
+      />
     </div>
   );
 }

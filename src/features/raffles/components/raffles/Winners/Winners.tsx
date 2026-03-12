@@ -1,41 +1,42 @@
-import { formatDateTR } from "@/lib/utils";
 import { Winner } from "../../../raffle.types";
-import { motion } from "framer-motion";
 import ScrollColumn from "./ScrollColumn";
 
 interface WinnersProps {
   data: Winner[];
 }
 export default function Winners({ data }: WinnersProps) {
-  const loopedData = [...data, ...data];
 
   return (
-    <section className="relative flex flex-col md:flex-row justify-between md:items-center h-82.5 w-full max-w-5xl rounded-xl bg-yellow-400">
+    <section className="relative flex flex-col md:flex-row justify-between md:items-center w-full max-w-5xl md:rounded-xl bg-yellow-400 md:h-82.5">
       {/* LEFT SIDE */}
-      <div className="text-yellow-950 text-2xl md:text-4xl font-bold z-10 p-10 ">
+      <div className="text-yellow-950 text-2xl md:text-4xl font-bold z-10 p-6 md:p-10">
         <p>Gerçek katılımcılar</p>
         <p>Gerçek kazananlar</p>
       </div>
 
-      {/* RIGHT SIDE */}
-      <div className="z-10 flex gap-3 h-full">
-        {/* Column 1 */}
-        <ScrollColumn data={data} duration={data.length * 2} />
-
-        {/* Column 2 */}
+      {/* RIGHT SIDE — fixed height on mobile so animation has room */}
+      <div className="z-10 flex gap-3 h-64 md:h-full">
+        <ScrollColumn data={data} duration={data.length * 2} className="w-full pl-4"/>
         <ScrollColumn
           data={data}
-          duration={data.length * 2} // offset if they don't move in sync
+          duration={data.length * 2}
           className="opacity-60 w-32 mask-[linear-gradient(to_right,black,transparent)]"
         />
       </div>
-
       {/* BG */}
       <div
         className="absolute inset-0 pointer-events-none rounded-xl"
         style={{
-          background: `conic-gradient(from 179.93deg at 49.93% 50%, #FFFFFF 0deg, rgba(0, 0, 0, 0.61) 54.38deg, #FFFFFF 100.21deg, #000000 148.57deg, rgba(255, 255, 255, 0.99) 197.54deg, rgba(0, 0, 0, 0.96) 238.5deg, rgba(255, 255, 255, 0.92) 280deg, #000000 328.07deg, #FFFFFF 360deg)`,
-          mixBlendMode: "screen",
+          background: `conic-gradient(from 179.93deg at 49.93% 50%, 
+          #FFFFFF  0deg, 
+          #CD8C00 54.38deg, 
+          #FFC74F 100.21deg, 
+          #CD8C00 148.57deg, 
+          #FFFFFF  197.54deg, 
+          #CD8C00 238.5deg, 
+          #FFC74F 280deg, 
+          #CD8C00 328.07deg, 
+          #FFFFFF  360deg)`,
           opacity: 0.6,
         }}
       />
@@ -54,7 +55,7 @@ export default function Winners({ data }: WinnersProps) {
         style={{
           backgroundImage: `url('/raffles-page/banner-comments-texture.webp')`,
           backgroundRepeat: "repeat",
-          backgroundSize: "auto",
+          backgroundSize: "800px",
           mixBlendMode: "soft-light",
           opacity: 0.3,
         }}

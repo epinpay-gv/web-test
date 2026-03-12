@@ -11,11 +11,11 @@ export default function BannerSection({
 }: BannerSectionProps) {
   return (
     <section
-      className="w-full relative overflow-hidden py-10 md:py-20 px-6 md:px-10"
+      className="w-full relative overflow-hidden py-10 md:py-20 px-4 md:px-10"
       style={{ backgroundColor: accentColor }}
     >
-      <div className="mx-auto w-full flex flex-col md:flex-row justify-between items-center max-w-5xl">
-        <div className="z-20">{left}</div>
+      <div className="mx-auto w-full flex flex-col gap-6 md:flex-row justify-between items-center max-w-5xl">
+        <div className="z-20 w-full md:w-auto">{left}</div>
         <div className="z-20">{right}</div>
       </div>
 

@@ -47,6 +47,7 @@ export default function StreamerBannerLeft({
               height={64}
               className={`rounded-full ${selectedId === i.id ? "border-2 border-white shadow-lg w-24.5 h-24.5" : ""} `}
             />
+            {selectedId === i.id  && <p className="text-sm">{i.name}</p>}
           </button>
         ))}
       </div>

@@ -3,12 +3,16 @@
 import { RaffleCard } from "@/components/common";
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { BannerSectionData } from "@/features/raffles/raffle.types";
+import RaffleCarousel from "../../SliderSection/RaffleCarousel";
 
 interface FeaturedBannerLeftProps {
   data: BannerSectionData;
-  onCardClick?: ((card: Raffle) => void) | undefined
+  onCardClick?: ((card: Raffle) => void) | undefined;
 }
-export default function FeaturedBannerLeft({ data, onCardClick }: FeaturedBannerLeftProps) {
+export default function FeaturedBannerLeft({
+  data,
+  onCardClick,
+}: FeaturedBannerLeftProps) {
   const { raffle } = data;
   let renderedRaffles: Raffle[] = [];
 
@@ -17,10 +21,12 @@ export default function FeaturedBannerLeft({ data, onCardClick }: FeaturedBanner
     : (renderedRaffles = []);
 
   return (
-    <div className="flex gap-4">
-      {renderedRaffles.map((item) => (
-        <RaffleCard key={item.id} card={item} type="default" onCardClick={onCardClick}/>
-      ))}
+    <div className="w-full">
+      <RaffleCarousel
+        data={renderedRaffles}
+        onCardClick={onCardClick}
+        type="default"
+      />
     </div>
   );
 }

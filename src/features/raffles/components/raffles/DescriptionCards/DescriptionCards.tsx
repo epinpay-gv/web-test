@@ -60,7 +60,7 @@ export default function DescriptionCards({
       {cardData.map((i) => (
         <div
           key={i.id}
-          className={`relative rounded-xl py-10 px-6 overflow-hidden h-82.75 w-full ${i.bgColor}`}
+          className={`relative rounded-xl py-10 px-6 overflow-hidden h-45 md:h-82.75 w-full ${i.bgColor}`}
         >
           {/* IMAGE */}
           <Image
@@ -68,12 +68,12 @@ export default function DescriptionCards({
             alt={`${i.textLine1} ${i.textLine2}`}
             width={331}
             height={331}
-            className="absolute inset-0 z-10 object-cover"
+            className="absolute z-10 object-cover h-60 w-60 md:w-82.75 md:h-82.75 bottom-0 right-0"
           />
 
           {/* TITLE */}
           <div
-            className={`relative z-20 flex flex-col gap-1 text-3xl leading-[150%] ${i.textColor}`}
+            className={`relative z-20 flex flex-col gap-1 text-2xl md:text-3xl leading-[150%] ${i.textColor}`}
           >
             <p className="font-extrabold">{i.textLine1}</p>
             <p className="font-semibold">{i.textLine2}</p>

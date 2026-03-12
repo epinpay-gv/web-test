@@ -14,7 +14,7 @@ export default function CardModal({ data, joinToTheRaffle }: CardModalProps) {
   return (
     <div className="space-y-6">
       {/* INFO */}
-      <section className="flex justify-between gap-6">
+      <section className="flex justify-between gap-0 md:gap-6">
         <ImageSection data={data} />
         <InfoSection card={data} joinToTheRaffle={joinToTheRaffle}/>
       </section>

@@ -1,6 +1,7 @@
 import { ParticipationConstraint, CreatorType, Raffle } from "../types";
 import Image from "next/image";
 
+
 const BACKGROUND_CLASSES: Record<ParticipationConstraint, string> = {
   EVERYONE: "",
   PREMIUM: "bg-[url('/raffles-page/type-gold.webp')] bg-cover bg-center",
@@ -28,11 +29,11 @@ export default function ImageSection({ data }: ImageSectionProps) {
                   : ""
             }
             flex items-center justify-center relative shrink-0 
-            w-53.75 h-53.75 rounded-2xl
+            w-40 h-40 md:w-53.75 md:h-53.75 rounded-2xl
     
           `}
     >
-      <div className="w-33.75 h-33.75">
+      <div className="w-25 h-25 md:w-33.75 md:h-33.75">
         <Image
           src={reward?.image ?? ""}
           alt={reward?.name ?? ""}
