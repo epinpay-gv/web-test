@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */ 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // handleRequest fonkisyonundaki any'ler hata veriyordu, o yüzden eslint disabled oldu
 "use client";
 
@@ -22,7 +22,10 @@ import {
 export function useBasketActions() {
   const [loading, setLoading] = useState(false);
 
-  const handleRequest = async <T,>(request: () => Promise<T>, successMessage: string,): Promise<T | undefined> => {
+  const handleRequest = async <T>(
+    request: () => Promise<T>,
+    successMessage: string,
+  ): Promise<T | undefined> => {
     try {
       setLoading(true);
       const response = await request();
@@ -37,12 +40,19 @@ export function useBasketActions() {
     }
   };
 
-  const openTopupModal = () => { }
+  const openTopupModal = () => {};
 
   const addToCart = async (payload: AddToCartPayload) => {
-    const response = await handleRequest<AddToCartResponse>(() => addToCartService(payload), "Ürün sepete eklendi",);
+    const response = await handleRequest<AddToCartResponse>(
+      () => addToCartService(payload),
+      "Ürün sepete eklendi",
+    );
     const existingGuestId = getCookie("X-Guest-Id");
-    if (response?.success && response.data?.cartType == "guest" && !existingGuestId) {
+    if (
+      response?.success &&
+      response.data?.cartType == "guest" &&
+      !existingGuestId
+    ) {
       document.cookie = `X-Guest-Id=${response.data.identifier}; path=/; max-age=2592000; SameSite=Lax`;
     }
     return response;

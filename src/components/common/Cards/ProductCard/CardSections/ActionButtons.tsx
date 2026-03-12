@@ -69,18 +69,20 @@ export function ActionButtons({
           })
         }
       />
+      {/* // TODO : buraya router.push eklenecek ve /checkout ' a yönlendirecek */}
       <Button
         padding="sm"
         textSize="xs"
         variant="brand"
         text="Hemen Al"
-        className="w-full font-medium"
-        onClick={() =>
+        className="w-full font-medium z-10"
+        onClick={() => {
           addToCart?.({
             productId: product.id,
             offerId: product.cheapestOffer?.id || 0,
             quantity: 1,
           })
+        }
         }
       />
     </div>
