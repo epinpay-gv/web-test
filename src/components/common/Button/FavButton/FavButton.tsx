@@ -15,13 +15,18 @@ export default function FavButton({
   return (
     <button
       {...props}
-      onClick={() => addToFavorites?.({
-        productId: 0
-      })}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        addToFavorites?.({ productId: 0 });
+      }}
       className="rounded-full bg-[#1E293999]/80 w-6.5 h-6.5 p-1.5 cursor-pointer hover:bg-[#1E293999] transition-colors"
       aria-label="Fav-Button"
     >
-      <Heart size={14} className={isFavorite ? "fill-red-500 text-red-500" : ""} />
+      <Heart
+        size={14}
+        className={isFavorite ? "fill-red-500 text-red-500" : ""}
+      />
     </button>
   );
 }

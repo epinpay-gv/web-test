@@ -3,6 +3,7 @@ import { CartPlusAlt } from "flowbite-react-icons/outline";
 import { Button } from "@/components/common";
 import { AddToCartPayload } from "@/features/catalog/catalog.types";
 import { Product } from "@/types/types";
+import { useRouter } from "next/navigation";
 
 interface ActionButtonsProps {
   isLoading?: boolean;
@@ -19,6 +20,7 @@ export function ActionButtons({
   orientation = "horizontal",
   addToCart,
 }: ActionButtonsProps) {
+  const router = useRouter();
   if (isLoading) {
     return (
       <div
@@ -47,13 +49,15 @@ export function ActionButtons({
         variant="secondary"
         text="Sepete Ekle"
         className="hidden md:block w-full font-medium"
-        onClick={() =>
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
           addToCart?.({
             productId: product.id,
             offerId: product.cheapestOffer?.id || 0,
             quantity: 1,
-          })
-        }
+          });
+        }}
       />
       <Button
         padding="sm"
@@ -76,14 +80,16 @@ export function ActionButtons({
         variant="brand"
         text="Hemen Al"
         className="w-full font-medium z-10"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
           addToCart?.({
             productId: product.id,
             offerId: product.cheapestOffer?.id || 0,
             quantity: 1,
-          })
-        }
-        }
+          });
+          router.push("/checkout");
+        }}
       />
     </div>
   );
