@@ -82,7 +82,7 @@ export interface Translation {
 export interface ProductTranslation extends Translation {
   category_slug: string; // ! bu backende eklenmeli
   slug: string;
-  description: string;
+  description: string; 
   metaTitle: string;
   metaDescription: string;
   imgUrl: string;

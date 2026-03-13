@@ -49,7 +49,7 @@ export const cartService = {
     const action: CartActionBody["action"] = diff > 0 ? "increment" : "decrement";
     const steps = Math.abs(diff);
 
-    // Backend +/- ile çalıştığı için fark kadar sırayla istek atılır
+    //! TODO: for kaldırılacak ve count ile sembol gönderilecek 
     for (let i = 0; i < steps; i++) {
       await baseFetcher<void, CartActionBody>(
         `/api/cart/item/${itemId}?${params.toString()}`,
