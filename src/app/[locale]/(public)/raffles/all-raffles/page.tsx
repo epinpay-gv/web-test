@@ -1,5 +1,5 @@
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo";
-import { getAllRaffles, getRaffles } from "@/features/raffles/server";
+import { getAllRaffles, getRaffles } from "@/features/raffles/service";
 import { createSeo } from "@/lib/seo";
 import AllRafflesClient from "./all-raffles-client";
 

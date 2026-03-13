@@ -10,6 +10,7 @@ interface PrivateLayoutProps {
 }
 
 export default function PrivateLayout({ children }: PrivateLayoutProps) {
+  //TODO : userdata endpointten gelmeli
   return (
     <div className="min-h-screen bg-muted/20">
       <Header />
@@ -17,7 +18,16 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
       <div className="mx-auto flex max-w-322 gap-6 py-8 px-4">
         {/* SOL PANEL */}
         <aside className="hidden w-77 rounded-2xl bg-(--bg-neutral-primary-soft) p-5 lg:block">
-          <Sidebar data={userMenuMock} />
+          <Sidebar
+            data={userMenuMock}
+            userData={{
+              firstName: "İlsu",
+              lastName: "sunal",
+              email: "ilsusunal@gmail.com",
+              referralCode: "",
+              isEmailVerified: false,
+            }}
+          />
         </aside>
 
         {/* SAĞ İÇERİK */}

@@ -1,6 +1,6 @@
 import UserPageHeader from "@/features/user/components/UserPageHeader";
 import RafflesClient from "./raffles-client";
-import { getAllRaffles } from "@/features/raffles/server";
+import { getAllRaffles } from "@/features/raffles/service";
 
 export default async function MyRafflesPage() {
   const res = await getAllRaffles();
