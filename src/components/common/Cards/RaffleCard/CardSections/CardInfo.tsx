@@ -3,12 +3,14 @@ import { Raffle } from "../types";
 
 interface CardInfoProps {
   card: Raffle;
+  isLoading?: boolean;
   type?: "special" | "default";
   orientation?: "horizontal" | "vertical";
 }
 
 export default function CardInfo({
   card,
+  isLoading = true,
   type = "special",
   orientation = "vertical",
 }: CardInfoProps) {
@@ -24,6 +26,34 @@ export default function CardInfo({
       class: "text-(--text-fg-brand-subtle)",
     },
   ];
+
+  //SKELETON
+  if (isLoading) {
+    return (
+      <div
+        className={`${orientation === "vertical" ? "" : "py-4"} flex flex-col px-2 md:px-4 gap-2 md:gap-4`}
+      >
+        {/* TITLE */}
+        <div className="space-y-1">
+          <div className="w-full h-4 shimmer bg-gray-200 rounded-full" />
+          <div className="w-3/4 h-4 shimmer bg-gray-200 rounded-full" />
+        </div>
+
+        {/* INFO */}
+        <div className="flex justify-around w-full">
+          {[0, 1].map((i) => (
+            <div key={i} className="flex flex-col gap-1 items-center">
+              <div className="w-12 h-3 shimmer bg-gray-200 rounded-full" />
+              <div className="w-16 h-4 shimmer bg-gray-200 rounded-full" />
+            </div>
+          ))}
+        </div>
+
+        {/* ACTION */}
+        <div className="w-full h-13 md:h-14 shimmer bg-gray-200 rounded-lg" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -54,7 +84,7 @@ export default function CardInfo({
         {/* ACTION DIV */}
         {card.status === "ACTIVE" && (
           <div
-            className={`${(orientation === "vertical" && type === "special") ? "w-full h-13 md:h-14" : "w-full h-14.5"} 
+            className={`${orientation === "vertical" && type === "special" ? "w-full h-13 md:h-14" : "w-full h-14.5"} 
         cursor-pointer text-xs font-base rounded-lg py-0.5 md:py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center`}
           >
             <p className="text-black leading-5">Hemen katıl</p>

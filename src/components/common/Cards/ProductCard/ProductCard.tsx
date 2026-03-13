@@ -73,8 +73,6 @@ export default function ProductCard({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  
-
 
   const content = (
     <>

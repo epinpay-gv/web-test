@@ -26,7 +26,6 @@ export default async function RafflesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/raffles`;
 
   const res = await getRaffles();
 
@@ -37,7 +36,7 @@ export default async function RafflesPage({
       <WebsiteSchema locale={locale} description={res.metadata.title} />
 
       {/* Page Content */}
-      <RafflesClientPage data={res.data} />
+      <RafflesClientPage data={res.data} isLoading={false} />
     </>
   );
 }

@@ -1,6 +1,4 @@
 import BannerSection from "./raffles/BannerSection/BannerSection";
-import MainBannerLeft from "./raffles/BannerSection/MainBanner/MainBannerLeft";
-import MainBannerRight from "./raffles/BannerSection/MainBanner/MainBannerRight";
 import SliderSection from "./raffles/SliderSection/SliderSection";
 import StreamerBannerLeft from "./raffles/BannerSection/StreamerBanner/StreamerBannerLeft";
 import StreamerBannerRight from "./raffles/BannerSection/StreamerBanner/StreamerBannerRight";
@@ -14,8 +12,6 @@ import MainBanner from "./raffles/BannerSection/MainBanner/MainBanner";
 
 export {
   BannerSection,
-  MainBannerLeft,
-  MainBannerRight,
   SliderSection,
   StreamerBannerLeft,
   StreamerBannerRight,

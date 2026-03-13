@@ -9,6 +9,7 @@ import { RaffleCard } from "@/components/common";
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 
 interface RaffleCarouselProps {
+  isLoading?: boolean;
   data: Raffle[];
   showControls?: boolean;
   loop?: boolean;
@@ -16,6 +17,7 @@ interface RaffleCarouselProps {
   type?: "special" | "default";
 }
 export default function RaffleCarousel({
+  isLoading,
   data,
   showControls,
   loop,
@@ -34,7 +36,7 @@ export default function RaffleCarousel({
       <CarouselContent className="-ml-4">
         {data?.map((item) => (
           <CarouselItem key={item.id} className="pl-2 md:pl-4 basis-auto">
-            <RaffleCard card={item} onCardClick={onCardClick} type={type}/>
+            <RaffleCard card={item} onCardClick={onCardClick} type={type} isLoading={isLoading}/>
           </CarouselItem>
         ))}
       </CarouselContent>

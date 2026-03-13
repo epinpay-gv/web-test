@@ -4,8 +4,6 @@ import CardModal from "@/components/common/Cards/RaffleCard/CardModal/CardModal"
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import {
   BannerSection,
-  MainBannerLeft,
-  MainBannerRight,
   SliderSection,
   StreamerBannerRight,
   StreamerBannerLeft,
@@ -27,6 +25,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface RafflesClientProps {
+  isLoading?: boolean;
   data: {
     activeParticipantCount: number;
     winners: Winner[];
@@ -39,12 +38,15 @@ interface RafflesClientProps {
   };
 }
 
-export default function RafflesClientPage({ data }: RafflesClientProps) {
+export default function RafflesClientPage({
+  isLoading = false,
+  data,
+}: RafflesClientProps) {
   const { joinToTheRaffle } = useRaffleActions();
 
-  const slider1Data = data.sliders.find((i) => i.line === 1);
-  const slider2Data = data.sliders.find((i) => i.line === 2);
-  const slider3Data = data.sliders.find((i) => i.line === 3);
+  const slider1Data = data?.sliders.find((i) => i.line === 1);
+  const slider2Data = data?.sliders.find((i) => i.line === 2);
+  const slider3Data = data?.sliders.find((i) => i.line === 3);
 
   const streamerIndex = Math.floor(data.banners.streamers.length / 2);
   const [selectedStreamer, setSelectedStreamer] = useState(
@@ -66,6 +68,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
         <SliderSection
           data={slider1Data}
           onCardClick={(raffle) => setSelectedRaffle(raffle)}
+          isLoading={isLoading}
         />
       )}
 
@@ -93,6 +96,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
         <SliderSection
           data={slider2Data}
           onCardClick={(raffle) => setSelectedRaffle(raffle)}
+          isLoading={isLoading}
         />
       )}
 
@@ -133,6 +137,7 @@ export default function RafflesClientPage({ data }: RafflesClientProps) {
               data={slider3Data}
               isBg={false}
               onCardClick={(raffle) => setSelectedRaffle(raffle)}
+              isLoading={isLoading}
             />
           )}
 

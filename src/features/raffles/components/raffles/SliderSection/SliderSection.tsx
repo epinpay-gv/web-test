@@ -6,11 +6,13 @@ import { useMemo } from "react";
 import DOMPurify from "dompurify";
 
 interface SliderSectionProps {
+  isLoading?: boolean;
   data: SliderSectionData;
   isBg?: boolean;
   onCardClick?: (card: Raffle) => void;
 }
 export default function SliderSection({
+  isLoading,
   data,
   isBg = true,
   onCardClick,
@@ -41,7 +43,7 @@ export default function SliderSection({
             Tümünü gör
           </Link>
         </div>
-        <RaffleCarousel data={data.raffles} onCardClick={onCardClick} />
+        <RaffleCarousel data={data.raffles} onCardClick={onCardClick} isLoading={isLoading} />
       </div>
     </section>
   );

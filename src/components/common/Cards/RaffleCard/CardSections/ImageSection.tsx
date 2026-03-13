@@ -81,11 +81,13 @@ const IMAGE_STACK_CLASSES = {
 
 interface ImageSectionProps {
   card: Raffle;
+  isLoading?: boolean;
   type?: "special" | "default";
   orientation?: "horizontal" | "vertical";
 }
 
 export default function ImageSection({
+  isLoading = false,
   card,
   type = "special",
   orientation = "vertical",
@@ -119,6 +121,16 @@ export default function ImageSection({
     if (type === "special") return LAYOUT_CLASSES.special;
     return LAYOUT_CLASSES.default;
   })();
+
+  if (isLoading) {
+    return (
+      <div
+        className={`flex items-center justify-center relative shrink-0  ${layoutClass}`}
+      >
+        <div className="w-full h-full shimmer bg-gray-200 rounded-t-2xl" />
+      </div>
+    );
+  }
 
   return (
     <div
