@@ -4,6 +4,8 @@ export type FilterOption = { label: string; value: string };
 
 export type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc";
 
+export type FilterStatus = "all" | "completed" | "pending" | "cancelled";
+
 export type FilterElementConfig =
   | {
       type: "dropdown";

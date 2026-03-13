@@ -1,41 +1,32 @@
 import OrdersClient from "./orders-client";
 import UserPageHeader from "@/features/user/components/UserPageHeader";
 import { getOrders } from "@/features/user/service";
-import { resolveStatusParams, OrderStatusTab } from "@/features/user/user.types";
+import { createSeo } from "@/lib/seo";
 
-interface OrdersPageProps {
-  searchParams: Promise<{
-    page?: string;
-    search?: string;
-    status?: string;
-    dateFrom?: string;
-    dateTo?: string;
-  }>;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  return createSeo({
+    title: "Siparişlerim | Epinpay",
+    description: "Siparişlerinizi yönetin",
+    canonical: `/${locale}/user/orders`,
+    locale: locale,
+  });
 }
 
-export default async function OrdersPage({ searchParams }: OrdersPageProps) {
-  const { page, search, status, dateFrom, dateTo } = await searchParams;
+export default async function OrdersPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const search = await searchParams;
+  const res = await getOrders(search);
 
-  const tab = (status ?? "ALL") as OrderStatusTab;
-  const statusValues = resolveStatusParams(tab);
-
-  const params = new URLSearchParams();
-  params.set("page", page ?? "1");
-  params.set("perPage", "10");
-  if (search?.trim()) params.set("search", search.trim());
-  if (dateFrom) params.set("dateFrom", dateFrom);
-  if (dateTo) params.set("dateTo", dateTo);
-  statusValues.forEach((s) => params.append("status", s));
-
-  const res = await getOrders(params);
-
-  const isFiltered = !!(search?.trim() || dateFrom || dateTo || tab !== "ALL");
-  let hasAnyOrders = res.data.length > 0;
-
-  if (isFiltered && !hasAnyOrders) {
-    const baseRes = await getOrders(new URLSearchParams({ page: "1", perPage: "1" }));
-    hasAnyOrders = baseRes.data.length > 0;
-  }
+  const hasAnyOrders = res.data.length > 0;
 
   return (
     <div>
@@ -44,6 +35,7 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
         data={res.data}
         pagination={res.pagination}
         hasAnyOrders={hasAnyOrders}
+        initialFilters={res.filters}
       />
     </div>
   );

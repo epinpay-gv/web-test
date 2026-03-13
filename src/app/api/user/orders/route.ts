@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockOrders } from "@/mocks/user/orders.mock";
+import { mockOrders, filterUserOrderMock } from "@/mocks/user/orders.mock";
 import { PaginationData } from "@/types/types";
 import { Order, OrderStatus } from "@/features/user/user.types";
 
@@ -55,5 +55,6 @@ export async function GET(req: Request) {
       total_page: totalPage,
       has_more: currentPage < totalPage,
     } as PaginationData,
+    filters: filterUserOrderMock,
   });
 }

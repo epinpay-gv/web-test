@@ -1,3 +1,4 @@
+import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { Order } from "@/features/user/user.types";
 
 export const mockOrders: Order[] = [
@@ -313,5 +314,29 @@ export const mockOrders: Order[] = [
         status: "DELIVERED",
       },
     ],
+  },
+];
+
+export const filterUserOrderMock: FilterGroupConfig[] = [
+  {
+    titleData: {
+      title: "Sipariş Durumu",
+      titleColor: "text-body",
+    },
+    elements: [
+      {
+        type: "checkbox",
+        key: "status",
+        options: [
+          { label: "Tümü", value: "all" },
+          { label: "Tamamlananlar", value: "completed" },
+          { label: "Bekleyen", value: "pending" },
+          { label: "İptal edilen", value: "cancelled" },
+        ],
+      },
+    ],
+    isTab: true,
+    locale: "tr",
+    isTitle: false,
   },
 ];

@@ -2,7 +2,7 @@
 import { Header, Footer } from "@/components/layout";
 import PageAnimate from "@/components/common/PageAnimate/PageAnimate";
 import "@/styles/global.css";
-import { userMenuMock } from "@/features/user/userMenuMock";
+import { userMenuMock } from "@/features/user/data/userMenu.data";
 import { Sidebar } from "@/components/layout/Sidebar/Sidebar";
 
 interface PrivateLayoutProps {
