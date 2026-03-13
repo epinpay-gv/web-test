@@ -4,6 +4,7 @@ import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import StatusState from "@/components/common/StatusState/StatusState";
 import { useUrlFilters } from "@/features/catalog/hooks";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
+import { getActiveFilterLabels } from "@/features/filters/utils/filters.utils";
 import { RaffleGrid } from "@/features/user/components";
 import { PaginationData } from "@/types/types";
 import { useRouter } from "next/navigation";
@@ -20,14 +21,21 @@ export default function RafflesClient({
   pagination,
 }: RafflesClientProps) {
   const router = useRouter();
-  const { handleTypeChange, handlePageChange } = useUrlFilters(initialFilters);
+  const {
+    searchParams,
+    handleTypeChange,
+    handlePageChange,
+    handleSetPriceRange,
+    handleToggleBoolean,
+  } = useUrlFilters(initialFilters);
 
   const tabFilters = initialFilters.find((g) => g.isTab);
   const raffleTypeTabFilters =
     tabFilters?.elements?.[0]?.type === "checkbox"
-      ? tabFilters.elements[0].options.map((opt, index) => ({
+      ? tabFilters.elements[0].options.map((opt) => ({
           label: opt.label,
           value: opt.value,
+          key: tabFilters.elements[0].key,
         }))
       : [];
 
@@ -61,6 +69,10 @@ export default function RafflesClient({
               text={i.label}
               size="lg"
               onClick={() => handleTypeChange(i.value)}
+              closable
+              onClose={() => {
+                // handleToggleBoolean(i.key, i.value);
+              }}
             />
           ))}
         </div>

@@ -69,6 +69,7 @@ export default function AllRafflesClient({
           label: opt.label,
           value: opt.value,
           icon: tabIconList[index],
+          key: tabFilters.elements[0].key,
         }))
       : [];
 
@@ -76,6 +77,7 @@ export default function AllRafflesClient({
     new URLSearchParams(searchParams.toString()),
     initialFilters,
   );
+  const activeTypeParam = searchParams.get("type");
 
   const sortDropdownEl = titleFilters?.elements.find(
     (el) => el.type === "dropdown",
@@ -127,11 +129,14 @@ export default function AllRafflesClient({
               {raffleTypeTabFilters.length > 0 &&
                 raffleTypeTabFilters.map((i) => (
                   <Badge
+                  theme={activeTypeParam !== i.value ? "gray" : "brand"}
                     key={i.value}
                     text={i.label}
-                    size="lg"
+                    size="xl"
                     icon={i.icon}
                     onClick={() => handleTypeChange(i.value)}
+                    className="cursor-pointer"
+                    closable={activeTypeParam === i.value}
                   />
                 ))}
             </div>

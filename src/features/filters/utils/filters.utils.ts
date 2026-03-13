@@ -64,6 +64,7 @@ export function getActiveFilterLabels(
   groups.forEach((group) => {
     group.elements.forEach((el) => {
       if (el.type !== "checkbox") return;
+      if (el.key === "type") return;
 
       // getAll handles ?region=1&region=2 → ["1", "2"] correctly
       const selectedValues = params.getAll(el.key);

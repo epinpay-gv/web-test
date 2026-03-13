@@ -47,3 +47,7 @@ export interface AllRafflesApiResponse {
 export interface JoinRaffleApiPayload {
   raffleId: string;
 }
+
+export interface TakeRafflePriceApiPayload{
+  raffleId: string;
+}

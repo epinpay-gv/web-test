@@ -6,7 +6,7 @@ import {
   ParticipationConstraint,
   ParticipationStatus,
 } from "@/components/common/Cards/RaffleCard/types";
-import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { Winner } from "@/features/raffles/raffle.types";
 import { FAQ } from "@/types/types";
 
