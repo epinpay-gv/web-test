@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { getCookie } from "@/lib/utils";
+import { getCookie, handleRequest } from "@/lib/utils";
 import {
   AddToCartPayload,
   AddToCartResponse,
@@ -22,30 +22,12 @@ import {
 export function useBasketActions() {
   const [loading, setLoading] = useState(false);
 
-  const handleRequest = async <T>(
-    request: () => Promise<T>,
-    successMessage: string,
-  ): Promise<T | undefined> => {
-    try {
-      setLoading(true);
-      const response = await request();
-      toast.success(successMessage);
-      return response;
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Bir hata oluştu";
-      toast.error(message);
-      return undefined;
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const openTopupModal = () => {};
 
   const addToCart = async (payload: AddToCartPayload) => {
     const response = await handleRequest<AddToCartResponse>(
       () => addToCartService(payload),
-      "Ürün sepete eklendi",
+      "Ürün sepete eklendi", setLoading
     );
     const existingGuestId = getCookie("X-Guest-Id");
     if (
@@ -59,15 +41,15 @@ export function useBasketActions() {
   };
 
   const changeQuantity = (payload: ChangeQuantityPayload) =>
-    handleRequest(() => changeQuantityService(payload), "Sepet güncellendi");
+    handleRequest(() => changeQuantityService(payload), "Sepet güncellendi", setLoading);
 
   const addToFavorites = (payload: AddToFavoritesPayload) =>
-    handleRequest(() => addToFavoritesService(payload), "Favorilere eklendi");
+    handleRequest(() => addToFavoritesService(payload), "Favorilere eklendi", setLoading);
 
   const notifyWhenAvailable = (payload: NotifyWhenAvailablePayload) =>
     handleRequest(
       () => notifyWhenAvailableService(payload),
-      "Stok bildirimi oluşturuldu",
+      "Stok bildirimi oluşturuldu", setLoading
     );
 
   return {

@@ -15,9 +15,9 @@ import {
 import { Breadcrumb, NavTab, Pagination } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";
 import { useBasketActions } from "@/features/catalog/hooks/basket/useBasketActions";
-import { useUrlFilters } from "@/features/catalog/hooks";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { getActiveFilterLabels } from "@/features/filters/utils/filters.utils";
+import { useUrlFilters } from "@/features/filters/hooks/useUrlFilters";
 
 interface CategoryClientProps {
   initialProducts: Product[];

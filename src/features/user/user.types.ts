@@ -210,3 +210,16 @@ export interface OrdersPageApiResponse {
   pagination: PaginationData;
   filters: FilterGroupConfig[];
 }
+
+export interface OrderDetailPageApiResponse {
+  data: Order;
+}
+
+export interface TopupResponsePayload {
+  status: "confirm" | "deny";
+  denyReason?: string;
+}
+
+export interface TopupResponseResponse {
+  success: boolean;
+}

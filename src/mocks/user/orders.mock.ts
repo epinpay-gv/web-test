@@ -318,25 +318,53 @@ export const mockOrders: Order[] = [
 ];
 
 export const filterUserOrderMock: FilterGroupConfig[] = [
+  // ─── TAB: status  ───────────────
   {
-    titleData: {
-      title: "Sipariş Durumu",
-      titleColor: "text-body",
-    },
+    isTab: true,
+    isTitle: false,
+    locale: "tr",
     elements: [
       {
         type: "checkbox",
         key: "status",
         options: [
-          { label: "Tümü", value: "all" },
+          { label: "Tümü",          value: "all"       },
           { label: "Tamamlananlar", value: "completed" },
-          { label: "Bekleyen", value: "pending" },
-          { label: "İptal edilen", value: "cancelled" },
+          { label: "Bekleyen",      value: "pending"   },
+          { label: "İptal edilen",  value: "cancelled" },
         ],
       },
     ],
-    isTab: true,
-    locale: "tr",
+  },
+
+  // ─── SEARCH ────────────────────────────────────
+  {
+    isTab: false,
     isTitle: false,
+    locale: "tr",
+    elements: [
+      {
+        type: "input",
+        key: "search",
+        label: "Sipariş Ara",
+        placeholder: "Sipariş no veya ürün adı...",
+      },
+    ],
+  },
+
+  // ─── DATE RANGE ─────────────────────────────────────
+  {
+    isTab: false,
+    isTitle: false,
+    locale: "tr",
+    elements: [
+      {
+        type: "dateRange",
+        key: "date",       
+        keyFrom: "dateFrom",
+        keyTo: "dateTo",
+        label: "Tarih Aralığı",
+      },
+    ],
   },
 ];

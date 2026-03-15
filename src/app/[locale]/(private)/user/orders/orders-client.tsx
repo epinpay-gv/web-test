@@ -7,9 +7,9 @@ import {
   FiltersSection,
   OrdersSection,
 } from "@/features/user/components/orders";
-import { Order, OrderStatusTab } from "@/features/user/user.types";
+import { Order } from "@/features/user/user.types";
 import { PaginationData } from "@/types/types";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface OrdersClientProps {
   data: Order[];
@@ -22,83 +22,75 @@ export default function OrdersClient({
   data,
   pagination,
   hasAnyOrders,
-  initialFilters
+  initialFilters,
 }: OrdersClientProps) {
-    const {
-      searchParams,
-      isPending,
-      handleTypeChange,
-      handleToggleFilter,
-      handleSetPriceRange,
-      handleToggleBoolean,
-      handleResetFilters,
-      handlePageChange,
-      handleSortChange,
-    } = useUrlFilters(initialFilters);
-  
   const router = useRouter();
-  const search = searchParams.get("search") ?? "";
-  const status = (searchParams.get("status") ?? "ALL") as OrderStatusTab;
-  const dateFrom = searchParams.get("dateFrom") ?? undefined;
-  const dateTo = searchParams.get("dateTo") ?? undefined;
-  const date = dateFrom || dateTo ? { from: dateFrom, to: dateTo } : undefined;
+  const {
+    searchParams,
+    handleSearchChange,
+    handleSingleFilter,
+    handleDateRangeChange,
+    handlePageChange,
+    handleResetFilters,
+  } = useUrlFilters(initialFilters);
 
-  const isFiltered = !!(
-    search.trim() ||
-    dateFrom ||
-    dateTo ||
-    status !== "ALL"
-  );
-
-  if (!hasAnyOrders) {
-    return (
-      <StatusState
-        image="/image/orders/empty-orders.png"
-        title="Sipariş Yok."
-        description="Henüz bir sipariş bulunamamaktadır."
-        actions={
-          <Button
-            text="Ana Sayfaya Git"
-            variant="secondary"
-            padding="sm"
-            size="base"
-            textSize="sm"
-            onClick={() => router.push("/")}
-          />
-        }
-      />
-    );
-  }
+  const isFiltered = searchParams.toString().length > 0;
 
   return (
     <div>
       <FiltersSection
-        search={search}
-        onSearchChange={(value) => updateQuery({ search: value })}
-        selectedStatus={status}
-        onStatusChange={(s) => updateQuery({ status: s })}
-        selectedDate={date}
+        filters={initialFilters}
+        searchParams={searchParams}
+        onSearchChange={handleSearchChange}
+        onStatusChange={handleSingleFilter}
+        onDateRangeChange={handleDateRangeChange}
         totalCount={pagination.count}
-        onDateChange={(d) => updateQuery({ dateFrom: d?.from, dateTo: d?.to })}
       />
 
-      {data ? (
+      {data.length > 0 ? (
         <>
           <OrdersSection orders={data} />
-          <Pagination
-            pagination={pagination}
-            onPageChange={handlePageChange}
-          />
+          <div className="flex justify-center mt-4">
+            <Pagination
+              pagination={pagination}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </>
       ) : (
         <StatusState
-          image="/image/orders/empty-orders.png"
+          image={
+            isFiltered
+              ? "/illustrations/search-empty.png"
+              : "/illustrations/empty-orders.png"
+          }
           description={
-            search.trim()
-              ? `"${search.trim()}" aramasına ait sonuç bulunamadı.`
-              : isFiltered
-                ? "Seçilen filtrelere ait sipariş bulunamadı."
-                : "Henüz bir sipariş bulunamamaktadır."
+            isFiltered
+              ? "Seçilen filtrelere ait sipariş bulunamadı."
+              : "Henüz bir sipariş bulunamamaktadır."
+          }
+          actions={
+            isFiltered ? (
+              <Button
+                text="Filtreleri Temizle"
+                variant="secondary"
+                padding="sm"
+                size="base"
+                textSize="sm"
+                onClick={handleResetFilters}
+                className="w-full"
+              />
+            ) : (
+              <Button
+                text="Ana Sayfaya Git"
+                variant="brand"
+                padding="sm"
+                size="base"
+                textSize="sm"
+                onClick={() => router.push("/")}
+                className="w-full"
+              />
+            )
           }
         />
       )}

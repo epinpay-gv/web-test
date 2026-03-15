@@ -82,7 +82,7 @@ export const Footer = () => {
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-8">
               
               <div className="space-y-6">
-                <Image src="/logos/epinpay-white-lg.png" width={200} height={48} alt="Epinpay Logo" className="h-10 w-auto" />
+                <Image src="/logos/epinpay-white-lg.png" width={256} height={52} alt="Epinpay Logo" />
                 
                 <div className="flex gap-2">
                   {[

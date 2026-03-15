@@ -42,6 +42,13 @@ export type FilterElementConfig =
       search?: {
         placeholder?: string;
       };
+    }
+  | {
+      type: "dateRange";
+      key: string;       // "date"
+      keyFrom: string;   // "dateFrom"
+      keyTo: string;     // "dateTo"
+      label?: string;
     };
 
 export interface FilterGroupConfig {

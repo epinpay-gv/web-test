@@ -3,78 +3,127 @@
 import OrderSearch from "./OrdersSearch";
 import Badge from "@/components/common/Badges/Badge";
 import { DatePicker } from "@/components/common/Calendar/DateRangePicker";
-import {
-  ORDER_STATUS_TABS,
-  ORDER_STATUS_TAB_LABELS,
-  OrderStatusTab,
-} from "@/features/user/user.types";
+import { FilterGroupConfig } from "@/features/filters/filters.types";
+import { OrderStatusTab, ORDER_STATUS_TAB_LABELS } from "@/features/user/user.types";
 
 interface FiltersSectionProps {
-  search: string;
-  onSearchChange: (value: string) => void;
-  selectedStatus: OrderStatusTab;
-  onStatusChange: (status: OrderStatusTab) => void;
-  selectedDate?: { from?: string; to?: string };
-  onDateChange: (date?: { from?: string; to?: string }) => void;
+  filters: FilterGroupConfig[];
+  searchParams: URLSearchParams;
+  onSearchChange: (key: string, value: string) => void;
+  onStatusChange: (key: string, value: string) => void;
+  onDateRangeChange: (keyFrom: string, keyTo: string, range?: { from?: string; to?: string }) => void;
   totalCount?: number;
 }
 
 export default function FiltersSection({
-  search,
+  filters,
+  searchParams,
   onSearchChange,
-  selectedStatus,
   onStatusChange,
-  selectedDate,
+  onDateRangeChange,
   totalCount,
-  onDateChange,
 }: FiltersSectionProps) {
+
+  // ─── Derive config from filters prop (no more manual searchParams.get in parent) ───
+
+  const searchEl = filters
+    .flatMap((g) => g.elements)
+    .find((el) => el.type === "input");
+
+  const statusEl = filters
+    .find((g) => g.isTab)
+    ?.elements.find((el) => el.type === "checkbox");
+
+  const dateEl = filters
+    .flatMap((g) => g.elements)
+    .find((el) => el.type === "dateRange");
+
+  // ─── Read active values from URL ────────────────────────────────────────
+
+  const searchValue = searchEl ? (searchParams.get(searchEl.key) ?? "") : "";
+
+  const activeStatus = statusEl
+    ? (searchParams.get(statusEl.key) ?? "all") as OrderStatusTab
+    : "all";
+
+  const dateFrom = dateEl?.type === "dateRange"
+    ? (searchParams.get(dateEl.keyFrom) ?? undefined)
+    : undefined;
+  const dateTo = dateEl?.type === "dateRange"
+    ? (searchParams.get(dateEl.keyTo) ?? undefined)
+    : undefined;
+  const dateValue = dateFrom || dateTo ? { from: dateFrom, to: dateTo } : undefined;
+
+  // ─── Handlers scoped to config keys ─────────────────────────────────────
+
+  const handleDateChange = (range?: { from?: string; to?: string }) => {
+    if (dateEl?.type === "dateRange") {
+      onDateRangeChange(dateEl.keyFrom, dateEl.keyTo, range);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-3 mb-4">
+      {/* Desktop row */}
       <div className="hidden sm:flex sm:flex-row sm:items-center gap-2">
         {typeof totalCount === "number" && (
           <span className="text-xs md:text-sm text-(--text-body) sm:mr-auto">
             {totalCount} sipariş listeleniyor
           </span>
         )}
-        <OrderSearch value={search} onChange={onSearchChange} />
-        <DatePicker value={selectedDate} onChange={onDateChange} />
+        {searchEl && (
+          <OrderSearch
+            value={searchValue}
+            onChange={(val) => onSearchChange(searchEl.key, val)}
+          />
+        )}
+        {dateEl && (
+          <DatePicker value={dateValue} onChange={handleDateChange} />
+        )}
       </div>
 
-      {/* Mobilde Search ve DatePicker  */}
+      {/* Mobile row */}
       <div className="flex sm:hidden flex-row items-center gap-2">
-        <div className="flex-1 min-w-0">
-          <OrderSearch value={search} onChange={onSearchChange} />
-        </div>
-        <DatePicker value={selectedDate} onChange={onDateChange} />
-      </div>
-
-      {/* Badge'ler */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {ORDER_STATUS_TABS.map((tab) => (
-          <button
-            key={tab}
-            type="button"
-            onClick={() => onStatusChange(tab)}
-            className="focus:outline-none"
-          >
-            <Badge
-              text={ORDER_STATUS_TAB_LABELS[tab]}
-              size="sm"
-              theme={selectedStatus === tab ? "brand" : "white"}
-              type="pill"
-              className="rounded-sm"
+        {searchEl && (
+          <div className="flex-1 min-w-0">
+            <OrderSearch
+              value={searchValue}
+              onChange={(val) => onSearchChange(searchEl.key, val)}
             />
-          </button>
-        ))}
+          </div>
+        )}
+        {dateEl && (
+          <DatePicker value={dateValue} onChange={handleDateChange} />
+        )}
       </div>
 
-  
+      {/* Status tabs */}
+      {statusEl?.type === "checkbox" && (
+        <div className="flex items-center gap-1 md:gap-2 flex-wrap">
+          {statusEl.options.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onStatusChange(statusEl.key, opt.value)}
+              className="focus:outline-none"
+            >
+              <Badge
+                text={ORDER_STATUS_TAB_LABELS[opt.value as OrderStatusTab] ?? opt.label}
+                size="sm"
+                theme={activeStatus === opt.value ? "brand" : "white"}
+                type="pill"
+                className="rounded-sm cursor-pointer"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+
       {typeof totalCount === "number" && (
         <span className="sm:hidden text-xs text-(--text-body)">
           {totalCount} sipariş listeleniyor
         </span>
       )}
-
     </div>
   );
 }

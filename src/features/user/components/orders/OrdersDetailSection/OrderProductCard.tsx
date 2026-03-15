@@ -15,7 +15,10 @@ interface OrderProductCardProps {
   product: OrderProduct;
 }
 
-export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) => {
+export const OrderProductCard = ({
+  orderId,
+  product,
+}: OrderProductCardProps) => {
   const {
     copied,
     codeVisible,
@@ -37,13 +40,19 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
     <div className="flex flex-col items-end gap-2">
       {showTopUpActions && (
         <div className="flex flex-col gap-2 items-end border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
-          <span className="text-(--text-body) text-sm">Ürünü teslim aldınız mı?</span>
+          <span className="text-(--text-body) text-sm">
+            Ürünü teslim aldınız mı?
+          </span>
           <div className="flex items-center gap-2">
             <Button
               text="Teslim Aldım"
               textSize="xs"
               variant="success"
-              onClick={handleConfirm}
+              onClick={() =>
+                handleConfirm({
+                  status: "confirm",
+                })
+              }
               disabled={topUpSelection === "disputed"}
               className="rounded-2xl"
             />
@@ -78,7 +87,13 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
           <span className="text-(--text-body) text-sm">ürün kodu</span>
           <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-(--bg-success)">
             <Button
-              icon={copied ? <Check size={13} className="text-white" /> : <Copy size={13} className="text-white" />}
+              icon={
+                copied ? (
+                  <Check size={13} className="text-white" />
+                ) : (
+                  <Copy size={13} className="text-white" />
+                )
+              }
               size="xs"
               variant="ghost"
               appearance="filled"
@@ -90,7 +105,13 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
               {codeVisible ? product.code : maskedCode}
             </span>
             <Button
-              icon={codeVisible ? <EyeOff size={13} className="text-white" /> : <Eye size={13} className="text-white" />}
+              icon={
+                codeVisible ? (
+                  <EyeOff size={13} className="text-white" />
+                ) : (
+                  <Eye size={13} className="text-white" />
+                )
+              }
               size="xs"
               variant="ghost"
               appearance="filled"
@@ -106,10 +127,8 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
 
   return (
     <div className="bg-(--bg-neutral-primary-soft) p-4 border-b flex flex-col gap-4">
-
       {/* DESKTOP GÖRÜNÜM */}
       <div className="hidden sm:flex sm:flex-row sm:items-center gap-4">
-
         {/* Görsel + Bilgi */}
         <div className="flex items-center gap-4 flex-1 min-w-0">
           <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-(--bg-neutral-secondary) flex-shrink-0">
@@ -125,7 +144,7 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
           </div>
 
           <div className="flex flex-col gap-1 min-w-0">
-            <span className="text-sm font-semibold text-(--text-body) line-clamp-2 break-words">
+            <span className="text-sm font-semibold text-(--text-body) line-clamp-2 wrap-break-word">
               {product.name}
             </span>
 
@@ -140,29 +159,30 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
                 {PRODUCT_CATEGORY_LABELS[product.category]}
               </span>
               {product.region && (
-                <span className="truncate max-w-[120px]">{product.region}</span>
+                <span className="truncate max-w-30">{product.region}</span>
               )}
-              <span className="font-semibold">
-                {product.currency}{product.price}
+              <span className="font-semibold items-end">
+                {product.currency}
+                {product.price}
               </span>
             </div>
           </div>
         </div>
 
         {/* Durum + Aksiyon */}
-        <div className="flex flex-row items-center justify-end gap-4 flex-shrink-0">
+        <div className="flex flex-row items-center justify-end gap-4 shrink-0">
           <div className="flex flex-col items-center gap-0.5">
             <span className="text-xs text-(--text-body)">Sipariş durumu</span>
-            <span className={`text-sm font-medium ${statusColor}`}>{statusLabel}</span>
+            <span className={`text-sm font-medium ${statusColor}`}>
+              {statusLabel}
+            </span>
           </div>
           {actionBox}
         </div>
-
       </div>
 
       {/* MOBİL GÖRÜNÜM */}
       <div className="flex sm:hidden flex-col gap-3">
-
         {/*Görsel + Ürün bilgileri */}
         <div className="flex items-center gap-4">
           <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-(--bg-neutral-secondary) flex-shrink-0">
@@ -196,7 +216,8 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
                 <span className="truncate max-w-[120px]">{product.region}</span>
               )}
               <span className="font-bold ml-auto">
-                {product.currency}{product.price}
+                {product.currency}
+                {product.price}
               </span>
             </div>
           </div>
@@ -213,13 +234,19 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
           <div className="w-full">
             {showTopUpActions && (
               <div className="flex flex-col gap-2 w-full border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
-                <span className="text-(--text-body) text-sm">Ürünü teslim aldınız mı?</span>
+                <span className="text-(--text-body) text-sm">
+                  Ürünü teslim aldınız mı?
+                </span>
                 <div className="flex items-center gap-2">
                   <Button
                     text="Teslim Aldım"
                     textSize="xs"
                     variant="success"
-                    onClick={handleConfirm}
+                    onClick={() =>
+                      handleConfirm({
+                        status: "confirm",
+                      })
+                    }
                     disabled={topUpSelection === "disputed"}
                     className="rounded-2xl flex-1"
                   />
@@ -254,7 +281,13 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
                 <span className="text-(--text-body) text-sm">ürün kodu</span>
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-(--bg-success) w-full">
                   <Button
-                    icon={copied ? <Check size={13} className="text-white" /> : <Copy size={13} className="text-white" />}
+                    icon={
+                      copied ? (
+                        <Check size={13} className="text-white" />
+                      ) : (
+                        <Copy size={13} className="text-white" />
+                      )
+                    }
                     size="xs"
                     variant="ghost"
                     appearance="filled"
@@ -266,7 +299,13 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
                     {codeVisible ? product.code : maskedCode}
                   </span>
                   <Button
-                    icon={codeVisible ? <EyeOff size={13} className="text-white" /> : <Eye size={13} className="text-white" />}
+                    icon={
+                      codeVisible ? (
+                        <EyeOff size={13} className="text-white" />
+                      ) : (
+                        <Eye size={13} className="text-white" />
+                      )
+                    }
                     size="xs"
                     variant="ghost"
                     appearance="filled"
@@ -279,9 +318,7 @@ export const OrderProductCard = ({ orderId, product }: OrderProductCardProps) =>
             )}
           </div>
         )}
-
       </div>
-
     </div>
   );
 };

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { FilterGroupConfig } from "../filters.types";
@@ -71,6 +72,32 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
     });
   }
 
+  function handleSearchChange(key: string, value: string) {
+    navigate((p) => {
+      value.trim() ? p.set(key, value.trim()) : p.delete(key);
+      p.delete("page");
+    });
+  }
+
+  function handleDateRangeChange(
+    keyFrom: string,
+    keyTo: string,
+    range?: { from?: string; to?: string },
+  ) {
+    navigate((p) => {
+      range?.from ? p.set(keyFrom, range.from) : p.delete(keyFrom);
+      range?.to ? p.set(keyTo, range.to) : p.delete(keyTo);
+      p.delete("page");
+    });
+  }
+
+  function handleSingleFilter(key: string, value: string) {
+  navigate((p) => {
+    value === "all" ? p.delete(key) : p.set(key, value);
+    p.delete("page");
+  });
+}
+
   return {
     searchParams,
     isPending,
@@ -81,5 +108,8 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
     handleResetFilters,
     handlePageChange,
     handleSortChange,
+    handleSearchChange,
+    handleDateRangeChange,
+    handleSingleFilter,
   };
 }

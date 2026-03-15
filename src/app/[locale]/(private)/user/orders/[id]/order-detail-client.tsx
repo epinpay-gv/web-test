@@ -1,5 +1,4 @@
 "use client";
-
 import { Order } from "@/features/user/user.types";
 import { OrderDetailHeader } from "@/features/user/components/orders/OrdersDetailSection/OrderDetailHeader";
 import { OrderProductCard } from "@/features/user/components/orders/OrdersDetailSection/OrderProductCard";

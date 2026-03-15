@@ -34,7 +34,7 @@ export default function SettingsPage() {
     // };
 
     const handleSave = () => {
-        console.log("Kaydedilecek veri:", settings);
+        // console.log("Kaydedilecek veri:", settings);
         // SERVİCE CAGRISI EKLENECEK.
     };
 

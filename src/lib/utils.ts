@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
+import { SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
+import { toast } from "react-toastify";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -62,3 +64,22 @@ export const getCookie = (name: string): string | undefined => {
     .find((row) => row.startsWith(`${name}=`))
     ?.split("=")[1];
 };
+
+export const handleRequest = async <T>(
+    request: () => Promise<T>,
+    successMessage: string,
+    setLoading: (value: SetStateAction<boolean>) => void
+  ): Promise<T | undefined> => {
+    try {
+      setLoading(true);
+      const response = await request();
+      toast.success(successMessage);
+      return response;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Bir hata oluştu";
+      toast.error(message);
+      return undefined;
+    } finally {
+      setLoading(false);
+    }
+  };
