@@ -2,7 +2,8 @@ import { PaginationData } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
 import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 
-export type UserRole = "USER";
+// User
+export type UserRole = "USER" | "ADMIN";
 
 export interface User {
   id: string;
@@ -17,11 +18,55 @@ export interface User {
   updatedAt: string;
 }
 
-export interface GetMeResponse {
-  success: boolean;
-  data: User;
+export type UserProfile = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  referralCode: string;
+  isEmailVerified: boolean;
+};
+
+export type UserProfileSectionContent = {
+  title: string;
+  description: string;
+};
+
+// Common
+export interface DetailHeaderData {
+  createdAt: string;
+  backHref: string;
+  referenceNumber: string;
+  referenceLabel: string;
+  statusLabel: string;
+  statusColor: string;
+  metaItems: string[];
+  currency?: string;
+  totalAmount?: string;
+  totalLabel?: string;
 }
 
+//  Kullanıcı Ayarları
+export interface UserSettingsDTO {
+  system: {
+    country: string;
+    currency: string;
+  };
+  notifications: {
+    email: boolean;
+  };
+}
+
+export type CountryOption = {
+  label: string;
+  value: string;
+};
+
+export type CurrencyOption = {
+  label: string;
+  value: string;
+};
+
+// Orders
 export type OrderStatus =
   | "PENDING_PAYMENT"
   | "PAYMENT_SUCCESS"
@@ -79,133 +124,8 @@ export interface Order {
   products: OrderProduct[];
 }
 
-const STATUS_COLORS = {
-  SUCCESS: "text-(--text-fg-success-strong)",
-  WARNING: "text-(--text-fg-warning)",
-  DANGER: "text-(--text-fg-danger-strong)",
-} as const;
-
-// Sipariş Listesi
-
-export type OrderDisplayStatus = "COMPLETED" | "CANCELLED" | "PENDING";
-
-export function getOrderDisplayStatus(status: OrderStatus): OrderDisplayStatus {
-  if (status === "COMPLETED") return "COMPLETED";
-  if (
-    status === "CANCELLED" ||
-    status === "TIMEOUT" ||
-    status === "PAYMENT_FAILED"
-  )
-    return "CANCELLED";
-  return "PENDING";
-}
-
-export const ORDER_DISPLAY_LABELS: Record<OrderDisplayStatus, string> = {
-  COMPLETED: "Tamamlandı",
-  CANCELLED: "İptal Edildi",
-  PENDING: "Beklemede",
-};
-
-export const ORDER_DISPLAY_COLORS: Record<OrderDisplayStatus, string> = {
-  COMPLETED: STATUS_COLORS.SUCCESS,
-  CANCELLED: STATUS_COLORS.DANGER,
-  PENDING: STATUS_COLORS.WARNING,
-};
-
-export type ItemDisplayStatus = "DELIVERED" | "CANCELLED" | "PENDING";
-
-export function getItemDisplayStatus(
-  status: OrderItemStatus,
-): ItemDisplayStatus {
-  if (status === "COMPLETED" || status === "DISPUTED") return "DELIVERED";
-  if (status === "CANCELLED" || status === "TIMEOUT") return "CANCELLED";
-  return "PENDING";
-}
-
-export const ITEM_DISPLAY_LABELS: Record<ItemDisplayStatus, string> = {
-  DELIVERED: "Teslim Edildi",
-  CANCELLED: "İptal Edildi",
-  PENDING: "Beklemede",
-};
-
-export const ITEM_DISPLAY_COLORS: Record<ItemDisplayStatus, string> = {
-  DELIVERED: STATUS_COLORS.SUCCESS,
-  CANCELLED: STATUS_COLORS.DANGER,
-  PENDING: STATUS_COLORS.WARNING,
-};
-
-export const INVOICE_STATUS_LABELS: Record<InvoiceStatus, string> = {
-  NONE: "Fatura Yok",
-  REQUESTED: "Fatura Talep Edildi",
-  APPROVED: "Fatura Onaylandı",
-};
-
-export const PRODUCT_CATEGORY_LABELS: Record<ProductCategory, string> = {
-  DIGITAL_KEY: "Digital key",
-  GIFT_CARD: "Gift card",
-  TOP_UP: "Top-up",
-};
-
-export type OrderStatusTab = "ALL" | "COMPLETED" | "PENDING" | "CANCELLED";
-
-export const ORDER_STATUS_TABS: OrderStatusTab[] = [
-  "ALL",
-  "COMPLETED",
-  "PENDING",
-  "CANCELLED",
-];
-
-export const ORDER_STATUS_TAB_LABELS: Record<OrderStatusTab, string> = {
-  ALL: "Tümü",
-  COMPLETED: "Tamamlanan",
-  PENDING: "Bekleyen",
-  CANCELLED: "İptal Edilen",
-};
-
-export function resolveStatusParams(tab: OrderStatusTab): string[] {
-  if (tab === "PENDING") return ["PENDING_PAYMENT", "PAYMENT_SUCCESS"];
-  if (tab === "ALL") return [];
-  return [tab];
-}
-
-/* USER */
-
-export type UserProfile = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  referralCode: string;
-  isEmailVerified: boolean;
-};
-
-export type UserProfileSectionContent = {
-  title: string;
-  description: string;
-};
-
-//  Kullanıcı Ayarları
-export interface UserSettingsDTO {
-  system: {
-    country: string;
-    currency: string;
-  };
-  notifications: {
-    email: boolean;
-  };
-}
-
-export type CountryOption = {
-  label: string;
-  value: string;
-};
-
-export type CurrencyOption = {
-  label: string;
-  value: string;
-};
-
 /* RESPONSE & PAYLOAD TYPES */
-// /orders page
+// orders
 export interface OrdersPageApiResponse {
   data: Order[];
   pagination: PaginationData;
@@ -225,6 +145,7 @@ export interface TopupResponseResponse {
   success: boolean;
 }
 
+// raffles
 export interface RafflesPageApiResponse {
   data: Raffle[];
   pagination: PaginationData;

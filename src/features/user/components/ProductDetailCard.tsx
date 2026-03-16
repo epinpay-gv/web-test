@@ -1,24 +1,24 @@
 import Image from "next/image";
+import { OrderProduct } from "@/features/user/user.types";
+import { Button } from "@/components/common";
+import { Copy, Check, Eye, EyeOff } from "lucide-react";
+import { useOrderProductStatus } from "../hooks/useOrderProductStatus";
 import {
-  OrderProduct,
-  PRODUCT_CATEGORY_LABELS,
   getItemDisplayStatus,
   ITEM_DISPLAY_LABELS,
   ITEM_DISPLAY_COLORS,
-} from "@/features/user/user.types";
-import { Button } from "@/components/common";
-import { Copy, Check, Eye, EyeOff } from "lucide-react";
-import { useOrderProductStatus } from "../../../hooks/useOrderProductStatus";
+  PRODUCT_CATEGORY_LABELS,
+} from "@/features/user/utils/status.mappers";
 
-interface OrderProductCardProps {
+interface ProductDetailCardProps {
   orderId: string;
   product: OrderProduct;
 }
 
-export const OrderProductCard = ({
+export default function ProductDetailCard({
   orderId,
   product,
-}: OrderProductCardProps) => {
+}: ProductDetailCardProps) {
   const {
     copied,
     codeVisible,
@@ -71,7 +71,7 @@ export const OrderProductCard = ({
               onClick={() => {}}
               className="text-xs text-(--text-fg-brand) hover:opacity-80 transition-opacity"
             >
-              sorun bildir
+              Sorun bildir
             </button>
           ) : (
             <span className="text-xs text-(--text-body)">
@@ -213,7 +213,7 @@ export const OrderProductCard = ({
                 {PRODUCT_CATEGORY_LABELS[product.category]}
               </span>
               {product.region && (
-                <span className="truncate max-w-[120px]">{product.region}</span>
+                <span className="truncate max-w-30">{product.region}</span>
               )}
               <span className="font-bold ml-auto">
                 {product.currency}
@@ -321,4 +321,4 @@ export const OrderProductCard = ({
       </div>
     </div>
   );
-};
+}

@@ -4,14 +4,17 @@ import UserPageSearch from "./UserPageSearch";
 import Badge from "@/components/common/Badges/Badge";
 import { DatePicker } from "@/components/common/Calendar/DateRangePicker";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
-import { OrderStatusTab, ORDER_STATUS_TAB_LABELS } from "@/features/user/user.types";
 
 interface FiltersSectionProps {
   filters: FilterGroupConfig[];
   searchParams: URLSearchParams;
   onSearchChange: (key: string, value: string) => void;
   onStatusChange: (key: string, value: string) => void;
-  onDateRangeChange: (keyFrom: string, keyTo: string, range?: { from?: string; to?: string }) => void;
+  onDateRangeChange: (
+    keyFrom: string,
+    keyTo: string,
+    range?: { from?: string; to?: string },
+  ) => void;
   totalCount?: number;
   isSearchAndDate?: boolean;
 }
@@ -25,7 +28,6 @@ export default function FiltersSection({
   totalCount,
   isSearchAndDate = false,
 }: FiltersSectionProps) {
-
   // ─── Derive config from filters prop (no more manual searchParams.get in parent) ───
 
   const searchEl = filters
@@ -45,16 +47,19 @@ export default function FiltersSection({
   const searchValue = searchEl ? (searchParams.get(searchEl.key) ?? "") : "";
 
   const activeStatus = statusEl
-    ? (searchParams.get(statusEl.key) ?? "all") as OrderStatusTab
+    ? (searchParams.get(statusEl.key) ?? "all")
     : "all";
 
-  const dateFrom = dateEl?.type === "dateRange"
-    ? (searchParams.get(dateEl.keyFrom) ?? undefined)
-    : undefined;
-  const dateTo = dateEl?.type === "dateRange"
-    ? (searchParams.get(dateEl.keyTo) ?? undefined)
-    : undefined;
-  const dateValue = dateFrom || dateTo ? { from: dateFrom, to: dateTo } : undefined;
+  const dateFrom =
+    dateEl?.type === "dateRange"
+      ? (searchParams.get(dateEl.keyFrom) ?? undefined)
+      : undefined;
+  const dateTo =
+    dateEl?.type === "dateRange"
+      ? (searchParams.get(dateEl.keyTo) ?? undefined)
+      : undefined;
+  const dateValue =
+    dateFrom || dateTo ? { from: dateFrom, to: dateTo } : undefined;
 
   // ─── Handlers scoped to config keys ─────────────────────────────────────
 
@@ -86,7 +91,7 @@ export default function FiltersSection({
 
       {/* Mobile row */}
       <div className="flex sm:hidden flex-row items-center gap-2">
-        {isSearchAndDate &&  searchEl && (
+        {isSearchAndDate && searchEl && (
           <div className="flex-1 min-w-0">
             <UserPageSearch
               value={searchValue}
@@ -94,7 +99,7 @@ export default function FiltersSection({
             />
           </div>
         )}
-        {isSearchAndDate &&  dateEl && (
+        {isSearchAndDate && dateEl && (
           <DatePicker value={dateValue} onChange={handleDateChange} />
         )}
       </div>
@@ -110,7 +115,7 @@ export default function FiltersSection({
               className="focus:outline-none"
             >
               <Badge
-                text={ORDER_STATUS_TAB_LABELS[opt.value as OrderStatusTab] ?? opt.label}
+                text={opt.label} 
                 size="sm"
                 theme={activeStatus === opt.value ? "brand" : "white"}
                 type="pill"

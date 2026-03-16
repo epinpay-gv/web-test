@@ -2,13 +2,11 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Order,
-  getOrderDisplayStatus,
-  ORDER_DISPLAY_LABELS,
-  ORDER_DISPLAY_COLORS,
 } from "@/features/user/user.types";
 import { AngleRight } from "flowbite-react-icons/outline";
 import { Button } from "@/components/common";
 import { Copy, Check } from "lucide-react";
+import { getOrderDisplayStatus, ORDER_DISPLAY_LABELS, ORDER_DISPLAY_COLORS } from "@/features/user/utils/status.mappers";
 
 interface OrderCardProps {
   order: Order;

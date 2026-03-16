@@ -111,7 +111,6 @@ export interface RafflePool {
   claimedAt?: string | null;
   winnerName: string; // ! bu backende eklenmeli
 
-
   createdAt: string;
 }
 

@@ -7,14 +7,20 @@ export async function GET(
 ) {
   const { id } = await params;
 
-  const order = userRafflesMockData.find((o) => o.id === id);
+  const raffle = userRafflesMockData.find((i) => i.id === id);
 
-  if (!order) {
+    if (!id || id === 'undefined') {
+    return Response.json(
+      { status: 400, message: 'Invalid raffle id' },
+      { status: 400 }
+    );
+  }
+  if (!raffle) {
     return NextResponse.json(
-      { error: "Order not found" },
+      { error: "raffle not found" },
       { status: 404 }
     );
   }
 
-  return NextResponse.json({ data: order });
+  return NextResponse.json({ data: raffle });
 }
