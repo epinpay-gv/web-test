@@ -1,5 +1,5 @@
 import { getTimeLeft } from "@/lib/utils";
-import { Raffle } from "../types";
+import { Raffle } from "@/types/types";
 
 interface CardInfoProps {
   card: Raffle;

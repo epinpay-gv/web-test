@@ -1,4 +1,4 @@
-import { ParticipationConstraint, CreatorType, Raffle } from "../types";
+import { ParticipationConstraint, Raffle, CreatorType } from "@/types/types";
 import Image from "next/image";
 
 

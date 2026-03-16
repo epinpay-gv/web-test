@@ -1,9 +1,9 @@
 import { JoinRaffleApiPayload } from "@/features/raffles/raffle.types";
 import { StoreInfo } from "../CardSections";
-import { Raffle } from "../types";
 import ImageSection from "./ImageSection";
 import InfoSection from "./InfoSection";
 import ParticipantSection from "./ParticipantSection";
+import { Raffle } from "@/types/types";
 
 interface CardModalProps {
   data: Raffle;

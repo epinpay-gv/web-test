@@ -5,7 +5,7 @@ import {
   FilterLabels,
   PageTitle,
 } from "@/features/catalog/components";
-import { BreadcrumbItem, PaginationData } from "@/types/types";
+import { BreadcrumbItem, PaginationData, Raffle } from "@/types/types";
 import { Breadcrumb, Pagination, Badge, Modal } from "@/components/common";
 import {
   Cash,
@@ -14,14 +14,13 @@ import {
   Star,
   VideoCamera,
 } from "flowbite-react-icons/outline";
-import { useUrlFilters } from "@/features/catalog/hooks";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { RaffleGrid } from "@/features/raffles/components";
 import { useState } from "react";
 import CardModal from "@/components/common/Cards/RaffleCard/CardModal/CardModal";
 import { useRaffleActions } from "@/features/raffles/hooks";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { getActiveFilterLabels } from "@/features/filters/utils/filters.utils";
+import { useUrlFilters } from "@/features/filters/hooks/useUrlFilters";
 
 interface AllRafflesClientProps {
   initialRaffles: Raffle[];

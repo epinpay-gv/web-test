@@ -1,6 +1,6 @@
 import { DetailHeaderData, Order } from "@/features/user/user.types";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { getOrderDisplayStatus, ORDER_DISPLAY_LABELS, ORDER_DISPLAY_COLORS, getRaffleDisplayStatus, RAFFLE_DISPLAY_LABELS, RAFFLE_DISPLAY_COLORS } from "./status.mappers";
+import { Raffle } from "@/types/types";
 
 export function orderToDetailHeader(order: Order): DetailHeaderData {
   const displayStatus = getOrderDisplayStatus(order.status);

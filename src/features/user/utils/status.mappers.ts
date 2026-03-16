@@ -1,5 +1,5 @@
 import { OrderStatus, OrderItemStatus, InvoiceStatus, ProductCategory } from "@/features/user/user.types";
-import { RaffleStatus } from "@/components/common/Cards/RaffleCard/types";
+import { RaffleStatus } from "@/types/types";
 
 // ─── Shared ───────────────────────────────────────────────────────────────────
 

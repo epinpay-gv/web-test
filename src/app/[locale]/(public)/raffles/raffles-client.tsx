@@ -1,7 +1,6 @@
 "use client";
 import { Modal } from "@/components/common";
 import CardModal from "@/components/common/Cards/RaffleCard/CardModal/CardModal";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import {
   BannerSection,
   SliderSection,
@@ -20,7 +19,7 @@ import {
   SliderSectionData,
   BannerSectionData,
 } from "@/features/raffles/raffle.types";
-import { FAQ } from "@/types/types";
+import { FAQ, Raffle } from "@/types/types";
 import Image from "next/image";
 import { useState } from "react";
 

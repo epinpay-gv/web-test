@@ -1,5 +1,5 @@
+import { Raffle } from "@/types/types";
 import { ImageSection, CardInfo, StoreInfo } from "./CardSections";
-import { Raffle } from "./types";
 import { motion } from "framer-motion";
 
 const LAYOUT_CLASSES = {

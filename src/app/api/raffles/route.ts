@@ -5,7 +5,7 @@ import {
   rafflesFaqMockData,
   rafflesWinnersMockData,
 } from "@/mocks";
-import { ParticipationConstraint } from "@/components/common/Cards/RaffleCard/types";
+import { ParticipationConstraint } from "@/types/types";
 
 export async function GET() {
   //BANNER DATAS

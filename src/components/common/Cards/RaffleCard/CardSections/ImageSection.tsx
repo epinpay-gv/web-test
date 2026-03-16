@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { ParticipationConstraint, CreatorType, Raffle } from "../types";
 import { motion } from "framer-motion";
+import { ParticipationConstraint, Raffle, CreatorType } from "@/types/types";
 
 const BADGE_TEXT: Record<ParticipationConstraint, string> = {
   EVERYONE: "Epinpay çekilişi",

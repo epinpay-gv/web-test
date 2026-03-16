@@ -1,7 +1,7 @@
 "use client";
 import { getTimeLeft } from "@/lib/utils";
-import { Raffle } from "../types";
 import { JoinRaffleApiPayload } from "@/features/raffles/raffle.types";
+import { Raffle } from "@/types/types";
 
 interface InfoSectionProps {
   card: Raffle;

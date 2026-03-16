@@ -1,11 +1,10 @@
 "use client";
-import { Raffle } from "../types";
 import { ParticipantSearch } from "./ParticipantSearch";
 import { useMemo, useState } from "react";
 import { formatDateTR } from "@/lib/utils";
 import { Pagination, NavTab } from "@/components/common";
 import { NavTabItem } from "@/components/common/NavElements/NavTabs/NavTab";
-import { PaginationData } from "@/types/types";
+import { PaginationData, Raffle } from "@/types/types";
 
 const PER_PAGE = 9;
 

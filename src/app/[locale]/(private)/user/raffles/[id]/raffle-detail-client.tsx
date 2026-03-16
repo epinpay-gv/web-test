@@ -1,7 +1,7 @@
 "use client";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { DetailPageHeader } from "@/features/user/components";
 import { raffleToDetailHeader } from "@/features/user/utils/detail-header.adapters";
+import { Raffle } from "@/types/types";
 
 interface RaffleDetailClientProps {
   data: Raffle;

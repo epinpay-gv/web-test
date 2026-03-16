@@ -1,5 +1,5 @@
+import { CreatorType, Raffle } from "@/types/types";
 import Image from "next/image";
-import { Raffle, CreatorType } from "../types";
 
 const CreatorTypeMap: Record<CreatorType, string> = {
   STORE: "Mağaza",

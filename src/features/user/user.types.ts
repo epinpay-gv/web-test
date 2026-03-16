@@ -1,6 +1,5 @@
-import { PaginationData } from "@/types/types";
+import { PaginationData, Raffle } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 
 // User
 export type UserRole = "USER" | "ADMIN";
@@ -45,7 +44,7 @@ export interface DetailHeaderData {
   totalLabel?: string;
 }
 
-//  Kullanıcı Ayarları
+// Settings
 export interface UserSettingsDTO {
   system: {
     country: string;

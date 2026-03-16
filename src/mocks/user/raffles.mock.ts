@@ -1,12 +1,6 @@
-import {
-  CreatorType,
-  ParticipationConstraint,
-  ParticipationStatus,
-  Raffle,
-  RaffleStatus,
-  RaffleType,
-} from "@/components/common/Cards/RaffleCard/types";
+
 import { FilterGroupConfig } from "@/features/filters/filters.types";
+import { Raffle, RaffleType, RaffleStatus, CreatorType, ParticipationStatus, ParticipationConstraint } from "@/types/types";
 
 export const userRafflesMockData: Raffle[] = [
   // PREMIUM
@@ -35,9 +29,18 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-001",
         name: "PUBG Mobile 660 UC TR",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-660-uc-tr-38.webp",
         offerId: "offer-101",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     participations: [
@@ -266,27 +269,54 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-002",
         name: "PUBG Mobile 1800 UC TR",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-1800-uc-tr-36.webp",
         offerId: "offer-102",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-002-b",
         raffleId: "raffle-002",
         name: "PUBG Mobile 3850 UC TR",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-3850-uc-tr-24.webp",
         offerId: "offer-102",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-002-c",
         raffleId: "raffle-002",
         name: "PUBG Mobile 8100 UC TR",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/6/product/pubg-mobile-8100-uc-tr-92.webp",
         offerId: "offer-102",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     participations: [
@@ -471,9 +501,18 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-003",
         name: "1005 League of Legends RP",
         quantity: 5,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
         offerId: "offer-103",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     constraint: ParticipationConstraint.PREMIUM,
@@ -507,27 +546,54 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-006",
         name: "Gameforge 1000 TRY E-Pin – Metin2 4800 EP",
         quantity: 20,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/7/product/gameforge-1000-try-e-pin-metin2-4800-ep-6.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/7/product/gameforge-1000-try-e-pin-metin2-4800-ep-6.webp?width=300/height=300/format=webp",
         offerId: "offer-106",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-006-b",
         raffleId: "raffle-006",
         name: "Metin2 2100 EP",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/7/product/gameforge-500-try-e-pin-metin2-2100-ep-48.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/7/product/gameforge-500-try-e-pin-metin2-2100-ep-48.webp?width=300/height=300/format=webp",
         offerId: "offer-106",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-006-c",
         raffleId: "raffle-006",
         name: "Metin2 Dragon 30 Gün Oyun Süresi",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/5/product/metin2-dragon-30-gun-oyun-suresi-38.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/5/product/metin2-dragon-30-gun-oyun-suresi-38.webp?width=300/height=300/format=webp",
         offerId: "offer-106",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     constraint: ParticipationConstraint.REFERENCE,
@@ -559,27 +625,54 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-007",
         name: "Valorant 375 VP",
         quantity: 5,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/10/product/valorant-375-vp-6.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/10/product/valorant-375-vp-6.webp?width=300/height=300/format=webp",
         offerId: "offer-107",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-007-b",
         raffleId: "raffle-007",
         name: "Valorant 825 VP",
         quantity: 5,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/10/product/valorant-825-vp-33.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/10/product/valorant-825-vp-33.webp?width=300/height=300/format=webp",
         offerId: "offer-107",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-007-c",
         raffleId: "raffle-007",
         name: "Valorant 2925 VP",
         quantity: 5,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/10/product/valorant-2925-vp-5.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/10/product/valorant-2925-vp-5.webp?width=300/height=300/format=webp",
         offerId: "offer-107",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     constraint: ParticipationConstraint.REFERENCE,
@@ -611,9 +704,18 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-008",
         name: "16.250 Zula Altın ZA",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/2/product/16250-zula-altin-za-14.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/2/product/16250-zula-altin-za-14.webp?width=300/height=300/format=webp",
         offerId: "offer-108",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     constraint: ParticipationConstraint.REFERENCE,
@@ -646,18 +748,36 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-011",
         name: "Pubg Mobile 60 UC Top-Up",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/10/product/pubg-mobile-60-uc-top-up-26.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/10/product/pubg-mobile-60-uc-top-up-26.webp",
         offerId: "offer-104",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-011-b",
         raffleId: "raffle-011",
         name: "1005 League of Legends RP",
         quantity: 5,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/10/product/1005-league-of-legends-rp-23.webp",
         offerId: "offer-103",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     constraint: ParticipationConstraint.EVERYONE,
@@ -688,9 +808,18 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-012",
         name: "Nowa Online World 2000 Elmas",
         quantity: 10,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/3/product/nowa-online-world-2000-elmas-59.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/3/product/nowa-online-world-2000-elmas-59.webp?width=300/height=300/format=webp",
         offerId: "offer-112",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     constraint: ParticipationConstraint.REFERENCE,
@@ -721,18 +850,36 @@ export const userRafflesMockData: Raffle[] = [
         raffleId: "raffle-013",
         name: "1.000 Joypara",
         quantity: 5,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/3/product/1000-joypara-32.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/3/product/1000-joypara-32.webp?width=300/height=300/format=webp",
         offerId: "offer-113",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
       {
         id: "reward-013-b",
         raffleId: "raffle-013",
         name: "12.750 Joypara",
         quantity: 5,
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/3/product/12750-joypara-95.webp?width=300/height=300/format=webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/3/product/12750-joypara-95.webp?width=300/height=300/format=webp",
         offerId: "offer-113",
+        product: {
+          id: "",
+          name: "",
+          category: "TOP_UP",
+          itemType: "NORMAL",
+          price: 0,
+          currency: "",
+          imageUrl: "",
+          status: "PENDING_PAYMENT"
+        }
       },
     ],
     constraint: ParticipationConstraint.REFERENCE,

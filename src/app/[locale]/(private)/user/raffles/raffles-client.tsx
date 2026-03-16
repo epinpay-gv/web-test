@@ -1,12 +1,11 @@
 "use client";
 import { Pagination, Button } from "@/components/common";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import StatusState from "@/components/common/StatusState/StatusState";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { useUrlFilters } from "@/features/filters/hooks/useUrlFilters";
 import { RaffleGrid } from "@/features/user/components";
 import FiltersSection from "@/features/user/components/FiltersSection";
-import { PaginationData } from "@/types/types";
+import { PaginationData, Raffle } from "@/types/types";
 import { useRouter } from "next/navigation";
 
 interface RafflesClientProps {
