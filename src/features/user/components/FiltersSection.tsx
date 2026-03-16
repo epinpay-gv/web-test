@@ -1,6 +1,6 @@
 "use client";
 
-import OrderSearch from "./OrdersSearch";
+import UserPageSearch from "./UserPageSearch";
 import Badge from "@/components/common/Badges/Badge";
 import { DatePicker } from "@/components/common/Calendar/DateRangePicker";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
@@ -13,6 +13,7 @@ interface FiltersSectionProps {
   onStatusChange: (key: string, value: string) => void;
   onDateRangeChange: (keyFrom: string, keyTo: string, range?: { from?: string; to?: string }) => void;
   totalCount?: number;
+  isSearchAndDate?: boolean;
 }
 
 export default function FiltersSection({
@@ -22,6 +23,7 @@ export default function FiltersSection({
   onStatusChange,
   onDateRangeChange,
   totalCount,
+  isSearchAndDate = false,
 }: FiltersSectionProps) {
 
   // ─── Derive config from filters prop (no more manual searchParams.get in parent) ───
@@ -71,28 +73,28 @@ export default function FiltersSection({
             {totalCount} sipariş listeleniyor
           </span>
         )}
-        {searchEl && (
-          <OrderSearch
+        {isSearchAndDate && searchEl && (
+          <UserPageSearch
             value={searchValue}
             onChange={(val) => onSearchChange(searchEl.key, val)}
           />
         )}
-        {dateEl && (
+        {isSearchAndDate && dateEl && (
           <DatePicker value={dateValue} onChange={handleDateChange} />
         )}
       </div>
 
       {/* Mobile row */}
       <div className="flex sm:hidden flex-row items-center gap-2">
-        {searchEl && (
+        {isSearchAndDate &&  searchEl && (
           <div className="flex-1 min-w-0">
-            <OrderSearch
+            <UserPageSearch
               value={searchValue}
               onChange={(val) => onSearchChange(searchEl.key, val)}
             />
           </div>
         )}
-        {dateEl && (
+        {isSearchAndDate &&  dateEl && (
           <DatePicker value={dateValue} onChange={handleDateChange} />
         )}
       </div>

@@ -5,7 +5,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { JoinRaffleApiPayload } from "../raffle.types";
-import { joinToRaffle } from "../service";
+import { joinToRaffle } from "../raffles.service";
 
 
 export function useRaffleActions() {

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { BreadcrumbItem, Category, PaginationData } from "@/types/types";
-import { getCategories } from "@/features/catalog/service";
+import { getCategories } from "@/features/catalog/catalog.service";
 import { CategoryGrid, PageTitle } from "@/features/catalog/components";
 import { Breadcrumb, Pagination } from "@/components/common";
 import { Home } from "flowbite-react-icons/outline";

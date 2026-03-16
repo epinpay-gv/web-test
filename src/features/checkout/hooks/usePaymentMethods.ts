@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { PaymentMethod } from '../types';
-import { paymentService } from '../service';
+import { paymentService } from '../checkout.service';
 
 export function usePaymentMethods() {
   const [methods, setMethods] = useState<PaymentMethod[]>([]);

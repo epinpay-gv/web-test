@@ -7,7 +7,7 @@ import {
 } from "@/features/user/user.types";
 import { baseFetcher } from "@/lib/api/baseFetcher";
 import { handleRequest } from "@/lib/utils";
-import { confirmTopup } from "@/features/user/service";
+import { confirmTopup } from "@/features/user/user.service";
 
 export function useOrderProductStatus(orderId: string, product: OrderProduct) {
   const [copied, setCopied] = useState(false);

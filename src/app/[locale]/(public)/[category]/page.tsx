@@ -7,7 +7,7 @@ import {
   OrganizationSchema,
   WebsiteSchema,
 } from "@/components/seo";
-import { getCategory } from "@/features/catalog/service";
+import { getCategory } from "@/features/catalog/catalog.service";
 import CategoryClient from "./category-client";
 import { createCategoryBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";

@@ -1,6 +1,6 @@
 import OrdersClient from "./orders-client";
 import UserPageHeader from "@/features/user/components/UserPageHeader";
-import { getOrders } from "@/features/user/service";
+import { getOrders } from "@/features/user/user.service";
 import { createSeo } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -26,15 +26,12 @@ export default async function OrdersPage({
   const search = await searchParams;
   const res = await getOrders(search);
 
-  const hasAnyOrders = res.data.length > 0;
-
   return (
     <div>
       <UserPageHeader title="Siparişlerim" />
       <OrdersClient
         data={res.data}
         pagination={res.pagination}
-        hasAnyOrders={hasAnyOrders}
         initialFilters={res.filters}
       />
     </div>

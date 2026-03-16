@@ -1,6 +1,6 @@
-import { User, ShoppingBag, Receipt, Heart, SalePercent, Messages, Bell, Star, Cog } from "flowbite-react-icons/outline"
+import { User, ShoppingBag, Receipt, Heart, SalePercent, Messages, Bell, Star, Cog, UserHeadset, UsersGroup, LifeSaver } from "flowbite-react-icons/outline"
 
-export const userMenuMock = [
+export const userMenu = [
     {icon: User, label: "Kullanıcı Bilgilerim", url: "/user"},
     {icon: ShoppingBag, label: "Siparişlerim", url: "/user/orders"},
     {icon: Receipt, label: "Çekilişlerim", url: "/user/raffles"},
@@ -10,5 +10,10 @@ export const userMenuMock = [
     // {icon: Bell, label: "Bildirimlerim", url: "/user/notifications"},
     {icon: Star, label: "Bakiye İşlemleri", url: "/user/wallet"},
     {icon: Cog, label: "Ayarlar", url: "/user/settings"},
-    
+]
+
+export const userMenuSecondary = [
+    // {icon: UserHeadset, label: "Destek Taleplerim", url: "/user/tickets"},
+    {icon: UsersGroup, label: "Yayıncı Başvurusu", url: "/user/streamer-application"},
+    // {icon: LifeSaver, label: "Yardım", url: "/support-hub"},
 ]

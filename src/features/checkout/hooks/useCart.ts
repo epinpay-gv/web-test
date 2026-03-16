@@ -1,7 +1,7 @@
 // features/cart/hooks/useCart.ts
 import { useState, useEffect, useCallback } from "react";
 import { useAuthStore } from "@/features/auth/store/auth.store";
-import { cartService } from "../service";
+import { cartService } from "../checkout.service";
 import { CartItem, CartStep, CartResponse } from "../types";
 import { baseFetcher } from "@/lib/api/baseFetcher";
 

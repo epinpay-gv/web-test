@@ -1,7 +1,7 @@
 import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
 import ProductsClient from "./products-client";
-import { getProducts } from "@/features/catalog/service";
+import { getProducts } from "@/features/catalog/catalog.service";
 import { createProductsBreadcrumb } from "@/features/catalog/utils";
 import {
   CollectionPageSchema,

@@ -1,5 +1,6 @@
 import { PaginationData } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
+import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 
 export type UserRole = "USER";
 
@@ -204,7 +205,7 @@ export type CurrencyOption = {
 };
 
 /* RESPONSE & PAYLOAD TYPES */
-
+// /orders page
 export interface OrdersPageApiResponse {
   data: Order[];
   pagination: PaginationData;
@@ -222,4 +223,14 @@ export interface TopupResponsePayload {
 
 export interface TopupResponseResponse {
   success: boolean;
+}
+
+export interface RafflesPageApiResponse {
+  data: Raffle[];
+  pagination: PaginationData;
+  filters: FilterGroupConfig[];
+}
+
+export interface RaffleDetailPageApiResponse {
+  data: Raffle;
 }

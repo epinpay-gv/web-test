@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import {
-  mockMetadata,
-  rafflesMockData,
-  rafflesFilters,
+  userRafflesMockData,
+  userRafflesFilters,
 } from "@/mocks";
 import { PaginationData } from "@/types/types";
 
@@ -12,9 +11,9 @@ export async function GET(req: Request) {
 
   // pagination
   const page = Number(searchParams.get("page") ?? 1);
-  const perPage = Number(searchParams.get("perPage") ?? 12);
+  const perPage = Number(searchParams.get("perPage") ?? 6);
 
-  const data = [...rafflesMockData];
+  const data = [...userRafflesMockData];
 
   // --- PAGINATION ---
   const totalCount = data.length;
@@ -29,7 +28,6 @@ export async function GET(req: Request) {
   await new Promise((r) => setTimeout(r, 300));
 
   return NextResponse.json({
-    metadata: mockMetadata.find((m) => m.pageId === 4),
     data: paginatedData,
     pagination: {
       count: totalCount,
@@ -38,6 +36,6 @@ export async function GET(req: Request) {
       total_page: totalPage,
       has_more: page < totalPage,
     } as PaginationData,
-    filters: rafflesFilters,
+    filters: userRafflesFilters,
   });
 }

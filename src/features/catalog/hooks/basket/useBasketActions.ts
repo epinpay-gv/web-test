@@ -17,7 +17,7 @@ import {
   changeQuantityService,
   addToFavoritesService,
   notifyWhenAvailableService,
-} from "../../service";
+} from "../../catalog.service";
 
 export function useBasketActions() {
   const [loading, setLoading] = useState(false);

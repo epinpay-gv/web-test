@@ -3,10 +3,8 @@ import { Pagination, Button } from "@/components/common";
 import StatusState from "@/components/common/StatusState/StatusState";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { useUrlFilters } from "@/features/filters/hooks/useUrlFilters";
-import {
-  FiltersSection,
-  OrdersSection,
-} from "@/features/user/components/orders";
+import FiltersSection from "@/features/user/components/FiltersSection";
+import { OrdersSection } from "@/features/user/components/orders";
 import { Order } from "@/features/user/user.types";
 import { PaginationData } from "@/types/types";
 import { useRouter } from "next/navigation";
@@ -14,14 +12,12 @@ import { useRouter } from "next/navigation";
 interface OrdersClientProps {
   data: Order[];
   pagination: PaginationData;
-  hasAnyOrders: boolean;
   initialFilters: FilterGroupConfig[];
 }
 
 export default function OrdersClient({
   data,
   pagination,
-  hasAnyOrders,
   initialFilters,
 }: OrdersClientProps) {
   const router = useRouter();
@@ -45,6 +41,7 @@ export default function OrdersClient({
         onStatusChange={handleSingleFilter}
         onDateRangeChange={handleDateRangeChange}
         totalCount={pagination.count}
+        isSearchAndDate={true}
       />
 
       {data.length > 0 ? (

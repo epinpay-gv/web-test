@@ -1,7 +1,7 @@
 // hooks/useForgotPassword.ts
 
 import { useState, useCallback } from 'react';
-import { authService } from '../authService';
+import { authService } from '../auth.service';
 import { ForgotPasswordFormData } from '../auth.types';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

@@ -3,7 +3,7 @@
 import { useMemo, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRegisterStore } from '../store/register.store';
-import { authService } from '../authService';
+import { authService } from '../auth.service';
 import { useLogin } from './useLogin';
 import { ValidationRules } from '../auth.types';
 

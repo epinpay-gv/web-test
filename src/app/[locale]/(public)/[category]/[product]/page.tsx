@@ -7,7 +7,7 @@ import {
   WebsiteSchema,
 } from "@/components/seo";
 import ProductClient from "./product-client";
-import { getProduct } from "@/features/catalog/service";
+import { getProduct } from "@/features/catalog/catalog.service";
 import { createProductBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";
 

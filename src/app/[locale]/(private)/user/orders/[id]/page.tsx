@@ -1,4 +1,4 @@
-import { getOrderById } from "@/features/user/service";
+import { getOrderById } from "@/features/user/user.service";
 import OrderDetailClient from "./order-detail-client";
 import { notFound } from "next/navigation";
 import UserPageHeader from "@/features/user/components/UserPageHeader";
@@ -7,6 +7,7 @@ import { createSeo } from "@/lib/seo";
 interface Props {
   params: Promise<{ id: string }>;
 }
+
 export async function generateMetadata({
   params,
 }: {

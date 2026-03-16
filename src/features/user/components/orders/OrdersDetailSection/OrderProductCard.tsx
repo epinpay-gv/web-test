@@ -8,7 +8,7 @@ import {
 } from "@/features/user/user.types";
 import { Button } from "@/components/common";
 import { Copy, Check, Eye, EyeOff } from "lucide-react";
-import { useOrderProductStatus } from "../hook/useOrderProductStatus";
+import { useOrderProductStatus } from "../../../hooks/useOrderProductStatus";
 
 interface OrderProductCardProps {
   orderId: string;

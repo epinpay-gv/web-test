@@ -1,7 +1,7 @@
 // hooks/useResetPassword.ts
 
 import { useState, useCallback, useMemo } from 'react';
-import { authService } from '../authService';
+import { authService } from '../auth.service';
 import { ResetPasswordFormData, ResetPasswordView } from '../auth.types';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

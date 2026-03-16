@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { OrderDetailResponse } from '../types';
-import { orderService } from '../service';
+import { orderService } from '../checkout.service';
 
 export function useOrderDetails(orderId: string) {
   const [order, setOrder] = useState<OrderDetailResponse | null>(null);

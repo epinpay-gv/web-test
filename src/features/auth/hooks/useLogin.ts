@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { authService } from '../authService';
+import { authService } from '../auth.service';
 import { AuthResponse, LoginFormData, UserProfile } from '../auth.types';
 import { useAuthStore } from '../store/auth.store';
 

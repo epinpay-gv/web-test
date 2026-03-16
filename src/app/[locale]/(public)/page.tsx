@@ -1,5 +1,5 @@
 import { createSeo } from "@/lib/seo";
-import { getMainPageData } from "@/features/mainpage/service";
+import { getMainPageData } from "@/features/mainpage/mainpage.service";
 import {
   BestSellersSection,
   PromotedSection,

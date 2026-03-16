@@ -4,17 +4,17 @@ import { useEffect, useState } from "react";
 import { Search } from "flowbite-react-icons/outline";
 import { Input } from "@/components/common";
 
-interface OrderSearchProps {
+interface UserPageSearchProps {
   value: string;
   onChange: (value: string) => void;
   debounceMs?: number;
 }
 
-export default function OrderSearch({
+export default function UserPageSearch({
   value,
   onChange,
   debounceMs = 400,
-}: OrderSearchProps) {
+}: UserPageSearchProps) {
   const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
