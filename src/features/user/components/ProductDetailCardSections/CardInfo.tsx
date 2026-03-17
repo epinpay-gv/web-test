@@ -7,41 +7,22 @@ interface CardInfoProps {
 }
 export default function CardInfo({ product }: CardInfoProps) {
   return (
-    <div className="flex items-center gap-4 flex-1 min-w-0">
-      <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-(--bg-neutral-secondary) shrink-0">
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          className="object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = "none";
-          }}
-        />
-      </div>
-
-      <div className="flex flex-col gap-1 min-w-0">
-        <span className="text-sm font-semibold text-(--text-body) line-clamp-2 wrap-break-word">
+    <div className="flex items-center gap-4 md:w-105.5 text-(--text-body)">
+      <Image src={product.imageUrl} alt={product.name} width={72} height={72} className="rounded-lg"/>
+      <div className="flex flex-col gap-2">
+        <div className="text-sm font-semibold line-clamp-2 wrap-break-word h-10.5">
           {product.name}
-        </span>
+        </div>
 
-        {product.description && (
-          <span className="text-xs text-(--text-body) truncate">
-            {product.description}
-          </span>
-        )}
-
-        <div className="flex flex-wrap items-center gap-2 text-xs text-(--text-body)">
-          <span className="inline-flex items-center gap-1 bg-(--bg-neutral-primary-soft) border border-(--border-default) px-1 py-0.5 rounded-sm">
+        <div className="flex justify-between text-xs text-(--text-body)">
+          <div className="flex gap-2">
             {PRODUCT_CATEGORY_LABELS[product.category]}
-          </span>
-          {product.region && (
-            <span className="truncate max-w-30">{product.region}</span>
-          )}
-          <span className="font-semibold items-end">
+            <div>{product.region}</div>
+          </div>
+          <div className="font-semibold">
             {product.currency}
             {product.price}
-          </span>
+          </div>
         </div>
       </div>
     </div>

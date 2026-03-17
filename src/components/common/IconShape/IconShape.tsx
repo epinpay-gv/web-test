@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils";
 
 interface IconShapeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "circle" | "square";
-  label?: string;
-  color?: "green" | "red" | "brand" | "yellow" | "gray" | "dark" | "white" | "custom";
+  color?: "green" | "red" | "brand" | "yellow" | "gray" | "dark" | "white" | "custom" | "secondary";
   customColor?: string;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
   icon: React.ElementType;
@@ -19,6 +18,7 @@ const colorMap = {
   gray: "bg-(--bg-neutral-tertiary) text-(--text-body)",
   dark: "bg-(--bg-dark) text-(--text-white)",
   white: "bg-(--bg-neutral-primary-medium) text-(--text-body) border border-(--border-default-medium)",
+  secondary: "border bg-(--bg-neutral-secondary-medium) border-(--border-default-medium)",
   custom: "",
 };
 
@@ -33,7 +33,6 @@ const sizeMap = {
 
 export const IconShape = ({
   variant = "square",
-  label,
   color = "green",
   customColor,
   size = "md",

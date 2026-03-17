@@ -14,7 +14,7 @@ export default function CardStatus({ product }: CardStatusProps) {
   const statusColor = ITEM_DISPLAY_COLORS[displayStatus];
 
   return (
-    <div className="flex items-center justify-between text-sm">
+    <div className="flex md:flex-col md:items-start items-center justify-between md:justify-center text-sm">
       <span className="text-(--text-body)">Sipariş durumu</span>
       <span className={`font-medium ${statusColor}`}>{statusLabel}</span>
     </div>

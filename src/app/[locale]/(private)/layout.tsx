@@ -18,7 +18,7 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
     <div className="min-h-screen bg-muted/20">
       <Header />
 
-      <div className="mx-auto flex max-w-322 gap-6 py-8 px-4">
+      <div className="mx-auto flex max-w-322 gap-6 py-8 md:px-4">
         {/* SOL PANEL */}
         <Sidebar
           data={userMenu}
@@ -33,7 +33,7 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
         />
 
         {/* SAĞ İÇERİK */}
-        <main className="w-full rounded-2xl bg-(--bg-neutral-primary-soft) p-6 lg:w-239">
+        <main className="w-full md:rounded-2xl bg-(--bg-neutral-primary-soft) p-6 md:w-239">
           <PageAnimate>{children}</PageAnimate>
         </main>
       </div>

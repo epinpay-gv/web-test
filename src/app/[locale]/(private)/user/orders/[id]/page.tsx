@@ -11,7 +11,7 @@ interface Props {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string, id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params;
 
@@ -23,17 +23,19 @@ export async function generateMetadata({
   });
 }
 
-
 export default async function OrderDetailPage({ params }: Props) {
   const { id } = await params;
   const res = await getOrderById(id);
 
-  if (!res?.data) notFound(); 
+  if (!res?.data) notFound();
 
   return (
-    <div>
-      <UserPageHeader title="Siparişlerim" />
+    <>
+      <div className="hidden md:block">
+        <UserPageHeader title="Siparişlerim" />
+      </div>
+      <div className="block md:hidden"></div>
       <OrderDetailClient order={res.data} />
-    </div>
+    </>
   );
 }

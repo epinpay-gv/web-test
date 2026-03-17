@@ -5,7 +5,6 @@ import { Copy, EyeOff } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 
 interface ActionBoxProps {
-  type: "topup" | "code";
   topUpSelection?: "disputed" | "confirmed";
   handleCopyCode: () => void;
   handleConfirm: (payload: TopupResponsePayload) => void;
@@ -18,8 +17,18 @@ interface ActionBoxProps {
 
 }
 
+export type OrderItemStatus =
+  | "PENDING_PAYMENT"      // Beklemede       
+  | "PAID"                 // Beklemede
+  | "EPIN_READY"           // Teslim Edildi
+  | "AWAITING_DELIVERY"    // Beklemede
+  | "DELIVERED"            // Teslim Edildi
+  | "COMPLETED"            // Teslim Edildi
+  | "DISPUTED"             // Beklemede
+  | "TIMEOUT"              // İptal Edildi
+  | "CANCELLED";           // İptal Edildi
+
 export default function ActionBox({
-  type,
   topUpSelection,
   handleCopyCode,
   handleConfirm,
@@ -30,9 +39,17 @@ export default function ActionBox({
   setCodeVisible,
   maskedCode
 }: ActionBoxProps) {
+  const productCancelled = ["CANCELLED", "TIMEOUT"].includes(product.status);
+  const productWaiting = ["PAID", "PENDING_PAYMENT", "AWAITING_DELIVERY", "DISPUTED"].includes(product.status);
+  const productCompleted = ["EPIN_READY", "DELIVERED", "COMPLETED" ].includes(product.status);
+
+
+  const showTopupBox = (product.itemType === "TOP_UP" || product.itemType === "DROPSHIPPING") && productWaiting;
+  const showEpinBox = product.itemType === "NORMAL" && productCompleted ;
+
   return (
     <>
-      {type === "topup" && (
+      {showTopupBox && (
         <div className="flex flex-col gap-2 items-end border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
           <span className="text-(--text-body) text-sm">
             Ürünü teslim aldınız mı?
@@ -48,7 +65,7 @@ export default function ActionBox({
                 })
               }
               disabled={topUpSelection === "disputed"}
-              className="rounded-2xl"
+              className="rounded-2xl flex-1"
             />
             <Button
               text="Teslim Almadım"
@@ -56,7 +73,7 @@ export default function ActionBox({
               variant="warning"
               onClick={() => handleDispute()}
               disabled={topUpSelection === "confirmed"}
-              className="whitespace-nowrap rounded-2xl"
+              className="whitespace-nowrap rounded-2xl flex-1"
             />
           </div>
           {topUpSelection === "disputed" ? (
@@ -75,7 +92,7 @@ export default function ActionBox({
           )}
         </div>
       )}
-      {type === "code" && (
+      {showEpinBox && (
         <div className="flex flex-col gap-2 items-end border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
           <span className="text-(--text-body) text-sm">ürün kodu</span>
           <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-(--bg-success)">
