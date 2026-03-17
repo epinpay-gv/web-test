@@ -8,7 +8,6 @@ import {
   ActionButtons,
   OutOfStockSection,
   CartActionButtons,
-  TopupInfoForm,
 } from "./CardSections";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -18,8 +17,6 @@ import {
   NotifyWhenAvailablePayload,
   ChangeQuantityPayload,
 } from "@/features/catalog/catalog.types";
-import { Modal } from "../../Modal/Modal";
-import { useState } from "react";
 
 interface ProductCardProps {
   isLoading?: boolean;
@@ -32,7 +29,6 @@ interface ProductCardProps {
   changeQuantity: (payload: ChangeQuantityPayload) => void;
   isReadOnly?: boolean;
   onRemove?: () => void;
-  onClose?: () => void;
 }
 
 const sizeClasses = {
@@ -54,7 +50,6 @@ export default function ProductCard({
   changeQuantity,
   isReadOnly,
   onRemove,
-  onClose,
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
 
@@ -72,8 +67,6 @@ export default function ProductCard({
     isHorizontal ? "flex-row gap-4" : "flex-col justify-start",
     cardSizeClass,
   );
-
-  const [isOpen, setIsOpen] = useState(false);
 
 
 
@@ -139,17 +132,6 @@ export default function ProductCard({
           </div>
         )}
       </div>
-      {isOpen && onClose && (
-        <Modal
-          open={isOpen}
-          onClose={onClose}
-          title={"Bilgilerini Gir"}
-          theme="info"
-          size="md"
-        >
-          <TopupInfoForm />
-        </Modal>
-      )}
     </>
   );
 

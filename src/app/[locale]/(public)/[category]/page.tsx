@@ -26,10 +26,10 @@ export async function generateMetadata({
   const res = await getCategory(search, category);
 
   return createSeo({
-    title: res.category.translation.metaTitle,
-    description: res.category.translation.metaDescription,
+    title: res.category?.translation?.metaTitle,
+    description: res.category?.translation?.metaDescription,
     canonical: `/${locale}/${category}`,
-    locale: res.category.translation.locale,
+    locale: res.category?.translation?.locale,
   });
 }
 
@@ -109,21 +109,21 @@ export default async function CategoryPage({
       <BreadcrumbSchema items={breadcrumbItems} />
       <CollectionPageSchema
         pageUrl={pageUrl}
-        name={res.category.translation.metaTitle}
-        description={res.category.translation.metaDescription}
+        name={res.category?.translation?.metaTitle}
+        description={res.category?.translation?.metaDescription}
         locale={locale}
         numberOfItems={4}
         items={seoCollectionItems}
       />
       <ItemListSchema
         pageUrl={pageUrl}
-        name={res.category.translation.metaTitle}
+        name={res.category?.translation?.metaTitle}
         numberOfItems={0}
         items={seoListItems}
       />
       <FaqSchema
         pageUrl={pageUrl}
-        faqData={res.category.translation.faq || []}
+        faqData={res.category?.translation?.faq || []}
       />
 
       {/* Page Content */}

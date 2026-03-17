@@ -33,21 +33,21 @@ export default function SeoSection({ initialCategory }: SeoSectionProps) {
 
   return (
     <div className="flex flex-col gap-10 pb-10 px-4 md:px-4">
-      {initialCategory.translation.description && (
+      {initialCategory?.translation?.description && (
         <BoxWrapper title={t("productDescription")}>
           <ExpandableContent maxHeight={400}>
             <div dangerouslySetInnerHTML={{ __html: categoryDescription }} />
           </ExpandableContent>
         </BoxWrapper>
       )}
-      {initialCategory.translation.activation && (
+      {initialCategory?.translation?.activation && (
         <BoxWrapper title={t("howToActivate")}>
           <ExpandableContent maxHeight={400}>
             <div dangerouslySetInnerHTML={{ __html: activationDescription }} />
           </ExpandableContent>
         </BoxWrapper>
       )}
-      {initialCategory.translation.faq && (
+      {initialCategory?.translation?.faq && (
         <BoxWrapper title={t("faq")}>
           {initialCategory.translation.faq.map((item) => (
             <AccordionItem key={item.id} title={item.name}>
