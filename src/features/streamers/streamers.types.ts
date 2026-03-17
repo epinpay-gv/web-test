@@ -62,7 +62,10 @@ export interface Packages {
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  
   details: PackageDetails[];
+
+  description: string; //! backende eklenecek
 }
 
 // 5. package_details — Versiyonlanmış paket iş kuralları
@@ -93,6 +96,8 @@ export interface Stream {
   streamerId: string;
   full_name: string;
   nick_name: string;
+  avatar_url: string;
+  isEpinpayStreamer: boolean;
   streamURl: string;
 }
 
