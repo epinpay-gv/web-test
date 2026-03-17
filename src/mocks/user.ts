@@ -34,6 +34,20 @@ const MOCK_USERS: Record<string, MockUser> = {
     role: 'admin',
     createdAt: '2024-01-01T00:00:00Z',
   },
+  'demo@test.com': {
+    uid: 'mock-uid-004',
+    email: 'demo@test.com',
+    displayName: 'Demo User',
+    role: 'user',
+    createdAt: '2024-02-01T00:00:00Z',
+  },
+  'volgaaytac@gmail.com': {
+    uid: 'mock-uid-005',
+    email: 'volgaaytac@gmail.com',
+    displayName: 'Volga Aytac',
+    role: 'admin',
+    createdAt: '2024-02-15T00:00:00Z',
+  },
 };
 
 /**
