@@ -68,7 +68,6 @@ export interface Packages {
   description: string; //! backende eklenecek
 }
 
-// 5. package_details — Versiyonlanmış paket iş kuralları
 export interface PackageDetails {
   id: string;
   package_id: string;
@@ -82,7 +81,6 @@ export interface PackageDetails {
   updated_by: string;
 }
 
-// 6. package_criteria — Admin tarafından tanımlanan kriter havuzu
 export interface PackageCriteria {
   id: string;
   name: string;

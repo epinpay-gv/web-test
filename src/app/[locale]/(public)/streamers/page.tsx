@@ -35,7 +35,7 @@ export default async function StreamersPage({
       <WebsiteSchema locale={locale} description={res.metadata.title} />
 
       {/* Page Content */}
-      {/* <StreamersClientPage data={res.data} isLoading={false} /> */}
+      <StreamersClientPage data={res.data} isLoading={false} />
     </>
   );
 }
