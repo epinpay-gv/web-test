@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     // Mock session token üret
     const sessionToken = generateMockSessionToken(user);
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
         message: 'Giriş başarılı.',
@@ -51,6 +51,17 @@ export async function POST(req: NextRequest) {
       },
       { status: 200 }
     );
+
+    // httpOnly cookie set et - Bu sayede tarayıcıdan manipüle edilemez
+    response.cookies.set('accessToken', sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24, // 24 saat
+      path: '/',
+    });
+
+    return response;
   } catch (error) {
     console.error('[login] Unexpected error:', error);
     return NextResponse.json(
