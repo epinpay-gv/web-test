@@ -3,12 +3,15 @@ import { BannerSection } from "@/features/raffles/components";
 import {
   MainBannerLeft,
   MainBannerRight,
+  Platforms,
 } from "@/features/streamers/components";
+import { usePlatform } from "@/features/streamers/hooks/usePlatform";
 import { useStreamerLoop } from "@/features/streamers/hooks/useStreamerLoop";
 import {
+  StreamPlatform,
+  Streamers,
   Packages,
   Stream,
-  Streamers,
 } from "@/features/streamers/streamers.types";
 import { FAQ } from "@/types/types";
 
@@ -16,7 +19,7 @@ interface StreamersClientPageProps {
   isLoading?: boolean;
   data: {
     mainBanner: Stream[];
-    streams: Stream[];
+    streams: { platforms: StreamPlatform[]; streams: Stream[] };
     epinpayStreamer: Streamers[];
     packages: Packages[];
     faq: FAQ[];
@@ -32,8 +35,14 @@ export default function StreamersClientPage({
     data.mainBanner,
   );
 
+  // PLATFORMS DATA
+  const { activePlatform, activeStreamList, selectPlatform } = usePlatform(
+    data.streams.platforms,
+    data.streams.streams,
+  );
+
   return (
-    <>
+    <div className="flex flex-col gap-10">
       {/* MAIN BANNER */}
       <BannerSection
         accentColor="#8B0836"
@@ -46,17 +55,23 @@ export default function StreamersClientPage({
         }
         right={
           <MainBannerRight
-            key={activeStream?.streamerId}   
+            key={activeStream?.streamerId}
             data={activeStream?.streamURl ?? ""}
           />
         }
       />
       {/* PLATFORMS */}
+      <Platforms
+        activePlatform={activePlatform}
+        platforms={data.streams.platforms}
+        streamsToShow={activeStreamList}
+        onClick={selectPlatform}
+      />
       {/* FORM BANNER */}
       {/* EPINPAY STREAMERS */}
       {/* STREAMER PACKAGES */}
       {/* HOW TO */}
       {/* FAQ */}
-    </>
+    </div>
   );
 }

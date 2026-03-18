@@ -62,7 +62,7 @@ export interface Packages {
   is_active: boolean;
   created_at: string;
   updated_at: string;
-  
+
   details: PackageDetails[];
 
   description: string; //! backende eklenecek
@@ -96,8 +96,18 @@ export interface Stream {
   nick_name: string;
   avatar_url: string;
   isEpinpayStreamer: boolean;
+  streamerLeague?: StreamerLeague;
   streamURl: string;
+  platform_value: string;
 }
+
+export interface StreamPlatform {
+  icon: string;
+  platform_value: string; //tiktok
+  platform_label: string; //TikTok
+}
+
+export type StreamerLeague = "rookie" | "bronze" | "silver" | "gold" | "platinum";
 
 /* RESPONSE & PAYLOAD TYPES */
 
@@ -105,7 +115,7 @@ export interface StreamersApiResponse {
   metadata: PageMetadata;
   data: {
     mainBanner: Stream[];
-    streams: Stream[];
+    streams: { platforms: StreamPlatform[]; streams: Stream[] };
     epinpayStreamer: Streamers[];
     packages: Packages[];
     faq: FAQ[];

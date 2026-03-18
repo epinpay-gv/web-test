@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockMetadata, mockStreams } from "@/mocks";
+import { mockMetadata, mockStreams, mockPlatforms } from "@/mocks";
 
 export async function GET() {
   // MAIN BANNER
@@ -12,7 +12,7 @@ export async function GET() {
     metadata: mockMetadata.find((m) => m.pageId === 5),
     data: {
       mainBanner: mainBannerData,
-      streams: mockStreams,
+      streams: { platforms: mockPlatforms, streams: mockStreams },
       epinpayStreamer: [],
       packages: [],
       faq: [],
