@@ -18,7 +18,7 @@ export default function Platforms({
   return (
     <div className="bg-(--bg-neutral-secondary-medium) py-16 mx-auto w-full">
       <div className="max-w-5xl flex flex-col gap-10 items-center mx-auto">
-        <h2 className="text-4xl text-center">Platformlarımız</h2>
+        <h2 className="text-4xl text-center font-bold">Platformlarımız</h2>
         {/* LABEL BUTTONS */}
         <div className="flex flex-wrap gap-2">
           {platforms?.map((i) => (
@@ -34,7 +34,7 @@ export default function Platforms({
         {/* VIDEO GRID */}
         <div className="grid grid-cols-3 gap-6">
           {streamsToShow?.map((i) => (
-            <div key={i.streamerId}>
+            <div key={i.streamer.streamerId}>
               <StreamCard
                 data={i}
                 variant="detailed"

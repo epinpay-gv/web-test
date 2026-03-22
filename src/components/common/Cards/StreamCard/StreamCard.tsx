@@ -51,10 +51,10 @@ export default function StreamCard({
           className="w-full h-full block"
           allowFullScreen
           allow="autoplay; fullscreen"
-          title={data.full_name}
+          title={data.streamer.full_name}
         />
       </div>
-      {variant === "detailed" && <StreamerInfo data={data} />}
+      {variant === "detailed" && <StreamerInfo data={data.streamer} />}
     </div>
   );
 }

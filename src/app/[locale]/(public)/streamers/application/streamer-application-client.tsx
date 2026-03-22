@@ -17,7 +17,7 @@ import {
 } from "@/features/streamers/streamers.types";
 import { FAQ } from "@/types/types";
 
-interface StreamersClientPageProps {
+interface StreamerApplicationClientPageProps {
   isLoading?: boolean;
   data: {
     mainBanner: Stream[];
@@ -28,10 +28,10 @@ interface StreamersClientPageProps {
   };
 }
 
-export default function StreamersClientPage({
+export default function StreamerApplicationClientPage({
   isLoading = false,
   data,
-}: StreamersClientPageProps) {
+}: StreamerApplicationClientPageProps) {
   // MAIN BANNER DATA
   const { activeIndex, activeStream, selectStreamer } = useStreamerLoop(
     data.mainBanner,
@@ -57,12 +57,11 @@ export default function StreamersClientPage({
         }
         right={
           <MainBannerRight
-            key={activeStream?.streamer.streamerId}
+            key={activeStream?.streamerId}
             data={activeStream?.streamURl ?? ""}
           />
         }
       />
-
       {/* PLATFORMS */}
       <Platforms
         activePlatform={activePlatform}
@@ -70,13 +69,10 @@ export default function StreamersClientPage({
         streamsToShow={activeStreamList}
         onClick={selectPlatform}
       />
-
       {/* FORM BANNER */}
       <FormBanner />
-
       {/* EPINPAY STREAMERS */}
-      <EpinpayStreamers data={data.epinpayStreamer}/>
-
+      <EpinpayStreamers data={[]}/>
       {/* STREAMER PACKAGES */}
       {/* HOW TO */}
       {/* FAQ */}

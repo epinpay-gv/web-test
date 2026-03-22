@@ -90,24 +90,36 @@ export interface PackageCriteria {
   updated_by: string;
 }
 
+// ! alttaki tipler backendde yok, front için gerekli sadeleştirilmiş halleri
 export interface Stream {
-  streamerId: string;
-  full_name: string;
-  nick_name: string;
-  avatar_url: string;
-  isEpinpayStreamer: boolean;
-  streamerLeague?: StreamerLeague;
+  streamer: BasicStreamer;
   streamURl: string;
   platform_value: string;
 }
 
+export interface BasicStreamer {
+  streamerId: string;
+  full_name: string;
+  nick_name: string;
+  avatar_url: string;
+  package: StreamerLeague;
+  followerCount: number;
+  isLive: boolean;
+  isEpinpayStreamer: boolean;
+}
 export interface StreamPlatform {
   icon: string;
   platform_value: string; //tiktok
   platform_label: string; //TikTok
 }
 
-export type StreamerLeague = "rookie" | "bronze" | "silver" | "gold" | "platinum";
+// ! backendden böyle dönmeli (imajlarla eşleşmesi için böyle bir veri gerekiyor ileride)
+export type StreamerLeague =
+  | "rookie"
+  | "bronze"
+  | "silver"
+  | "gold"
+  | "platinum";
 
 /* RESPONSE & PAYLOAD TYPES */
 
@@ -116,7 +128,7 @@ export interface StreamersApiResponse {
   data: {
     mainBanner: Stream[];
     streams: { platforms: StreamPlatform[]; streams: Stream[] };
-    epinpayStreamer: Streamers[];
+    epinpayStreamer: BasicStreamer[];
     packages: Packages[];
     faq: FAQ[];
   };

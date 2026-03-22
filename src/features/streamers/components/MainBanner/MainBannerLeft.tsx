@@ -37,7 +37,7 @@ export default function MainBannerLeft({
         </p>
         {data.map((stream, index) => (
           <StreamerCard
-            key={stream.streamerId}
+            key={stream.streamer.streamerId}
             data={stream}
             isActive={index === activeIndex}
             onSelect={() => onSelect(index)}
