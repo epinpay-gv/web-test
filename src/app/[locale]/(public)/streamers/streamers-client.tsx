@@ -7,6 +7,7 @@ import {
   FormBanner,
   EpinpayStreamers,
   StreamerPackages,
+  ApplicationSteps,
 } from "@/features/streamers/components";
 import { usePlatform } from "@/features/streamers/hooks/usePlatform";
 import { useStreamerLoop } from "@/features/streamers/hooks/useStreamerLoop";
@@ -94,6 +95,8 @@ export default function StreamersClientPage({
         />
 
         {/* HOW TO */}
+        <ApplicationSteps/>
+        
         {/* FAQ */}
       </div>
     </div>

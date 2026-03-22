@@ -4,6 +4,7 @@ import Platforms from "./Platforms/Platforms";
 import FormBanner from "./FormBanner/FormBanner";
 import EpinpayStreamers from "./EpinpayStreamers/EpinpayStreamers";
 import StreamerPackages from "./StreamerPackages/StreamerPackages";
+import ApplicationSteps from "./ApplicationSteps/ApplicationSteps";
 
 export {
   MainBannerLeft,
@@ -12,4 +13,5 @@ export {
   FormBanner,
   EpinpayStreamers,
   StreamerPackages,
+  ApplicationSteps,
 };
