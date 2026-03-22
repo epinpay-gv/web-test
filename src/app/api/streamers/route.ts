@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockMetadata, mockStreams, mockPlatforms, mockEpinpayStreamers } from "@/mocks";
+import { mockMetadata, mockStreams, mockPlatforms, mockEpinpayStreamers, mockPackages } from "@/mocks";
 
 export async function GET() {
   // MAIN BANNER
@@ -14,7 +14,7 @@ export async function GET() {
       mainBanner: mainBannerData,
       streams: { platforms: mockPlatforms, streams: mockStreams },
       epinpayStreamer: mockEpinpayStreamers,
-      packages: [],
+      packages: mockPackages,
       faq: [],
     },
   });

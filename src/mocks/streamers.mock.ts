@@ -16,7 +16,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "bronze",
       followerCount: 2147527,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
     platform_value: "epinpay",
@@ -30,7 +30,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "gold",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "epinpay",
@@ -44,7 +44,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "rookie",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
     platform_value: "epinpay",
@@ -58,7 +58,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
     platform_value: "epinpay",
@@ -72,7 +72,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "gold",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "epinpay",
@@ -86,7 +86,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "rookie",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
     platform_value: "epinpay",
@@ -100,7 +100,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
     platform_value: "epinpay",
@@ -114,7 +114,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "platinum",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "epinpay",
@@ -128,7 +128,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "rookie",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
     platform_value: "epinpay",
@@ -144,7 +144,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
     platform_value: "kick",
@@ -158,7 +158,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "kick",
@@ -172,7 +172,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "rookie",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
     platform_value: "kick",
@@ -186,7 +186,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "kick",
@@ -200,7 +200,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "kick",
@@ -214,7 +214,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "kick",
@@ -228,7 +228,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "kick",
@@ -242,7 +242,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "kick",
@@ -256,7 +256,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
     platform_value: "kick",
@@ -272,7 +272,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1",
     platform_value: "youtube",
@@ -286,7 +286,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "gold",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://stream.example.com/emmaw",
     platform_value: "youtube",
@@ -300,7 +300,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://stream.example.com/yukilive",
     platform_value: "youtube",
@@ -316,9 +316,10 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
-    streamURl: "https://player.twitch.tv/?channel=shadowkekw&parent=localhost&autoplay=true&muted=true",
+    streamURl:
+      "https://player.twitch.tv/?channel=shadowkekw&parent=localhost&autoplay=true&muted=true",
     platform_value: "twitch",
   },
   {
@@ -330,7 +331,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: false,
       package: "bronze",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://stream.example.com/noahbgaming",
     platform_value: "twitch",
@@ -344,7 +345,7 @@ export const mockStreams: Stream[] = [
       isEpinpayStreamer: true,
       package: "silver",
       followerCount: 0,
-      isLive: false
+      isLive: false,
     },
     streamURl: "https://stream.example.com/lenamstream",
     platform_value: "twitch",
@@ -382,8 +383,118 @@ export const mockPackages: Packages[] = [
     is_active: true,
     created_at: "2026-02-10T08:00:00",
     updated_at: "2026-02-10T08:00:00",
-    details: [],
-    description: "",
+    description: [
+      "Yayın esnasında sözlü tanıtım.",
+      "Yayın süresinin tamamı boyunca Epinpay logosu kullanma.",
+      "Sabit açıklama kısmına link yerleştirme.",
+      "Hakkında kısmına firma tanıtım afişi yerleştirme.",
+      "Bir ay içinde toplam 20 farklı günde, her biri en az 5 saat olmak üzere yayın yapılmalıdır.",
+    ],
+    rewardCurrenct: "$",
+    detail_criteria: [
+      {
+        id: "c-001",
+        name: "Takipçi Aralığı",
+        value: "2000 - 5000",
+      },
+      {
+        id: "c-002",
+        name: "Ortalama İzlenme",
+        value: "100 - 200",
+      },
+    ],
+    rewardMin: "2000",
+    rewardMax: "4000",
+  },
+  {
+    id: "package-002",
+    name: "Silver",
+    order_rank: 2,
+    is_active: true,
+    created_at: "2026-02-10T08:00:00",
+    updated_at: "2026-02-10T08:00:00",
+    description: [
+      "Yayın esnasında sözlü tanıtım.",
+      "Yayın süresinin tamamı boyunca Epinpay logosu kullanma.",
+      "Sabit açıklama kısmına link yerleştirme.",
+      "Hakkında kısmına firma tanıtım afişi yerleştirme.",
+      "Bir ay içinde toplam 15 farklı günde, her biri en az 5 saat olmak üzere yayın yapılmalıdır.",
+    ],
+    rewardCurrenct: "$",
+    detail_criteria: [
+      {
+        id: "c-001",
+        name: "Takipçi Aralığı",
+        value: "2000 - 5000",
+      },
+      {
+        id: "c-002",
+        name: "Ortalama İzlenme",
+        value: "100 - 200",
+      },
+    ],
+    rewardMin: "4000",
+    rewardMax: "6000",
+  },
+  {
+    id: "package-003",
+    name: "Gold",
+    order_rank: 3,
+    is_active: true,
+    created_at: "2026-02-10T08:00:00",
+    updated_at: "2026-02-10T08:00:00",
+    description: [
+      "Yayın esnasında sözlü tanıtım.",
+      "Yayın süresinin tamamı boyunca Epinpay logosu kullanma.",
+      "Sabit açıklama kısmına link yerleştirme.",
+      "Hakkında kısmına firma tanıtım afişi yerleştirme.",
+      "Bir ay içinde toplam 10 farklı günde, her biri en az 5 saat olmak üzere yayın yapılmalıdır.",
+    ],
+    rewardCurrenct: "$",
+    detail_criteria: [
+      {
+        id: "c-001",
+        name: "Takipçi Aralığı",
+        value: "2000 - 5000",
+      },
+      {
+        id: "c-002",
+        name: "Ortalama İzlenme",
+        value: "100 - 200",
+      },
+    ],
+    rewardMin: "6000",
+    rewardMax: "8000",
+  },
+  {
+    id: "package-004",
+    name: "Platinum",
+    order_rank: 4,
+    is_active: true,
+    created_at: "2026-02-10T08:00:00",
+    updated_at: "2026-02-10T08:00:00",
+    description: [
+      "Yayın esnasında sözlü tanıtım.",
+      "Yayın süresinin tamamı boyunca Epinpay logosu kullanma.",
+      "Sabit açıklama kısmına link yerleştirme.",
+      "Hakkında kısmına firma tanıtım afişi yerleştirme.",
+      "Bir ay içinde toplam 10 farklı günde, her biri en az 8 saat olmak üzere yayın yapılmalıdır.",
+    ],
+    rewardCurrenct: "$",
+    detail_criteria: [
+      {
+        id: "c-001",
+        name: "Takipçi Aralığı",
+        value: "2000 - 5000",
+      },
+      {
+        id: "c-002",
+        name: "Ortalama İzlenme",
+        value: "100 - 200",
+      },
+    ],
+    rewardMin: "8000",
+    rewardMax: "10000",
   },
 ];
 
@@ -396,7 +507,7 @@ export const mockEpinpayStreamers: BasicStreamer[] = [
     package: "bronze",
     followerCount: 120,
     isLive: false,
-    isEpinpayStreamer: true
+    isEpinpayStreamer: true,
   },
   {
     streamerId: "streamer-EP2",
@@ -406,7 +517,7 @@ export const mockEpinpayStreamers: BasicStreamer[] = [
     package: "gold",
     followerCount: 185220,
     isLive: false,
-    isEpinpayStreamer: true
+    isEpinpayStreamer: true,
   },
   {
     streamerId: "streamer-EP3",
@@ -416,7 +527,7 @@ export const mockEpinpayStreamers: BasicStreamer[] = [
     package: "rookie",
     followerCount: 12458,
     isLive: false,
-    isEpinpayStreamer: true
+    isEpinpayStreamer: true,
   },
   {
     streamerId: "streamer-EP4",
@@ -426,7 +537,7 @@ export const mockEpinpayStreamers: BasicStreamer[] = [
     package: "platinum",
     followerCount: 42752,
     isLive: false,
-    isEpinpayStreamer: true
+    isEpinpayStreamer: true,
   },
   {
     streamerId: "streamer-EP5",
@@ -436,6 +547,6 @@ export const mockEpinpayStreamers: BasicStreamer[] = [
     package: "silver",
     followerCount: 235474,
     isLive: true,
-    isEpinpayStreamer: true
-  }
+    isEpinpayStreamer: true,
+  },
 ];

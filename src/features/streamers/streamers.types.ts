@@ -63,9 +63,11 @@ export interface Packages {
   created_at: string;
   updated_at: string;
 
-  details: PackageDetails[];
-
-  description: string; //! backende eklenecek
+  description: string[]; //! backende eklenecek
+  rewardMin: string; //! backende eklenecek
+  rewardMax: string; //! backende eklenecek
+  rewardCurrenct: string; //! backende eklenecek
+  detail_criteria: BasicPackageCriteria[]; //! backende eklenecek
 }
 
 export interface PackageDetails {
@@ -79,6 +81,7 @@ export interface PackageDetails {
   is_starter: boolean;
   created_by: string;
   updated_by: string;
+  detail_criteria: PackageCriteria[];
 }
 
 export interface PackageCriteria {
@@ -106,6 +109,12 @@ export interface BasicStreamer {
   followerCount: number;
   isLive: boolean;
   isEpinpayStreamer: boolean;
+}
+
+export interface BasicPackageCriteria{
+  id: string;
+  name: string;
+  value: string;
 }
 export interface StreamPlatform {
   icon: string;
