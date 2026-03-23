@@ -8,6 +8,7 @@ import {
   EpinpayStreamers,
   StreamerPackages,
   ApplicationSteps,
+  FAQSection,
 } from "@/features/streamers/components";
 import { usePlatform } from "@/features/streamers/hooks/usePlatform";
 import { useStreamerLoop } from "@/features/streamers/hooks/useStreamerLoop";
@@ -54,7 +55,7 @@ export default function StreamersClientPage({
 
   return (
     <div className="bg-(--bg-neutral-tertiary)">
-      <div className="flex flex-col items-center gap-10">
+      <div className="flex flex-col items-center gap-10 pb-10">
         {/* MAIN BANNER */}
         <BannerSection
           accentColor="#8B0836"
@@ -98,6 +99,7 @@ export default function StreamersClientPage({
         <ApplicationSteps/>
         
         {/* FAQ */}
+        <FAQSection data={data.faq} />
       </div>
     </div>
   );

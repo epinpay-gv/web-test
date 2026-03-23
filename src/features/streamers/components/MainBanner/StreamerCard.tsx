@@ -2,6 +2,7 @@ import { Stream } from "../../streamers.types";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/common";
 import StreamerInfo from "@/components/common/Cards/StreamCard/CardSections/StreamerInfo";
+import { Cash } from "flowbite-react-icons/outline";
 
 interface StreamerCardProps {
   data: Stream;
@@ -26,7 +27,10 @@ export default function StreamerCard({
         <Button
           text="Destek ol"
           onClick={() => router.push("/streamers/apply")}
-          className="max-w-25"
+          className="max-w-32 gap-2"
+          padding="xs"
+          iconLeft={<Cash size={16}/>}
+          variant="dark"
         />
       )}
     </div>

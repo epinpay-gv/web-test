@@ -51,11 +51,17 @@ export default function MainBannerLeft({
           text="Tüm yayıncıları gör"
           variant="white"
           onClick={() => router.push("/streamers/all-streamers")}
+          className="w-40"
+          size="sm"
+          padding="sm"
         />
         <Button
           text="Yayıncı ol"
-          variant="white"
+          variant="tertiatry"
           onClick={() => router.push("/streamers/apply")}
+          className="w-24"
+          size="sm"
+          padding="sm"
         />
       </div>
     </div>
