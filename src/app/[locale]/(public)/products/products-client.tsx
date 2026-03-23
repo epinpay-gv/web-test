@@ -52,9 +52,9 @@ export default function ProductsClient({
   const productTypeTabItems =
     tabFilters?.elements?.[0]?.type === "checkbox"
       ? tabFilters.elements[0].options.map((opt) => ({
-          label: opt.label,
-          value: opt.value,
-        }))
+        label: opt.label,
+        value: opt.value,
+      }))
       : [];
 
   const activeFilters = getActiveFilterLabels(

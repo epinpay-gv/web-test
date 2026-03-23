@@ -26,7 +26,7 @@ export function CartActionButtons({ product, changeQuantity, onRemove }: CartAct
     if (selectedQuantity === product.quantity) return;
     changeQuantity({
       productId: Number(product.id),
-      offerId: Number(product.cheapestOffer),
+      offerId: product.cheapestOffer?.id ? Number(product.cheapestOffer.id) : 0,
       action: "update",
       quantity: selectedQuantity,
     });
@@ -55,7 +55,18 @@ export function CartActionButtons({ product, changeQuantity, onRemove }: CartAct
           variant="secondary"
           size="xs"
           icon={<TrashBin size={14} className="text-(--text-body)" />}
-          onClick={() => onRemove?.()}
+          onClick={() => {
+            if (onRemove) {
+              onRemove();
+            } else {
+              changeQuantity({
+                productId: Number(product.id),
+                offerId: product.cheapestOffer?.id ? Number(product.cheapestOffer.id) : 0,
+                action: "remove",
+                quantity: product.quantity || 1,
+              });
+            }
+          }}
         />
       </div>
     </div>

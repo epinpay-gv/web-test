@@ -27,7 +27,7 @@ export function PriceSection({
           {product.fakePrice}
         </span>
       )}
-      {product.discountRate && (
+      {(product.discountRate ?? 0) > 0 && (
         <span className="text-fg-brand-strong text-sm">
           -{product.discountRate}%
         </span>

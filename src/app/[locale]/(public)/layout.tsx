@@ -1,6 +1,7 @@
 import { Footer, Header, NavMenu } from "@/components/layout";
 import PageAnimate from "@/components/common/PageAnimate/PageAnimate";
 import "@/styles/global.css";
+import { TopupModalContainer } from "@/features/catalog/components/TopupModalContainer";
 
 export default async function PublicLayout({
   children,
@@ -16,10 +17,11 @@ export default async function PublicLayout({
         <Header />
         <NavMenu />
         {/* <PageAnimate> */}
-          <main className="flex-1">{children}</main>
+        <main className="flex-1">{children}</main>
         {/* </PageAnimate> */}
         <Footer />
       </div>
+      <TopupModalContainer />
     </>
   );
 }
