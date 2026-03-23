@@ -28,6 +28,7 @@ type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl" | "full";
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
   icon?: ReactNode;
+  iconLeft?: ReactNode;
   size?: ButtonSize;
   textSize?: ButtonTextSize;
   arrows?: ButtonArrow;
@@ -108,6 +109,7 @@ const VARIANT_CLASSES: Record<
 export default function Button({
   text,
   icon,
+  iconLeft,
   textSize = "base",
   arrows,
   padding = "base",
@@ -130,6 +132,7 @@ export default function Button({
         ${className ?? ""}
       `}
     >
+      {iconLeft}
       {arrows?.left && <ArrowLeft size={arrowSize} />}
       {text && <span>{text}</span>}
       {icon}

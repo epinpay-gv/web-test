@@ -510,3 +510,9 @@ div {
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite linear;
 }
+
+/* STREAMER SAYFASI İÇİN ANİMASYON */
+@keyframes fill-bar {
+  from { width: 0% }
+  to   { width: 100% }
+}

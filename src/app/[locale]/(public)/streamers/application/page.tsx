@@ -1,7 +1,7 @@
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo";
 import { getStreamers } from "@/features/streamers/streamers.service";
 import { createSeo } from "@/lib/seo";
-import StreamersClientPage from "./streamers-client";
+import StreamerApplicationClientPage from "./streamer-application-client";
 
 export async function generateMetadata({
   params,
@@ -20,7 +20,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function StreamersPage({
+export default async function StreamerApplicationPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -35,7 +35,7 @@ export default async function StreamersPage({
       <WebsiteSchema locale={locale} description={res.metadata.title} />
 
       {/* Page Content */}
-      <StreamersClientPage data={res.data} isLoading={false} />
+      <StreamerApplicationClientPage data={res.data} isLoading={false} />
     </>
   );
 }

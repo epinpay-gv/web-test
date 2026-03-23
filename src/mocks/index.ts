@@ -6,3 +6,4 @@ export * from "./mainpage.mock";
 export * from "./metadata.mock";
 export * from "./raffles.mock";
 export * from "./user/raffles.mock";
+export * from "./streamers.mock";

@@ -1,5 +1,4 @@
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
-import { FAQ, PageMetadata, PaginationData } from "@/types/types";
+import { FAQ, PageMetadata, PaginationData, Raffle } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
 
 export interface BannerSectionData {
