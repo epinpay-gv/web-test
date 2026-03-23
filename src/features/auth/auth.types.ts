@@ -3,8 +3,6 @@ export interface RegisterFormData {
   password: string;
   passwordAgain: string;
   rememberMe: boolean;
-  name?: string;
-  surname?: string;
   referal?: string;
 }
 

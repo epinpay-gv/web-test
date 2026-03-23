@@ -30,7 +30,7 @@ export const authService = {
 
   async initiateRegister(data: RegisterFormData): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, RegisterFormData>(
-      `${BASE_URL}/register/initiate`,
+      `${BASE_URL}/email/initiate`,
       { method: 'POST', body: data },
       'Kayıt başlatılamadı'
     );
@@ -38,7 +38,7 @@ export const authService = {
 
   async verifyOtp(email: string, otpCode: string): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, { email: string; otpCode: string }>(
-      `${BASE_URL}/register/verify`,
+      `${BASE_URL}/email/verify`,
       { method: 'POST', body: { email, otpCode } },
       'OTP doğrulama başarısız'
     );
@@ -46,7 +46,7 @@ export const authService = {
 
   async resendOtp(email: string): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, { email: string }>(
-      `${BASE_URL}/register/resend`,
+      `${BASE_URL}/email/resend`,
       { method: 'POST', body: { email } },
       'OTP tekrar gönderilemedi'
     );
