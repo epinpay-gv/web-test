@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { formatDateTR } from "@/lib/utils";
 import { Pagination, NavTab } from "@/components/common";
 import { NavTabItem } from "@/components/common/NavElements/NavTabs/NavTab";
-import { PaginationData, Raffle } from "@/types/types";
+import { PaginationData, Raffle, Participation, RafflePool } from "@/types/types";
 
 const PER_PAGE = 9;
 
@@ -93,7 +93,7 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
       {selectedTab === "participations" && (
         <div className="grid grid-cols-3 gap-2 max-h-35.75 overflow-y-auto">
           {paginatedData.map((i) => {
-            const item = i as (typeof participations)[number];
+            const item = i as Participation;
             return (
               <div
                 key={item.id}
@@ -116,7 +116,7 @@ export default function ParticipantSection({ card }: ParticipantSectionProps) {
         card.status !== "ACTIVE" && (
           <div className="grid grid-cols-3 gap-2 max-h-115.75">
             {paginatedData.map((i) => {
-              const item = i as (typeof pool)[number];
+              const item = i as RafflePool;
               return (
                 <div
                   key={item.id}

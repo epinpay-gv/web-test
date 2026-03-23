@@ -1,4 +1,4 @@
-import { getLegalDocumentByType } from "@/features/legal/service/service";
+import { getLegalDocumentByType } from "@/features/legal/legal.service"; 
 import { notFound } from "next/navigation";
 import { LegalDocumentType } from "@/features/legal/types";
 

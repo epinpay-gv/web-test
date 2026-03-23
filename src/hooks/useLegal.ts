@@ -1,4 +1,5 @@
-import { getAllLegalDocuments, getLegalDocumentByType } from "@/features/legal/service/service";
+
+import { getAllLegalDocuments, getLegalDocumentByType } from "@/features/legal/legal.service";
 import { LegalDocument, LegalDocumentType } from "@/features/legal/types";
 import { useEffect, useState } from "react";
 

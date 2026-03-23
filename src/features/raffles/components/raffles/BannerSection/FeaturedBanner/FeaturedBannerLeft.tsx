@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 // renderedRafflesda hata veriyordu, o yüzden eklendi
 import { RaffleCard } from "@/components/common";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
 import { BannerSectionData } from "@/features/raffles/raffle.types";
 import RaffleCarousel from "../../SliderSection/RaffleCarousel";
+import { Raffle } from "@/types/types";
 
 interface FeaturedBannerLeftProps {
   data: BannerSectionData;

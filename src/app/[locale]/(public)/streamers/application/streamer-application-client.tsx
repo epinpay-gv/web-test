@@ -57,7 +57,7 @@ export default function StreamerApplicationClientPage({
         }
         right={
           <MainBannerRight
-            key={activeStream?.streamerId}
+            key={activeStream?.streamer.streamerId}
             data={activeStream?.streamURl ?? ""}
           />
         }

@@ -1,7 +1,7 @@
 import { Sort } from "flowbite-react-icons/outline";
 import FilterDropdownContainer from "../../filters/components/Filters/FilterDropdownContainer";
 import { useTranslations } from "next-intl";
-import { FilterGroupConfig } from "../catalog.types";
+import { FilterGroupConfig } from "@/features/filters/filters.types";
 
 interface PageTitleProps {
   data: {

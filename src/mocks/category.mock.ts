@@ -1,5 +1,4 @@
-
-import { FilterGroupConfig } from "@/features/catalog/catalog.types";
+import { FilterGroupConfig } from "@/features/filters/filters.types";
 
 export const categoryFilterGroups: FilterGroupConfig[] = [
   //TR

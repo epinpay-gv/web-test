@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SliderSectionData } from "../../../raffle.types";
 import RaffleCarousel from "./RaffleCarousel";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
+import { Raffle } from "@/types/types";
 import { useMemo } from "react";
 import DOMPurify from "dompurify";
 

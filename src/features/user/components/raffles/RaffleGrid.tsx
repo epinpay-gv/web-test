@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Button, RaffleCard } from "@/components/common";
 import { useTranslations } from "next-intl";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
+import { Raffle } from "@/types/types";
 
 interface RaffleGridProps {
   data: Raffle[];

@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { RaffleCard } from "@/components/common";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
+import { Raffle } from "@/types/types";
 
 interface RaffleCarouselProps {
   isLoading?: boolean;

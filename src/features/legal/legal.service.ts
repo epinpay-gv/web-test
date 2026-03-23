@@ -1,5 +1,5 @@
 import { legalMockData } from "@/mocks/legal.mock";
-import { LegalDocumentType } from "../types";
+import { LegalDocumentType } from "./types";
 
 export const getAllLegalDocuments = async () => {
   return legalMockData;

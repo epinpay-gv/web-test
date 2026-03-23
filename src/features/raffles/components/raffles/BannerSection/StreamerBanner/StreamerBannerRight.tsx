@@ -1,5 +1,5 @@
 import { RaffleCard } from "@/components/common";
-import { Raffle } from "@/components/common/Cards/RaffleCard/types";
+import { Raffle } from "@/types/types";
 import { BannerSectionData } from "@/features/raffles/raffle.types";
 
 interface StreamerBannerRightProps {
