@@ -68,9 +68,6 @@ export default function ProductCard({
     cardSizeClass,
   );
 
-  const [isOpen, setIsOpen] = useState(false);
-
-
   const content = (
     <>
       <ImageSection
