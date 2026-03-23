@@ -47,6 +47,12 @@
     "noResults": "aucun résultat trouvé pour",
     "productNotFound": "Produit non trouvé",
     "productNotFoundDesc": "Aucun produit trouvé correspondant à vos critères de recherche.",
+    "notFoundTitle": "Page non trouvée",
+    "notFoundDesc": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "backToHome": "Retour à l'accueil",
+    "errorTitle": "Une erreur est survenue",
+    "errorDesc": "Une erreur inattendue du serveur s'est produite. Veuillez réessayer plus tard.",
+    "tryAgain": "Réessayer",
     "noNotifications": "Aucune notification.",
     "clearSelections": "Effacer les sélections"
   },

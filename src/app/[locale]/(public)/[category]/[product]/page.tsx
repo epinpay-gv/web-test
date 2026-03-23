@@ -10,6 +10,7 @@ import ProductClient from "./product-client";
 import { getProduct } from "@/features/catalog/catalog.service";
 import { createProductBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 type Params = {
   locale: string;
@@ -28,14 +29,21 @@ export async function generateMetadata({
 }) {
   const { locale, category, product } = await params;
 
-  const res = await getProduct("", category, product);
+  try {
+    const res = await getProduct("", category, product);
 
-  return createSeo({
-    title: res.data.translation.metaTitle,
-    description: res.data.translation.metaDescription,
-    canonical: `/${locale}/${category}/${product}`,
-    locale,
-  });
+    if (!res?.data?.translation) notFound();
+
+    return createSeo({
+      title: res.data.translation.metaTitle,
+      description: res.data.translation.metaDescription,
+      canonical: `/${locale}/${category}/${product}`,
+      locale,
+    });
+  } catch (error: any) {
+    if (error.status === 404) notFound();
+    throw error;
+  }
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -44,7 +52,14 @@ export default async function ProductPage({ params }: Props) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.epinpay.com";
   const pageUrl = `${baseUrl}/${locale}/${category}/${product}`;
 
-  const res = await getProduct("", category, product);
+  let res;
+  try {
+    res = await getProduct("", category, product);
+    if (!res?.data?.translation) notFound();
+  } catch (error: any) {
+    if (error.status === 404) notFound();
+    throw error;
+  }
 
   const breadcrumbItems = createProductBreadcrumb(
     locale,

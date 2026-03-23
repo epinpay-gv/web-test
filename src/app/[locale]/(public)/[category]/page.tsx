@@ -12,6 +12,7 @@ import CategoryClient from "./category-client";
 import { createCategoryBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";
 import { extractSelectedFilterOption } from "@/features/filters/utils/filters.utils";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -23,14 +24,20 @@ export async function generateMetadata({
   const { locale, category } = await params;
   const search = await searchParams;
 
-  const res = await getCategory(search, category);
+  try {
+    const res = await getCategory(search, category);
+    if (!res?.category?.translation) notFound();
 
-  return createSeo({
-    title: res.category?.translation?.metaTitle,
-    description: res.category?.translation?.metaDescription,
-    canonical: `/${locale}/${category}`,
-    locale: res.category?.translation?.locale,
-  });
+    return createSeo({
+      title: res.category?.translation?.metaTitle,
+      description: res.category?.translation?.metaDescription,
+      canonical: `/${locale}/${category}`,
+      locale: res.category?.translation?.locale,
+    });
+  } catch (error: any) {
+    if (error.status === 404) notFound();
+    throw error;
+  }
 }
 
 export default async function CategoryPage({
@@ -44,7 +51,15 @@ export default async function CategoryPage({
   const search = await searchParams;
 
   const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/${category}`;
-  const res = await getCategory(search, category);
+
+  let res;
+  try {
+    res = await getCategory(search, category);
+    if (!res?.category?.translation) notFound();
+  } catch (error: any) {
+    if (error.status === 404) notFound();
+    throw error;
+  }
 
   // BREADCRUMB DATA
   const typeValue = Array.isArray(search.type) ? search.type[0] : search.type;

@@ -32,7 +32,9 @@ export async function baseFetcher<TResponse, TBody = undefined>(
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     const message = errorData.message || msg;
-    throw { status: res.status, message };
+    const error = new Error(message) as any;
+    error.status = res.status;
+    throw error;
   }
 
   return (await res.json()) as TResponse;
