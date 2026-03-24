@@ -26,7 +26,7 @@ export default function StreamerCard({
       {isActive && (
         <Button
           text="Destek ol"
-          onClick={() => router.push("/streamers/apply")}
+          onClick={() => router.push(`/streamers/${data.streamer.streamerId}`)}
           className="max-w-32 gap-2"
           padding="xs"
           iconLeft={<Cash size={16}/>}
