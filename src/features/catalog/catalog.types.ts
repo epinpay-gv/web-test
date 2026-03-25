@@ -55,7 +55,7 @@ export interface AddToCartPayload {
   productId: number;
   offerId: number;
   quantity: number;
-  topupData?: string;
+  topupData?: {id: number; value: string;}[];
 }
 
 export interface AddToCartResponse {
@@ -84,4 +84,12 @@ export interface ChangeQuantityPayload {
 }
 export interface NotifyWhenAvailablePayload {
   productId: number;
+}
+
+export interface TopupModalDataApiResponse{
+  data: {id: number; label: string; value: string;}[];
+}
+
+export interface TopupModalDataPayload{
+  data: {id: number; value: string;}[];
 }

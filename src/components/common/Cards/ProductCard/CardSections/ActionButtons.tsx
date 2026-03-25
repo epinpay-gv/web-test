@@ -5,6 +5,7 @@ import { AddToCartPayload } from "@/features/catalog/catalog.types";
 import { Product } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useCatalogStore } from "@/features/catalog/store/catalog.store";
+import { getTopupModalData } from "@/features/catalog/catalog.service";
 
 interface ActionButtonsProps {
   isLoading?: boolean;
@@ -22,10 +23,14 @@ export function ActionButtons({
   addToCart,
 }: ActionButtonsProps) {
   const router = useRouter();
-  const { openTopupModal } = useCatalogStore();
+  const { openTopupModal, setTopupFields } = useCatalogStore();
 
-  const handleCartAction = (callback: () => void) => {
+  const handleCartAction = async (callback: () => void) => {
     if (product.type?.toLowerCase() === "top-up" || product.type_id === 5) {
+      const res = await getTopupModalData(product.id);
+      if (res?.data) {
+        setTopupFields(res.data);
+      }
       openTopupModal(product);
     } else {
       callback();
@@ -35,8 +40,9 @@ export function ActionButtons({
   if (isLoading) {
     return (
       <div
-        className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${orientation === "horizontal" ? "flex-row" : "flex-col"
-          }`}
+        className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${
+          orientation === "horizontal" ? "flex-row" : "flex-col"
+        }`}
       >
         {/* Sepete Ekle */}
         <div className="hidden md:block w-full h-10 rounded-md bg-gray-200 shimmer" />
@@ -53,43 +59,46 @@ export function ActionButtons({
     <div
       className={`flex justify-between gap-2 ${isHorizontal ? "w-50" : ""} ${orientation === "horizontal" ? "flex-row" : "flex-col"}`}
     >
-      <Button
-        padding="sm"
-        textSize="xs"
-        variant="secondary"
-        text="Sepete Ekle"
-        className="hidden md:block w-full font-medium"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          handleCartAction(() => {
-            addToCart?.({
-              productId: product.id,
-              offerId: product.cheapestOffer?.id || 0,
-              quantity: 1,
+      {product.type_id !== 5 && (
+        <Button
+          padding="sm"
+          textSize="xs"
+          variant="secondary"
+          text="Sepete Ekle"
+          className="hidden md:block w-full font-medium"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleCartAction(() => {
+              addToCart?.({
+                productId: product.id,
+                offerId: product.cheapestOffer?.id || 0,
+                quantity: 1,
+              });
             });
-          });
-        }}
-      />
-      <Button
-        padding="sm"
-        textSize="xs"
-        variant="secondary"
-        icon={<CartPlusAlt />}
-        className="block md:hidden max-w-12"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          handleCartAction(() => {
-            addToCart?.({
-              productId: product.id,
-              offerId: product.cheapestOffer?.id || 0,
-              quantity: 1,
+          }}
+        />
+      )}
+      {product.type_id !== 5 && (
+        <Button
+          padding="sm"
+          textSize="xs"
+          variant="secondary"
+          icon={<CartPlusAlt />}
+          className="block md:hidden max-w-12"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleCartAction(() => {
+              addToCart?.({
+                productId: product.id,
+                offerId: product.cheapestOffer?.id || 0,
+                quantity: 1,
+              });
             });
-          });
-        }}
-      />
-      {/* // TODO : buraya router.push eklenecek ve /checkout ' a yönlendirecek */}
+          }}
+        />
+      )}
       <Button
         padding="sm"
         textSize="xs"
@@ -112,4 +121,3 @@ export function ActionButtons({
     </div>
   );
 }
-
