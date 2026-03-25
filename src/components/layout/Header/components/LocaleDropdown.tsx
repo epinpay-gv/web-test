@@ -15,6 +15,7 @@ import clsx from "clsx";
 import { Check, ChevronDown } from "flowbite-react-icons/outline";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
+import { Button } from "@/components/common";
 
 const LANGUAGES = [
   { code: "tr", label: "Türkçe", flag: "🇹🇷" },
@@ -42,29 +43,20 @@ export function LocaleDropdown() {
     // next-intl'in useRouter'ı locale parametresi alır
     router.replace(pathname, { locale: langCode });
   }
+  const buttonName = `${currentLanguage.label} / ${currency.symbol} ${currency.label}  `
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button
+        <Button
           id="locale-dropdown-trigger"
-          className={clsx(
-            "flex items-center gap-2 px-3 py-2 rounded-md",
-            "text-sm text-(--text-body)",
-            "bg-(--bg-neutral-secondary-soft)",
-            "hover:bg-(--bg-neutral-tertiary)",
-            "transition-colors",
-            "focus:border-0",
-            "border-(--border-default-medium)",
-            "outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:ring-0",
-          )}
-        >
-          <span>{currentLanguage.label}</span>
-          <span className="text-neutral-400">/</span>
-          <span>{currency.symbol}</span>
-          <span>{currency.label}</span>
-          <ChevronDown className="w-4 h-4 text-neutral-400" />
-        </button>
+          text={buttonName}
+          aria-label="Localization"
+          variant="ghost"
+          appearance="filled"
+          padding="sm"
+          className="border-none! focus:ring-0 text-(--text-body) w-full"
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

@@ -38,8 +38,8 @@ export const IconShape = ({
   size = "md",
   icon: Icon,
   className,
-  onClick, // onClick'i buradan yakalıyoruz
-  ...props // Diğer tüm div özelliklerini (onHover vb.) buraya topluyoruz
+  onClick, 
+  ...props 
 }: IconShapeProps) => {
   
   const isCustom = color === "custom" && customColor;
@@ -47,7 +47,7 @@ export const IconShape = ({
   const customStyle = isCustom 
     ? { 
         color: customColor,
-        backgroundColor: `transparent`, // %10 şeffaflık için hex sonuna 1A ekledik
+        backgroundColor: `transparent`, 
       } 
     : {};
 
@@ -55,7 +55,7 @@ export const IconShape = ({
     <div
       onClick={onClick}
       style={customStyle}
-      {...props} // onClick dahil tüm özellikleri div'e geçirdik
+      {...props} 
       className={cn(
         "flex items-center justify-center transition-all shrink-0 select-none",
         onClick && "cursor-pointer hover:opacity-80 active:scale-90", 
