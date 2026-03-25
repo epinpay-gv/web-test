@@ -34,7 +34,7 @@ export default function ApplicationSteps() {
         {data.map((i, index) => (
           <div
             key={index}
-            className="w-125 h-89 rounded-xl p-8 relative overflow-hidden"
+            className="w-87.5 h-62.5 md:w-125 md:h-89 rounded-xl p-8 relative overflow-hidden"
             style={{
               background: `radial-gradient(89.91% 315.77% at 12.94% 70.24%, rgba(0, 0, 0, 0.3416) 0%, rgba(255, 255, 255, 0.448) 0.01%, rgba(0, 0, 0, 0.56) 80.77%), #8B0836`,
               backgroundBlendMode: "screen",
@@ -45,7 +45,7 @@ export default function ApplicationSteps() {
               alt={i.title}
               width={260}
               height={260}
-              className="absolute top-0 right-0 object-contain"
+              className="absolute top-0 right-0 object-contain w-36 h-36 md:w-65 md:h-65"
             />
             <div className="text-[#AF5575] z-0 font-bold absolute -left-8 -bottom-26 text-[320px]">
               {index + 1}

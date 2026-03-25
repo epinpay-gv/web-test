@@ -20,19 +20,34 @@ export default function Platforms({
       <div className="max-w-5xl flex flex-col gap-10 items-center mx-auto">
         <h2 className="text-4xl text-center font-bold">Platformlarımız</h2>
         {/* LABEL BUTTONS */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 justify-center">
           {platforms?.map((i) => (
-            <PlatformCard
-              key={i.platform_value}
-              data={i}
-              onClick={onClick}
-              activePlatform={activePlatform}
-            />
+            <>
+              <PlatformCard
+                key={i.platform_value}
+                data={i}
+                onClick={onClick}
+                activePlatform={activePlatform}
+              />
+              <div className="md:hidden flex gap-2">
+                {streamsToShow?.map((i) => (
+                  <div key={i.streamer.streamerId}>
+                    <StreamCard
+                      data={i}
+                      variant="detailed"
+                      onClick={function (): void {
+                        throw new Error("Function not implemented.");
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
           ))}
         </div>
 
         {/* VIDEO GRID */}
-        <div className="grid grid-cols-3 gap-6">
+        <div className="hidden md:grid grid-cols-3 gap-6">
           {streamsToShow?.map((i) => (
             <div key={i.streamer.streamerId}>
               <StreamCard

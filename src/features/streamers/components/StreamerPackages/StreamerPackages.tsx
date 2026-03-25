@@ -19,7 +19,7 @@ export default function StreamerPackages({
 
   return (
     <section
-      className="relative w-full rounded-full md:py-20 md:px-50 overflow-hidden"
+      className="relative w-full rounded-full p-10 md:py-20 md:px-50 overflow-hidden"
       style={{
         background: `linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, rgba(16, 78, 105, 0.4) 10%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0) 60%, rgba(16, 78, 105, 0.4) 90%, rgba(255, 255, 255, 0.4) 100%)`,
         // mixBlendMode: "screen",
@@ -55,7 +55,7 @@ export default function StreamerPackages({
           Hedeflerinizi gerçekleştirin, ödülleri toplayın ve yayıncı liginde üst
           sıralara tırmanın.
         </h3>
-        <div className="flex gap-2">
+        <div className="flex md:flex-row flex-col gap-2">
           {data.map((item) => (
             <PackageCard
               key={item.id}
