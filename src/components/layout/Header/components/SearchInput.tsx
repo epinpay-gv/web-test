@@ -56,7 +56,7 @@ export function SearchInput() {
 
       {/* Dropdown Liste */}
       {isOpen && (
-        <div className="absolute top-full mt-2 w-full rounded-(--radius-base) border border-gray-700 bg-gray-800 shadow-xl z-50 overflow-hidden">
+        <div className="absolute top-full mt-2 w-full rounded-(--radius-base) border border-gray-700 bg-gray-800 shadow-xl z-999 overflow-hidden">
 
           {/* Loading State */}
           {isLoading && (

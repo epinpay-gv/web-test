@@ -9,6 +9,7 @@ import {
   AddToFavoritesPayload,
   ChangeQuantityPayload,
   NotifyWhenAvailablePayload,
+  TopupModalDataApiResponse,
 } from "./catalog.types";
 
 /* -------------------------- GET REQUESTS -------------------------- */
@@ -105,4 +106,9 @@ export const notifyWhenAvailableService = (
       body: payload,
     },
     "Bildirim oluşturulamadı",
+  );
+
+  export const getTopupModalData = (productId: number) =>
+  baseFetcher<TopupModalDataApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/catalog/topup-info/${productId}`,
   );

@@ -11,7 +11,7 @@ export function NavMenu() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   return (
-    <nav className="relative w-full border-b bg-(--bg-neutral-primary-soft)">
+    <nav className="relative w-full border-b bg-(--bg-neutral-primary-soft) z-10">
       <div className="max-w-7xl mx-auto">
         {/* scroll container */}
         <div className="overflow-x-auto md:overflow-visible scrollbar-hide">

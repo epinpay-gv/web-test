@@ -12,23 +12,18 @@ import { NotificationDropdown } from "@/features/notifications/components/Notifi
 import { X, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { AuthDropdown } from "@/features/auth/components/AuthDropdown"; 
-
-
+import { AuthDropdown } from "@/features/auth/components/AuthDropdown";
 
 export function Header() {
-
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const user = useAuthStore((state) => state.user);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { user, isAuthenticated } = useAuthStore();
 
   const themeSuffix = resolvedTheme === "light" ? "black" : "white";
   const logoSrc = `/logos/epinpay-${themeSuffix}-lg.png`;
-
 
   return (
     <>
@@ -37,6 +32,7 @@ export function Header() {
         <div className="absolute max-lg:hidden w-193.5 h-166 -left-60.5 -top-76 bg-[#4FA9E2] opacity-20 blur-[229px] z-0 pointer-events-none overflow-hidden" />
 
         <div className="max-w-7xl w-full mx-auto px-4 flex justify-between items-center gap-4 md:gap-8 z-10">
+          {/* LOGO*/}
           <button onClick={() => router.push("/")} className="shrink-0">
             <Image
               src={logoSrc}
@@ -46,13 +42,15 @@ export function Header() {
               className="h-6 md:h-10 w-auto object-contain cursor-pointer"
               priority
             />
-          </button> 
+          </button>
 
+          {/* SEARCH */}
           <div className="hidden md:block max-w-lg flex-1">
             <SearchInput />
           </div>
 
-          <div className="flex items-center justify-end  md:gap-4">
+          {/* SEARCH */}
+          <div className="flex items-center justify-end md:gap-4">
             <IconShape
               icon={Search}
               color="custom"
@@ -62,26 +60,19 @@ export function Header() {
               onClick={() => setIsSearchOpen(true)}
               className="md:hidden"
             />
-
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden md:block">
               <LocaleDropdown />
             </div>
-
-            <div className="hidden md:flex items-center lg:gap-4">
+            <div className="hidden md:block">
               <ThemeToggle />
+            </div>
+            <div className="hidden md:block">
               <CartButton />
             </div>
 
             {!isAuthenticated ? (
               <div className="flex items-center gap-2 lg:gap-3">
                 <AuthDropdown />
-                
-                <Button
-                  variant="brand"
-                  text="Satıcı ol"
-                  padding="sm"
-                  className="hidden xs:block"
-                />
               </div>
             ) : (
               <div className="flex items-center gap-1 md:gap-3">
@@ -102,7 +93,7 @@ export function Header() {
               <SearchInput />
             </div>
             <button
-            onClick={() => setIsSearchOpen(false)}
+              onClick={() => setIsSearchOpen(false)}
               className="ml-4 p-2 text-red-500"
             >
               <X className="w-6 h-6" />

@@ -1,8 +1,8 @@
-'use client';
-import { useTheme } from 'next-themes';
-import { useSyncExternalStore } from 'react';
-import { Moon, Sun } from 'flowbite-react-icons/outline';
-import { IconShape } from '@/components/common';
+"use client";
+import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
+import { Moon, Sun } from "flowbite-react-icons/outline";
+import { Button, IconShape } from "@/components/common";
 
 function subscribe() {
   return () => {};
@@ -11,8 +11,8 @@ function subscribe() {
 function useHydrated() {
   return useSyncExternalStore(
     subscribe,
-    () => true,  // client
-    () => false  // server
+    () => true, // client
+    () => false, // server
   );
 }
 
@@ -26,17 +26,24 @@ export function ThemeToggle() {
     );
   }
 
-  const isDark = resolvedTheme === 'dark';
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <IconShape 
-      icon={isDark ? Moon : Sun} 
-      color="custom" 
-      customColor="var(--text-heading)" 
-      variant="square" 
-      size="lg" 
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+    <Button
+      name="Theme"
+      aria-label="Theme"
+      variant="ghost"
+      appearance="filled"
+      padding="sm"
+      className="border-none! focus:ring-0"
+      icon={
+        isDark ? (
+          <Moon className="md:w-5 md:h-5 w-4 h-4 transition-colors" />
+        ) : (
+          <Sun className="md:w-5 md:h-5 w-4 h-4 transition-colors" />
+        )
+      }
+      onClick={() => setTheme(isDark ? "light" : "dark")}
     />
-  
   );
 }

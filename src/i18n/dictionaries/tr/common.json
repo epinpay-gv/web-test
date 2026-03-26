@@ -47,6 +47,12 @@
     "noResults": "için sonuç bulunamadı",
     "productNotFound": "Ürün bulunamadı",
     "productNotFoundDesc": "Arama kriterlerinize göre ürün bulunamadı.",
+    "notFoundTitle": "Sayfa Bulunamadı",
+    "notFoundDesc": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+    "backToHome": "Ana Sayfaya Dön",
+    "errorTitle": "Bir Şeyler Yanlış Gitti",
+    "errorDesc": "Beklenmedik bir sunucu hatası oluştu. Lütfen daha sonra tekrar deneyin.",
+    "tryAgain": "Tekrar Dene",
     "noNotifications": "Bildirim bulunmuyor.",
     "clearSelections": "Seçimleri Temizle"
   },
