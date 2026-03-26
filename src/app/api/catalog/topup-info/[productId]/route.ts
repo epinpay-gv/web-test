@@ -1,14 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { productId: string } }
+  req: NextRequest,
+  context: { params: Promise<{ productId: string }> }
 ) {
+  const { productId } = await context.params;
+
   await new Promise((r) => setTimeout(r, 300));
 
-  const productId = Number(params.productId);
+  const id = Number(productId);
 
-  console.log("Fetching topup fields for product:", productId);
+  console.log("Fetching topup fields for product:", id);
 
   return NextResponse.json({
     data: [

@@ -22,7 +22,7 @@ export default function StatusState({
       {image && (
         <img
           src={image}
-          alt=""
+          alt={title ?? ""}
           className="w-40 h-40 object-contain mb-6"
         />
       )}

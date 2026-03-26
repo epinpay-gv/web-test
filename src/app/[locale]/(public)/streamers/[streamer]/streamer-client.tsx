@@ -3,13 +3,13 @@ import StatusState from "@/components/common/StatusState/StatusState";
 import { Button } from "@/components/common";
 import { useRouter } from "next/navigation";
 
-interface StreamerApplicationClientPageProps {
+interface StreamerClientPageProps {
   isLoading?: boolean;
 }
 
-export default function StreamerApplicationClientPage({
+export default function StreamerClientPage({
   isLoading = false,
-}: StreamerApplicationClientPageProps) {
+}: StreamerClientPageProps) {
   const router = useRouter();
   return (
     <>

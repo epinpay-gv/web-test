@@ -1,3 +1,5 @@
+import StreamerClientPage from "./streamer-client";
+
 export default async function StreamerPage({
   params,
 }: {
@@ -7,17 +9,12 @@ export default async function StreamerPage({
 
   return (
     <>
-      {" "}
-      <h2
-        className="text-3xl font-bold leading-[150%] inline-block bg-clip-text text-transparent"
-        style={{
-          backgroundImage:
-            "linear-gradient(98.1deg, #FFFFFF 55.9%, #BBF451 88.69%)",
-        }}
-      >
-        Şimdi yayında
-      </h2>
-      {streamer}
+      {/* SEO Content */}
+      {/* <OrganizationSchema locale={locale} description={res.metadata.title} /> */}
+      {/* <WebsiteSchema locale={locale} description={res.metadata.title} /> */}
+
+      {/* Page Content */}
+      <StreamerClientPage isLoading={false} />
     </>
   );
 }
