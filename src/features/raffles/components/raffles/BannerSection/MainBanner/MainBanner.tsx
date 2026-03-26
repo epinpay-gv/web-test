@@ -42,7 +42,7 @@ export default function MainBanner({ data }: MainBannerProps) {
           </div>
 
           {/* TITLE */}
-          <h1 className="z-10 text-2xl md:text-3xl font-bold leading-[150%] bg-linear-to-br from-black to-[#FFE26C] bg-clip-text text-transparent">
+          <h1 className="z-1 text-2xl md:text-3xl font-bold leading-[150%] bg-linear-to-br from-black to-[#FFE26C] bg-clip-text text-transparent">
             Lorem ipsum dolor sit amet, Lorem ipsum
           </h1>
 
@@ -81,7 +81,7 @@ export default function MainBanner({ data }: MainBannerProps) {
         <img
           src="/raffles-page/main-banner-right-image.webp"
           alt="Main Banner Image"
-          className="w-62 h-auto md:w-100 object-contain absolute right-0 -bottom-8 md:bottom-0 z-10"
+          className="w-62 h-auto md:w-100 object-contain absolute right-0 -bottom-8 md:bottom-0 z-1"
         />
       </div>
       {/* BG TEXTURE */}

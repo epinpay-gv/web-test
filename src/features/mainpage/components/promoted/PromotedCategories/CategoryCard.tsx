@@ -42,7 +42,7 @@ export function CategoryCard({
       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
       {/* Title */}
-      <div className="absolute bottom-3 md:bottom-8 left-0 right-0 z-10">
+      <div className="absolute bottom-3 md:bottom-8 left-0 right-0 z-1">
         <p
           className={`font-semibold text-xs md:text-sm leading-tight line-clamp-2 text-center ${backgroundImage ? "text-white" : "text-(--text-black)"}`}
         >
