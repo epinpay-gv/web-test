@@ -10,9 +10,10 @@ export async function POST(request: NextRequest) {
       accessToken: string;
       refreshToken: string;
       rememberMe: boolean;
+      user: any;
     } = await request.json();
 
-    if (!body.accessToken || !body.refreshToken) {
+    if (!body.accessToken) {
       return NextResponse.json(
         { success: false, message: 'Token gereklidir' },
         { status: 400 }
@@ -21,25 +22,36 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json({ success: true });
 
-    // Access Token - 15 dakika
+    // Access Token - 1 saat (veya JWT exp'ine göre)
+    // Örnek: expire süresini 1 saat yapalım
     response.cookies.set('accessToken', body.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 15 * 60,
+      maxAge: 60 * 60,
       path: '/',
     });
 
-    // Refresh Token
-    // Remember Me → 30 gün (localStorage gibi kalıcı)
-    // Remember Me yok → Session cookie (tarayıcı kapanınca silinir)
-    response.cookies.set('refreshToken', body.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      ...(body.rememberMe ? { maxAge: 30 * 24 * 60 * 60 } : {}),
-      path: '/',
-    });
+    if (body.refreshToken) {
+      response.cookies.set('refreshToken', body.refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        ...(body.rememberMe ? { maxAge: 30 * 24 * 60 * 60 } : {}),
+        path: '/',
+      });
+    }
+
+    // Kullanıcı bilgilerini içeren cookie (client taraflı da okunabilir olması için httpOnly: false)
+    if (body.user) {
+      response.cookies.set('userInfo', JSON.stringify(body.user), {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        ...(body.rememberMe ? { maxAge: 30 * 24 * 60 * 60 } : { maxAge: 60 * 60 }),
+        path: '/',
+      });
+    }
 
     return response;
 

@@ -12,15 +12,15 @@ import {
 
 import {
   signInWithEmailAndPassword,
-  GoogleAuthProvider, 
-  signInWithPopup, 
+  GoogleAuthProvider,
+  signInWithPopup,
   UserCredential,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   confirmPasswordReset as firebaseConfirmPasswordReset,
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
-const BASE_URL = '/api/auth';
+const BASE_URL = 'http://localhost:3041/api/features/auth';
 
 export const authService = {
 
@@ -30,7 +30,7 @@ export const authService = {
 
   async initiateRegister(data: RegisterFormData): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, RegisterFormData>(
-      `${BASE_URL}/email/initiate`,
+      `${BASE_URL}/register/initiate`,
       { method: 'POST', body: data },
       'Kayıt başlatılamadı'
     );
@@ -38,7 +38,7 @@ export const authService = {
 
   async verifyOtp(email: string, otpCode: string): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, { email: string; otpCode: string }>(
-      `${BASE_URL}/email/verify`,
+      `${BASE_URL}/register/verify`,
       { method: 'POST', body: { email, otpCode } },
       'OTP doğrulama başarısız'
     );
@@ -46,7 +46,7 @@ export const authService = {
 
   async resendOtp(email: string): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, { email: string }>(
-      `${BASE_URL}/email/resend`,
+      `${BASE_URL}/register/resend`,
       { method: 'POST', body: { email } },
       'OTP tekrar gönderilemedi'
     );
@@ -56,22 +56,24 @@ export const authService = {
                   LOGIN
      ======================================= */
 
-  async login(credentials: LoginFormData): Promise<AuthResponse> {
+  async login(credentials: LoginFormData): Promise<AuthResponse | void> {
     const userCredential = await signInWithEmailAndPassword(
       auth,
       credentials.email,
       credentials.password
     );
     const firebaseToken = await userCredential.user.getIdToken();
-    const response = await baseFetcher<AuthResponse, { firebaseToken: string; email: string }>(
-      `${BASE_URL}/login`,
-      {
-        method: 'POST',
-        body: { firebaseToken, email: credentials.email },
-      },
+    let response;
+    if (!firebaseToken) {
+      response = await baseFetcher<AuthResponse, { email: string; phone: string; reason: string; provider: string; }>(`${BASE_URL}/login-failed-attempt`, {
+        method: 'POST', body: { email: credentials.email, phone: '', reason: 'no_token', provider: 'email', },
+      }, 'Login failed attempt gönderilemedi');
+      return response;
+    }
+    response = await baseFetcher<AuthResponse, { firebaseToken: string; email: string }>(
+      `${BASE_URL}/login`, { method: 'POST', body: { firebaseToken, email: credentials.email, }, },
       'Backend login başarısız'
     );
-
     return response;
   },
 
@@ -117,7 +119,7 @@ export const authService = {
   /* =======================================
               GOOGLE LOGIN             
     ======================================= */
-    async loginWithGoogle(): Promise<AuthResponse> {
+  async loginWithGoogle(): Promise<AuthResponse> {
     try {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: 'select_account' });
@@ -127,7 +129,7 @@ export const authService = {
         uid: result.user.uid,
         email: result.user.email || '',
         displayName: result.user.displayName || '',
-        role: 'user', 
+        role: 'user',
         epPoints: 0,
         balance: 0,
         id: result.user.uid

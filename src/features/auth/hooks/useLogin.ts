@@ -36,8 +36,8 @@ function validateAll(formData: LoginFormData): Partial<LoginFormData> {
 // ✅ onSuccess parametresi eklendi (Opsiyonel)
 export function useLogin(onSuccess?: () => void) {
   const router = useRouter();
-  const login = useAuthStore((state) => state.login); 
-  
+  const login = useAuthStore((state) => state.login);
+
   const [state, setState] = useState<LoginState>({
     formData: { email: '', password: '', rememberMe: false },
     errors: {},
@@ -45,30 +45,37 @@ export function useLogin(onSuccess?: () => void) {
     isLoading: false,
   });
 
-  const performLogin = useCallback((user: UserProfile, rememberMe: boolean, token?: string) => {
-    login(
-      {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName || '',
-        role: user.role || 'user',
-        epPoints: user.epPoints || 0,
-        balance: user.balance || 0,
-        id: user.uid || user.id || ''
-      },
-      rememberMe
-    );
-
-    if (token) {
-      localStorage.setItem('sessionToken', token);
-    }
-    
-    // Eğer dışarıdan bir başarı callback'i verilmişse onu çalıştır
-    // Yoksa varsayılan olarak ana sayfaya yönlendir
-    if (onSuccess) {
-      onSuccess();
-    } else {
-      router.push('/');
+  const performLogin = useCallback(async (user: UserProfile, rememberMe: boolean, token?: string, refreshToken?: string) => {
+    try {
+      // Cookie'leri set et (httpOnly accessToken için API rotasını çağırıyoruz)
+      const cookieRes = await fetch('/api/auth/set-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          accessToken: token,
+          refreshToken: refreshToken || '',
+          rememberMe,
+          user
+        }),
+      });
+      if (!cookieRes.ok) throw new Error('Cookie set operation failed');
+      login(
+        {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName || '',
+          role: user.role || 'user',
+          epPoints: user.epPoints || 0,
+          balance: user.balance || 0,
+          id: user.uid || user.id || ''
+        },
+        rememberMe
+      );
+      if (onSuccess) onSuccess();
+      else router.push('/');
+    } catch (error) {
+      console.error('[performLogin] Error:', error);
+      setState(prev => ({ ...prev, errors: { ...prev.errors, form: 'Oturum açılırken bir hata oluştu.' } }));
     }
   }, [login, router, onSuccess]);
 
@@ -80,16 +87,10 @@ export function useLogin(onSuccess?: () => void) {
           const newFormData = { ...prev.formData, [field]: value };
           const errors = prev.touched[field]
             ? {
-                ...prev.errors,
-                email:
-                  prev.touched.email
-                    ? validateEmail(newFormData.email)
-                    : prev.errors.email,
-                password:
-                  prev.touched.password
-                    ? validatePassword(newFormData.password)
-                    : prev.errors.password,
-              }
+              ...prev.errors,
+              email: prev.touched.email ? validateEmail(newFormData.email) : prev.errors.email,
+              password: prev.touched.password ? validatePassword(newFormData.password) : prev.errors.password,
+            }
             : prev.errors;
           return { ...prev, formData: newFormData, errors };
         });
@@ -103,10 +104,7 @@ export function useLogin(onSuccess?: () => void) {
         const newTouched = { ...prev.touched, [field]: true };
         const errors = {
           ...prev.errors,
-          [field]:
-            field === 'email'
-              ? validateEmail(prev.formData.email)
-              : validatePassword(prev.formData.password),
+          [field]: field === 'email' ? validateEmail(prev.formData.email) : validatePassword(prev.formData.password),
         };
         return { ...prev, touched: newTouched, errors };
       });
@@ -117,9 +115,7 @@ export function useLogin(onSuccess?: () => void) {
   const handleClear = useCallback(
     (field: keyof LoginFormData) => () => {
       setState((prev) => ({
-        ...prev,
-        formData: { ...prev.formData, [field]: '' },
-        errors: { ...prev.errors, [field]: undefined },
+        ...prev, formData: { ...prev.formData, [field]: '' }, errors: { ...prev.errors, [field]: undefined },
       }));
     },
     []
@@ -145,20 +141,14 @@ export function useLogin(onSuccess?: () => void) {
 
       const hasErrors = Object.values(errors).some(Boolean);
       if (hasErrors) return;
-
       setState((prev) => ({ ...prev, isLoading: true, errors: {} }));
-
       try {
         const response = await authService.login({
           email: state.formData.email,
           password: state.formData.password,
           rememberMe: state.formData.rememberMe,
         });
-
-        if (response.user) {
-          performLogin(response.user, state.formData.rememberMe, response.token);
-        }
-
+        if (response?.user) performLogin(response.user, state.formData.rememberMe, response.token, response.refreshToken);
         setState((prev) => ({ ...prev, isLoading: false }));
       } catch (err: unknown) {
         const code = err instanceof Error ? err.message : 'UNKNOWN_ERROR';
@@ -176,15 +166,11 @@ export function useLogin(onSuccess?: () => void) {
     setState((prev) => ({ ...prev, isLoading: true, errors: {} }));
     try {
       const response: AuthResponse = await authService.loginWithGoogle();
-      if (response.user) {
-        performLogin(response.user, true, response.token);
-      }
+      if (response.user) performLogin(response.user, true, response.token);
     } catch (err: unknown) {
       const code = err instanceof Error ? err.message : 'UNKNOWN_ERROR';
       setState((prev) => ({
-        ...prev,
-        isLoading: false,
-        errors: { form: mapFirebaseError(code) },
+        ...prev, isLoading: false, errors: { form: mapFirebaseError(code) },
       }));
     } finally {
       setState((prev) => ({ ...prev, isLoading: false }));

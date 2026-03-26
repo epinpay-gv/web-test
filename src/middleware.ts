@@ -84,13 +84,19 @@ export default async function middleware(request: NextRequest) {
   // Güvenli: httpOnly cookie'den token payload'unu al
   const tokenPayload = accessToken ? getTokenPayload(accessToken) : null;
   const isLoggedIn = !!tokenPayload && !isTokenExpired(accessToken!);
-  const userRole = tokenPayload?.role || '';
+  
+  // Gerçek JWT payload yapısına göre rolü al: { user: { roles: ["USER"], ... } }
+  const userRoles: string[] = (tokenPayload as any)?.user?.roles || [];
+  const primaryRole = userRoles[0]?.toLowerCase() || '';
 
   // ── Auth Guard: Login olmayan kullanıcılar /user veya /store altına erişemez ──
   if (PRIVATE_ROUTE.test(pathname) && !isLoggedIn) return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   
   // ── Role Guard: store rolü olmayan kullanıcılar /store altına erişemez ──
-  if (STORE_ROUTE.test(pathname) && isLoggedIn && userRole !== 'store') return NextResponse.redirect(new URL(`/${locale}/user`, request.url));
+  // primaryRole 'store' değilse ve /store rotasındaysa yönlendir
+  if (STORE_ROUTE.test(pathname) && isLoggedIn && primaryRole !== 'store') {
+    return NextResponse.redirect(new URL(`/${locale}/user`, request.url));
+  }
   
   // ── Login Redirect: Giriş yapmış kullanıcı /login'e gidemez ──
   if (LOGIN_ROUTE.test(pathname) && isLoggedIn) return NextResponse.redirect(new URL(`/${locale}/user`, request.url));
@@ -103,6 +109,7 @@ export default async function middleware(request: NextRequest) {
     const response = intlMiddleware(request);
     response.cookies.delete('accessToken');
     response.cookies.delete('refreshToken');
+    response.cookies.delete('userInfo');
     return response;
   }
   return intlMiddleware(request);
