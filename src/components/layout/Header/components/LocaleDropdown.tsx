@@ -36,13 +36,47 @@ export function LocaleDropdown() {
   const currentLocale = useLocale();
   const [currency, setCurrency] = React.useState(CURRENCIES[0]);
 
-  const currentLanguage =
-    LANGUAGES.find((l) => l.code === currentLocale) ?? LANGUAGES[0];
+  // Cookie okuma yardımcısı
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift();
+    return null;
+  };
+
+  // Cookie ayarlama yardımcısı
+  const setCookie = (name: string, value: string) => {
+    document.cookie = `${name}=${value}; path=/; max-age=31536000; SameSite=Lax`;
+  };
+
+  React.useEffect(() => {
+    const savedCurrencyCode = getCookie("currency");
+    const savedLang = getCookie("ep-language");
+    if (savedCurrencyCode) {
+      const found = CURRENCIES.find((c) => c.code === savedCurrencyCode);
+      if (found) setCurrency(found);
+    } else {
+      let defaultCur = CURRENCIES.find((c) => c.code === "TRY");
+      if (currentLocale === "en") defaultCur = CURRENCIES.find((c) => c.code === "USD");
+      else if (["de", "fr"].includes(currentLocale)) defaultCur = CURRENCIES.find((c) => c.code === "EUR");
+      if (defaultCur) {
+        setCurrency(defaultCur);
+        setCookie("currency", defaultCur.code);
+      }
+    }
+    if (!savedLang) setCookie("ep-language", currentLocale);
+  }, []); // Sadece mount anında bir kez çalışır
 
   function handleLanguageChange(langCode: string) {
-    // next-intl'in useRouter'ı locale parametresi alır
+    setCookie("ep-language", langCode);
     router.replace(pathname, { locale: langCode });
   }
+
+  function handleCurrencyChange(cur: typeof CURRENCIES[0]) {
+    setCurrency(cur);
+    setCookie("currency", cur.code);
+  }
+  const currentLanguage = LANGUAGES.find((l) => l.code === currentLocale) ?? LANGUAGES[0];
   const buttonName = `${currentLanguage.label} / ${currency.symbol} ${currency.label}  `
 
   return (
@@ -105,7 +139,7 @@ export function LocaleDropdown() {
             {CURRENCIES.map((cur, index) => (
               <React.Fragment key={cur.code}>
                 <DropdownMenuItem
-                  onClick={() => setCurrency(cur)}
+                  onClick={() => handleCurrencyChange(cur)}
                   className={clsx(
                     "cursor-pointer flex justify-between",
                     currency.code === cur.code && "bg-(--bg-neutral-tertiary)",
