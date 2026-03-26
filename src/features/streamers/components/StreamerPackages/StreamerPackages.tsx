@@ -55,7 +55,7 @@ export default function StreamerPackages({
           Hedeflerinizi gerçekleştirin, ödülleri toplayın ve yayıncı liginde üst
           sıralara tırmanın.
         </h3>
-        <div className="flex md:flex-row flex-col gap-2">
+        <div className="max-w-5xl flex md:flex-row flex-col gap-2">
           {data.map((item) => (
             <PackageCard
               key={item.id}

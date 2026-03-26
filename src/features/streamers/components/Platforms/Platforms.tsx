@@ -22,7 +22,7 @@ export default function Platforms({
         {/* LABEL BUTTONS */}
         <div className="flex flex-wrap gap-2 justify-center">
           {platforms?.map((i) => (
-            <>
+            <div key={i.platform_value}>
               <PlatformCard
                 key={i.platform_value}
                 data={i}
@@ -42,7 +42,7 @@ export default function Platforms({
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           ))}
         </div>
 
