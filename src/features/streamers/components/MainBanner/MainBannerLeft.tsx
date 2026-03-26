@@ -36,7 +36,7 @@ export default function MainBannerLeft({
       <div className="space-y-1">
         <p className="text-white mb-2">Öne çıkan yayıncılar</p>
         {data.map((stream, index) => (
-          <>
+          <div key={stream.streamer.streamerId}>
             <StreamerCard
               key={stream.streamer.streamerId}
               data={stream}
@@ -56,7 +56,7 @@ export default function MainBannerLeft({
                 />
               </div>
             )}
-          </>
+          </div>
         ))}
       </div>
 
