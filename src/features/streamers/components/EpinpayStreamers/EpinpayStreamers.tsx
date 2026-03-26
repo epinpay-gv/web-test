@@ -10,7 +10,7 @@ export default function EpinpayStreamers({ data }: EpinpayStreamersProps) {
     <section className="w-full relative overflow-hidden py-10 md:py-16 px-4 md:px-0">
       {/* CONTENT */}
       <div className="max-w-5xl mx-auto flex flex-col items-center gap-10">
-        <h2 className="text-4xl text-center font-bold">Yayıncılarımız</h2>
+        <h2 className="text-2xl md:text-4xl text-center font-bold">Yayıncılarımız</h2>
         <div
           className="grid grid-cols-2 md:grid-cols-5 max-w-5xl w-full gap-8">
           {data.map((item) => (

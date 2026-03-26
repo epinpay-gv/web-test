@@ -50,7 +50,7 @@ export default function StreamerPackages({
       />
       {/* CONTENT*/}
       <div className="flex flex-col items-center gap-8">
-        <h2 className="text-4xl text-center font-bold">Yayıncı Ligleri</h2>
+        <h2 className="text-2xl md:text-4xl text-center font-bold">Yayıncı Ligleri</h2>
         <h3>
           Hedeflerinizi gerçekleştirin, ödülleri toplayın ve yayıncı liginde üst
           sıralara tırmanın.

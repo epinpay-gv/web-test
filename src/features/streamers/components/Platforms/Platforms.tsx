@@ -41,7 +41,7 @@ export default function Platforms({
                   {platformStreams?.map((s) => (
                     <div
                       key={s.streamer.streamerId}
-                      className="min-w-[250px] shrink-0"
+                      className="min-w-62.5 shrink-0"
                     >
                       <StreamCard
                         data={s}
