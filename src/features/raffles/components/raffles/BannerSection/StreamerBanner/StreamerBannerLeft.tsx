@@ -33,10 +33,10 @@ export default function StreamerBannerLeft({
       </div>
 
       {/* YAYINCILAR */}
-      <div className="flex flex-wrap md:justify-between gap-8.5 z-10">
+      <div className="flex items-center gap-6 md:gap-8.5 z-10 overflow-x-auto w-full no-scrollbar">
         {data.map((i) => (
+          <div key={i.id} className="shrink-0">
           <button
-            key={i.id}
             className="cursor-pointer"
             onClick={() => onSelect(i.id)}
           >
@@ -49,6 +49,7 @@ export default function StreamerBannerLeft({
             />
             {selectedId === i.id  && <p className="text-sm">{i.name}</p>}
           </button>
+      </div>
         ))}
       </div>
     </div>
