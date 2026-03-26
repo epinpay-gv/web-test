@@ -13,7 +13,7 @@ export default function MainBannerRight({ data }: MainBannerRightProps) {
   }
 
   return (
-    <div className="animate-fade-in w-150 h-84.5 aspect-video rounded-2xl overflow-y-hidden shadow-2xl border-8 border-white/40">
+    <div className="hidden md:block animate-fade-in w-150 h-84.5 aspect-video rounded-2xl overflow-y-hidden shadow-2xl border-8 border-white/40">
       <iframe
         src={data}
         width="660"       

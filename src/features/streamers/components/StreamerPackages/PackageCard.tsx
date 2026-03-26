@@ -1,11 +1,9 @@
-"use client";
 import { Packages } from "../../streamers.types";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import PackageCardCriterias from "./PackageCardCriterias";
 import PackageCardDescription from "./PackageCardDescription";
 import PackageCardInfo from "./PackageCardInfo";
-import { useState } from "react";
 
 interface PackageCardProps {
   data: Packages;

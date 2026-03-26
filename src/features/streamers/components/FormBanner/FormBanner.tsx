@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function FormBanner() {
   return (
-    <div className="md:w-5xl md:h-101.5 bg-(--bg-brand) flex items-center gap-4 py-10 px-20 rounded-xl text-black">
+    <div className="md:w-5xl md:h-101.5 bg-(--bg-brand) flex items-center gap-4 py-10 px-20 md:rounded-xl text-black">
       {/* TITLE */}
       <div className="text-center max-w-83.5 space-y-4">
         <h2 className="text-3xl font-bold leading-[150%]">

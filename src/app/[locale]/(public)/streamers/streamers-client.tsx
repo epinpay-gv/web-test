@@ -64,6 +64,7 @@ export default function StreamersClientPage({
               data={data.mainBanner}
               activeIndex={activeIndex}
               onSelect={selectStreamer}
+              activeStream={activeStream?.streamURl ?? ""}
             />
           }
           right={
@@ -80,6 +81,7 @@ export default function StreamersClientPage({
           platforms={data.streams.platforms}
           streamsToShow={activeStreamList}
           onClick={selectPlatform}
+          allStreams={data.streams.streams}
         />
 
         {/* FORM BANNER */}
@@ -96,8 +98,8 @@ export default function StreamersClientPage({
         />
 
         {/* HOW TO */}
-        <ApplicationSteps/>
-        
+        <ApplicationSteps />
+
         {/* FAQ */}
         <FAQSection data={data.faq} />
       </div>

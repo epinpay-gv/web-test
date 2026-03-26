@@ -7,12 +7,14 @@ import StreamerCard from "./StreamerCard";
 interface MainBannerLeftProps {
   data: Stream[];
   activeIndex: number;
+  activeStream: string;
   onSelect: (index: number) => void;
 }
 
 export default function MainBannerLeft({
   data,
   activeIndex,
+  activeStream,
   onSelect,
 }: MainBannerLeftProps) {
   const router = useRouter();
@@ -32,16 +34,29 @@ export default function MainBannerLeft({
 
       {/* STREAMER CARDS */}
       <div className="space-y-1">
-        <p className="text-white mb-2">
-          Öne çıkan yayıncılar
-        </p>
+        <p className="text-white mb-2">Öne çıkan yayıncılar</p>
         {data.map((stream, index) => (
-          <StreamerCard
-            key={stream.streamer.streamerId}
-            data={stream}
-            isActive={index === activeIndex}
-            onSelect={() => onSelect(index)}
-          />
+          <>
+            <StreamerCard
+              key={stream.streamer.streamerId}
+              data={stream}
+              isActive={index === activeIndex}
+              onSelect={() => onSelect(index)}
+            />
+            {activeStream === stream.streamURl && (
+              <div className="md:hidden block animate-fade-in max-w-87.5 h-auto aspect-video rounded-2xl overflow-y-hidden shadow-2xl">
+                <iframe
+                  src={activeStream}
+                  width="660"
+                  height="338"
+                  className="w-full h-full block"
+                  allowFullScreen
+                  allow="autoplay; fullscreen"
+                  title="Streamer yayını"
+                />
+              </div>
+            )}
+          </>
         ))}
       </div>
 
