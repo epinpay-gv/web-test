@@ -29,6 +29,7 @@ interface ProductCardProps {
   changeQuantity: (payload: ChangeQuantityPayload) => void;
   isReadOnly?: boolean;
   onRemove?: () => void;
+  priority?: boolean;
 }
 
 const sizeClasses = {
@@ -50,6 +51,7 @@ export default function ProductCard({
   changeQuantity,
   isReadOnly,
   onRemove,
+  priority
 }: ProductCardProps) {
   const isHorizontal = orientation === ProductCardOrientation.HORIZONTAL;
 
@@ -76,6 +78,7 @@ export default function ProductCard({
         isHorizontal={isHorizontal}
         isInCart={isInCart}
         addToFavorites={addToFavorites}
+        isFirstImage={priority ?? false}
       />
 
       <div

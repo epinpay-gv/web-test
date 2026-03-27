@@ -18,6 +18,7 @@ interface ImageSectionProps {
   isHorizontal: boolean;
   isInCart?: boolean;
   addToFavorites: (payload: AddToFavoritesPayload) => void;
+  isFirstImage: boolean;
 }
 
 export function ImageSection({
@@ -26,6 +27,7 @@ export function ImageSection({
   isHorizontal,
   isInCart,
   addToFavorites,
+  isFirstImage,
 }: ImageSectionProps) {
   const sizeClass = isHorizontal
     ? isInCart
@@ -63,6 +65,7 @@ export function ImageSection({
           224px
         "
           className="object-contain rounded mx-auto"
+          priority={isFirstImage}
         />
       )}
     </div>

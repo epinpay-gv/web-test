@@ -43,6 +43,7 @@ export default function ProductGrid({
               notifyWhenAvailable={notifyWhenAvailable}
               addToFavorites={addToFavorites}
               changeQuantity={changeQuantity}
+              priority={index === 0}
             />
           ))}
         </div>
