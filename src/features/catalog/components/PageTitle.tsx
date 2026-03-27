@@ -10,8 +10,9 @@ interface PageTitleProps {
   };
   isLoading?: boolean;
   titleFilter?: FilterGroupConfig;
-  onSortSelect: (value: string) => void;
+  onSortSelect?: (value: string) => void;
   currentSort?: string;
+  sort?: boolean;
 }
 
 export default function PageTitle({
@@ -20,6 +21,7 @@ export default function PageTitle({
   titleFilter,
   onSortSelect,
   currentSort,
+  sort = true,
 }: PageTitleProps) {
   const t = useTranslations("common.labels");
 
@@ -43,9 +45,11 @@ export default function PageTitle({
         </div>
 
         {/* Sort Button */}
-        <div className="hidden md:block">
-          <div className="w-36 h-10 rounded-md bg-gray-200 shimmer" />
-        </div>
+        {sort && (
+          <div className="hidden md:block">
+            <div className="w-36 h-10 rounded-md bg-gray-200 shimmer" />
+          </div>
+        )}
       </div>
     );
   }
@@ -60,15 +64,17 @@ export default function PageTitle({
         </p>
       </div>
       {/* Sort */}
-      <div className="hidden md:block">
-        <FilterDropdownContainer
-          selectedId={currentSort ?? ""}
-          items={dropdownItems}
-          onSelect={onSortSelect}
-          icon={<Sort size={16} className="text-(--text-body)" />}
-          align="right"
-        />
-      </div>
+      {sort && onSortSelect && (
+        <div className="hidden md:block">
+          <FilterDropdownContainer
+            selectedId={currentSort ?? ""}
+            items={dropdownItems}
+            onSelect={onSortSelect}
+            icon={<Sort size={16} className="text-(--text-body)" />}
+            align="right"
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -55,9 +55,7 @@ export default function CategoriessClient({
           title: "Kategoriler ",
           totalProductAmount: paginationState.count,
         }}
-        onSortSelect={function (value: string): void {
-          throw new Error("Function not implemented.");
-        }}
+        sort={false}
       />
       <Breadcrumb
         items={breadcrumbItems.map((item, index) => ({
