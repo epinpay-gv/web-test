@@ -15,8 +15,8 @@ export default function BannerSection({
       style={{ backgroundColor: accentColor }}
     >
       <div className="mx-auto w-full flex flex-col gap-6 md:flex-row justify-between items-center max-w-5xl">
-        <div className="z-20 w-full md:w-auto">{left}</div>
-        <div className="z-20">{right}</div>
+        <div className="z-1 w-full md:w-auto">{left}</div>
+        <div className="z-1">{right}</div>
       </div>
 
       <div

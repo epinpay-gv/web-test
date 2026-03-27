@@ -19,7 +19,7 @@ export default function StreamerCard({
   return (
     <div
       onClick={onSelect}
-      className={`md:min-w-100 flex items-center justify-between p-4 gap-2 ${isActive ? "bg-white/16 rounded-xl" : ""}`}
+      className={`z-1 md:min-w-100 flex items-center justify-between p-4 gap-2 ${isActive ? "bg-white/16 rounded-xl" : ""}`}
     >
       <StreamerInfo data={data.streamer}/>
 
