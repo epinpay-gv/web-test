@@ -1,8 +1,50 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-
+"use client"
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { FilterGroupConfig } from "../filters.types";
+
+/**
+ * Encodes a string array into bracket notation.
+ * ["1", "2", "3"] → "[1,2,3]"
+ */
+export function encodeArray(values: string[]): string {
+  return `[${values.join(",")}]`;
+}
+
+/**
+ * Decodes bracket notation back into a string array.
+ * "[1,2,3]" → ["1", "2", "3"]
+ * "1"       → ["1"]  
+ */
+export function decodeArray(raw: string | null): string[] {
+  if (!raw) return [];
+  const trimmed = raw.trim();
+  if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+    const inner = trimmed.slice(1, -1);
+    return inner === "" ? [] : inner.split(",").map((v) => v.trim());
+  }
+  return [trimmed];
+}
+
+/**
+ * Read all values for a key from params using bracket format.
+ * Replaces URLSearchParams.getAll() for filter keys.
+ */
+export function getArrayParam(p: URLSearchParams, key: string): string[] {
+  return decodeArray(p.get(key));
+}
+
+/**
+ * Write an array to params using bracket format.
+ * Deletes the key if the array is empty.
+ */
+export function setArrayParam(p: URLSearchParams, key: string, values: string[]): void {
+  if (values.length === 0) {
+    p.delete(key);
+  } else {
+    p.set(key, encodeArray(values));
+  }
+}
 
 export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
   const router = useRouter();
@@ -26,12 +68,11 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
 
   function handleToggleFilter(key: string, value: string) {
     navigate((p) => {
-      const existing = p.getAll(key);
-      p.delete(key);
+      const existing = getArrayParam(p, key);
       const next = existing.includes(value)
         ? existing.filter((v) => v !== value)
         : [...existing, value];
-      next.forEach((v) => p.append(key, v));
+      setArrayParam(p, key, next);
       p.delete("page");
     });
   }
@@ -98,10 +139,6 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
     });
   }
 
-  /**
-   * Mobile-only: receives the entire draft URLSearchParams and
-   * replaces the URL in a single navigation — no flicker, no race conditions.
-   */
   function handleBulkApply(draft: URLSearchParams) {
     navigate((p) => {
       initialFilters.forEach((group) =>
@@ -111,8 +148,9 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
       p.delete("maxPrice");
       p.delete("page");
 
+      // p.set not p.append — each key is already a single bracket-encoded string
       draft.forEach((value, key) => {
-        p.append(key, value);
+        p.set(key, value);
       });
     });
   }
@@ -130,6 +168,6 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
     handleSearchChange,
     handleDateRangeChange,
     handleSingleFilter,
-    handleBulkApply
+    handleBulkApply,
   };
 }

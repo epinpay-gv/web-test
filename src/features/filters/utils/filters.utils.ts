@@ -4,6 +4,7 @@ import {
   FilterGroupConfig,
   FilterOption,
 } from "../filters.types";
+import { getArrayParam } from "../hooks/useUrlFilters";
 
 /**
  * Returns active filter count per group. Used for badge numbers on group headers.
@@ -53,7 +54,8 @@ export function extractSelectedFilterOption(
 
 /**
  * Builds the active filter chip list from current URL params.
- * Handles multi-value checkbox params via getAll(), and treats price range as a special case.
+ * Reads multi-value checkbox params via getArrayParam() which decodes
+ * bracket format: regionId=[1,2,3] → ["1", "2", "3"]
  */
 export function getActiveFilterLabels(
   params: URLSearchParams,
@@ -66,8 +68,8 @@ export function getActiveFilterLabels(
       if (el.type !== "checkbox") return;
       if (el.key === "type") return;
 
-      // getAll handles ?region=1&region=2 → ["1", "2"] correctly
-      const selectedValues = params.getAll(el.key);
+      // getArrayParam decodes bracket format: regionId=[1,2,3] → ["1","2","3"]
+      const selectedValues = getArrayParam(params, el.key);
       if (selectedValues.length === 0) return;
 
       el.options.forEach((opt) => {

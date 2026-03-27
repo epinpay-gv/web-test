@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { FilterGroupConfig } from "../filters.types";
 import { getActiveFilterLabels } from "../utils/filters.utils";
+import { getArrayParam, encodeArray } from "./useUrlFilters";
 
 interface UseMobileFilterSheetProps {
   filters: FilterGroupConfig[];
@@ -22,12 +23,14 @@ export function useMobileFilterSheet({
   const draftToggleFilter = useCallback((key: string, value: string) => {
     setDraft((prev) => {
       const next = new URLSearchParams(prev.toString());
-      const existing = next.getAll(key);
-      next.delete(key);
+      const existing = getArrayParam(next, key);
       const updated = existing.includes(value)
         ? existing.filter((v) => v !== value)
         : [...existing, value];
-      updated.forEach((v) => next.append(key, v));
+      // Write back in bracket format
+      updated.length === 0
+        ? next.delete(key)
+        : next.set(key, encodeArray(updated));
       return next;
     });
   }, []);
@@ -52,7 +55,6 @@ export function useMobileFilterSheet({
   // ── Sheet lifecycle ───────────────────────────────────────────────────────
 
   const handleOpen = () => {
-    // Snapshot current URL into draft so already-applied filters are pre-checked
     setDraft(new URLSearchParams(searchParams.toString()));
     setSelectedGroup(null);
     setSheetOpen(true);
@@ -69,7 +71,6 @@ export function useMobileFilterSheet({
   };
 
   const handleReset = () => {
-    // Wipe only filter-owned keys; keep sort/type in draft
     setDraft((prev) => {
       const next = new URLSearchParams(prev.toString());
       filters.forEach((group) =>
@@ -83,21 +84,16 @@ export function useMobileFilterSheet({
 
   // ── Derived ───────────────────────────────────────────────────────────────
 
-  // Active labels derived from draft — shown under group titles on Page 1
   const draftActiveFilters = getActiveFilterLabels(draft, filters);
-
   const sheetTitle = selectedGroup?.titleData?.title ?? "Filtrele";
 
   return {
-    // State
     sheetOpen,
     selectedGroup,
     draft,
     draftActiveFilters,
     sheetTitle,
-    // Setters
     setSelectedGroup,
-    // Handlers
     handleOpen,
     handleClose,
     handleApply,

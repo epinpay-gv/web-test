@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { FilterElementConfig } from "../../filters.types";
+import { getArrayParam } from "../../hooks/useUrlFilters";
 
 interface FilterElementProps {
   config: FilterElementConfig;
@@ -23,7 +24,7 @@ export default function FilterElement({
 }: FilterElementProps) {
   const urlSearchParams = useSearchParams();
   const searchParams = searchParamsOverride ?? urlSearchParams;
-  
+
   const [searchValue, setSearchValue] = useState("");
   const t = useTranslations("catalog");
 
@@ -50,8 +51,7 @@ export default function FilterElement({
           <Toggle
             size="base"
             label={config.label}
-            // getAll returns [] if absent, ["true"] if set — works for both
-            checked={searchParams.getAll(config.key).includes("true")}
+            checked={searchParams.get(config.key) === "true"}
             onCheckedChange={() => toggleBoolean(config.key)}
           />
         </div>
@@ -122,10 +122,8 @@ export default function FilterElement({
           >
             {filteredOptions.length > 0 ? (
               filteredOptions.map((opt) => {
-                // getAll reads ALL repeated values: ?region=1&region=2 → ["1","2"]
-                const isChecked = searchParams
-                  .getAll(config.key)
-                  .includes(opt.value);
+                // Use getArrayParam to decode bracket format: regionId=[1,2,3]
+                const isChecked = getArrayParam(searchParams, config.key).includes(opt.value);
 
                 return (
                   <div key={opt.value} className="flex items-center gap-2">
