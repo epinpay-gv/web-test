@@ -11,8 +11,12 @@ export default function CategoryGrid({ data }: CategoryGridProps) {
   return (
     <>
       <div className="w-full grid grid-cols-2 md:grid-cols-5 gap-4 auto-rows-max">
-        {data.map((category) => (
-          <CategoryCard category={category} key={category.id} />
+        {data.map((category, index) => (
+          <CategoryCard
+            category={category}
+            key={category.id}
+            priority={index === 0}
+          />
         ))}
       </div>
     </>
