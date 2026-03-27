@@ -1,7 +1,5 @@
 "use client";
-
 import { ReactNode } from "react";
-
 import { Close } from "flowbite-react-icons/outline";
 import { Button } from "@/components/common";
 
