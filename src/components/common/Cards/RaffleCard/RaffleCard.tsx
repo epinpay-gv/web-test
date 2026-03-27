@@ -42,7 +42,7 @@ export default function RaffleCard({
       onClick={() => !isLoading && onCardClick?.(card)}
       initial="initial"
       whileHover={isLoading ? undefined : "hover"}
-      className={`rounded-2xl border border-(--border-default) flex cursor-pointer z-20 ${layoutClass} `}
+      className={`rounded-2xl border border-(--border-default) flex cursor-pointer z-1 ${layoutClass} `}
     >
       <ImageSection
         card={card}
