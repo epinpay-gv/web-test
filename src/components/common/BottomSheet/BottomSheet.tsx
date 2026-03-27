@@ -12,7 +12,11 @@ interface BottomSheetProps {
   onBack?: () => void;
   title?: string;
   children: React.ReactNode;
-  theme?: Theme
+  theme?: Theme;
+  confirmText?: string;
+  cancelText?: string;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 type Theme = "default" | "dark";
 
@@ -21,14 +25,17 @@ const THEME: Record<Theme, string> = {
   dark: `bg-(--bg-variants-gray)`,
 };
 
-
 export const BottomSheet: React.FC<BottomSheetProps> = ({
   isOpen,
   onClose,
   onBack,
   title,
   children,
-  theme="default"
+  theme = "default",
+  confirmText,
+  cancelText,
+  onConfirm,
+  onCancel,
 }) => {
   useEffect(() => {
     if (isOpen) document.body.style.overflow = "hidden";
@@ -43,11 +50,13 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   return (
     <>
       {/* Overlay */}
-      <div className="fixed inset-0 bg-black/60 z-60 " onClick={onClose} />
+      <div className="fixed inset-0 bg-(--bg-overlay) z-60 " onClick={onClose} />
 
       {/* Sheet */}
       <div className="fixed inset-x-0 bottom-0 z-70 flex flex-col animate-slide-up ">
-        <div className={`rounded-t-(--raidus-base) max-h-[85vh] w-full flex flex-col border-t border-(--border-default) ${THEME[theme]}`}>
+        <div
+          className={`rounded-t-2xl max-h-[85vh] w-full flex flex-col border border-(--border-default) ${THEME[theme]}`}
+        >
           <div className="flex items-center justify-between px-6 py-5 border-b border-gray-700/40">
             {/* Geri Butonu Alanı */}
             {onBack && (
@@ -98,6 +107,36 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           <div className="flex-1 overflow-y-auto text-(--text-heading)">
             {children}
           </div>
+          {/* Footer */}
+          {(confirmText || cancelText) && (
+            <div className="flex gap-3 mt-6 justify-center py-6 px-8 bg-(--bg-neutral-primary-soft)">
+              {cancelText && (
+                <Button
+                  text={cancelText}
+                  variant="secondary"
+                  appearance="filled"
+                  padding="xl"
+                  size="base"
+                  textSize="sm"
+                  onClick={onCancel}
+                  className="w-full"
+                />
+              )}
+
+              {confirmText && (
+                <Button
+                  text={confirmText}
+                  variant="brand"
+                  appearance="filled"
+                  padding="xl"
+                  size="base"
+                  textSize="xs"
+                  onClick={onConfirm}
+                  className="w-full"
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>

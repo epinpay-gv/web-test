@@ -52,6 +52,7 @@ export default function AllRafflesClient({
     handleResetFilters,
     handlePageChange,
     handleSortChange,
+    handleBulkApply,
   } = useUrlFilters(initialFilters);
 
   const pageTitle = breadcrumbItems[2]
@@ -121,6 +122,8 @@ export default function AllRafflesClient({
             titleFilter={titleFilters}
             currentSort={currentSort}
             onSortSelect={handleSortChange}
+            onBulkApply={handleBulkApply}
+            searchParams={searchParams}
           />
 
           <div className="flex-1 flex flex-col gap-4">
@@ -128,7 +131,7 @@ export default function AllRafflesClient({
               {raffleTypeTabFilters.length > 0 &&
                 raffleTypeTabFilters.map((i) => (
                   <Badge
-                  theme={activeTypeParam !== i.value ? "gray" : "brand"}
+                    theme={activeTypeParam !== i.value ? "gray" : "brand"}
                     key={i.value}
                     text={i.label}
                     size="xl"

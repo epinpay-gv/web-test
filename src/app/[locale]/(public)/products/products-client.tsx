@@ -36,6 +36,7 @@ export default function ProductsClient({
     handleResetFilters,
     handlePageChange,
     handleSortChange,
+    handleBulkApply,
   } = useUrlFilters(initialFilters);
 
   const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
@@ -52,9 +53,9 @@ export default function ProductsClient({
   const productTypeTabItems =
     tabFilters?.elements?.[0]?.type === "checkbox"
       ? tabFilters.elements[0].options.map((opt) => ({
-        label: opt.label,
-        value: opt.value,
-      }))
+          label: opt.label,
+          value: opt.value,
+        }))
       : [];
 
   const activeFilters = getActiveFilterLabels(
@@ -116,6 +117,8 @@ export default function ProductsClient({
             titleFilter={titleFilters}
             currentSort={currentSort}
             onSortSelect={handleSortChange}
+            onBulkApply={handleBulkApply}
+            searchParams={searchParams}
           />
 
           <div className="flex-1 flex flex-col gap-4">

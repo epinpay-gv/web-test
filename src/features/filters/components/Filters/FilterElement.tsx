@@ -11,6 +11,7 @@ interface FilterElementProps {
   toggleFilter: (key: string, value: string) => void;
   setPriceRange: (min?: number, max?: number) => void;
   toggleBoolean: (key: string) => void;
+  searchParamsOverride?: URLSearchParams;
 }
 
 export default function FilterElement({
@@ -18,8 +19,11 @@ export default function FilterElement({
   toggleFilter,
   setPriceRange,
   toggleBoolean,
+  searchParamsOverride,
 }: FilterElementProps) {
-  const searchParams = useSearchParams();
+  const urlSearchParams = useSearchParams();
+  const searchParams = searchParamsOverride ?? urlSearchParams;
+  
   const [searchValue, setSearchValue] = useState("");
   const t = useTranslations("catalog");
 

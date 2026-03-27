@@ -25,7 +25,7 @@ type ButtonAppearance = "filled" | "outline";
 type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl" | "full";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text?: string;
+  text?: string | ReactNode;
   icon?: ReactNode;
   iconLeft?: ReactNode;
   size?: ButtonSize;

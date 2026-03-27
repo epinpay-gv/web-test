@@ -23,38 +23,21 @@ export default function FilterGroup({
   toggleBoolean,
 }: FilterGroupProps) {
   const { titleData, elements } = config;
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="space-y-4 border-b md:border-none py-4 md:pb-0">
       {titleData && (
-        <div
-          className="flex md:justify-start justify-between"
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
+        <div className="flex md:justify-start justify-between">
           <Title
             data={titleData}
             activeCount={activeCount}
             onAction={resetFilters}
             actionBtn={true}
           />
-          <ChevronRight
-            size={18}
-            className={`
-              md:hidden transition-transform duration-200
-              ${isOpen ? "rotate-90" : ""}
-            `}
-          />
         </div>
       )}
 
-      <div
-        className={`
-          space-y-4
-          ${!titleData || isOpen ? "block" : "hidden"}
-          md:block
-        `}
-      >
+      <div className="space-y-4 md:block">
         {elements.map((el) => (
           <FilterElement
             key={el.key}

@@ -46,6 +46,7 @@ export default function CategoryClient({
     handleResetFilters,
     handlePageChange,
     handleSortChange,
+    handleBulkApply
   } = useUrlFilters(initialFilters);
 
   const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
@@ -125,6 +126,8 @@ export default function CategoryClient({
             titleFilter={titleFilters}
             currentSort={currentSort}
             onSortSelect={handleSortChange}
+            onBulkApply={handleBulkApply}
+            searchParams={searchParams}
           />
 
           <div className="flex-1 flex flex-col gap-4 ">

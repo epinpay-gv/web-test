@@ -92,11 +92,30 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
   }
 
   function handleSingleFilter(key: string, value: string) {
-  navigate((p) => {
-    value === "all" ? p.delete(key) : p.set(key, value);
-    p.delete("page");
-  });
-}
+    navigate((p) => {
+      value === "all" ? p.delete(key) : p.set(key, value);
+      p.delete("page");
+    });
+  }
+
+  /**
+   * Mobile-only: receives the entire draft URLSearchParams and
+   * replaces the URL in a single navigation — no flicker, no race conditions.
+   */
+  function handleBulkApply(draft: URLSearchParams) {
+    navigate((p) => {
+      initialFilters.forEach((group) =>
+        group.elements.forEach((el) => p.delete(el.key)),
+      );
+      p.delete("minPrice");
+      p.delete("maxPrice");
+      p.delete("page");
+
+      draft.forEach((value, key) => {
+        p.append(key, value);
+      });
+    });
+  }
 
   return {
     searchParams,
@@ -111,5 +130,6 @@ export function useUrlFilters(initialFilters: FilterGroupConfig[]) {
     handleSearchChange,
     handleDateRangeChange,
     handleSingleFilter,
+    handleBulkApply
   };
 }

@@ -3,12 +3,19 @@ import Title from "@/components/common/Title/Title";
 import { TitleData } from "@/components/common/Title/types";
 import FilterGroup from "./FilterGroup";
 import { BottomSheet, Button } from "@/components/common";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Sort, Filter } from "flowbite-react-icons/outline";
 import { useTranslations } from "next-intl";
 import FilterDropdownContainer from "./FilterDropdownContainer";
 import { ActiveFilterChip, FilterGroupConfig } from "../../filters.types";
-import { countActiveFiltersByGroup } from "../../utils/filters.utils";
+import {
+  countActiveFiltersByGroup,
+  getActiveFilterLabels,
+} from "../../utils/filters.utils";
+import MobileFilterElement from "./MobileFilterElement";
+import MobileFilterGroup from "./MobileFilterGroup";
+import { ReadonlyURLSearchParams } from "next/navigation";
+import { useMobileFilterSheet } from "../../hooks/useMobileFilterSheet";
 
 interface FiltersProps {
   titleData: TitleData;
@@ -21,6 +28,8 @@ interface FiltersProps {
   titleFilter?: FilterGroupConfig;
   onSortSelect: (value: string) => void;
   currentSort?: string;
+  onBulkApply(draft: URLSearchParams): void;
+  searchParams: ReadonlyURLSearchParams;
 }
 
 export default function Filters({
@@ -34,12 +43,29 @@ export default function Filters({
   titleFilter,
   onSortSelect,
   currentSort,
+  onBulkApply,
+  searchParams,
 }: FiltersProps) {
   const activeCountMap = countActiveFiltersByGroup(activeFilters, filters);
-
-  const [mobileFilters, setMobileFilters] = useState(false);
   const t = useTranslations("catalog.filters");
 
+  const {
+    sheetOpen,
+    selectedGroup,
+    draft,
+    draftActiveFilters,
+    sheetTitle,
+    setSelectedGroup,
+    handleOpen,
+    handleClose,
+    handleApply,
+    handleReset,
+    draftToggleFilter,
+    draftSetPriceRange,
+    draftToggleBoolean,
+  } = useMobileFilterSheet({ filters, searchParams, onBulkApply });
+
+  // SORT IN TITLE
   const dropdownEl = titleFilter?.elements.find((el) => el.type === "dropdown");
   const dropdownItems =
     dropdownEl?.type === "dropdown"
@@ -57,11 +83,21 @@ export default function Filters({
         <Button
           padding="sm"
           textSize="sm"
-          text={t("title")}
+          text={
+            <div>
+              {t("title")}{" "}
+              {draftActiveFilters.length > 0 && (
+                <span className="ml-2 bg-(--bg-brand-softer) border border-(--border-brand-subtle) py-0.5 px-2 rounded-sm">
+                  {draftActiveFilters.length}
+                </span>
+              )}
+            </div>
+          }
           variant="secondary"
-          onClick={() => setMobileFilters(true)}
-          icon={<Filter size={14} />}
+          onClick={handleOpen}
+          iconLeft={<Filter size={14} />}
         />
+
         <FilterDropdownContainer
           selectedId={currentSort ?? ""}
           items={dropdownItems}
@@ -69,23 +105,35 @@ export default function Filters({
           icon={<Sort size={16} className="text-(--text-body)" />}
         />
         <BottomSheet
-          isOpen={mobileFilters}
-          title={t("title")}
-          onClose={() => setMobileFilters(false)}
+          isOpen={sheetOpen}
+          title={sheetTitle}
+          onClose={handleClose}
+          onBack={selectedGroup ? () => setSelectedGroup(null) : undefined}
+          confirmText="Uygula"
+          cancelText="Tümünü Temizle"
+          onConfirm={handleApply}
+          onCancel={handleReset}
+          theme="dark"
         >
-          <div className="p-6">
-            {filters.map((group, index) => (
-              <FilterGroup
-                key={index}
-                config={group}
-                activeCount={activeCountMap[index]}
-                resetFilters={resetFilters}
-                toggleFilter={toggleFilter}
-                setPriceRange={setPriceRange}
-                toggleBoolean={toggleBoolean}
-              />
-            ))}
-          </div>
+          {selectedGroup ? (
+            <MobileFilterElement
+              config={selectedGroup}
+              draft={draft}
+              toggleFilter={draftToggleFilter}
+              setPriceRange={draftSetPriceRange}
+              toggleBoolean={draftToggleBoolean}
+            />
+          ) : (
+            <MobileFilterGroup
+              filters={filters}
+              draftActiveFilters={draftActiveFilters}
+              onSelectGroup={setSelectedGroup}
+              draft={draft}
+              toggleFilter={draftToggleFilter}
+              setPriceRange={draftSetPriceRange}
+              toggleBoolean={draftToggleBoolean}
+            />
+          )}
         </BottomSheet>
       </div>
 
