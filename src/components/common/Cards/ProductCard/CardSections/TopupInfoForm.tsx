@@ -1,6 +1,7 @@
 "use client";
 import { useCatalogStore } from "@/features/catalog/store/catalog.store";
 import { useEffect, useState } from "react";
+import { Input } from "@/components/common";
 
 export function TopupInfoForm() {
   const { topupFields, setTopupValue } = useCatalogStore();
@@ -26,13 +27,16 @@ export function TopupInfoForm() {
     <div className="flex flex-col gap-4">
       {topupFields.map((field) => (
         <div key={field.id} className="flex flex-col gap-1">
-          <label className="text-sm font-medium">{field.label}</label>
-          <input
+          <label className="text-(--text-heading) text-sm font-medium">
+            {field.label} <span className="text-(--text-fg-danger)">*</span>
+          </label>
+          <Input
             type="text"
+            name="email"
             placeholder={field.value}
             value={values[field.id] ?? ""}
             onChange={(e) => handleChange(field.id, e.target.value)}
-            className="border rounded-md px-3 py-2 text-sm"
+            inputSize="base"
           />
         </div>
       ))}

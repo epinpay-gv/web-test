@@ -11,7 +11,7 @@ type ModalSize = "sm" | "md" | "lg";
 interface ModalProps {
   open: boolean;
   title?: string;
-  description?: string;
+  description?: ReactNode;
   children?: ReactNode;
   icon?: ReactNode;
   theme?: ModalTheme;
@@ -94,11 +94,7 @@ export function Modal({
         )}
 
         {/* Description */}
-        {description && (
-          <p className="text-sm text-center mb-4 text-(--text-body)">
-            {description}
-          </p>
-        )}
+        {description && <div className="border-b pb-2 mb-4">{description}</div>}
 
         {/* Custom Content */}
         {children && <div className="mb-4">{children}</div>}
@@ -120,18 +116,20 @@ export function Modal({
                 size="base"
                 textSize="sm"
                 onClick={onCancel}
+                className="w-full"
               />
             )}
 
             {confirmText && (
               <Button
                 text={confirmText}
-                variant="dark"
+                variant="brand"
                 appearance="filled"
                 padding="xl"
                 size="base"
                 textSize="xs"
                 onClick={onConfirm}
+                className="w-full"
               />
             )}
           </div>
