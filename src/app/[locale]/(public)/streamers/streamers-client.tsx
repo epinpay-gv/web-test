@@ -55,7 +55,7 @@ export default function StreamersClientPage({
 
   return (
     <div className="bg-(--bg-neutral-tertiary)">
-      <div className="flex flex-col items-center gap-10 pb-10">
+      <div className="flex flex-col items-center md:gap-10 pb-10">
         {/* MAIN BANNER */}
         <BannerSection
           accentColor="#8B0836"

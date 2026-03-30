@@ -21,7 +21,7 @@ export default function StreamerPackages({
     <section
       className="relative w-full rounded-full p-10 md:py-20 md:px-50 overflow-hidden"
       style={{
-        background: `linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, rgba(16, 78, 105, 0.4) 10%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0) 60%, rgba(16, 78, 105, 0.4) 90%, rgba(255, 255, 255, 0.4) 100%)`,
+        background: `linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(16, 78, 105, 0.6) 5%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 80%, rgba(16, 78, 105, 0.6) 95%, rgba(255, 255, 255, 0.3) 100%)`,
         // mixBlendMode: "screen",
       }}
     >
