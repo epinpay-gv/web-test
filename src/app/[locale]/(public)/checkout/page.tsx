@@ -1,4 +1,3 @@
-// app/[locale]/cart/page.tsx
 'use client';
 import { EmptyCart } from '@/features/checkout/components/EmptyCart';
 import { FilledCart } from '@/features/checkout/components/FilledCart';

@@ -12,18 +12,16 @@ interface CartActionBody {
 }
 
 export const cartService = {
-  async getCart(userId?: string, guestId?: string): Promise<CartResponse> {
-    const params = new URLSearchParams();
-    if (userId) params.append("userId", userId);
-    if (guestId) params.append("guestId", guestId);
-
+  // TODO : user id ler kalkacak
+  async getCart(): Promise<CartResponse> {
     return baseFetcher<CartResponse>(
-      `/api/cart?${params.toString()}`,
+      `/api/cart?`,
       { method: "GET", cache: "no-store" },
       "Sepet bilgileri alinamadi"
     );
   },
 
+  // TODO : user id ler kalkabilir, burası silinecek
   getOrCreateGuestId(): string {
     if (typeof window === "undefined") return "";
     let guestId = localStorage.getItem("guest_id");

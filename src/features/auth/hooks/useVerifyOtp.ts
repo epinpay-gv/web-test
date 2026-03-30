@@ -18,7 +18,8 @@ export function useVerifyOtp({
 }: UseVerifyOtpProps) {
   const store = useRegisterStore();
   const [otp, setOtp] = useState("");
-  const [timeLeft, setTimeLeft] = useState(expiresIn);
+  // const [timeLeft, setTimeLeft] = useState(expiresIn);
+  const [timeLeft, setTimeLeft] = useState(300);
 
   const canResend = useMemo(() => timeLeft === 0, [timeLeft]);
   const isExpired = useMemo(() => timeLeft === 0, [timeLeft]);

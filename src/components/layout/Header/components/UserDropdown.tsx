@@ -24,9 +24,9 @@ import { useRouter } from "next/navigation";
 import { useLogout } from "@/features/auth/hooks/useLogout";
 
 const MENU_ITEMS = [
-  { id: "account", label: "Hesap Bilgilerim", icon: UserIcon, href: "/profile" },
-  { id: "settings", label: "Ayarlar", icon: AdjustmentsHorizontal, href: "/settings" },
-  { id: "privacy", label: "Gizlilik", icon: Lock, href: "/privacy" },
+  { id: "account", label: "Hesap Bilgilerim", icon: UserIcon, href: "/user" },
+  { id: "settings", label: "Ayarlar", icon: AdjustmentsHorizontal, href: "/user/settings" },
+  { id: "privacy", label: "Gizlilik", icon: Lock, href: "/user/privacy" },
   { id: "notifications", label: "Bildirimlerim", icon: Bell, href: "/notifications" },
   { id: "help", label: "Yardım Merkezi", icon: QuestionCircle, href: "/help" },
 ];

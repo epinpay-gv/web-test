@@ -1,4 +1,3 @@
-// features/cart/hooks/useCart.ts
 import { useState, useEffect, useCallback } from "react";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { cartService } from "../checkout.service";

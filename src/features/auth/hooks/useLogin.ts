@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService } from '../auth.service';
@@ -33,7 +32,6 @@ function validateAll(formData: LoginFormData): Partial<LoginFormData> {
   };
 }
 
-// ✅ onSuccess parametresi eklendi (Opsiyonel)
 export function useLogin(onSuccess?: () => void) {
   const router = useRouter();
   const login = useAuthStore((state) => state.login);
