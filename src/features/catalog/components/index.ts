@@ -7,6 +7,8 @@ import SeoSection from "./category/SeoSection";
 import ProductInfo from "./product-detail/ProductInfo/ProductInfo";
 import BasketSection from "./product-detail/BasketSection";
 import SeoSectionWithTab from "./product-detail/SeoSectionWithTab";
+import PaginationContainer from "./PaginationContainer";
+import ActiveFiltersContainer from "./ActiveFiltersContainer";
 
 export {
   FilterContainer,
@@ -18,4 +20,6 @@ export {
   ProductInfo,
   BasketSection,
   SeoSectionWithTab,
+  PaginationContainer,
+  ActiveFiltersContainer,
 };

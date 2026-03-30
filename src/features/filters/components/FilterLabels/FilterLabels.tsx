@@ -1,27 +1,31 @@
 "use client";
 import { Badge } from "@/components/common";
 import { useTranslations } from "next-intl";
-import { ActiveFilterChip } from "../../filters.types";
+import { FilterGroupConfig } from "../../filters.types";
+import { getActiveFilterLabels } from "../../utils/filters.utils";
+import { useUrlFilters } from "../../hooks/useUrlFilters";
 
 interface FilterLabelsProps {
-  isLoading?: boolean;
-  activeFilters: ActiveFilterChip[];
-  setPriceRange: (min?: number, max?: number) => void;
-  toggleFilter: (key: string, value: string) => void;
-  resetFilters: () => void;
+  initialFilters: FilterGroupConfig[];
 }
 
-export default function FilterLabels({
-  isLoading = false,
-  activeFilters,
-  setPriceRange,
-  toggleFilter,
-  resetFilters,
-}: FilterLabelsProps) {
+export default function FilterLabels({ initialFilters }: FilterLabelsProps) {
   const t = useTranslations("catalog.filters");
+  const {
+    searchParams,
+    isPending,
+    handleResetFilters,
+    handleToggleFilter,
+    handleSetPriceRange,
+  } = useUrlFilters(initialFilters);
+
+  const activeFilters = getActiveFilterLabels(
+    new URLSearchParams(searchParams.toString()),
+    initialFilters,
+  );
   const activeFilterCount = activeFilters.length;
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="hidden md:flex flex-wrap items-center gap-2">
         {/* Clear selections */}
@@ -38,7 +42,7 @@ export default function FilterLabels({
   return (
     <div className="hidden md:flex flex-wrap items-center gap-2">
       <button
-        onClick={resetFilters}
+        onClick={handleResetFilters}
         className="text-(--text-fg-brand) mr-2 cursor-pointer hover:underline"
       >
         {t("clearSelections")}
@@ -53,10 +57,10 @@ export default function FilterLabels({
           type="default"
           onClose={() => {
             if (chip.key === "price") {
-              setPriceRange(undefined, undefined);
+              handleSetPriceRange(undefined, undefined);
             } else {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              toggleFilter(chip.key as any, chip.value);
+              handleToggleFilter(chip.key as any, chip.value);
             }
           }}
         />

@@ -1,31 +1,34 @@
+"use client"
 import { Sort } from "flowbite-react-icons/outline";
 import FilterDropdownContainer from "../../filters/components/Filters/FilterDropdownContainer";
 import { useTranslations } from "next-intl";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
+import { useUrlFilters } from "@/features/filters/hooks/useUrlFilters";
+import { BreadcrumbItem } from "@/types/types";
 
 interface PageTitleProps {
-  data: {
-    title: string;
-    totalProductAmount: number;
-  };
-  isLoading?: boolean;
-  titleFilter?: FilterGroupConfig;
-  onSortSelect?: (value: string) => void;
-  currentSort?: string;
+  initialFilters: FilterGroupConfig[];
+  breadcrumbItems: BreadcrumbItem[];
+  totalProductAmount: number;
   sort?: boolean;
 }
 
 export default function PageTitle({
-  data,
-  isLoading = false,
-  titleFilter,
-  onSortSelect,
-  currentSort,
+  initialFilters,
+  breadcrumbItems,
+  totalProductAmount,
   sort = true,
 }: PageTitleProps) {
   const t = useTranslations("common.labels");
 
-  const dropdownEl = titleFilter?.elements.find((el) => el.type === "dropdown");
+  const { searchParams, isPending, handleSortChange } =
+    useUrlFilters(initialFilters);
+
+  const titleFilters = initialFilters.find((g) => g.isTitle);
+
+  const dropdownEl = titleFilters?.elements.find(
+    (el) => el.type === "dropdown",
+  );
   const dropdownItems =
     dropdownEl?.type === "dropdown"
       ? dropdownEl.options.map((opt) => ({
@@ -34,8 +37,15 @@ export default function PageTitle({
           value: opt.value,
         }))
       : [];
+  const defaultSort =
+    dropdownEl?.type === "dropdown" ? (dropdownEl.options[0]?.value ?? "") : "";
+  const currentSort = searchParams.get("sort") ?? defaultSort;
 
-  if (isLoading) {
+  const pageTitle = breadcrumbItems[2]
+    ? `${breadcrumbItems[2].name} ürünleri`
+    : "Tüm ürünler";
+
+  if (isPending) {
     return (
       <div className="flex items-center justify-between">
         {/* Title */}
@@ -57,19 +67,19 @@ export default function PageTitle({
     <div className="flex items-center justify-between">
       <div className="text-sm md:text-xl flex items-center gap-2">
         <h1>
-          {data.title} {t("listing")}
+          {pageTitle} {t("listing")}
         </h1>
         <p className="text-(--text-body)">
-          {data.totalProductAmount} {t("product")}
+          {totalProductAmount} {t("product")}
         </p>
       </div>
       {/* Sort */}
-      {sort && onSortSelect && (
+      {sort && handleSortChange && (
         <div className="hidden md:block">
           <FilterDropdownContainer
             selectedId={currentSort ?? ""}
             items={dropdownItems}
-            onSelect={onSortSelect}
+            onSelect={handleSortChange}
             icon={<Sort size={16} className="text-(--text-body)" />}
             align="right"
           />

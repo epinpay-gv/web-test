@@ -16,39 +16,31 @@ import MobileFilterElement from "./MobileFilterElement";
 import MobileFilterGroup from "./MobileFilterGroup";
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { useMobileFilterSheet } from "../../hooks/useMobileFilterSheet";
+import { useUrlFilters } from "../../hooks/useUrlFilters";
 
-interface FiltersProps {
-  titleData: TitleData;
-  filters: FilterGroupConfig[];
-  activeFilters: ActiveFilterChip[];
-  resetFilters: () => void;
-  toggleFilter: (key: string, value: string) => void;
-  setPriceRange: (min?: number, max?: number) => void;
-  toggleBoolean: (key: string) => void;
-  titleFilter?: FilterGroupConfig;
-  onSortSelect: (value: string) => void;
-  currentSort?: string;
-  onBulkApply(draft: URLSearchParams): void;
-  searchParams: ReadonlyURLSearchParams;
+interface FilterContainerProps {
+  initialFilters: FilterGroupConfig[];
 }
 
-export default function Filters({
-  titleData,
-  filters,
-  activeFilters,
-  resetFilters,
-  toggleFilter,
-  setPriceRange,
-  toggleBoolean,
-  titleFilter,
-  onSortSelect,
-  currentSort,
-  onBulkApply,
-  searchParams,
-}: FiltersProps) {
-  const activeCountMap = countActiveFiltersByGroup(activeFilters, filters);
+export default function FilterContainer({
+  initialFilters,
+}: FilterContainerProps) {
   const t = useTranslations("catalog.filters");
 
+  const {
+    searchParams,
+    isPending,
+    handleTypeChange,
+    handleToggleFilter,
+    handleSetPriceRange,
+    handleToggleBoolean,
+    handleResetFilters,
+    handlePageChange,
+    handleSortChange,
+    handleBulkApply,
+  } = useUrlFilters(initialFilters);
+
+  const filters = initialFilters.filter((g) => !g.isTab && !g.isTitle);
   const {
     sheetOpen,
     selectedGroup,
@@ -63,10 +55,22 @@ export default function Filters({
     draftToggleFilter,
     draftSetPriceRange,
     draftToggleBoolean,
-  } = useMobileFilterSheet({ filters, searchParams, onBulkApply });
+  } = useMobileFilterSheet({
+    filters,
+    searchParams,
+    onBulkApply: handleBulkApply,
+  });
+  const activeFilters = getActiveFilterLabels(
+    new URLSearchParams(searchParams.toString()),
+    initialFilters,
+  );
+  const activeCountMap = countActiveFiltersByGroup(activeFilters, filters);
+  const titleFilters = initialFilters.find((g) => g.isTitle);
 
   // SORT IN TITLE
-  const dropdownEl = titleFilter?.elements.find((el) => el.type === "dropdown");
+  const dropdownEl = titleFilters?.elements.find(
+    (el) => el.type === "dropdown",
+  );
   const dropdownItems =
     dropdownEl?.type === "dropdown"
       ? dropdownEl.options.map((opt) => ({
@@ -75,6 +79,9 @@ export default function Filters({
           value: opt.value,
         }))
       : [];
+  const defaultSort =
+    dropdownEl?.type === "dropdown" ? (dropdownEl.options[0]?.value ?? "") : "";
+  const currentSort = searchParams.get("sort") ?? defaultSort;
 
   return (
     <>
@@ -101,7 +108,7 @@ export default function Filters({
         <FilterDropdownContainer
           selectedId={currentSort ?? ""}
           items={dropdownItems}
-          onSelect={onSortSelect}
+          onSelect={handleSortChange}
           icon={<Sort size={16} className="text-(--text-body)" />}
         />
         <BottomSheet
@@ -139,16 +146,16 @@ export default function Filters({
 
       {/* WEB GÖRÜNÜM */}
       <div className="hidden md:block blue-container container max-w-77 p-6 space-y-4">
-        <Title data={titleData} />
+        <Title data={{ title: "Filtrele", isUnderlined: true }} />
         {filters.map((group, index) => (
           <FilterGroup
             key={index}
             config={group}
             activeCount={activeCountMap[index]}
-            resetFilters={resetFilters}
-            toggleFilter={toggleFilter}
-            setPriceRange={setPriceRange}
-            toggleBoolean={toggleBoolean}
+            resetFilters={handleResetFilters}
+            toggleFilter={handleToggleFilter}
+            setPriceRange={handleSetPriceRange}
+            toggleBoolean={handleToggleBoolean}
           />
         ))}
       </div>

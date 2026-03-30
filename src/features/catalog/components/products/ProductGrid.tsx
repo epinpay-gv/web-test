@@ -9,27 +9,21 @@ import {
   NotifyWhenAvailablePayload,
 } from "../../catalog.types";
 import { useTranslations } from "next-intl";
+import { useBasketActions } from "../../hooks";
 
 interface ProductGridProps {
   data: Product[];
   isLoading?: boolean;
-  addToCart: (payload: AddToCartPayload) => void;
-  notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
-  addToFavorites: (payload: AddToFavoritesPayload) => void;
-  changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
 export default function ProductGrid({
   data,
   isLoading = false,
-  addToCart,
-  notifyWhenAvailable,
-  addToFavorites,
-  changeQuantity,
 }: ProductGridProps) {
   const t = useTranslations("common.messages");
   const tBtn = useTranslations("common.buttons");
-
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
   return (
     <>
       {data.length > 0 ? (

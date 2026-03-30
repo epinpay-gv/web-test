@@ -1,6 +1,5 @@
 import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
-import ProductsClient from "./products-client";
 import { getProducts } from "@/features/catalog/catalog.service";
 import { createProductsBreadcrumb } from "@/features/catalog/utils";
 import {
@@ -10,6 +9,16 @@ import {
   WebsiteSchema,
 } from "@/components/seo";
 import { extractSelectedFilterOption } from "@/features/filters/utils/filters.utils";
+import { Breadcrumb } from "@/components/common";
+import {
+  PageTitle,
+  FilterContainer,
+  ActiveFiltersContainer,
+  ProductGrid,
+  PaginationContainer,
+} from "@/features/catalog/components";
+import { FilterNavTab } from "@/features/filters/components";
+import { Home } from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -127,12 +136,42 @@ export default async function ProductsPage({
       />
 
       {/* Page Content */}
-      <ProductsClient
-        initialProducts={res.data}
-        initialFilters={res.filters}
-        pagination={res.pagination}
-        breadcrumbItems={breadcrumbItems}
-      />
+      <div className="container max-w-7xl mx-auto space-y-4 pb-12">
+        <FilterNavTab initialFilters={res.filters} />
+
+        <div className="px-4 md:px-0">
+          <PageTitle
+            initialFilters={res.filters}
+            breadcrumbItems={breadcrumbItems}
+            totalProductAmount={res.pagination.count}
+          />
+
+          <Breadcrumb
+            items={breadcrumbItems.map((item, index) => ({
+              ...item,
+              icon: index === 0 ? <Home size={14} /> : undefined,
+            }))}
+          />
+
+          <div className="flex md:flex-row flex-col items-start gap-4">
+            <FilterContainer initialFilters={res.filters} />
+
+            <div className="flex-1 flex flex-col gap-4">
+              <ActiveFiltersContainer initialFilters={res.filters} />
+
+              <ProductGrid
+                isLoading={false} //TODO : hooktan al
+                data={res.data}
+              />
+
+              <PaginationContainer
+                initialFilters={res.filters}
+                pagination={res.pagination}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
