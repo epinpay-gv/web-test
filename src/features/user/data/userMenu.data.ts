@@ -8,7 +8,7 @@ export const userMenu = [
     // {icon: SalePercent, label: "Kuponlarım", url: "/user/coupons"},
     // {icon: Messages, label: "Mesajlarım", url: "/user/messages"},
     // {icon: Bell, label: "Bildirimlerim", url: "/user/notifications"},
-    {icon: Star, label: "Bakiye İşlemleri", url: "/user/wallet"},
+    {icon: Star, label: "Bakiye İşlemleri", url: "/user/balance"},
     {icon: Cog, label: "Ayarlar", url: "/user/settings"},
 ]
 

@@ -6,6 +6,7 @@ import FiltersSection from "./FiltersSection";
 import ProductDetailCard from "./ProductDetailCard";
 import UserPageHeader from "./UserPageHeader";
 import UserPageSearch from "./UserPageSearch";
+import LoadBalance from "./balance/LoadBalance";
 
 export {
   OrdersSection,
@@ -16,4 +17,5 @@ export {
   ProductDetailCard,
   UserPageHeader,
   UserPageSearch,
+  LoadBalance,
 };

@@ -123,6 +123,11 @@ export interface Order {
   products: OrderProduct[];
 }
 
+// balance
+export interface LoadBalanceForm{
+  amount: number;
+}
+
 /* RESPONSE & PAYLOAD TYPES */
 // orders
 export interface OrdersPageApiResponse {
