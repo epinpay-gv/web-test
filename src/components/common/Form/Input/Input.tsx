@@ -1,8 +1,36 @@
 "use client";
-
 import clsx from "clsx";
-import { InputProps } from "./types";
 import { Close } from "flowbite-react-icons/outline";
+import { InputHTMLAttributes } from "react";
+
+type InputSize = "xs" | "sm" | "base" | "lg" | "xl";
+
+type InputVariant =
+  | "default"
+  | "addOnIcon"
+  | "addOnText"
+  | "innerButton"
+  | "stacked";
+
+ interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClear?: () => void;
+
+  inputSize?: InputSize;
+  variant?: InputVariant;
+
+  /* content */
+  leftIcon?: React.ReactNode;
+  addOnIcon?: React.ReactNode;
+  addOnText?: string;
+  innerButton?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+
+  /* styling */
+  wrapperClassName?: string;
+}
 
 export default function Input({
   inputSize = "base",

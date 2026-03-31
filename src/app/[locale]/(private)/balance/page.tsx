@@ -1,4 +1,4 @@
-import { LoadBalance } from "@/features/user/components";
+import { LoadBalance } from "@/features/checkout/components";
 
 export default function Balance() {
   return (

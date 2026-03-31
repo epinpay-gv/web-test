@@ -1,8 +1,8 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
 import { CartResponse, OrderDetailResponse, PaymentMethod, OrderAuthRequest } from "./types";
 
-const BFF_BASE_URL = "http://localhost:3041/api/features/checkout";
-
+// TODO : Bu test için eklendi, bff testlerinden sonra silinecek
+// const BFF_BASE_URL = "http://localhost:3041/api/features/checkout"; 
 interface UpdateQuantityParams {
   itemId: string;
   newQuantity: number;
@@ -14,7 +14,7 @@ export const cartService = {
    */
   async getCart(): Promise<CartResponse> {
     return await baseFetcher<CartResponse>(
-      `${BFF_BASE_URL}/cart`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart`,
       { method: "GET", cache: "no-store" },
       "Sepet bilgileri alınamadı"
     );
@@ -29,7 +29,7 @@ export const cartService = {
     if (newQuantity < 1) return;
 
     await baseFetcher<void, { quantity: number }>(
-      `${BFF_BASE_URL}/cart/item/${itemId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart/item/${itemId}`,
       {
         method: "PATCH",
         body: { quantity: newQuantity }
@@ -43,7 +43,7 @@ export const cartService = {
    */
   async removeItem(itemId: string): Promise<void> {
     await baseFetcher<void>(
-      `${BFF_BASE_URL}/cart/item/${itemId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart/item/${itemId}`,
       { method: "DELETE" },
       "Ürün sepetten kaldırılamadı"
     );
@@ -56,7 +56,7 @@ export const paymentService = {
    */
   getPaymentMethods: async (): Promise<PaymentMethod[]> => {
     return await baseFetcher<PaymentMethod[]>(
-      `${BFF_BASE_URL}/payment-methods`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart/payment-methods`,
       { method: "GET" },
       "Ödeme yöntemleri alınamadı"
     );
@@ -69,7 +69,7 @@ export const orderService = {
    */
   getOrderDetail: async (payload: OrderAuthRequest): Promise<OrderDetailResponse> => {
     return await baseFetcher<OrderDetailResponse, { email?: string }>(
-      `${BFF_BASE_URL}/order/${payload.order_id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/order/${payload.order_id}`,
       {
         method: "POST",
         body: { email: payload.email }
