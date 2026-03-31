@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface BannerSectionProps {
   left: React.ReactNode;
   right: React.ReactNode;
@@ -14,11 +16,13 @@ export default function BannerSection({
       className="w-full relative overflow-hidden py-10 md:py-20 px-4 md:px-10"
       style={{ backgroundColor: accentColor }}
     >
-      <div className="mx-auto w-full flex flex-col gap-6 md:flex-row justify-between items-center max-w-5xl">
-        <div className="z-1 w-full md:w-auto">{left}</div>
-        <div className="z-1">{right}</div>
+      {/* İÇERİK */}
+      <div className="mx-auto w-full flex flex-col gap-6 md:flex-row justify-between items-center max-w-5xl relative z-10">
+        <div className="w-full md:w-auto">{left}</div>
+        <div>{right}</div>
       </div>
 
+      {/* GRADİENT OVERLAY - CONIC */}
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
@@ -28,6 +32,7 @@ export default function BannerSection({
         }}
       />
 
+      {/* LCP OPTİMİZE EDİLMİŞ ARKA PLAN DOKUSU */}
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
@@ -36,6 +41,8 @@ export default function BannerSection({
           backgroundSize: "auto",
           mixBlendMode: "soft-light",
           opacity: 0.3,
+          willChange: "auto",
+          imageRendering: "auto",
         }}
       />
     </section>

@@ -1,6 +1,10 @@
+"use client";
 import { Stream } from "@/features/streamers/streamers.types";
-import Image from "next/image";
 import StreamerInfo from "./CardSections/StreamerInfo";
+import { getOptimizedStreamUrl } from "@/features/streamers/utils/stream.utils";
+import { useState } from "react";
+import Image from "next/image";
+import { Play } from "flowbite-react-icons/solid";
 
 type CardVariant = "default" | "detailed";
 type CardSize = "base" | "lg";
@@ -25,8 +29,8 @@ export default function StreamCard({
   variant = "default",
   size = "base",
   data,
-  onClick,
 }: StreamCardProps) {
+
   if (!data) {
     return (
       <div
@@ -41,11 +45,11 @@ export default function StreamCard({
   return (
     <div className="flex flex-col gap-2">
       <div
-        className={`animate-fade-in aspect-video rounded-2xl overflow-y-hidden shadow-md
+        className={`relative group animate-fade-in aspect-video rounded-2xl overflow-y-hidden shadow-md cursor-pointer
       ${CARD_SIZE_CLASSES[size]} ${CARD_VARIANT_CLASSES[variant]}`}
       >
         <iframe
-          src={data.streamURl}
+          src={`${getOptimizedStreamUrl(data.streamURl)}${data.streamURl.includes("?") ? "&" : "?"}autoplay=1`}
           width="660"
           height="338"
           className="w-full h-full block"

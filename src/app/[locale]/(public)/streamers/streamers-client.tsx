@@ -1,15 +1,33 @@
 "use client";
 import { BannerSection } from "@/features/raffles/components";
+import dynamic from "next/dynamic";
 import {
   MainBannerLeft,
   MainBannerRight,
-  Platforms,
   FormBanner,
-  EpinpayStreamers,
-  StreamerPackages,
-  ApplicationSteps,
-  FAQSection,
 } from "@/features/streamers/components";
+
+const Platforms = dynamic(() => import("@/features/streamers/components/Platforms/Platforms"), {
+  ssr: false,
+  loading: () => <div className="w-full h-80 animate-pulse bg-white/5 rounded-2xl" />
+});
+
+const EpinpayStreamers = dynamic(() => import("@/features/streamers/components/EpinpayStreamers/EpinpayStreamers"), {
+  loading: () => <div className="w-full h-60 animate-pulse bg-white/5 rounded-2xl" />
+});
+
+const StreamerPackages = dynamic(() => import("@/features/streamers/components/StreamerPackages/StreamerPackages"), {
+  loading: () => <div className="w-full h-96 animate-pulse bg-white/5 rounded-2xl" />
+});
+
+const ApplicationSteps = dynamic(() => import("@/features/streamers/components/ApplicationSteps/ApplicationSteps"), {
+  loading: () => <div className="w-full h-40 animate-pulse bg-white/5 rounded-2xl" />
+});
+
+const FAQSection = dynamic(() => import("@/features/streamers/components/FAQSection/FAQSection"), {
+  loading: () => <div className="w-full h-60 animate-pulse bg-white/5 rounded-2xl" />
+});
+
 import { usePlatform } from "@/features/streamers/hooks/usePlatform";
 import { useStreamerLoop } from "@/features/streamers/hooks/useStreamerLoop";
 import {
