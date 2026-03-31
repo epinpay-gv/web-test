@@ -10,6 +10,10 @@ interface StreamerPackagesProps {
   onClick: (id: string) => void;
 }
 
+// Gradients
+const SECTION_BG = `linear-gradient(90deg, rgba(255,255,255,0.4) 0%, rgba(16,78,105,0.4) 10%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(16,78,105,0.4) 90%, rgba(255,255,255,0.4) 100%)`;
+const BORDER_BG = `linear-gradient(270deg, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,0.3) 100%)`;
+
 export default function StreamerPackages({
   data,
   selectedPackage,
@@ -20,19 +24,15 @@ export default function StreamerPackages({
   return (
     <section
       className="relative w-full rounded-full p-10 md:py-20 md:px-50 overflow-hidden"
-      style={{
-        background: `linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(16, 78, 105, 0.6) 5%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 80%, rgba(16, 78, 105, 0.6) 95%, rgba(255, 255, 255, 0.3) 100%)`,
-        // mixBlendMode: "screen",
-      }}
+      style={{ background: SECTION_BG }}
     >
       {/* GRADIENT BORDER */}
       <div
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{
           padding: "2px",
-          background: `linear-gradient(270deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.3) 100%)`,
-          WebkitMask:
-            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          background: BORDER_BG,
+          WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           WebkitMaskComposite: "xor",
           maskComposite: "exclude",
         }}
@@ -46,11 +46,14 @@ export default function StreamerPackages({
           backgroundSize: "auto",
           mixBlendMode: "soft-light",
           opacity: 0.3,
+          willChange: "auto",
         }}
       />
-      {/* CONTENT*/}
+      {/* CONTENT */}
       <div className="flex flex-col items-center gap-8">
-        <h2 className="text-2xl md:text-4xl text-center font-bold">Yayıncı Ligleri</h2>
+        <h2 className="text-2xl md:text-4xl text-center font-bold">
+          Yayıncı Ligleri
+        </h2>
         <h3>
           Hedeflerinizi gerçekleştirin, ödülleri toplayın ve yayıncı liginde üst
           sıralara tırmanın.

@@ -49,6 +49,7 @@ export default function StreamerInfo({
             src={data.avatar_url}
             alt={data.full_name}
             fill
+            sizes="120px"
             className="object-cover"
           />
         </div>
@@ -60,6 +61,7 @@ export default function StreamerInfo({
               src={LEAGUE_IMAGE_SRC[data.package]}
               alt={data.full_name}
               fill
+              sizes="64px"
               className="object-cover"
             />
           </div>
