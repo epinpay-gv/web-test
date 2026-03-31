@@ -8,23 +8,6 @@ import { useState } from 'react';
 export default function CartPage() {
   const { items, totalPrice, step, setStep, isLoading, updateQuantity, removeItem, resetCart  } = useCart();
   const [wantsInvoice, setWantsInvoice] = useState(false);
-  // const user = useAuthStore((state) => state.user);
-  // const isAuthenticated = useAuthStore((state) => state.user);
-
-  // useEffect(() => {
-  //   async function initCart() {
-  //     try {
-  //       const guestId = cartService.getOrCreateGuestId();
-  //       const data = await cartService.getCart(user?.id, guestId);
-  //       setItems(data.items);
-  //     } catch (err) {
-  //       console.error(err);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
-  //   initCart();
-  // }, [user?.id, isAuthenticated]);
 
   return (
     <div className="min-h-screen relative overflow-hidden">

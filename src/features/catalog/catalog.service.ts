@@ -65,10 +65,11 @@ export const getProduct = (
   );
 
 /* -------------------------- BASKET ACTIONS -------------------------- */
+const BFF_CHECKOUT_URL = "http://localhost:3041/api/features/checkout";
 
-export const addToCartService = (payload: AddToCartPayload) =>
-  baseFetcher<AddToCartResponse, AddToCartPayload>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/add-to-cart`,
+export const addToCartService = async (payload: AddToCartPayload) =>
+  await baseFetcher<AddToCartResponse, AddToCartPayload>(
+    `${BFF_CHECKOUT_URL}/cart`,
     {
       method: "POST",
       body: payload,
@@ -76,18 +77,21 @@ export const addToCartService = (payload: AddToCartPayload) =>
     "Sepete eklenemedi",
   );
 
-export const changeQuantityService = (payload: ChangeQuantityPayload) =>
-  baseFetcher<{ success: boolean }, ChangeQuantityPayload>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/change-quantity`,
+export const changeQuantityService = async (payload: ChangeQuantityPayload) => {
+  // BFF'de güncelleme PATCH /cart/item/:itemId ile yapılıyor.
+  // Catalog tarafındaki payload'da offerId var, bunu itemId olarak kullanıyoruz.
+  return await baseFetcher<{ success: boolean }, { quantity: number }>(
+    `${BFF_CHECKOUT_URL}/cart/item/${payload.offerId}`,
     {
-      method: "POST",
-      body: payload,
+      method: "PATCH",
+      body: { quantity: payload.quantity },
     },
     "Sepet güncellenemedi",
   );
+};
 
-export const addToFavoritesService = (payload: AddToFavoritesPayload) =>
-  baseFetcher<{ success: boolean }, AddToFavoritesPayload>(
+export const addToFavoritesService = async (payload: AddToFavoritesPayload) =>
+  await baseFetcher<{ success: boolean }, AddToFavoritesPayload>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/add-to-favorites`,
     {
       method: "POST",
@@ -96,10 +100,10 @@ export const addToFavoritesService = (payload: AddToFavoritesPayload) =>
     "Favorilere eklenemedi",
   );
 
-export const notifyWhenAvailableService = (
+export const notifyWhenAvailableService = async (
   payload: NotifyWhenAvailablePayload,
 ) =>
-  baseFetcher<{ success: boolean }, NotifyWhenAvailablePayload>(
+  await baseFetcher<{ success: boolean }, NotifyWhenAvailablePayload>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/notify`,
     {
       method: "POST",
@@ -108,7 +112,7 @@ export const notifyWhenAvailableService = (
     "Bildirim oluşturulamadı",
   );
 
-  export const getTopupModalData = (productId: number) =>
-  baseFetcher<TopupModalDataApiResponse>(
+export const getTopupModalData = async (productId: number) =>
+  await baseFetcher<TopupModalDataApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/catalog/topup-info/${productId}`,
   );

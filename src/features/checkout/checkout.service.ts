@@ -1,88 +1,80 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
 import { CartResponse, OrderDetailResponse, PaymentMethod, OrderAuthRequest } from "./types";
 
+const BFF_BASE_URL = "http://localhost:3041/api/features/checkout";
+
 interface UpdateQuantityParams {
   itemId: string;
   newQuantity: number;
-  currentQuantity: number;
-}
-
-interface CartActionBody {
-  action: "increment" | "decrement";
 }
 
 export const cartService = {
-  // TODO : user id ler kalkacak
+  /**
+   * Mevcut kullanıcının (veya misafirin) sepetini getirir.
+   */
   async getCart(): Promise<CartResponse> {
-    return baseFetcher<CartResponse>(
-      `/api/cart?`,
+    return await baseFetcher<CartResponse>(
+      `${BFF_BASE_URL}/cart`,
       { method: "GET", cache: "no-store" },
-      "Sepet bilgileri alinamadi"
+      "Sepet bilgileri alınamadı"
     );
   },
 
-  // TODO : user id ler kalkabilir, burası silinecek
-  getOrCreateGuestId(): string {
-    if (typeof window === "undefined") return "";
-    let guestId = localStorage.getItem("guest_id");
-    if (!guestId) {
-      guestId = `guest_${Math.random().toString(36).substring(2, 11)}`;
-      localStorage.setItem("guest_id", guestId);
-    }
-    return guestId;
-  },
-
+  /**
+   * Sepetteki bir ürünün miktarını doğrudan günceller.
+   */
   async updateQuantity(
-    { itemId, newQuantity, currentQuantity }: UpdateQuantityParams,
-    userId?: string,
-    guestId?: string
+    { itemId, newQuantity }: UpdateQuantityParams
   ): Promise<void> {
-    const params = new URLSearchParams();
-    if (userId) params.append("userId", userId);
-    if (guestId) params.append("guestId", guestId);
+    if (newQuantity < 1) return;
 
-    const diff = newQuantity - currentQuantity;
-    if (diff === 0) return;
-
-    const action: CartActionBody["action"] = diff > 0 ? "increment" : "decrement";
-    const steps = Math.abs(diff);
-
-    //! TODO: for kaldırılacak ve count ile sembol gönderilecek 
-    for (let i = 0; i < steps; i++) {
-      await baseFetcher<void, CartActionBody>(
-        `/api/cart/item/${itemId}?${params.toString()}`,
-        { method: "PATCH", body: { action } }
-      );
-    }
+    await baseFetcher<void, { quantity: number }>(
+      `${BFF_BASE_URL}/cart/item/${itemId}`,
+      {
+        method: "PATCH",
+        body: { quantity: newQuantity }
+      },
+      "Ürün adedi güncellenemedi"
+    );
   },
 
-  async removeItem(
-    itemId: string,
-    userId?: string,
-    guestId?: string
-  ): Promise<void> {
-    const params = new URLSearchParams();
-    if (userId) params.append("userId", userId);
-    if (guestId) params.append("guestId", guestId);
-
+  /**
+   * Ürünü sepetten kaldırır.
+   */
+  async removeItem(itemId: string): Promise<void> {
     await baseFetcher<void>(
-      `/api/cart/item/${itemId}?${params.toString()}`,
-      { method: "DELETE" }
+      `${BFF_BASE_URL}/cart/item/${itemId}`,
+      { method: "DELETE" },
+      "Ürün sepetten kaldırılamadı"
     );
   },
 };
 
 export const paymentService = {
+  /**
+   * Aktif ödeme yöntemlerini (Lidio, Ziina, Gpay vb.) getirir.
+   */
   getPaymentMethods: async (): Promise<PaymentMethod[]> => {
-    return await baseFetcher<PaymentMethod[]>("/api/cart/payment-methods");
+    return await baseFetcher<PaymentMethod[]>(
+      `${BFF_BASE_URL}/payment-methods`,
+      { method: "GET" },
+      "Ödeme yöntemleri alınamadı"
+    );
   },
 };
 
 export const orderService = {
+  /**
+   * Oluşturulan bir siparişin detaylarını sorgular.
+   */
   getOrderDetail: async (payload: OrderAuthRequest): Promise<OrderDetailResponse> => {
-    return await baseFetcher<OrderDetailResponse, OrderAuthRequest>(
-      `/api/order/${payload.order_id}`,
-      { method: "POST", body: payload }
+    return await baseFetcher<OrderDetailResponse, { email?: string }>(
+      `${BFF_BASE_URL}/order/${payload.order_id}`,
+      {
+        method: "POST",
+        body: { email: payload.email }
+      },
+      "Sipariş detayları alınamadı"
     );
   },
 };

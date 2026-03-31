@@ -67,7 +67,8 @@ export function useLogin(onSuccess?: () => void) {
           balance: user.balance || 0,
           id: user.uid || user.id || ''
         },
-        rememberMe
+        rememberMe,
+        token
       );
       if (onSuccess) onSuccess();
       else router.push('/');
