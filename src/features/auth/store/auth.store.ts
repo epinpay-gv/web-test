@@ -3,10 +3,11 @@ import { UserProfile } from '../auth.types';
 
 interface AuthState {
   user: UserProfile | null;
+  token: string | null;
   isAuthenticated: boolean;
   rememberMe: boolean;
   sessionExpiresAt: number | null;
-  login: (user: UserProfile, rememberMe: boolean) => void;
+  login: (user: UserProfile, rememberMe: boolean, token?: string) => void;
   logout: () => void;
   updateUser: (user: Partial<UserProfile>) => void;
   checkSession: () => boolean;
@@ -40,6 +41,7 @@ function readFromStorage() {
 
 export const useAuthStore = create<AuthState>()((set, get) => ({
   user: null,
+  token: null,
   isAuthenticated: false,
   rememberMe: false,
   sessionExpiresAt: null,
@@ -59,6 +61,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     if (saved.isAuthenticated) {
       set({
         user: saved.user,
+        token: saved.token || null,
         isAuthenticated: true,
         rememberMe: saved.rememberMe,
         sessionExpiresAt: saved.sessionExpiresAt,
@@ -66,10 +69,11 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     }
   },
 
-  login: (user, rememberMe) => {
+  login: (user, rememberMe, token) => {
     const expiresAt = rememberMe ? Date.now() + REMEMBER_ME_DURATION : null;
     const state = {
       user,
+      token: token || null,
       isAuthenticated: true,
       rememberMe,
       sessionExpiresAt: expiresAt,
@@ -83,6 +87,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     sessionStorage.removeItem(STORAGE_KEY);
     set({
       user: null,
+      token: null,
       isAuthenticated: false,
       rememberMe: false,
       sessionExpiresAt: null,

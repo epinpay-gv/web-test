@@ -1,7 +1,11 @@
 import { Product } from "@/types/types";
 
 export type CartStep = 'empty' | 'items' | 'delivery' | 'payment' | 'success';
+
 export interface CartItem extends Product {
+  offerId: string;
+  unitPrice: number;
+  totalPrice: number;
   quantity: number;
   seller?: string;
 }

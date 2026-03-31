@@ -25,19 +25,10 @@ export function useBasketActions() {
   const openTopupModal = () => {};
 
   const addToCart = async (payload: AddToCartPayload) => {
-    const response = await handleRequest<AddToCartResponse>(
+    return await handleRequest<AddToCartResponse>(
       () => addToCartService(payload),
       "Ürün sepete eklendi", setLoading
     );
-    const existingGuestId = getCookie("X-Guest-Id");
-    if (
-      response?.success &&
-      response.data?.cartType == "guest" &&
-      !existingGuestId
-    ) {
-      document.cookie = `X-Guest-Id=${response.data.identifier}; path=/; max-age=2592000; SameSite=Lax`;
-    }
-    return response;
   };
 
   const changeQuantity = (payload: ChangeQuantityPayload) =>

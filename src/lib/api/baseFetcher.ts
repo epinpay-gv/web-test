@@ -16,17 +16,48 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     ? url
     : `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
 
-  const finalHeaders = {
+  // Kimlik doğrulama token'ını bulmaya çalış
+  let token: string | undefined = undefined;
+  
+  if (typeof window !== "undefined") {
+    // 1. Çerezden oku (httpOnly değilse)
+    const cookieToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+    
+    if (cookieToken) {
+      token = cookieToken;
+    } else {
+      // 2. Storage'dan oku (authStore orada saklıyor olabilir)
+      try {
+        const authData = localStorage.getItem('auth-storage') || sessionStorage.getItem('auth-storage');
+        if (authData) {
+          const parsed = JSON.parse(authData);
+          token = parsed.state?.token || parsed.token || parsed.user?.token;
+        }
+      } catch (e) {
+        // Sessizce geç
+      }
+    }
+  }
+
+  const finalHeaders: Record<string, string> = {
     "Content-Type": "application/json",
     "EP-Language" : "", // TODO : Backendin istediği şekilde yollanacak
     ...options.headers,
   };
+
+  if (token) {
+    finalHeaders["Authorization"] = `Bearer ${token}`;
+  }
 
   const res = await fetch(finalUrl, {
     method: options.method ?? "GET",
     headers: finalHeaders,
     body: options.body ? JSON.stringify(options.body) : undefined,
     cache: options.cache,
+    credentials: "include", // Çerezlerin (accessToken vb.) gönderilmesi için eklendi
   });
 
   if (!res.ok) {

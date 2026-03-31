@@ -16,8 +16,7 @@ export function useCart() {
   const fetchCart = useCallback(async () => {
     setIsLoading(true);
     try {
-      const guestId = cartService.getOrCreateGuestId();
-      const data = await cartService.getCart(user?.uid || user?.id, guestId);
+      const data = await cartService.getCart();
       setItems(data.items);
       setTotalPrice(data.totalPrice);
       setStep(data.items.length > 0 ? "items" : "empty");
@@ -26,7 +25,7 @@ export function useCart() {
     } finally {
       setIsLoading(false);
     }
-  }, [user?.uid, user?.id]);
+  }, []);
 
   useEffect(() => {
     fetchCart();
@@ -34,14 +33,14 @@ export function useCart() {
 
   const recalculateTotal = (updatedItems: CartItem[]): number =>
     updatedItems.reduce(
-      (acc, curr) => acc + (curr.basePrice ?? 0) * curr.quantity,
+      (acc, curr) => acc + (curr.unitPrice ?? 0) * curr.quantity,
       0
     );
 
   // Optimistic update: önce UI güncellenir, sonra backend'e gönderilir.
   // Backend hata verirse önceki state geri yüklenir.
   const updateQuantity = useCallback(
-    async (id: string, newQuantity: number, currentQuantity: number) => {
+    async (id: string, newQuantity: number) => {
       let previousItems: CartItem[] = [];
 
       // Optimistic update
@@ -55,12 +54,7 @@ export function useCart() {
       });
 
       try {
-        const guestId = cartService.getOrCreateGuestId();
-        await cartService.updateQuantity(
-          { itemId: id, newQuantity, currentQuantity },
-          user?.uid || user?.id,
-          guestId
-        );
+        await cartService.updateQuantity({ itemId: id, newQuantity });
       } catch (err) {
         const error = err as { status?: number; message?: string };
         console.error("Quantity update error:", error.status, error.message, err);
@@ -68,7 +62,7 @@ export function useCart() {
         setTotalPrice(recalculateTotal(previousItems));
       }
     },
-    [user?.uid, user?.id]
+    []
   );
 
   const removeItem = useCallback(
@@ -84,8 +78,7 @@ export function useCart() {
       });
 
       try {
-        const guestId = cartService.getOrCreateGuestId();
-        await cartService.removeItem?.(id, user?.uid || user?.id, guestId);
+        await cartService.removeItem(id);
         toast.success("Ürün sepetten silindi");
       } catch (err) {
         const error = err as { status?: number; message?: string };
@@ -95,31 +88,22 @@ export function useCart() {
         setStep("items");
       }
     },
-    [user?.uid, user?.id]
+    []
   );
 
   const resetCart = useCallback(async () => {
     setIsLoading(true);
     try {
-      const guestId = cartService.getOrCreateGuestId();
-      const params = new URLSearchParams();
-      if (user?.uid || user?.id) params.append('userId', user?.uid || user?.id);
-      if (guestId) params.append('guestId', guestId);
-      params.append('reset', 'true');
-
-      const data = await baseFetcher<CartResponse>(`/api/cart?${params.toString()}`, {
-        method: 'GET',
-        cache: 'no-store',
-      });
-      setItems(data.items);
-      setTotalPrice(data.totalPrice);
-      setStep(data.items.length > 0 ? 'items' : 'empty');
+      // BFF tarafında özel bir reset yoksa tüm itemları tek tek silebiliriz veya 
+      // eğer BFF destekliyorsa ona göre güncellenebilir. 
+      // Şimdilik sadece yeniden fetch edelim (BFF state'i temizlenmişse)
+      await fetchCart();
     } catch (err) {
       console.error('Cart reset error:', err);
     } finally {
       setIsLoading(false);
     }
-  }, [user?.uid, user?.id]);
+  }, [fetchCart]);
 
   return { items, totalPrice, step, setStep, isLoading, updateQuantity, removeItem, resetCart };
 }
