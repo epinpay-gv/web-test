@@ -84,12 +84,12 @@ export function FilledCart({
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:mt-10">
           <div className="md:col-span-3 space-y-4">
             <div className="flex flex-col gap-4">
-              {items.map((item) => {
+              {items.map((item, index) => {
                 const isOutOfStock = !item.basePrice;
 
                 return (
                   <div
-                    key={item.id}
+                    key={index}
                     className="p-6 bg-(--bg-neutral-primary-soft) border rounded-(--radius-base) border-[#1D303A] overflow-hidden"
                   >
                     <ProductCard

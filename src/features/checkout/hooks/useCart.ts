@@ -4,6 +4,7 @@ import { cartService } from "../checkout.service";
 import { CartItem, CartStep, CartResponse } from "../types";
 import { baseFetcher } from "@/lib/api/baseFetcher";
 import { toast } from "react-toastify";
+import { PRODUCT_STATUS } from "@/types/types";
 
 export function useCart() {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -16,7 +17,49 @@ export function useCart() {
   const fetchCart = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = await cartService.getCart();
+      // const data = await cartService.getCart();
+      const data = {
+        items: [
+          {
+            offerId: "1",
+            unitPrice: 50,
+            totalPrice: 100,
+            quantity: 2,
+            id: 2729,
+            category_id: 11,
+            region_id: 52,
+            platform_id: 5,
+            type_id: 2,
+            status: PRODUCT_STATUS.ACTIVE,
+            translation: {
+              category_slug: "steam-cuzdan-kodu",
+              slug: "5-usd-steam-cuzdan-kodu",
+              description: "",
+              metaTitle: "5 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+              metaDescription: "Hemen steam cüzdan kodu satın al, Epinpay güvencesiyle anında teslimat ve avantajlı fiyat fırsatını kaçırma. Steam’de özgürce harca!",
+              imgUrl: "https://cdn.epinpay.com/image/ep/2025/3/product/5-usd-steam-cuzdan-kodu-37.webp",
+              imgAlt: "5 USD Steam Cüzdan Kodu - Hızlı ve Güvenli Satın Al | EpinPay",
+              id: 1,
+              locale: "tr",
+              name: "5 USD Steam Cüzdan Kodu",
+            },
+            cheapestOffer: { id: 819 },
+            basePrice: 228,
+            epPrice: null,
+            discountRate: 0,
+            fakePrice: null,
+
+            isFavorite: false,
+            genres: [],
+            region: "Global",
+            platform: "PC Games",
+            type: "Wallet Code",
+            platform_icon: "",
+            totalStock: 0,
+          },
+        ],
+        totalPrice: 100,
+      } as unknown as CartResponse;
       setItems(data.items);
       setTotalPrice(data.totalPrice);
       setStep(data.items.length > 0 ? "items" : "empty");

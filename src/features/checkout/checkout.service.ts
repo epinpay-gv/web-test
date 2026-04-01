@@ -14,7 +14,7 @@ export const cartService = {
    */
   async getCart(): Promise<CartResponse> {
     return await baseFetcher<CartResponse>(
-      `${BFF_BASE_URL}/cart`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart`,
       { method: "GET", cache: "no-store" },
       "Sepet bilgileri alınamadı"
     );
