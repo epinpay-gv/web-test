@@ -142,3 +142,8 @@ export interface StreamersApiResponse {
     faq: FAQ[];
   };
 }
+
+export interface StreamerDetailApiResponse {
+  metadata: PageMetadata;
+  data: Stream;
+}

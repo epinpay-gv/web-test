@@ -2,9 +2,6 @@
 import { Stream } from "@/features/streamers/streamers.types";
 import StreamerInfo from "./CardSections/StreamerInfo";
 import { getOptimizedStreamUrl } from "@/features/streamers/utils/stream.utils";
-import { useState } from "react";
-import Image from "next/image";
-import { Play } from "flowbite-react-icons/solid";
 
 type CardVariant = "default" | "detailed";
 type CardSize = "base" | "lg";
@@ -56,6 +53,7 @@ export default function StreamCard({
           allowFullScreen
           allow="autoplay; fullscreen"
           title={data.streamer.full_name}
+          loading="lazy"
         />
       </div>
       {variant === "detailed" && <StreamerInfo data={data.streamer} />}
