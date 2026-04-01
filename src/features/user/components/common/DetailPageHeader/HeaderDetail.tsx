@@ -1,4 +1,5 @@
-import { DetailHeaderData } from "../../user.types";
+
+import { DetailHeaderData } from "@/features/user/user.types";
 import { useMemo } from "react";
 
 interface HeaderDetailProps {

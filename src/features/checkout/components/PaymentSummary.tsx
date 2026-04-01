@@ -8,6 +8,8 @@ interface PaymentSummaryProps {
   comission?: number;
   taxes?: number;
   totalAmount: number;
+  onPay: () => void;
+  isPaying?: boolean;
 }
 
 export function PaymentSummary({
@@ -17,6 +19,8 @@ export function PaymentSummary({
   comission,
   taxes,
   totalAmount,
+  onPay,
+  isPaying,
 }: PaymentSummaryProps) {
   const formatPrice = (value: number) => {
     return new Intl.NumberFormat("tr-TR", {
@@ -60,7 +64,13 @@ export function PaymentSummary({
       </div>
 
       <div className="mt-4 hidden lg:block">
-        <Button variant="brand" text="Ödemeye Devam Et" className="w-full" />
+        <Button
+          variant="brand"
+          text="Ödemeye Devam Et"
+          className="w-full"
+          onClick={onPay}
+          disabled={isPaying}
+        />
       </div>
 
       <div className="lg:hidden fixed flex justify-between bottom-0 left-0 w-full bg-(--bg-neutral-primary-soft) border-t border-[#1D303A] px-6 pt-6 pb-8 z-100 ">
@@ -68,7 +78,13 @@ export function PaymentSummary({
           <span className="text-sm">Toplam </span>
           <span className="text-lg font-bold">₺{formatPrice(totalAmount)}</span>
         </div>
-        <Button variant="brand" text="Ödemeye Devam Et" className="max-w-fit" />
+        <Button
+          variant="brand"
+          text="Ödemeye Devam Et"
+          className="max-w-fit"
+          onClick={onPay}
+          disabled={isPaying}
+        />
       </div>
     </div>
   );

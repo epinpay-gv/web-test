@@ -1,16 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { LoadBalanceForm } from "./LoadBalanceForm";
 import { usePaymentMethods } from "@/features/checkout/hooks/usePaymentMethods";
 import { PaymentMethodItem } from "@/features/checkout/components/PaymentMethodItem";
 import { PaymentSummary } from "@/features/checkout/components/PaymentSummary";
 import { DescriptionTitle } from "@/components/common";
 import { ShieldCheck } from "flowbite-react-icons/outline";
+import { paymentService } from "../../checkout.service";
+import { useRouter } from "next/navigation";
 
 export default function LoadBalance() {
   const { methods, isLoading } = usePaymentMethods();
   const [selectedMethodId, setSelectedMethodId] = useState<string>("");
   const [selectedAmountToLoad, setAmountToLoad] = useState<string>("0");
+  const [isPaying, setIsPaying] = useState(false);
+
+  const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmountToLoad(e.target.value);
@@ -18,6 +23,37 @@ export default function LoadBalance() {
 
   const handleAmountSelect = (amount: string) => {
     setAmountToLoad(amount);
+  };
+
+  const paymentValues = useMemo(() => {
+    const amountNumber = Number(selectedAmountToLoad);
+    const commissionRate =
+      Number(
+        methods.find((i) => i.id === selectedMethodId)?.commission ?? "0",
+      ) / 100;
+    return {
+      total: amountNumber + amountNumber * commissionRate,
+      commission: amountNumber * commissionRate,
+    };
+  }, [selectedAmountToLoad, selectedMethodId, methods]);
+
+  const handlePayment = async () => {
+    if (!selectedMethodId || Number(selectedAmountToLoad) <= 0) return;
+
+    try {
+      setIsPaying(true);
+      const payload = paymentService.createPaymentPayload({
+        context: "balance",
+        paymentMethodId: selectedMethodId,
+        amountToLoad: Number(selectedAmountToLoad),
+      });
+      const { paylink } = await paymentService.initiatePayment(payload);
+      router.push(paylink);
+    } catch (error) {
+      console.error("Ödeme başlatılamadı:", error);
+    } finally {
+      setIsPaying(false);
+    }
   };
 
   return (
@@ -69,7 +105,10 @@ export default function LoadBalance() {
         <div className="lg:col-span-2 mt-20">
           <PaymentSummary
             amountToLoad={selectedAmountToLoad}
-            totalAmount={253.33}
+            comission={paymentValues.commission}
+            totalAmount={paymentValues.total}
+            onPay={handlePayment}
+            isPaying={isPaying}
           />
         </div>
       </div>

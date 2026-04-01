@@ -1,6 +1,6 @@
 import { Product } from "@/types/types";
 
-export type CartStep = 'empty' | 'items' | 'delivery' | 'payment' | 'success';
+export type CartStep = "empty" | "items" | "delivery" | "payment" | "success";
 
 export interface CartItem extends Product {
   offerId: string;
@@ -10,13 +10,6 @@ export interface CartItem extends Product {
   seller?: string;
 }
 
-export interface CartResponse {
-  items: CartItem[];
-  totalQuantity: number;
-  totalPrice: number;
-  step: CartStep;
-}
-
 export interface InvoiceForm {
   name: string;
   surname: string;
@@ -24,7 +17,7 @@ export interface InvoiceForm {
   city: string;
 }
 
-export type PaymentMethodStatus = 'active' | 'disabled';
+export type PaymentMethodStatus = "active" | "disabled";
 
 export interface PaymentMethod {
   id: string;
@@ -59,21 +52,6 @@ export interface OrderSummaryData {
   total: number;
 }
 
-export interface OrderDetailResponse {
-  order_id: string;
-  status: ResultType;
-  date: string;
-  payment_method: string;
-  user_info: {
-    userId: string,
-    is_guest: boolean,
-    email: string
-  }
-  products: Product[]
-  invoice: OrderInvoice | null; 
-  summary: OrderSummaryData;
-}
-
 export interface OrderAuthRequest {
   order_id: string;
   email: string;
@@ -88,4 +66,45 @@ export interface OrderErrors {
 export interface CartErrors {
   email?: boolean;
   agreement?: boolean;
+}
+
+export type PaymentContext = "balance" | "checkout";
+
+/* RESPONSE & PAYLOAD TYPES */
+export interface CartResponse {
+  items: CartItem[];
+  totalQuantity: number;
+  totalPrice: number;
+  step: CartStep;
+}
+export interface BalancePaymentPayload {
+  context: "balance";
+  paymentMethodId: string;
+  amountToLoad: number;
+}
+
+export interface CartPaymentPayload {
+  context: "checkout";
+  paymentMethodId: string;
+}
+
+export type PaymentPayload = BalancePaymentPayload | CartPaymentPayload;
+
+export interface PaymentLinkResponse {
+  paylink: string;
+}
+
+export interface OrderDetailResponse {
+  order_id: string;
+  status: ResultType;
+  date: string;
+  payment_method: string;
+  user_info: {
+    userId: string;
+    is_guest: boolean;
+    email: string;
+  };
+  products: Product[];
+  invoice: OrderInvoice | null;
+  summary: OrderSummaryData;
 }

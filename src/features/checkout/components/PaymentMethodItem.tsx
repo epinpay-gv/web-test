@@ -53,7 +53,7 @@ export function PaymentMethodItem({
             >
               {method.name}
             </span>
-            <Badge text={method.commission} theme={!isDisabled ? "brand" : "white_disabled"}/>  
+            <Badge text={`+½${method.commission}`} theme={!isDisabled ? "brand" : "white_disabled"}/>  
                         
           </div>
           <p

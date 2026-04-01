@@ -1,14 +1,9 @@
 "use client";
-import { SetStateAction, useMemo, useState } from "react";
-import { Button } from "@/components/common";
-import { AngleLeft, FileCopy } from "flowbite-react-icons/outline";
-import { CheckCircle } from "flowbite-react-icons/solid";
-import Link from "next/link";
-import { copyNumber } from "../utils/user.utils";
 import { DetailHeaderData } from "@/features/user/user.types";
-import HeaderTitle from "./DetailPageHeader/HeaderTitle";
-import HeaderDetail from "./DetailPageHeader/HeaderDetail";
-import HeaderStatus from "./DetailPageHeader/HeaderStatus";
+import { useState } from "react";
+import HeaderDetail from "./HeaderDetail";
+import HeaderStatus from "./HeaderStatus";
+import HeaderTitle from "./HeaderTitle";
 
 interface DetailPageHeaderProps {
   data: DetailHeaderData;

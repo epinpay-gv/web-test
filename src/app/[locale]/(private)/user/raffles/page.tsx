@@ -1,4 +1,4 @@
-import UserPageHeader from "@/features/user/components/UserPageHeader";
+import UserPageHeader from "@/features/user/components/common/UserPageHeader";
 import RafflesClient from "./raffles-client";
 import { getRaffles } from "@/features/user/user.service";
 

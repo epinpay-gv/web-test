@@ -1,11 +1,13 @@
 import OrdersSection from "./orders/OrdersSection";
 import UserProfileSection from "./profile/UserProfileSection";
 import RaffleGrid from "./raffles/RaffleGrid";
-import DetailPageHeader from "./DetailPageHeader";
-import FiltersSection from "./FiltersSection";
-import ProductDetailCard from "./ProductDetailCard";
-import UserPageHeader from "./UserPageHeader";
-import UserPageSearch from "./UserPageSearch";
+import DetailPageHeader from "./common/DetailPageHeader/DetailPageHeader";
+import ProductDetailCard from "./common/ProductDetailCard";
+import UserPageHeader from "./common/UserPageHeader";
+import UserPageSearch from "./common/UserPageSearch";
+import FiltersSection from "./common/FiltersSection";
+import BalanceBox from "./balance/BalanceBox";
+import BalanceHistoryData from "./balance/BalanceHistoryData";
 
 export {
   OrdersSection,
@@ -16,4 +18,6 @@ export {
   ProductDetailCard,
   UserPageHeader,
   UserPageSearch,
+  BalanceBox,
+  BalanceHistoryData,
 };
