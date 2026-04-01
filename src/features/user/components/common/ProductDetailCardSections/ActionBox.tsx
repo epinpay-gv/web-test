@@ -1,5 +1,5 @@
 import { Button } from "@/components/common";
-import { OrderProduct, TopupResponsePayload } from "../../user.types";
+import { TopupResponsePayload, OrderProduct } from "@/features/user/user.types";
 import { Check, Eye } from "flowbite-react-icons/outline";
 import { Copy, EyeOff } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";

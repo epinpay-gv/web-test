@@ -1,4 +1,4 @@
-import { DetailHeaderData } from "../../user.types";
+import { DetailHeaderData } from "@/features/user/user.types";
 
 interface HeaderStatusProps {
   data: DetailHeaderData;

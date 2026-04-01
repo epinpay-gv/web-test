@@ -1,6 +1,4 @@
 "use client";
-
-import * as React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,23 +9,22 @@ import {
   DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
 import { UserProfile } from "@/features/auth/auth.types";
-import { 
-  Star, 
-  ArrowRightToBracket, 
-  AdjustmentsHorizontal, 
-  Lock, 
-  User as UserIcon, 
-  Bell, 
-  QuestionCircle 
+import {
+  Star,
+  ArrowRightToBracket,
+  Cart,
+  User as UserIcon,
+  QuestionCircle,
+  Plus,
+  InfoCircle,
 } from "flowbite-react-icons/outline";
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/features/auth/hooks/useLogout";
+import { Button } from "@/components/common";
 
 const MENU_ITEMS = [
   { id: "account", label: "Hesap Bilgilerim", icon: UserIcon, href: "/user" },
-  { id: "settings", label: "Ayarlar", icon: AdjustmentsHorizontal, href: "/user/settings" },
-  { id: "privacy", label: "Gizlilik", icon: Lock, href: "/user/privacy" },
-  { id: "notifications", label: "Bildirimlerim", icon: Bell, href: "/notifications" },
+  { id: "orders", label: "Siparişlerim", icon: Cart, href: "/user/orders" },
   { id: "help", label: "Yardım Merkezi", icon: QuestionCircle, href: "/help" },
 ];
 
@@ -35,11 +32,11 @@ interface UserDropdownProps {
   user: UserProfile | null | undefined;
 }
 
+// TODO : currency datasını storedan alacak
 export function UserDropdown({ user }: UserDropdownProps) {
   const router = useRouter();
-  const { handleLogout } = useLogout(); // ✅ useLogout hook'undan al
-  
-  // Kullanıcı henüz yüklenmemişse iskelet döndür
+  const { handleLogout } = useLogout(); 
+
   if (!user) {
     return (
       <div className="w-8 h-8 rounded-full bg-(--bg-neutral-secondary-medium) animate-pulse" />
@@ -47,9 +44,14 @@ export function UserDropdown({ user }: UserDropdownProps) {
   }
 
   const getInitials = () => {
-    const firstInitial = user?.name?.charAt(0).toUpperCase() || "";
-    const lastInitial = user?.surname?.charAt(0).toUpperCase() || "";
-    return `${firstInitial}${lastInitial}` || "??";
+    if (user.name || user.surname) {
+      const firstInitial = user?.name?.charAt(0).toUpperCase() || "";
+      const lastInitial = user?.surname?.charAt(0).toUpperCase() || "";
+      return `${firstInitial}${lastInitial}`;
+    }
+    const emailInitial =
+      user.email.charAt(0).toUpperCase() + user.email.charAt(1).toUpperCase();
+    return `${emailInitial}`;
   };
 
   return (
@@ -61,7 +63,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
           </div>
         </button>
       </DropdownMenuTrigger>
-      
+
       <DropdownMenuPortal>
         <DropdownMenuContent
           align="end"
@@ -70,7 +72,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
           className="
             z-[999] 
             w-[calc(100vw-32px)] 
-            md:w-[313px]
+            md:w-78.25
             bg-(--bg-neutral-primary-medium)
             border border-(--border-default-medium)
             shadow-2xl
@@ -79,55 +81,88 @@ export function UserDropdown({ user }: UserDropdownProps) {
             animate-in fade-in zoom-in-95
           "
         >
+          {/* USER INFO */}
           <DropdownMenuLabel className="p-0">
-            <div className="text-sm gap-1 grid grid-cols-2 p-4 font-medium text-(--text-body) w-full bg-(--bg-neutral-secondary-soft) bg-[url(/image/header/user-dropdown-pattern.png)] bg-cover truncate">
-              <div className="leading-6 flex flex-col justify-center">
-                <div className="flex text-(--text-heading) gap-1 font-bold truncate">
+            <div className="rounded-lg border border-(--border-default-medium) text-sm space-y-2 p-3 font-medium text-(--text-body) w-full bg-(--bg-neutral-secondary-soft) bg-[url(/image/header/user-dropdown-pattern.png)] bg-cover">
+              {/* USER INFO AND PREMIUM BUTTON */}
+              <div className="leading-6 flex items-center justify-between">
+                <div className="flex text-(--text-heading) gap-1 truncate">
                   <span>{user?.name}</span>
                   <span>{user?.surname}</span>
+                  {!(user.name || user.surname) && <span>{user.email}</span>}
                 </div>
                 <div className="mt-2">
-                  <button className="bg-(--bg-neutral-primary-soft) py-0.5 px-3 rounded-(--radius-base) border border-(--border-default) text-(--text-fg-yellow) font-medium flex items-center gap-1 text-[11px] hover:bg-(--bg-neutral-primary-medium) transition-colors"> 
-                    <Star size={11}/> Premium
+                  <button onClick={() => router.push('/premium')} className="cursor-pointer bg-(--bg-neutral-primary-soft) py-0.5 px-3 rounded-(--radius-base) border border-(--border-default) text-(--text-fg-yellow) font-medium flex items-center gap-1 text-[11px] hover:bg-(--bg-neutral-primary-medium) transition-colors">
+                    <Star size={14} /> Premium ol
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 w-full h-full gap-1">
-                <div className="bg-linear-to-b from-[rgba(34,199,228,1)] to-[rgba(7,138,142,1)] flex flex-col items-center justify-center rounded-(--radius-base) border border-white/10 py-2" >
-                  <span className="text-white font-bold text-sm tracking-tight">${user?.balance ?? 0}</span>
-                  <span className="text-white/80 text-[10px] font-normal">Bakiye</span>
+              {/* BALANCE INFO */}
+              <div className="space-y-2 w-full h-full gap-1">
+                {/* Balance */}
+                <div className="bg-(--bg-brand-softer) flex items-center justify-between rounded-(--radius-base) border border-(--border-default-medium) p-2">
+                  <div className="leading-[150%] space-y-1">
+                    <div className="text-(--text-body) text-xs font-medium">
+                      Bakiye
+                    </div>
+                    <div className="text-white text-sm font-bold">
+                      ${user?.balance ?? 0}
+                    </div>
+                  </div>
+                  <Button
+                    text="Bakiye yükle"
+                    variant="white"
+                    padding="xs"
+                    className="rounded-full max-w-36 text-sm font-medium gap-1 py-1!"
+                    iconLeft={<Plus size={14}/>}
+                    onClick={() => router.push('/balance')}
+                  />
                 </div>
-                <div className="bg-linear-to-b from-[rgba(228,190,34,1)] to-[rgba(142,115,7,1)] flex flex-col items-center justify-center rounded-(--radius-base) border border-white/10 py-2" >
-                  <span className="text-white font-bold text-sm tracking-tight">{user?.epPoints ?? 0}</span>
-                  <span className="text-white/80 text-[10px] font-normal">EP Puan</span>
+
+                {/* EP Point */}
+                <div className="bg-(--bg-neutral-primary-strong) flex items-center justify-between rounded-(--radius-base) border border-(--border-default-medium) p-2">
+                  <div className="leading-[150%] space-y-1">
+                    <div className="text-(--text-body) text-xs font-medium">
+                      EP Puan
+                    </div>
+                    <div className="text-white text-sm font-bold">
+                      ${user?.epPoints ?? 0}
+                    </div>
+                  </div>
+                  <Button
+                    text="Nasıl kullanılır?"
+                    variant="secondary"
+                    padding="xs"
+                    className="rounded-full max-w-36 text-sm font-medium gap-1 py-1!"
+                    iconLeft={<InfoCircle size={14}/>}
+                  />
                 </div>
               </div>
             </div>
           </DropdownMenuLabel>
 
-          <DropdownMenuSeparator className="bg-(--border-default-medium) h-[1px]" />
-
+          {/* MENU LINKS */}
           <div className="p-1">
             {MENU_ITEMS.map((item) => (
               <DropdownMenuItem
                 key={item.id}
                 onClick={() => router.push(item.href)}
-                className="cursor-pointer gap-3 p-3 text-(--text-body) rounded-md focus:bg-(--bg-neutral-tertiary) outline-none transition-colors"
+                className="cursor-pointer gap-1.5 p-2 text-(--text-body) rounded-md focus:bg-(--bg-neutral-tertiary-medium) outline-none transition-colors"
               >
-                <item.icon className="w-4.5 h-4.5 opacity-70 flex-shrink-0" />
+                <item.icon size={16} className="shrink-0" />
                 <span className="text-sm font-medium">{item.label}</span>
               </DropdownMenuItem>
             ))}
 
-            <DropdownMenuSeparator className="my-1 bg-(--border-default-medium) h-[1px]" />
+            <DropdownMenuSeparator className="my-1 bg-(--border-default-medium) h-px" />
 
-            {/* ✅ Logout - handleLogout kullan */}
+            {/* LOGOUT BUTTON */}
             <DropdownMenuItem
               onClick={handleLogout}
               className="cursor-pointer gap-3 p-3 text-(--text-fg-danger) rounded-md focus:bg-red-500/10 outline-none transition-colors"
             >
-              <ArrowRightToBracket className="w-4.5 h-4.5 flex-shrink-0" />
+              <ArrowRightToBracket className="w-4.5 h-4.5 shrink-0" />
               <span className="text-sm font-semibold">Çıkış Yap</span>
             </DropdownMenuItem>
           </div>

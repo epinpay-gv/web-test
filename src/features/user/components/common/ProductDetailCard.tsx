@@ -1,5 +1,5 @@
 import { OrderProduct } from "@/features/user/user.types";
-import { useOrderProductStatus } from "../hooks/useOrderProductStatus";
+import { useOrderProductStatus } from "../../hooks/useOrderProductStatus";
 import ActionBox from "./ProductDetailCardSections/ActionBox";
 import CardInfo from "./ProductDetailCardSections/CardInfo";
 import CardStatus from "./ProductDetailCardSections/CardStatus";

@@ -1,9 +1,6 @@
-import { OrderProduct } from "../../user.types";
-import {
-  getItemDisplayStatus,
-  ITEM_DISPLAY_COLORS,
-  ITEM_DISPLAY_LABELS,
-} from "../../utils/status.mappers";
+import { OrderProduct } from "@/features/user/user.types";
+import { getItemDisplayStatus, ITEM_DISPLAY_LABELS, ITEM_DISPLAY_COLORS } from "@/features/user/utils/status.mappers";
+
 
 interface CardStatusProps {
   product: OrderProduct;

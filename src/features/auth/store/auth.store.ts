@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { UserProfile } from '../auth.types';
+import { create } from "zustand";
+import { UserProfile } from "../auth.types";
 
 interface AuthState {
   user: UserProfile | null;
@@ -15,7 +15,7 @@ interface AuthState {
 }
 
 const REMEMBER_ME_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 gün
-const STORAGE_KEY = 'auth-storage';
+const STORAGE_KEY = "auth-storage";
 
 function saveToStorage(data: object, rememberMe: boolean) {
   const storage = rememberMe ? localStorage : sessionStorage;
@@ -94,9 +94,14 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     });
   },
 
-  updateUser: (userData) => set((state) => ({
-    user: state.user ? { ...state.user, ...userData } : null
-  })),
+  updateUser: (userData) =>
+    set((state) => {
+      const updatedUser = state.user ? { ...state.user, ...userData } : null;
+      if (updatedUser) {
+        saveToStorage({ ...state, user: updatedUser }, state.rememberMe);
+      }
+      return { user: updatedUser };
+    }),
 
   checkSession: () => {
     const { sessionExpiresAt, rememberMe, isAuthenticated } = get();

@@ -1,5 +1,5 @@
 import OrdersClient from "./orders-client";
-import UserPageHeader from "@/features/user/components/UserPageHeader";
+import UserPageHeader from "@/features/user/components/common/UserPageHeader";
 import { getOrders } from "@/features/user/user.service";
 import { createSeo } from "@/lib/seo";
 

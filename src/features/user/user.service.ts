@@ -1,5 +1,6 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
 import {
+  BalanceHistoryApiResponse,
   OrderDetailPageApiResponse,
   OrdersPageApiResponse,
   RaffleDetailPageApiResponse,
@@ -66,4 +67,10 @@ export const getRaffles = (
 export const getRaffleById = (id: string) =>
   baseFetcher<RaffleDetailPageApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/user/raffles/${id}`,
+  );
+
+/* BALANCE */
+export const getBalance = () =>
+  baseFetcher<BalanceHistoryApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/user/balance`,
   );

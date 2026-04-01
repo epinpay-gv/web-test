@@ -1,4 +1,4 @@
-import UserPageHeader from "@/features/user/components/UserPageHeader";
+import UserPageHeader from "@/features/user/components/common/UserPageHeader";
 import { getRaffleById } from "@/features/user/user.service";
 import { createSeo } from "@/lib/seo";
 import { notFound } from "next/navigation";

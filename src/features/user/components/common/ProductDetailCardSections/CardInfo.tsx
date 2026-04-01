@@ -1,6 +1,6 @@
+import { OrderProduct } from "@/features/user/user.types";
+import { PRODUCT_CATEGORY_LABELS } from "@/features/user/utils/status.mappers";
 import Image from "next/image";
-import { OrderProduct } from "../../user.types";
-import { PRODUCT_CATEGORY_LABELS } from "../../utils/status.mappers";
 
 interface CardInfoProps {
   product: OrderProduct;

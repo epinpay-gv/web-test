@@ -1,8 +1,12 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
-import { CartResponse, OrderDetailResponse, PaymentMethod, OrderAuthRequest } from "./types";
-
-const BFF_BASE_URL = "http://localhost:3041/api/features/checkout";
-
+import {
+  CartResponse,
+  OrderDetailResponse,
+  PaymentMethod,
+  OrderAuthRequest,
+  PaymentPayload,
+  PaymentLinkResponse,
+} from "./types";
 interface UpdateQuantityParams {
   itemId: string;
   newQuantity: number;
@@ -16,25 +20,26 @@ export const cartService = {
     return await baseFetcher<CartResponse>(
       `${process.env.NEXT_PUBLIC_API_URL}/cart`,
       { method: "GET", cache: "no-store" },
-      "Sepet bilgileri alınamadı"
+      "Sepet bilgileri alınamadı",
     );
   },
 
   /**
    * Sepetteki bir ürünün miktarını doğrudan günceller.
    */
-  async updateQuantity(
-    { itemId, newQuantity }: UpdateQuantityParams
-  ): Promise<void> {
+  async updateQuantity({
+    itemId,
+    newQuantity,
+  }: UpdateQuantityParams): Promise<void> {
     if (newQuantity < 1) return;
 
     await baseFetcher<void, { quantity: number }>(
-      `${BFF_BASE_URL}/cart/item/${itemId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart/item/${itemId}`,
       {
         method: "PATCH",
-        body: { quantity: newQuantity }
+        body: { quantity: newQuantity },
       },
-      "Ürün adedi güncellenemedi"
+      "Ürün adedi güncellenemedi",
     );
   },
 
@@ -43,9 +48,9 @@ export const cartService = {
    */
   async removeItem(itemId: string): Promise<void> {
     await baseFetcher<void>(
-      `${BFF_BASE_URL}/cart/item/${itemId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart/item/${itemId}`,
       { method: "DELETE" },
-      "Ürün sepetten kaldırılamadı"
+      "Ürün sepetten kaldırılamadı",
     );
   },
 };
@@ -56,9 +61,27 @@ export const paymentService = {
    */
   getPaymentMethods: async (): Promise<PaymentMethod[]> => {
     return await baseFetcher<PaymentMethod[]>(
-      `${BFF_BASE_URL}/payment-methods`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart/payment-methods`,
       { method: "GET" },
-      "Ödeme yöntemleri alınamadı"
+      "Ödeme yöntemleri alınamadı",
+    );
+  },
+
+  /**
+   * Uygun payment payloadu oluşturur (balance ve checkout sayfaları için)
+   */
+  createPaymentPayload(payload: PaymentPayload): PaymentPayload {
+    return payload;
+  },
+
+  /**
+   * Payment linki döndürür
+   */
+  async initiatePayment(payload: PaymentPayload): Promise<PaymentLinkResponse> {
+    return await baseFetcher<PaymentLinkResponse, PaymentPayload>(
+      `${process.env.NEXT_PUBLIC_API_URL}/payment/initiate`,
+      { method: "POST", body: payload },
+      "Ödeme başlatılamadı",
     );
   },
 };
@@ -67,14 +90,16 @@ export const orderService = {
   /**
    * Oluşturulan bir siparişin detaylarını sorgular.
    */
-  getOrderDetail: async (payload: OrderAuthRequest): Promise<OrderDetailResponse> => {
+  getOrderDetail: async (
+    payload: OrderAuthRequest,
+  ): Promise<OrderDetailResponse> => {
     return await baseFetcher<OrderDetailResponse, { email?: string }>(
-      `${BFF_BASE_URL}/order/${payload.order_id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/order/${payload.order_id}`,
       {
         method: "POST",
-        body: { email: payload.email }
+        body: { email: payload.email },
       },
-      "Sipariş detayları alınamadı"
+      "Sipariş detayları alınamadı",
     );
   },
 };
