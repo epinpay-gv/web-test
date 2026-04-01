@@ -16,11 +16,11 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     ? url
     : `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
 
-  // Kimlik doğrulama token'ını bulmaya çalış
+  // Kimlik doğrulama token'ını bul
   let token: string | undefined = undefined;
   
   if (typeof window !== "undefined") {
-    // 1. Çerezden oku (httpOnly değilse)
+    // Çerezden oku 
     const cookieToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("accessToken="))
@@ -29,7 +29,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     if (cookieToken) {
       token = cookieToken;
     } else {
-      // 2. Storage'dan oku (authStore orada saklıyor olabilir)
+      // Çerez yoksa localStorage'a bak
       try {
         const authData = localStorage.getItem('auth-storage') || sessionStorage.getItem('auth-storage');
         if (authData) {
@@ -37,14 +37,15 @@ export async function baseFetcher<TResponse, TBody = undefined>(
           token = parsed.state?.token || parsed.token || parsed.user?.token;
         }
       } catch (e) {
-        // Sessizce geç
+        // TODO : Buraya error toastify eklenecek
       }
     }
   }
 
   const finalHeaders: Record<string, string> = {
     "Content-Type": "application/json",
-    "EP-Language" : "", // TODO : Backendin istediği şekilde yollanacak
+    "EP-Language" : "", 
+    "EP-Currency" : "",
     ...options.headers,
   };
 
@@ -57,12 +58,13 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     headers: finalHeaders,
     body: options.body ? JSON.stringify(options.body) : undefined,
     cache: options.cache,
-    credentials: "include", // Çerezlerin (accessToken vb.) gönderilmesi için eklendi
+    credentials: "include", // Çerezleri gönder
   });
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     const message = errorData.message || msg;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const error = new Error(message) as any;
     error.status = res.status;
     throw error;
