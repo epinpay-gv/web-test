@@ -3,8 +3,7 @@ import { Pagination, Button } from "@/components/common";
 import StatusState from "@/components/common/StatusState/StatusState";
 import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { useUrlFilters } from "@/features/filters/hooks/useUrlFilters";
-import { RaffleGrid } from "@/features/user/components";
-import FiltersSection from "@/features/user/components/FiltersSection";
+import { FiltersSection, RaffleGrid } from "@/features/user/components";
 import { PaginationData, Raffle } from "@/types/types";
 import { useRouter } from "next/navigation";
 
