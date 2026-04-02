@@ -44,7 +44,7 @@ export async function POST(
              name: "PUBG Mobile 1800 UC TR",
            },
            cheapestOffer: {
-             id: 877,
+             id: "877",
            },
            basePrice: 915,
            epPrice: null,
@@ -81,7 +81,7 @@ export async function POST(
              name: "Pubg Mobile 3850 UC TR",
            },
            cheapestOffer: {
-             id: 1011,
+             id: "1011",
            },
            basePrice: 1829.5,
            epPrice: null,
