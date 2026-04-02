@@ -27,6 +27,7 @@ export function AgreementSection({
     <div className="mt-4 flex flex-col gap-3">
       <div ref={agreementRef} className="flex items-start gap-2 group">
         <CheckBox
+          id="agreement"
           checked={isAgreed}
           onCheckedChange={(checked: boolean) => {
             setIsAgreed(checked);
@@ -36,20 +37,25 @@ export function AgreementSection({
           className={cn(
             "w-4 h-4 transition-all",
             errors.agreement === true &&
-              "border-(--border-danger-subtle) ring-2 ring-danger/20"
+              "border-(--border-danger-subtle) ring-2 ring-danger/20",
           )}
         />
-        <p className="text-xs leading-4 text-(--text-heading)">
+        <label
+          htmlFor="agreement"
+          className="cursor-pointer text-xs leading-4 text-(--text-heading)"
+        >
           Ödemeye Devam Et butonuna tıklayarak
           <span className="text-(--text-fg-brand) font-medium cursor-pointer">
-            {" "}Mesafeli Satış Sözleşmesini{" "}
+            {" "}
+            Mesafeli Satış Sözleşmesini{" "}
           </span>
           ve
           <span className="text-(--text-fg-brand) font-medium cursor-pointer">
-            {" "}İade ve İptal Koşullarını{" "}
+            {" "}
+            İade ve İptal Koşullarını{" "}
           </span>
           okuduğumu ve kabul ettiğimi onaylıyorum.
-        </p>
+        </label>
       </div>
       {errors.agreement === true && (
         <p className="text-xs text-(--text-fg-danger-strong) font-medium">

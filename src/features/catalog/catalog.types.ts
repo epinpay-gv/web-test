@@ -53,7 +53,7 @@ export interface ProductDetailApiResponse {
 
 export interface AddToCartPayload {
   productId: number;
-  offerId: number;
+  offerId: string;
   quantity: number;
   topupData?: {id: number; value: string;}[];
 }

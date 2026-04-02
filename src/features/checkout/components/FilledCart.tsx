@@ -1,6 +1,4 @@
-// features/cart/components/FilledCart.tsx
 "use client";
-
 import { useState, useCallback } from "react";
 import ProductCard from "@/components/common/Cards/ProductCard/ProductCard";
 import { ProductCardOrientation } from "@/components/common/Cards/ProductCard/types";
@@ -14,7 +12,11 @@ interface FilledCartProps {
   totalPrice: number;
   step: CartStep;
   onStepChange: (step: CartStep, wantsInvoice: boolean) => void;
-  onQuantityChange: (id: string, newQuantity: number, currentQuantity: number) => void;
+  onQuantityChange: (
+    id: string,
+    newQuantity: number,
+    currentQuantity: number,
+  ) => void;
   onRemoveItem: (id: string) => void;
   onResetCart?: () => void;
 }
@@ -50,18 +52,21 @@ export function FilledCart({
     setOutOfStockModal(INITIAL_MODAL_STATE);
   }, []);
 
-  const handleRemoveOne = useCallback((id: string) => {
-    onRemoveItem(id);
-    setOutOfStockModal((prev) => {
-      const remaining = prev.products.filter((p) => String(p.id) !== id);
-      return remaining.length > 0
-        ? { isOpen: true, products: remaining }
-        : INITIAL_MODAL_STATE;
-    });
-  }, [onRemoveItem]);
+  const handleRemoveOne = useCallback(
+    (id: string) => {
+      onRemoveItem(id);
+      setOutOfStockModal((prev) => {
+        const remaining = prev.products.filter((p) => p.offerId !== id);
+        return remaining.length > 0
+          ? { isOpen: true, products: remaining }
+          : INITIAL_MODAL_STATE;
+      });
+    },
+    [onRemoveItem],
+  );
 
   const handleRemoveAll = useCallback(() => {
-    outOfStockModal.products.forEach((p) => onRemoveItem(String(p.id)));
+    outOfStockModal.products.forEach((p) => onRemoveItem(p.offerId));
     setOutOfStockModal(INITIAL_MODAL_STATE);
   }, [onRemoveItem, outOfStockModal.products]);
 
@@ -77,17 +82,11 @@ export function FilledCart({
   return (
     <div className="mx-auto animate-in relative fade-in duration-500">
       <CartStepper currentStep={step} />
-
-    
-
       <div className="max-w-5xl p-4 md:p-0 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:mt-10">
           <div className="md:col-span-3 space-y-4">
             <div className="flex flex-col gap-4">
-              {items.map((item, index) => {
-                const isOutOfStock = !item.basePrice;
-
-                return (
+              {items.map((item, index) =>  
                   <div
                     key={index}
                     className="p-6 bg-(--bg-neutral-primary-soft) border rounded-(--radius-base) border-[#1D303A] overflow-hidden"
@@ -98,9 +97,13 @@ export function FilledCart({
                       isInCart={true}
                       changeQuantity={(p) => {
                         if (p.action === "remove") {
-                          onRemoveItem(String(item.id));
+                          onRemoveItem(item.offerId);
                         } else {
-                          onQuantityChange(String(item.id), p.quantity, item.quantity);
+                          onQuantityChange(
+                            item.offerId,
+                            p.quantity,
+                            item.quantity,
+                          );
                         }
                       }}
                       addToCart={noop}
@@ -108,8 +111,7 @@ export function FilledCart({
                       addToFavorites={noop}
                     />
                   </div>
-                );
-              })}
+              )}
             </div>
           </div>
 
@@ -118,7 +120,9 @@ export function FilledCart({
               <CartSummary
                 totalPrice={totalPrice}
                 onBeforeNext={handleBeforeNext}
-                onNext={(wantsInvoice) => onStepChange("delivery", wantsInvoice)}
+                onNext={(wantsInvoice) =>
+                  onStepChange("delivery", wantsInvoice)
+                }
               />
             </div>
           </aside>

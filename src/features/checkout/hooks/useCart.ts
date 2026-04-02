@@ -90,7 +90,7 @@ export function useCart() {
       setItems((prev) => {
         previousItems = prev;
         const updated = prev.map((item) =>
-          String(item.id) === id ? { ...item, quantity: newQuantity } : item
+          item.offerId === id ? { ...item, quantity: newQuantity } : item
         );
         setTotalPrice(recalculateTotal(updated));
         return updated;
@@ -114,7 +114,7 @@ export function useCart() {
 
       setItems((prev) => {
         previousItems = prev;
-        const updated = prev.filter((item) => String(item.id) !== id);
+        const updated = prev.filter((item) => item.offerId !== id);
         setTotalPrice(recalculateTotal(updated));
         if (updated.length === 0) setStep("empty");
         return updated;

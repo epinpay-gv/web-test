@@ -121,7 +121,6 @@ export interface CategoryTranslation extends Translation {
   activation?: string; // ! bu backende eklenmeli
   faq?: FAQ[]; // ! bu backende eklenmeli
   comments?: Comment[]; // ! bu backende eklenmeli
-
   // bannerImageUrl: string; // ! yeni yapıda buna gerek olmayabilir
   // bannerImageAlt: string; // ! yeni yapıda buna gerek olmayabilir
   // bannerImageStatus: string; // ! yeni yapıda buna gerek olmayabilir
@@ -132,7 +131,7 @@ export interface CategoryTranslation extends Translation {
 }
 
 export interface Offer {
-  id: number;
+  id: string;
 }
 
 export interface Comment {

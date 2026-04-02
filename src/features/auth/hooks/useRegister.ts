@@ -7,7 +7,7 @@ import { authService } from '../auth.service';
 import { useLogin } from './useLogin';
 import { ValidationRules } from '../auth.types';
 
-export function useRegister() {
+export function useRegister(onSuccess?: () => void) {
   const router = useRouter();
   const store = useRegisterStore();
   const { performLogin } = useLogin();
@@ -68,20 +68,23 @@ export function useRegister() {
     }
   };
 
-  const handleVerifyOtp = async (otpCode: string) => {
+   const handleVerifyOtp = async (otpCode: string) => {
     store.setIsLoading(true);
     store.setError(null);
 
     try {
-      const response = await authService.verifyOtp(store.formData.email, otpCode);          
-      
-      // Tip güvenli kontrol: response.user varsa performLogin'e gönder
+      const response = await authService.verifyOtp(store.formData.email, otpCode);
+
       if (response.user) {
         performLogin(response.user, store.formData.rememberMe, response.token);
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          router.push('/login');
+        }
       } else {
         router.push('/login');
       }
-
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "Doğrulama kodu hatalı.";
       store.setError(errorMessage);

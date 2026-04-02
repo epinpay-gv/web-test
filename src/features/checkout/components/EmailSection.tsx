@@ -3,7 +3,7 @@ import { Input } from "@/components/common";
 import { CheckBox } from "@/components/common";
 import { Envelope } from "flowbite-react-icons/outline";
 import { cn } from "@/lib/utils";
-import type { Dispatch, SetStateAction, RefObject } from "react";
+import { type Dispatch, type SetStateAction, type RefObject } from "react";
 import type { CartErrors } from "../types";
 
 interface EmailSectionProps {
@@ -13,6 +13,8 @@ interface EmailSectionProps {
   setErrors: Dispatch<SetStateAction<CartErrors>>;
   emailInputRef: RefObject<HTMLDivElement | null>;
   agreementRef: RefObject<HTMLDivElement | null>;
+  wantsAccount: boolean;
+  onCreateAccountChange: (checked: boolean) => void;
 }
 
 export function EmailSection({
@@ -22,6 +24,8 @@ export function EmailSection({
   setErrors,
   emailInputRef,
   agreementRef,
+  wantsAccount,
+  onCreateAccountChange,
 }: EmailSectionProps) {
   return (
     <div
@@ -29,7 +33,8 @@ export function EmailSection({
       className="flex flex-col gap-4 border-b border-(--border-default) pb-4 animate-in fade-in duration-500"
     >
       <p className="text-(--text-heading) text-sm mb-2 font-medium">
-        E-posta adresinizi girin. Siparişinizi göndermek için e-posta adresinize ihtiyacımız var.
+        E-posta adresinizi girin. Siparişinizi göndermek için e-posta adresinize
+        ihtiyacımız var.
       </p>
       <Input
         placeholder="Email adresinizi girin"
@@ -49,15 +54,16 @@ export function EmailSection({
       )}
       <div ref={agreementRef} className="flex items-start gap-2 group">
         <CheckBox
+          id="create-account"
+          label="Bu mail ile hesap oluştur. Avantajlardan faydalan."
           className={cn(
             "w-4 h-4",
             errors.agreement === true &&
-              "border-(--border-danger-subtle) ring-2 ring-danger/20"
+              "border-(--border-danger-subtle) ring-2 ring-danger/20",
           )}
+          checked={wantsAccount}
+          onCheckedChange={(checked) => onCreateAccountChange(checked === true)}
         />
-        <p className="text-xs leading-4 text-(--text-heading)">
-          Bu mail ile hesap oluştur. Avantajlardan faydalan
-        </p>
       </div>
       <div className="flex flex-col gap-4">
         <h3 className="text-white text-lg font-semibold">Üyelik avantajları</h3>
