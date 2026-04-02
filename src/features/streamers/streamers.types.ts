@@ -142,3 +142,69 @@ export interface StreamersApiResponse {
     faq: FAQ[];
   };
 }
+
+/* STREAMER APPLICATION (FORM PAGE) */
+
+export interface PerformanceCriteriaItem extends Pick<PackageCriteria, "id"> {
+  title: string;
+  image: string;
+  description: string;
+}
+
+export interface StreamerApplicationHero {
+  title: string;
+  description?: string;
+}
+
+
+export interface StreamerApplicationFormData {
+  // Kişisel bilgiler
+  name: string;
+  surname: string;
+  email: string;
+  birthDate: string;
+
+  // Kanal bilgileri
+  channelUrl: string;
+  contentType: string;
+  aboutYourself: string;
+
+  // Yayın sıklığı
+  weeklyStreamDays: string;
+  dailyStreamHours: string;
+
+  // Sosyal medya — UI'da 3 ayrı input
+  instagramUrl: string;
+  tiktokUrl: string;
+  youtubeUrl: string;
+}
+
+export interface StreamerApplicationPayload {
+  full_name: string;         
+  email: string;
+  birthDate: string;
+  channelUrl: string;
+  contentType: string;
+  aboutYourself: string;
+  weeklyStreamDays: string;
+  dailyStreamHours: string;
+  social_links: string;      
+}
+
+export interface StreamerApplicationResponse {
+  success: boolean;
+  message: string;
+  applicationId: string;
+}
+
+export interface StreamerApplicationPageData {
+  hero: StreamerApplicationHero;
+  criteriaTitle: string;
+  criteriaDescription: string;
+  criteriaItems: PerformanceCriteriaItem[];
+}
+
+export interface StreamerApplicationPageApiResponse {
+  metadata: PageMetadata;
+  data: StreamerApplicationPageData;
+}
