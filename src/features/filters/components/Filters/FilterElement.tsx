@@ -144,7 +144,8 @@ export default function FilterElement({
               })
             ) : (
               <div className="font-normal text-xs text-(--text-fg-danger-strong)">
-                &quot;{searchValue}&quot; {t("filters.noResults")}
+                {/* &quot;{searchValue}&quot; {t("filters.noResults")} */}
+                &quot;{searchValue}&quot;
               </div>
             )}
           </div>
