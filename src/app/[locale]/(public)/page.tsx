@@ -4,6 +4,8 @@ import {
   BestSellersSection,
   PromotedSection,
   PremiumSection,
+  StreamerRafflesSection,
+  EpinpayRafflesSection,
 } from "@/features/mainpage/components";
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo";
 
@@ -41,7 +43,13 @@ export default async function Home({
       {/* Page Content */}
       <PromotedSection data={res.data.promoted} />
       <BestSellersSection data={res.data.bestsellers} />
-      <PremiumSection data={res.data.premium} />
+      {/* <PremiumSection data={res.data.premium} /> */}
+      <StreamerRafflesSection data={res.data.streamerRaffles} />
+      <EpinpayRafflesSection data={res.data.epinpayRaffles} />
+      {/* <EpinpayCardsSection /> */}
+      {/* <EpinpayStreamersSection /> */}
+      <BestSellersSection data={res.data.bestsellers} />
+      {/* <StreamerBannerSection /> */}
     </>
   );
 }
