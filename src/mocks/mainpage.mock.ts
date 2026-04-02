@@ -1,7 +1,7 @@
 import { MainPageData } from "@/features/mainpage/mainpage.types";
 import { PRODUCT_STATUS } from "@/types/types";
 
-export const mockMainPage: MainPageData = {
+export const mockMainPage = {
   promoted: {
     product: {
       name: "Pubg Mobile Uc",
@@ -50,78 +50,67 @@ export const mockMainPage: MainPageData = {
         id: 36,
         title: "Valorant VP",
         slug: "valorant-vp",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/valorant-vp-40.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/valorant-vp-40.webp",
       },
       {
         id: 8,
         title: "PUBG Mobile",
         slug: "pubg-mobile-uc",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/pubg-mobile-90.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/pubg-mobile-90.webp",
       },
       {
         id: 5,
         title: "League of Legends (LoL RP)",
         slug: "league-of-legends-lol-rp",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/league-of-legends-lol-rp-79.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/league-of-legends-lol-rp-79.webp",
       },
       {
         id: 229,
         title: "Metin2 EP (Ejder Parası)",
         slug: "metin2-ep-ejder-parasi",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/5/category/metin2-ep-ejder-parasi-71.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/5/category/metin2-ep-ejder-parasi-71.webp",
       },
       {
         id: 228,
         title: "Rise Online World",
         slug: "rise-online-world",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/5/category/rise-online-world-51.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/5/category/rise-online-world-51.webp",
       },
       {
         id: 16,
         title: "Zula Altın",
         slug: "zula-altin",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/zula-altin-71.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/zula-altin-71.webp",
       },
       {
         id: 206,
         title: "Joypara JP",
         slug: "joypara-jp",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/2/category/joypara-jp-79.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/2/category/joypara-jp-79.webp",
       },
       {
         id: 78,
         title: "Knight Online",
         slug: "knight-online",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/2/category/knight-online-29.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/2/category/knight-online-29.webp",
       },
       {
         id: 204,
         title: "Nowa Online World Elmas",
         slug: "nowa-online-world-elmas",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/2/category/nowa-online-world-elmas-37.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/2/category/nowa-online-world-elmas-37.webp",
       },
       {
         id: 12,
         title: "Free Fire Elmas",
         slug: "free-fire-elmas",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/free-fire-27.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/free-fire-27.webp",
       },
       {
         id: 43,
         title: "Honor of Kings",
         slug: "honor-of-kings",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/honor-of-kings-19.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/honor-of-kings-19.webp",
       },
     ],
   },

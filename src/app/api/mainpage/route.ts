@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockMainPage, mockMetadata, rafflesMockData } from "@/mocks";
+import { mockEpinpayStreamers, mockMainPage, mockMetadata, rafflesMockData } from "@/mocks";
 
 export async function GET() {
   const STREAMER_IDS = ["101", "102", "103", "104", "105", "106"];
@@ -26,6 +26,7 @@ export async function GET() {
         raffles: epinpaySliderData,
         line: 3,
       },
+      epinpayStreamers: mockEpinpayStreamers,
     },
     metadata: mockMetadata.find((m) => m.pageId === 1),
   });
