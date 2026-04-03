@@ -16,6 +16,8 @@ import { ActionButtons } from "./Cards/ProductCard/CardSections";
 import { Modal } from "./Modal/Modal";
 import DescriptionTitle from "./Title/DescriptionTitle";
 import { Stepper } from "./Stepper/Stepper";
+import { Skeleton } from "./Skeleton/Skeleton";
+import  Textarea from "./Form/Textarea/Textarea";
 
 export {
   Badge,
@@ -48,5 +50,7 @@ export {
   ActionButtons,
   Modal,
   DescriptionTitle,
-  Stepper
+  Stepper,
+  Skeleton,
+  Textarea
 };

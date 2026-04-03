@@ -1,4 +1,4 @@
-import { FAQ, PageMetadata, PaginationData, Raffle } from "@/types/types";
+import { FAQ, PageMetadata, PaginationData, ParticipationConstraint, Raffle } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
 
 export interface BannerSectionData {
@@ -59,6 +59,7 @@ export interface RaffleFormData {
   type: "free" | "ep" | "coupon";
   prizeCount: number;
   backupCount: number;
+  constraint?: ParticipationConstraint;
 }
 
 export interface SectionProps {

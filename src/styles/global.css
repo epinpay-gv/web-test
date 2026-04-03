@@ -69,6 +69,8 @@
   --bg-neutral-secondary-medium: rgb(29, 48, 58);
   --bg-overlay: rgba(0, 0, 0, 0.8);
 
+  --bg-raffle-orange-gradient: linear-gradient(349.66deg, #F9D697 -18.16%, #FFE7DD 3.71%, rgba(191, 195, 210, 0) 61.76%, rgba(255, 219, 173, 0) 69.33%), linear-gradient(0deg, #FF8A4C, #FF8A4C), #33444E;
+
   /* colors/border */
 
   --border-purple: #ad4eff;
@@ -246,6 +248,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  
 }
 
 @layer base {
@@ -319,6 +322,7 @@ div {
   --bg-neutral-tertiary-medium: #e5e7eb;
   --bg-neutral-tertiary-soft: #f9fafb;
   --bg-neutral-quaternary: #e5e7eb;
+  --bg-raffle-orange-gradient: linear-gradient(349.66deg, #F9D697 -18.16%, #FFE7DD 3.71%, rgba(191, 195, 210, 0) 61.76%, rgba(255, 219, 173, 0) 69.33%), linear-gradient(0deg, #FF8A4C, #FF8A4C), #33444E;
 
   --bg-disabled: #e5e7eb;
   --bg-overlay: rgba(0, 0, 0, 0.4);

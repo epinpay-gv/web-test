@@ -22,13 +22,13 @@ export default function CreateRaffle() {
   };
 
   return (
-    <div className="min-h-screen bg-[#05080b] text-white">
+    <div className="min-h-screen z-50 relative">
       <RaffleStepper currentStep={currentStep} />
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 p-8 transition-all duration-500">    
-        <div className={`${currentStep === "payment" ? "lg:col-span-2 max-w-2xl mx-auto w-full" : ""}`}>
+        <div className={`${currentStep === "payment" ? "lg:col-span-2 mx-auto w-full " : ""}`}>
           {currentStep === "info" && (
             <InfoSection 
-              data={formData} 
+              data={formData}
               onUpdate={updateForm} 
               onNext={() => setCurrentStep("prize")} 
             />
@@ -47,7 +47,9 @@ export default function CreateRaffle() {
         </div>
         
         {currentStep !== "payment" && (
-          <div className="hidden lg:block sticky top-8 animate-in fade-in zoom-in duration-500">
+          <div className="hidden border rounded-(--radius-base) lg:block w-full h-full sticky min-h-screen animate-in fade-in zoom-in duration-500 "            
+          style={{background: 'var(--bg-raffle-orange-gradient)'}}
+          >
             <GiveawayPreview data={formData} />
           </div>
         )}

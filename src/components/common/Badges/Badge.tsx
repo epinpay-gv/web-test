@@ -45,8 +45,7 @@ const BADGE_ICON_SIZE_CLASSES: Record<BadgeSize, string> = {
 
 const BADGE_THEME_CLASSES: Record<BadgeTheme, string> = {
   gray: "bg-(--bg-neutral-secondary) border border-(--border-default-medium) text-(--text-heading)",
-  white:
-    "bg-(--bg-neutral-primary-soft) border border-(--border-default) text-(--text-heading)",
+  white: "bg-(--bg-neutral-primary-soft) border border-(--border-default) text-(--text-heading)",
   brand:
     "bg-(--bg-brand-softer) border border-(--border-brand-subtle) text-(--text-fg-brand-strong)",
   danger:
@@ -123,3 +122,4 @@ export default function Badge({
     </span>
   );
 }
+
