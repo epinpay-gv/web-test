@@ -70,11 +70,11 @@ const CONTAINER_VARIANT_CLASSES: Record<
   },
 
   segmented: {
-    base: "w-full inline-flex items-center bg-(--bg-neutral-primary-soft) font-semibold ",
+    base: "w-full flex justify-start items-center bg-(--bg-neutral-primary-soft) font-semibold ",
     size: {
-      sm: "w-[280px] h-[48px] gap-2 p-1.5 rounded-[14px]",
-      base: "w-[341px] h-[56px] gap-3 p-2 rounded-[16px] font-semibold",
-      lg: "w-[400px] h-[64px] gap-4 p-2.5 rounded-[18px]",
+      sm: "w-[280px] h-[48px] gap-1 p-1.5 rounded-[14px]",
+      base: "w-[341px] h-[56px] gap-1 p-2 rounded-[16px] font-semibold",
+      lg: "w-[400px] h-[64px] gap-1 p-2.5 rounded-[18px]",
     },
   },
 };
@@ -105,7 +105,7 @@ export default function NavTab({
             size={size}
             variant={variant}
             iconPosition={iconPosition}
-            className="w-full"
+            className=""
           />
         ))}
       </div>

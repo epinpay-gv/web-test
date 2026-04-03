@@ -72,7 +72,7 @@ export function ActionButtons({
             handleCartAction(() => {
               addToCart?.({
                 productId: product.id,
-                offerId: product.cheapestOffer?.id || 0,
+                offerId: product.cheapestOffer?.id || "",
                 quantity: 1,
               });
             });
@@ -92,7 +92,7 @@ export function ActionButtons({
             handleCartAction(() => {
               addToCart?.({
                 productId: product.id,
-                offerId: product.cheapestOffer?.id || 0,
+                offerId: product.cheapestOffer?.id || "",
                 quantity: 1,
               });
             });
@@ -111,7 +111,7 @@ export function ActionButtons({
           handleCartAction(() => {
             addToCart?.({
               productId: product.id,
-              offerId: product.cheapestOffer?.id || 0,
+              offerId: product.cheapestOffer?.id || "",
               quantity: 1,
             });
             router.push("/checkout");
