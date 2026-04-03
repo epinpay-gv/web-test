@@ -2,7 +2,6 @@ import { createSeo } from "@/lib/seo";
 import { BreadcrumbSchema } from "@/components/seo/common/BreadcrumbSchema";
 import ProductsClient from "./products-client";
 import { getProducts } from "@/features/catalog/catalog.service";
-import { createProductsBreadcrumb } from "@/features/catalog/utils";
 import {
   CollectionPageSchema,
   ItemListSchema,
@@ -10,6 +9,7 @@ import {
   WebsiteSchema,
 } from "@/components/seo";
 import { extractSelectedFilterOption } from "@/features/filters/utils/filters.utils";
+import { createProductsBreadcrumb } from "@/lib/createBreadcrumb";
 
 export async function generateMetadata({
   params,

@@ -9,10 +9,10 @@ import {
 } from "@/components/seo";
 import { getCategory } from "@/features/catalog/catalog.service";
 import CategoryClient from "./category-client";
-import { createCategoryBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";
 import { extractSelectedFilterOption } from "@/features/filters/utils/filters.utils";
 import { notFound } from "next/navigation";
+import { createCategoryBreadcrumb } from "@/lib/createBreadcrumb";
 
 export async function generateMetadata({
   params,
@@ -34,6 +34,7 @@ export async function generateMetadata({
       canonical: `/${locale}/${category}`,
       locale: res.category?.translation?.locale,
     });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -56,6 +57,7 @@ export default async function CategoryPage({
   try {
     res = await getCategory(search, category);
     if (!res?.category?.translation) notFound();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;

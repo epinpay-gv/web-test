@@ -1,6 +1,5 @@
 import { BreadcrumbItem } from "@/types/types";
 
-
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
 
 function base(locale: string): BreadcrumbItem[] {
@@ -23,6 +22,13 @@ function productsRoot(locale: string): BreadcrumbItem {
   return {
     name: locale === "en" ? "Products" : "Ürünler",
     href: `${SITE_URL}/${locale}/products`,
+  };
+}
+
+function blogRoot(locale: string): BreadcrumbItem {
+  return {
+    name: locale === "en" ? "Blog" : "Blog",
+    href: `${SITE_URL}/${locale}/blog`,
   };
 }
 
@@ -104,6 +110,32 @@ export function createProductBreadcrumb(
     {
       name: productName,
       href: `${SITE_URL}/${locale}/${categorySlug}/${productSlug}`,
+    },
+  ];
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                BLOG PAGE                                   */
+/* -------------------------------------------------------------------------- */
+
+export function createBlogBreadcrumb(locale: string): BreadcrumbItem[] {
+  return [...base(locale), blogRoot(locale)];
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                ARTICLE PAGE                                */
+/* -------------------------------------------------------------------------- */
+export function createArticleBreadcrumb(
+  locale: string,
+  articleName: string,
+  articleSlug: string,
+): BreadcrumbItem[] {
+  return [
+    ...base(locale),
+    blogRoot(locale),
+    {
+      name: articleName,
+      href: `${SITE_URL}/${locale}/${articleSlug}`,
     },
   ];
 }
