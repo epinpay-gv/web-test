@@ -1,0 +1,8 @@
+export default function ApplicationCard() {
+    return (
+        <div>
+           <h1 className="font-semibold text-[16px]">Başvurular</h1>
+           <p className="text-(--text-body) text-[14px]">Yayıncı başvurularınızı buradan takip edebilirsiniz.</p>
+        </div>
+    )
+}
