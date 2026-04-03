@@ -50,3 +50,20 @@ export interface JoinRaffleApiPayload {
 export interface TakeRafflePriceApiPayload{
   raffleId: string;
 }
+
+export type RaffleStep = "info" | "prize" | "payment";
+
+export interface RaffleFormData {
+  title: string;
+  description: string;
+  type: "free" | "ep" | "coupon";
+  prizeCount: number;
+  backupCount: number;
+}
+
+export interface SectionProps {
+  data: RaffleFormData;
+  onUpdate: (newData: Partial<RaffleFormData>) => void;
+  onNext: () => void;
+  onPrev?: () => void;
+}

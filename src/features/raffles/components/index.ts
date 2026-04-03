@@ -9,6 +9,7 @@ import Winners from "./raffles/Winners/Winners";
 import FAQSection from "./raffles/FAQSection/FAQSection";
 import RaffleGrid from "./all-raffles/RaffleGrid/RaffleGrid";
 import MainBanner from "./raffles/BannerSection/MainBanner/MainBanner";
+import { RaffleStepper } from "./create-raffle/RaffleStepper";
 
 export {
   BannerSection,
@@ -22,4 +23,5 @@ export {
   FAQSection,
   RaffleGrid,
   MainBanner,
+  RaffleStepper
 };

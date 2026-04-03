@@ -15,6 +15,7 @@ import DropdownMenu from "./Dropdown/DropdownMenu";
 import { ActionButtons } from "./Cards/ProductCard/CardSections";
 import { Modal } from "./Modal/Modal";
 import DescriptionTitle from "./Title/DescriptionTitle";
+import { Stepper } from "./Stepper/Stepper";
 
 export {
   Badge,
@@ -46,5 +47,6 @@ export {
   DropdownMenu,
   ActionButtons,
   Modal,
-  DescriptionTitle
+  DescriptionTitle,
+  Stepper
 };
