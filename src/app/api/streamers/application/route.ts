@@ -27,12 +27,12 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body: StreamerApplicationPayload = await request.json();
-    if (!body.full_name || !body.email || !body.channelUrl) {
-      return NextResponse.json(
-        { success: false, message: "Lütfen zorunlu alanları (Ad Soyad, Email, Kanal Linki) doldurunuz." },
-        { status: 400 }
-      );
-    }
+   if (!body.full_name || !body.email || !body.phone || !body.channelUrl) {
+  return NextResponse.json(
+    { success: false, message: "Lütfen zorunlu alanları doldurunuz." },
+    { status: 400 }
+  );
+}
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return NextResponse.json(
       {

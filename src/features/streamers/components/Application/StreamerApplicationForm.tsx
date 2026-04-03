@@ -2,7 +2,75 @@
 
 import { Button, Input } from "@/components/common";
 import { useStreamerApplicationForm } from "@/features/streamers/hooks/useStreamerApplicationForm";
-import { Envelope, Link } from "flowbite-react-icons/outline";
+import { Envelope } from "flowbite-react-icons/outline";
+import { PHONE_CODES } from "@/features/streamers/utils/phone-code";
+
+
+function FormField({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5 w-64">
+      <label className="text-(--text-heading) text-sm font-medium">
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function PlatformInput({
+  prefix,
+  name,
+  placeholder,
+  value,
+  onChange,
+  disabled,
+}: {
+  prefix: string;
+  name: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="flex items-center w-64 h-10 rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) overflow-hidden text-sm focus-within:border-(--border-default-strong) transition-colors">
+      <span className="px-3 text-(--text-body) whitespace-nowrap border-r border-(--border-default) bg-(--bg-neutral-primary-soft) h-full flex items-center select-none">
+        {prefix}
+      </span>
+      <input
+        type="text"
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        className="flex-1 bg-transparent px-3 text-(--text-heading) placeholder:text-(--text-body) outline-none disabled:opacity-50"
+      />
+    </div>
+  );
+}
+
+// ── Section header ──
+function SectionHeader({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="flex flex-col gap-1">
+      <h3 className="text-(--text-heading) text-[16px] font-semibold">{title}</h3>
+      <p className="text-(--text-body) text-[14px]">{description}</p>
+    </div>
+  );
+}
 
 export default function StreamerApplicationForm() {
   const { formData, isLoading, error, handleChange, handleSubmit } =
@@ -10,22 +78,15 @@ export default function StreamerApplicationForm() {
 
   return (
     <div className="flex justify-center min-h-screen bg-(--bg-neutral-primary) border border-(--border-default) rounded-xl mt-6">
-    <form
-    onSubmit={handleSubmit}
-    className="w-132 p-6  flex flex-col gap-4"
-  >
-      {/* Kişisel Bilgiler */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-        <h1 className="font-semibold">Kişisel Bilgiler</h1>
-          <p className="text-(--text-body) text-xs">Kişisel bilgilerinizi girin.</p>
-        </div>
+      <form onSubmit={handleSubmit} className="w-132 p-6 flex flex-col gap-4">
+        {/* Kişisel Bilgiler */}
+        <SectionHeader
+          title="Kişisel Bilgiler"
+          description="Kişisel bilgilerinizi girin."
+        />
 
         <div className="flex gap-3">
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">
-              Ad 
-            </label>
+          <FormField label="Ad">
             <Input
               type="text"
               name="name"
@@ -34,12 +95,11 @@ export default function StreamerApplicationForm() {
               onChange={handleChange("name")}
               inputSize="base"
               disabled={isLoading}
+              rightIcon={<span />} 
+              className="w-64 h-10 rounded-[12px]"
             />
-          </div>
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">
-              Soyad 
-            </label>
+          </FormField>
+          <FormField label="Soyad">
             <Input
               type="text"
               name="surname"
@@ -48,102 +108,106 @@ export default function StreamerApplicationForm() {
               onChange={handleChange("surname")}
               inputSize="base"
               disabled={isLoading}
+              rightIcon={<span />} 
+              className="w-64 h-10 rounded-[12px]"
             />
-          </div>
+          </FormField>
         </div>
 
         <div className="flex gap-3">
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">
-              Email 
-            </label>
+          <FormField label="Email">
             <Input
-              type="text"
+              type="email"
               name="email"
               placeholder="Mail adresiniz"
-              leftIcon={<Envelope />}
+              leftIcon={<Envelope width={13.33} height={10.6}/>}
               value={formData.email}
               onChange={handleChange("email")}
               inputSize="base"
               disabled={isLoading}
+              rightIcon={<span />} 
+              className="w-64 h-10 rounded-[12px]"
             />
-          </div>
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">
-              Telefon numarası
-            </label>
-            <Input
-              type="text"
-              name="birthDate"
-              placeholder="+90"
-              value={formData.birthDate}
-              onChange={handleChange("birthDate")}
-              inputSize="base"
-              disabled={isLoading}
-            />
-          </div>
+          </FormField>
+          <FormField label="Telefon numarası">
+            <div className="flex items-center w-64 h-10 rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) overflow-hidden text-sm focus-within:border-(--border-default-strong) transition-colors">
+              <select
+                value={formData.phoneCode}
+                onChange={handleChange("phoneCode")}
+                disabled={isLoading}
+                className="h-full bg-(--bg-neutral-primary-soft) border-r border-(--border-default) text-(--text-body) text-sm px-2 focus:outline-none disabled:opacity-50 shrink-0"
+              >
+                {PHONE_CODES.map(({ label, value }) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                name="phoneNumber"
+                placeholder="5XX XXX XX XX"
+                value={formData.phoneNumber}
+                onChange={handleChange("phoneNumber")}
+                disabled={isLoading}
+                className="flex-1 bg-transparent px-3 text-(--text-heading) placeholder:text-(--text-body) outline-none disabled:opacity-50 rounded-[12px]"
+                
+              />
+            </div>
+          </FormField>
         </div>
-      </div>
 
-      {/* Kanal Bilgileri */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <h3 className="text-(--text-heading) text-sm font-semibold">Kanal bilgileri</h3>
-          <p className="text-(--text-body) text-xs">Kanal bilgilerini gir.</p>
-        </div>
+        {/* Kanal Bilgileri */}
+        <SectionHeader
+          title="Kanal bilgileri"
+          description="Kanal bilgilerini gir."
+        />
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Platform seçimi</label>
-          <p className="text-(--text-body) text-xs">
+          <label className="text-(--text-heading) text-[16px] font-semibold">
+            Platform seçimi
+          </label>
+          <p className="text-(--text-body) text-[14px]">
             En az bir platform seçip girişini yapmanız gerekmektedir.
           </p>
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Twitch kanal linki</label>
-          <Input
-            type="text"
+        <FormField label="Twitch kanal linki">
+          <PlatformInput
+            prefix="twitch.tv/"
             name="channelUrl"
-            placeholder="twitch.tv/ kanal adı"
-            leftIcon={<Link />}
+            placeholder="kanal adı"
             value={formData.channelUrl}
             onChange={handleChange("channelUrl")}
-            inputSize="base"
             disabled={isLoading}
           />
-        </div>
+        </FormField>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Kick kanal linki</label>
-          <Input
-            type="text"
+        <FormField label="Kick kanal linki">
+          <PlatformInput
+            prefix="kick.com/"
             name="contentType"
-            placeholder="kick.com/ kanal adı"
-            leftIcon={<Link />}
+            placeholder="kanal adı"
             value={formData.contentType}
             onChange={handleChange("contentType")}
-            inputSize="base"
             disabled={isLoading}
           />
-        </div>
+        </FormField>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Youtube kanal linki</label>
-          <Input
-            type="text"
+        <FormField label="Youtube kanal linki">
+          <PlatformInput
+            prefix="youtube.com/"
             name="youtubeUrl"
-            placeholder="youtube.com/ kanal adı"
-            leftIcon={<Link />}
+            placeholder="kanal adı"
             value={formData.youtubeUrl}
             onChange={handleChange("youtubeUrl")}
-            inputSize="base"
             disabled={isLoading}
           />
-        </div>
+        </FormField>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">
-            Yayın içeriği türü nedir?
+          <label className="text-(--text-heading) text-sm font-semibold">
+            Yayın içerik türünüz nedir?
           </label>
           <textarea
             name="aboutYourself"
@@ -151,13 +215,12 @@ export default function StreamerApplicationForm() {
             value={formData.aboutYourself}
             onChange={handleChange("aboutYourself")}
             disabled={isLoading}
-            rows={3}
-            className="w-full rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm px-3 py-2 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
+            className="w-132 h-[98px] rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">
+          <label className="text-(--text-heading) text-sm font-semibold">
             Hedef kitlenizi tanımlayın
           </label>
           <textarea
@@ -166,23 +229,17 @@ export default function StreamerApplicationForm() {
             value={formData.weeklyStreamDays}
             onChange={handleChange("weeklyStreamDays")}
             disabled={isLoading}
-            rows={4}
-            className="w-full rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm px-3 py-2 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
+            className="w-132 h-[98px] rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
           />
         </div>
-      </div>
 
-      {/* Yayın Sıklığı */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <p className="text-(--text-body) text-xs">
-            Haftada kaç gün ve günde ortalama kaç saat yayın yapıyorsunuz?
-          </p>
-        </div>
+        {/* Yayın Sıklığı */}
+        <p className="text-sm font-[12px]">
+          Haftada kaç gün ve günde ortalama kaç saat yayın yapıyorsunuz?
+        </p>
 
         <div className="flex gap-3">
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">Haftalık yayın günü</label>
+          <FormField label="Haftalık yayın günü">
             <select
               value={formData.weeklyStreamDays}
               onChange={handleChange("weeklyStreamDays")}
@@ -191,12 +248,13 @@ export default function StreamerApplicationForm() {
             >
               <option value="">Gün sayısı</option>
               {[1, 2, 3, 4, 5, 6, 7].map((d) => (
-                <option key={d} value={d}>{d} gün</option>
+                <option key={d} value={d}>
+                  {d} gün
+                </option>
               ))}
             </select>
-          </div>
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">Günlük ortalama saat</label>
+          </FormField>
+          <FormField label="Günlük ortalama saat">
             <select
               value={formData.dailyStreamHours}
               onChange={handleChange("dailyStreamHours")}
@@ -205,81 +263,76 @@ export default function StreamerApplicationForm() {
             >
               <option value="">Saat sayısı</option>
               {[1, 2, 3, 4, 5, 6, 7, 8].map((h) => (
-                <option key={h} value={h}>{h} saat</option>
+                <option key={h} value={h}>
+                  {h} saat
+                </option>
               ))}
             </select>
-          </div>
+          </FormField>
         </div>
-      </div>
 
-      {/* Sosyal Medya */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <h3 className="text-(--text-heading) text-sm font-semibold">Sosyal medya bağlantıları</h3>
-          <p className="text-(--text-body) text-xs">
-            Sosyal medya bağlantılarını ekle. En az 1 sosyal medya gir.
-          </p>
-        </div>
+        {/* Sosyal Medya */}
+        <SectionHeader
+          title="Sosyal medya bilgileri"
+          description="Sosyal medya bağlantılarını ekle. En az 1 sosyal medya gir."
+        />
 
         <div className="flex gap-3">
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">Instagram</label>
-            <Input
-              type="text"
+          <FormField label="Instagram">
+            <PlatformInput
+              prefix="instagram.com/"
               name="instagramUrl"
-              placeholder="instagram.com/ kullanıcı adı"
+              placeholder="kullanıcı adı"
               value={formData.instagramUrl}
               onChange={handleChange("instagramUrl")}
-              inputSize="base"
               disabled={isLoading}
             />
-          </div>
-          <div className="flex flex-col gap-1.5 flex-1">
-            <label className="text-(--text-heading) text-sm font-medium">TikTok</label>
-            <Input
-              type="text"
+          </FormField>
+          <FormField label="TikTok">
+            <PlatformInput
+              prefix="tiktok.com/"
               name="tiktokUrl"
-              placeholder="tiktok.com/ kullanıcı adı"
+              placeholder="kullanıcı adı"
               value={formData.tiktokUrl}
               onChange={handleChange("tiktokUrl")}
-              inputSize="base"
               disabled={isLoading}
             />
-          </div>
+          </FormField>
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-sm font-medium">Youtube</label>
-          <Input
-            type="text"
+        <FormField label="Youtube">
+          <PlatformInput
+            prefix="youtube.com/"
             name="youtubeUrl"
-            placeholder="instagram.com/ kullanıcı adı"
+            placeholder="kullanıcı adı"
             value={formData.youtubeUrl}
             onChange={handleChange("youtubeUrl")}
-            inputSize="base"
             disabled={isLoading}
           />
-        </div>
-      </div>
+        </FormField>
 
-      {/* Form Error */}
-      {error && (
-        <div className="bg-red-500/10 border border-red-500/40 rounded-(--radius-base) px-3 py-2">
-          <p className="text-red-500 text-xs text-center font-medium leading-tight">{error}</p>
-        </div>
-      )}
+        {/* Form Error */}
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/40 rounded-(--radius-base) px-3 py-2">
+            <p className="text-red-500 text-xs text-center font-medium leading-tight">
+              {error}
+            </p>
+          </div>
+        )}
 
-      {/* Submit */}
-      <div>
-        <Button
-          variant="brand"
-          text={isLoading ? "Gönderiliyor..." : "Başvur"}
-          type="submit"
-          disabled={isLoading}
-          className="py-3 px-6 text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
-        />
-      </div>
-    </form>
+        {/* Submit */}
+        <div>
+          <Button
+            variant="brand"
+            text={isLoading ? "Gönderiliyor..." : "Başvur"}
+            padding="xs"
+            type="submit"
+            arrows={{ right: true }}
+            disabled={isLoading}
+            className="font-semibold w-21 h-10 rounded-2x max-w-21"
+          />
+        </div>
+      </form>
     </div>
   );
 }

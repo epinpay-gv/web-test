@@ -5,13 +5,13 @@ import { submitStreamerApplication } from "../streamers.service";
 
 export function useStreamerApplicationForm() {
   const router = useRouter();
-  
 
   const [formData, setFormData] = useState<StreamerApplicationFormData>({
     name: "",
     surname: "",
     email: "",
-    birthDate: "",
+    phoneCode: "+90",   
+    phoneNumber: "",
     channelUrl: "",
     contentType: "",
     aboutYourself: "",
@@ -22,29 +22,25 @@ export function useStreamerApplicationForm() {
     youtubeUrl: "",
   });
 
- 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (field: keyof StreamerApplicationFormData) => 
+  const handleChange = (field: keyof StreamerApplicationFormData) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-      
-
       if (error) setError(null);
-  };
+    };
 
-  // Form gönderim fonksiyonu
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); 
-    setIsLoading(true); 
+    e.preventDefault();
+    setIsLoading(true);
     setError(null);
 
     try {
       const payload: StreamerApplicationPayload = {
         full_name: `${formData.name} ${formData.surname}`.trim(),
         email: formData.email,
-        birthDate: formData.birthDate,
+        phone: `${formData.phoneCode}${formData.phoneNumber}`,  // birthDate → phone
         channelUrl: formData.channelUrl,
         contentType: formData.contentType,
         aboutYourself: formData.aboutYourself,
@@ -57,19 +53,17 @@ export function useStreamerApplicationForm() {
         }),
       };
 
-  
       const response = await submitStreamerApplication(payload);
 
-   
       if (response.success) {
-        router.push("/streamers/application/success");
+        router.push("/streamers/success");
       } else {
         setError(response.message || "Başvuru sırasında bir hata oluştu.");
       }
-    } catch (err: any) {
-      setError(err?.message || "Sunucuya bağlanılamadı. Lütfen tekrar deneyin.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Sunucuya bağlanılamadı. Lütfen tekrar deneyin.");
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 

@@ -158,39 +158,32 @@ export interface StreamerApplicationHero {
 
 
 export interface StreamerApplicationFormData {
-  // Kişisel bilgiler
   name: string;
   surname: string;
   email: string;
-  birthDate: string;
-
-  // Kanal bilgileri
+  phoneCode: string;
+  phoneNumber: string;
   channelUrl: string;
   contentType: string;
   aboutYourself: string;
-
-  // Yayın sıklığı
   weeklyStreamDays: string;
   dailyStreamHours: string;
-
-  // Sosyal medya — UI'da 3 ayrı input
   instagramUrl: string;
   tiktokUrl: string;
   youtubeUrl: string;
 }
 
 export interface StreamerApplicationPayload {
-  full_name: string;         
+  full_name: string;
   email: string;
-  birthDate: string;
+  phone: string;          
   channelUrl: string;
   contentType: string;
   aboutYourself: string;
   weeklyStreamDays: string;
   dailyStreamHours: string;
-  social_links: string;      
+  social_links: string;
 }
-
 export interface StreamerApplicationResponse {
   success: boolean;
   message: string;
