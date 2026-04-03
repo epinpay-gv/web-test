@@ -6,7 +6,7 @@ export async function GET() {
     {
       id: 'apple-pay',
       name: 'Apple Pay',
-      commission: '+%4.1',
+      commission: '4.1',
       description: 'Bu ödeme yönteminde tutar farklı para birimiyle gösterilebilir',
       icon: '/image/footer/paymethods/apple-pay.png', // İkon yollarını projene göre güncelle
       status: 'active'
@@ -14,7 +14,7 @@ export async function GET() {
     {
       id: 'google-pay',
       name: 'Google Pay',
-      commission: '+%4.1',
+      commission: '4.1',
       description: 'Bu ödeme yönteminde tutar farklı para birimiyle gösterilebilir',
       icon: '/image/footer/paymethods/google-pay.png',
       status: 'active'
@@ -22,7 +22,7 @@ export async function GET() {
     {
       id: 'visa',
       name: 'Visa',
-      commission: '+%3.4',
+      commission: '3.4',
       description: 'Bu ödeme yönteminde tutar farklı para birimiyle gösterilebilir',
       icon: '/image/footer/paymethods/visa.png',
       status: 'active'
@@ -30,7 +30,7 @@ export async function GET() {
     {
       id: 'paypal',
       name: 'Paypal',
-      commission: '+%0',
+      commission: '0',
       description: 'Bulunduğunuz bölgede geçersizdir',
       icon: '/image/footer/paymethods/paypal.png',
       status: 'disabled'

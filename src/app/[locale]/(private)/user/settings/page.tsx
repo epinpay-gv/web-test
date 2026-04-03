@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UserPageHeader from "@/features/user/components/UserPageHeader";
+import UserPageHeader from "@/features/user/components/common/UserPageHeader";
 import { UserSettingsDTO } from "@/features/user/user.types";
 
 import { AngleDown } from "flowbite-react-icons/outline";

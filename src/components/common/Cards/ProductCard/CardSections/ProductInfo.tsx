@@ -15,20 +15,6 @@ export function ProductInfo({
   isHorizontal,
 }: ProductInfoProps) {
   const renderPlatformIcon = () => {
-    if (product.platform_icon) {
-      return (
-        <div className="relative w-5 h-5">
-          <Image
-            src={product.platform_icon}
-            alt={product.platform || "platform"}
-            fill
-            className="object-contain grayscale opacity-80"
-            sizes="20px"
-          />
-        </div>
-      );
-    }
-
     return PLATFORM_ICON_MAP[product.platform_id] ?? null;
   };
 

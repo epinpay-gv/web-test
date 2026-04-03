@@ -1,4 +1,4 @@
-import UserPageHeader from "@/features/user/components/UserPageHeader";
+import UserPageHeader from "@/features/user/components/common/UserPageHeader";
 
 export default function MessagesPage() {
     return(

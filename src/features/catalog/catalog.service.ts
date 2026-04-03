@@ -14,6 +14,7 @@ import {
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
+const BFF_URL = "http://192.168.1.117:3041/api/features";
 export const getProducts = (
   search: Record<string, string | string[] | undefined>,
 ) => {
@@ -27,7 +28,8 @@ export const getProducts = (
     }
   });
   return baseFetcher<ProductsApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${params.toString()}`,
+    `${BFF_URL}/catalog/products?${params.toString()}`,
+    // `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${params.toString()}`,
   );
 };
 

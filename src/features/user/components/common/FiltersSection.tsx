@@ -1,5 +1,4 @@
 "use client";
-
 import UserPageSearch from "./UserPageSearch";
 import Badge from "@/components/common/Badges/Badge";
 import { DatePicker } from "@/components/common/Calendar/DateRangePicker";

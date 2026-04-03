@@ -1,7 +1,7 @@
 import { MainPageData } from "@/features/mainpage/mainpage.types";
 import { PRODUCT_STATUS } from "@/types/types";
 
-export const mockMainPage: MainPageData = {
+export const mockMainPage = {
   promoted: {
     product: {
       name: "Pubg Mobile Uc",
@@ -50,78 +50,67 @@ export const mockMainPage: MainPageData = {
         id: 36,
         title: "Valorant VP",
         slug: "valorant-vp",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/valorant-vp-40.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/valorant-vp-40.webp",
       },
       {
         id: 8,
         title: "PUBG Mobile",
         slug: "pubg-mobile-uc",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/pubg-mobile-90.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/pubg-mobile-90.webp",
       },
       {
         id: 5,
         title: "League of Legends (LoL RP)",
         slug: "league-of-legends-lol-rp",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/league-of-legends-lol-rp-79.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/league-of-legends-lol-rp-79.webp",
       },
       {
         id: 229,
         title: "Metin2 EP (Ejder Parası)",
         slug: "metin2-ep-ejder-parasi",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/5/category/metin2-ep-ejder-parasi-71.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/5/category/metin2-ep-ejder-parasi-71.webp",
       },
       {
         id: 228,
         title: "Rise Online World",
         slug: "rise-online-world",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/5/category/rise-online-world-51.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/5/category/rise-online-world-51.webp",
       },
       {
         id: 16,
         title: "Zula Altın",
         slug: "zula-altin",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/zula-altin-71.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/zula-altin-71.webp",
       },
       {
         id: 206,
         title: "Joypara JP",
         slug: "joypara-jp",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/2/category/joypara-jp-79.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/2/category/joypara-jp-79.webp",
       },
       {
         id: 78,
         title: "Knight Online",
         slug: "knight-online",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/2/category/knight-online-29.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/2/category/knight-online-29.webp",
       },
       {
         id: 204,
         title: "Nowa Online World Elmas",
         slug: "nowa-online-world-elmas",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/2/category/nowa-online-world-elmas-37.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/2/category/nowa-online-world-elmas-37.webp",
       },
       {
         id: 12,
         title: "Free Fire Elmas",
         slug: "free-fire-elmas",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/free-fire-27.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/free-fire-27.webp",
       },
       {
         id: 43,
         title: "Honor of Kings",
         slug: "honor-of-kings",
-        image:
-          "https://cdn.epinpay.com/image/ep/2025/1/category/honor-of-kings-19.webp",
+        image: "https://cdn.epinpay.com/image/ep/2025/1/category/honor-of-kings-19.webp",
       },
     ],
   },
@@ -153,7 +142,7 @@ export const mockMainPage: MainPageData = {
             name: "PUBG Mobile 660 UC TR",
           },
           cheapestOffer: {
-            id: 442,
+            id: "442",
           },
           basePrice: 365.95,
           epPrice: null,
@@ -188,7 +177,7 @@ export const mockMainPage: MainPageData = {
             name: "PUBG Mobile 1800 UC TR",
           },
           cheapestOffer: {
-            id: 877,
+            id: "877",
           },
           basePrice: 915,
           epPrice: null,
@@ -223,7 +212,7 @@ export const mockMainPage: MainPageData = {
             name: "Pubg Mobile 3850 UC TR",
           },
           cheapestOffer: {
-            id: 1011,
+            id: "1011",
           },
           basePrice: 1829.5,
           epPrice: null,
@@ -257,7 +246,7 @@ export const mockMainPage: MainPageData = {
             name: "Pubg Mobile 8100 UC TR",
           },
           cheapestOffer: {
-            id: 447,
+            id: "447",
           },
           basePrice: 3659,
           epPrice: null,
@@ -291,7 +280,7 @@ export const mockMainPage: MainPageData = {
             name: "Pubg Mobile 3850 UC TR",
           },
           cheapestOffer: {
-            id: 1011,
+            id: "1011",
           },
           basePrice: 1829.5,
           epPrice: null,
@@ -325,7 +314,7 @@ export const mockMainPage: MainPageData = {
             name: "Pubg Mobile 8100 UC TR",
           },
           cheapestOffer: {
-            id: 447,
+            id: "447",
           },
           basePrice: 3659,
           epPrice: null,
@@ -359,7 +348,7 @@ export const mockMainPage: MainPageData = {
             name: "PUBG Mobile 325 UC TR",
           },
           cheapestOffer: {
-            id: 876,
+            id: "876",
           },
           basePrice: 182.95,
           epPrice: null,
@@ -394,7 +383,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "1005 League of Legends RP",
           },
-          cheapestOffer: { id: 866 },
+          cheapestOffer: { id: "866" },
           basePrice: 231,
           epPrice: null,
           discountRate: 18,
@@ -427,7 +416,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "2105 League of Legends RP",
           },
-          cheapestOffer: { id: 868 },
+          cheapestOffer: { id: "868" },
           basePrice: 462,
           epPrice: null,
           discountRate: 18,
@@ -460,7 +449,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "3625 League of Legends RP",
           },
-          cheapestOffer: { id: 527 },
+          cheapestOffer: { id: "527" },
           basePrice: 785.4,
           epPrice: null,
           discountRate: 18,
@@ -493,7 +482,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "460 League of Legends RP",
           },
-          cheapestOffer: { id: 97 },
+          cheapestOffer: { id: "97" },
           basePrice: 110,
           epPrice: null,
           discountRate: 18,
@@ -526,7 +515,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "5 USD Steam Cüzdan Kodu",
           },
-          cheapestOffer: { id: 819 },
+          cheapestOffer: { id: "819" },
           basePrice: 228,
           epPrice: null,
           discountRate: 0,
@@ -559,7 +548,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "10 USD Steam Cüzdan Kodu",
           },
-          cheapestOffer: { id: 820 },
+          cheapestOffer: { id: "820" },
           basePrice: 450,
           epPrice: null,
           discountRate: 0,
@@ -592,7 +581,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "20 USD Steam Cüzdan Kodu",
           },
-          cheapestOffer: { id: 821 },
+          cheapestOffer: { id: "821" },
           basePrice: 920,
           epPrice: null,
           discountRate: 0,
@@ -625,7 +614,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "25 USD Steam Cüzdan Kodu",
           },
-          cheapestOffer: { id: 822 },
+          cheapestOffer: { id: "822" },
           basePrice: 1150,
           epPrice: null,
           discountRate: 0,
@@ -660,7 +649,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "Pubg Mobile 1800 UC Top - Up",
           },
-          cheapestOffer: { id: 1070 },
+          cheapestOffer: { id: "1070" },
           basePrice: 920,
           epPrice: null,
           discountRate: 0,
@@ -693,7 +682,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "Pubg Mobile 3850 UC Top - Up",
           },
-          cheapestOffer: { id: 1071 },
+          cheapestOffer: { id: "1071" },
           basePrice: 1835,
           epPrice: null,
           discountRate: 0,
@@ -726,7 +715,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "1005 League of Legends RP",
           },
-          cheapestOffer: { id: 866 },
+          cheapestOffer: { id: "866" },
           basePrice: 231,
           epPrice: null,
           discountRate: 18,
@@ -759,7 +748,7 @@ export const mockMainPage: MainPageData = {
             locale: "tr",
             name: "2105 League of Legends RP",
           },
-          cheapestOffer: { id: 868 },
+          cheapestOffer: { id: "868" },
           basePrice: 462,
           epPrice: null,
           discountRate: 18,
@@ -793,7 +782,7 @@ export const mockMainPage: MainPageData = {
             name: "Pubg Mobile 8100 UC TR",
           },
           cheapestOffer: {
-            id: 447,
+            id: "447",
           },
           basePrice: 3659,
           epPrice: null,
@@ -827,7 +816,7 @@ export const mockMainPage: MainPageData = {
             name: "PUBG Mobile 325 UC TR",
           },
           cheapestOffer: {
-            id: 876,
+            id: "876",
           },
           basePrice: 182.95,
           epPrice: null,

@@ -1,4 +1,6 @@
 import { PageMetadata, Product } from "@/types/types";
+import { BannerSectionData, SliderSectionData } from "../raffles/raffle.types";
+import { BasicStreamer } from "../streamers/streamers.types";
 
 export interface Promoted {
   product: {
@@ -37,6 +39,9 @@ export interface MainPageData {
   promoted: Promoted;
   bestsellers: Bestsellers;
   premium: PremiumPlan[];
+  streamerRaffles: BannerSectionData[];
+  epinpayRaffles : SliderSectionData;
+  epinpayStreamers: BasicStreamer[];
 }
 
 

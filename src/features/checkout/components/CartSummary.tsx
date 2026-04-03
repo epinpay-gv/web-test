@@ -5,13 +5,14 @@ import { useRef, useState } from "react";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { useOrderAuth } from "../hooks/useOrderAuth";
 import { AuthView } from "@/features/auth/auth.types";
-
 import { EmailSection } from "./EmailSection";
 import { PriceSummary } from "./PriceSummary";
 import { AgreementSection } from "./AgreementSection";
 import { MobileBottomBar } from "./MobileBottomBar";
 import { AuthModalContent } from "./AuthModalContent";
 import type { CartErrors } from "../types";
+import { RegisterForm } from "@/features/auth/components/RegisterForm";
+import { useRegisterStore } from "@/features/auth/store/register.store";
 
 interface CartSummaryProps {
   totalPrice: number;
@@ -19,7 +20,11 @@ interface CartSummaryProps {
   onNext: (wantsInvoice: boolean) => void;
 }
 
-export function CartSummary({ totalPrice, onBeforeNext, onNext }: CartSummaryProps) {
+export function CartSummary({
+  totalPrice,
+  onBeforeNext,
+  onNext,
+}: CartSummaryProps) {
   const emailInputRef = useRef<HTMLDivElement>(null);
   const agreementRef = useRef<HTMLDivElement>(null);
   const discountFormRef = useRef<HTMLDivElement>(null);
@@ -30,6 +35,8 @@ export function CartSummary({ totalPrice, onBeforeNext, onNext }: CartSummaryPro
   const [wantsInvoice, setWantsInvoice] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [currentView, setCurrentView] = useState<AuthView>("login");
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [wantsAccount, setWantsAccount] = useState(false);
 
   const user = useAuthStore((state) => state.user);
 
@@ -43,23 +50,39 @@ export function CartSummary({ totalPrice, onBeforeNext, onNext }: CartSummaryPro
     loginHook,
   } = useOrderAuth(email, isAgreed, () => onNext(wantsInvoice));
 
+  const resetRegisterStore = useRegisterStore((state) => state.reset);
+
   const finalPrice = totalPrice - (discount || 0);
 
   const scrollToDiscount = () => {
-    discountFormRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    discountFormRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
     discountFormRef.current?.querySelector("input")?.focus();
   };
 
   const enhancedHandlePayment = () => {
     if (onBeforeNext && !onBeforeNext()) return;
-
     if (!user?.email && !email) {
-      emailInputRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      emailInputRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return handlePaymentProcess();
     }
     if (!isAgreed) {
-      agreementRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      agreementRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return handlePaymentProcess();
+    }
+    if (wantsAccount) {
+      resetRegisterStore();
+      useRegisterStore.getState().updateFormData({ email });
+      setShowRegisterModal(true);
+      return;
     }
     handlePaymentProcess();
   };
@@ -86,6 +109,8 @@ export function CartSummary({ totalPrice, onBeforeNext, onNext }: CartSummaryPro
             setErrors={setErrors}
             emailInputRef={emailInputRef}
             agreementRef={agreementRef}
+            wantsAccount={wantsAccount}
+            onCreateAccountChange={setWantsAccount}
           />
         )}
 
@@ -167,6 +192,26 @@ export function CartSummary({ totalPrice, onBeforeNext, onNext }: CartSummaryPro
               loginHook={loginHook}
             />
           </div>
+        </Modal>
+      )}
+      {isMobile ? (
+        <BottomSheet
+          isOpen={showRegisterModal}
+          onClose={() => setShowRegisterModal(false)}
+          title="Hesap Oluştur"
+        >
+          <div className="p-6 pb-12">
+            <RegisterForm onSuccess={() => setShowRegisterModal(false)} />
+          </div>
+        </BottomSheet>
+      ) : (
+        <Modal
+          open={showRegisterModal}
+          onClose={() => setShowRegisterModal(false)}
+          title="Hesap Oluştur"
+          size="md"
+        >
+          <RegisterForm onSuccess={() => setShowRegisterModal(false)} />
         </Modal>
       )}
     </div>

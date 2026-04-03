@@ -14,6 +14,7 @@ import { MegaMenu, NavLink, NavLinkCard, NavItem, NavTab } from "./NavElements";
 import DropdownMenu from "./Dropdown/DropdownMenu";
 import { ActionButtons } from "./Cards/ProductCard/CardSections";
 import { Modal } from "./Modal/Modal";
+import DescriptionTitle from "./Title/DescriptionTitle";
 
 export {
   Badge,
@@ -44,5 +45,6 @@ export {
   NavTab,
   DropdownMenu,
   ActionButtons,
-  Modal
+  Modal,
+  DescriptionTitle
 };

@@ -1,9 +1,9 @@
 import { IconShape } from "@/components/common";
+import { DetailHeaderData } from "@/features/user/user.types";
+import { copyNumber } from "@/features/user/utils/user.utils";
 import { AngleLeft, Check, FileCopy } from "flowbite-react-icons/outline";
 import Link from "next/link";
-import { DetailHeaderData } from "../../user.types";
 import { Dispatch, SetStateAction } from "react";
-import { copyNumber } from "../../utils/user.utils";
 
 interface HeaderTitleProps {
   data: DetailHeaderData;

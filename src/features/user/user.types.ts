@@ -123,6 +123,15 @@ export interface Order {
   products: OrderProduct[];
 }
 
+// balance
+export interface BalanceHistory {
+  id: string;
+  method: string;
+  date: string;
+  amount: string;
+  currency: string;
+}
+
 /* RESPONSE & PAYLOAD TYPES */
 // orders
 export interface OrdersPageApiResponse {
@@ -153,4 +162,10 @@ export interface RafflesPageApiResponse {
 
 export interface RaffleDetailPageApiResponse {
   data: Raffle;
+}
+
+//balance
+export interface BalanceHistoryApiResponse {
+  data: BalanceHistory[];
+  pagination: PaginationData;
 }

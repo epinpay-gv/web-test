@@ -1,5 +1,4 @@
 "use client";
-
 import { useCatalogStore } from "@/features/catalog/store/catalog.store";
 import { Modal } from "@/components/common/Modal/Modal";
 import { TopupInfoForm } from "@/components/common/Cards/ProductCard/CardSections/TopupInfoForm";
@@ -18,7 +17,7 @@ export function TopupModalContainer() {
 
       addToCart({
         productId: topupModal.product.id,
-        offerId: topupModal.product.cheapestOffer?.id || 0,
+        offerId: topupModal.product.cheapestOffer?.id || "",
         quantity: 1,
         topupData: topupValue,
       });

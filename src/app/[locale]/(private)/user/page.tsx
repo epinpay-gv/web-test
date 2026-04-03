@@ -1,5 +1,5 @@
 import { mockProfile, mockProfileSectionContent } from "@/mocks/user/profile.mock";
-import UserPageHeader from "@/features/user/components/UserPageHeader";
+import UserPageHeader from "@/features/user/components/common/UserPageHeader";
 import UserProfileSection from "@/features/user/components/profile/UserProfileSection";
 
 export default function User() {

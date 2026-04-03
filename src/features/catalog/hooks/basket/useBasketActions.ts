@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// handleRequest fonkisyonundaki any'ler hata veriyordu, o yüzden eslint disabled oldu
 "use client";
-
 import { useState } from "react";
-import { toast } from "react-toastify";
-import { getCookie, handleRequest } from "@/lib/utils";
+import { handleRequest } from "@/lib/utils";
 import {
   AddToCartPayload,
   AddToCartResponse,
@@ -21,8 +17,6 @@ import {
 
 export function useBasketActions() {
   const [loading, setLoading] = useState(false);
-
-  const openTopupModal = () => {};
 
   const addToCart = async (payload: AddToCartPayload) => {
     return await handleRequest<AddToCartResponse>(
