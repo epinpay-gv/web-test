@@ -1,5 +1,10 @@
 import { Breadcrumb } from "@/components/common";
-import { BreadcrumbSchema, OrganizationSchema, WebsiteSchema } from "@/components/seo";
+import {
+  BlogSchema,
+  BreadcrumbSchema,
+  OrganizationSchema,
+  WebsiteSchema,
+} from "@/components/seo";
 import { getArticle } from "@/features/blog/blog.service";
 import BlogDetailContentSection from "@/features/blog/section/BlogDetailContent";
 import BlogDetailHeroSection from "@/features/blog/section/BlogDetailHeroSection";
@@ -30,6 +35,7 @@ export default async function BlogDetailPage({
   params: Promise<{ locale: string; article: string }>;
 }) {
   const { locale, article } = await params;
+  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/blog/${article}`;
   const res = await getArticle(article);
   const breadcrumbItems = createArticleBreadcrumb(
     locale,
@@ -45,7 +51,13 @@ export default async function BlogDetailPage({
       <OrganizationSchema locale={locale} description={res.metadata.title} />
       <WebsiteSchema locale={locale} description={res.metadata?.title} />
       <BreadcrumbSchema items={breadcrumbItems} />
-      {/* <BlogSchema/> */}
+      <BlogSchema
+        locale={locale}
+        pageUrl={pageUrl}
+        headline={res.data.data.title}
+        description={res.data.data.description}
+        image={res.data.data.thumbnail ?? ""}
+      />
 
       {/* Page Content */}
       <div className="max-w-5xl mx-auto pl-4">

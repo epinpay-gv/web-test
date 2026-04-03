@@ -6,3 +6,4 @@ export * from "./common/CollectionPageSchema";
 export * from "./common/ItemListSchema";
 
 export * from "./ProductSchema";
+export * from "./BlogSchema";
