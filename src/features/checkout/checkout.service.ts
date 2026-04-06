@@ -16,6 +16,7 @@ function getCurrencyCode(): string {
   return "USD";
 }
 
+//TODO : Bunu payload dataya ekleyebiliriz. Bu şekilde kalacaksa bakiye yükleme akışında da kullanılmalı ve checkout>utils klasörüne taşınmalı.
 export function buildRequiredFields(
   method: PaymentMethod,
 ): Record<string, string | number> {

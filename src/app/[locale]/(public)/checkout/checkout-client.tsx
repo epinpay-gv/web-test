@@ -19,7 +19,7 @@ export function CheckoutClient() {
   } = useCart();
 
   const [wantsInvoice, setWantsInvoice] = useState(false);
-  const [guestEmail, setGuestEmail] = useState("");
+  const [guestEmail, setGuestEmail] = useState(""); // TODO : Buna gerek yok
 
   if (isLoading) return null; // TODO : skeleton eklenecek
 
