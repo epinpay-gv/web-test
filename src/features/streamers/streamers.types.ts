@@ -35,6 +35,11 @@ export interface StreamerDonations {
   created_at: string;
 }
 
+export interface SocialLink {
+  platform: "x" | "youtube" | "instagram" | "discord";
+  url: string;
+}
+
 export interface Streamers {
   id: string;
   user_id: string;
@@ -109,9 +114,10 @@ export interface BasicStreamer {
   followerCount: number;
   isLive: boolean;
   isEpinpayStreamer: boolean;
+  socialLinks?: SocialLink[];
 }
 
-export interface BasicPackageCriteria{
+export interface BasicPackageCriteria {
   id: string;
   name: string;
   value: string;
