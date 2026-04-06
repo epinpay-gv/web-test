@@ -37,51 +37,51 @@ export default async function RafflesPage({
     item: `${pageUrl}/${raffle}`,
   }));
 
-  const seoListItems = res.data.sliders.slice(0, 4).map((raffle, index) => ({
-    "@type": "ListItem",
-    position: index,
-    url: `${pageUrl}`,
-    item: {
-      "@type": "Product",
-      "@id": `${pageUrl}#product`,
-      name: product.translation.name,
-      url: product.translation.slug,
-      image: [`${product.translation.imgUrl}`],
-      category: product.translation.category_slug, // TODO : buraya category adı gelmeli
-      brand: {
-        "@type": "Brand",
-        name: product.translation.category_slug, // TODO : buraya category adı gelmeli
-      },
-    },
-    offers: {
-      "@type": "Offer",
-      "@id": `${pageUrl}#offer`,
-      url: `${pageUrl}`,
-      price: product.basePrice || 0,
-      priceCurrency: "", // TODO : bu eklenecek
-      availability: "https://schema.org/InStock",
-      seller: {
-        "@type": "Organization",
-        "@id": "https://www.epinpay.com/#organization",
-        name: "Epinpay",
-        url: "https://www.epinpay.com/",
-      },
-    },
-  }));
+  // const seoListItems = res.data.sliders.slice(0, 4).map((raffle, index) => ({
+  //   "@type": "ListItem",
+  //   position: index,
+  //   url: `${pageUrl}`,
+  //   item: {
+  //     "@type": "Product",
+  //     "@id": `${pageUrl}#product`,
+  //     name: product.translation.name,
+  //     url: product.translation.slug,
+  //     image: [`${product.translation.imgUrl}`],
+  //     category: product.translation.category_slug, // TODO : buraya category adı gelmeli
+  //     brand: {
+  //       "@type": "Brand",
+  //       name: product.translation.category_slug, // TODO : buraya category adı gelmeli
+  //     },
+  //   },
+  //   offers: {
+  //     "@type": "Offer",
+  //     "@id": `${pageUrl}#offer`,
+  //     url: `${pageUrl}`,
+  //     price: product.basePrice || 0,
+  //     priceCurrency: "", // TODO : bu eklenecek
+  //     availability: "https://schema.org/InStock",
+  //     seller: {
+  //       "@type": "Organization",
+  //       "@id": "https://www.epinpay.com/#organization",
+  //       name: "Epinpay",
+  //       url: "https://www.epinpay.com/",
+  //     },
+  //   },
+  // }));
 
   return (
     <>
       {/* SEO Content */}
       <OrganizationSchema locale={locale} description={res.metadata.title} />
       <WebsiteSchema locale={locale} description={res.metadata.title} />
-      <CollectionPageSchema
+      {/* <CollectionPageSchema
         pageUrl={pageUrl}
         name={res.metadata.metaTitle}
         description={res.metadata.metaDescription}
         locale={locale}
         numberOfItems={4}
         items={seoListItems}
-      />
+      /> */}
 
       {/* Page Content */}
       <RafflesClientPage data={res.data} isLoading={false} />
