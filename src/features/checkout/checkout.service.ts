@@ -7,6 +7,48 @@ import {
   PaymentPayload,
   PaymentLinkResponse,
 } from "./types";
+
+function getCurrencyCode(): string {
+  if (typeof document === "undefined") return "USD";
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; currency=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift() ?? "USD";
+  return "USD";
+}
+
+export function buildRequiredFields(
+  method: PaymentMethod,
+): Record<string, string | number> {
+  const extras: Record<string, string | number> = {};
+  const currencyCode = getCurrencyCode();
+
+  for (const field of method.requiredFields) {
+    switch (field) {
+      case "paymentMethod":
+        extras.paymentMethod = method.slug;
+        break;
+      case "currencyId": {
+        const opt = method.options.currencyId?.find(
+          (o) => o.label === currencyCode,
+        );
+        if (opt) extras.currencyId = Number(opt.value);
+        break;
+      }
+      case "cryptoNetwork":
+        extras.cryptoNetwork = method.options.cryptoNetwork?.[0]?.value ?? "";
+        break;
+      case "cryptoToCurrency":
+        extras.cryptoToCurrency =
+          method.options.cryptoToCurrency?.[0]?.value ?? "";
+        break;
+    }
+  }
+
+  return extras;
+}
+
+const BFF_CHECKOUT_URL = "http://localhost:3041/api/features/checkout";
+
 interface UpdateQuantityParams {
   itemId: string;
   newQuantity: number;
@@ -18,7 +60,7 @@ export const cartService = {
    */
   async getCart(): Promise<CartResponse> {
     return await baseFetcher<CartResponse>(
-      `${process.env.NEXT_PUBLIC_API_URL}/cart`,
+      `${BFF_CHECKOUT_URL}/cart`,
       { method: "GET", cache: "no-store" },
       "Sepet bilgileri alınamadı",
     );
@@ -34,7 +76,7 @@ export const cartService = {
     if (newQuantity < 1) return;
 
     await baseFetcher<void, { quantity: number }>(
-      `${process.env.NEXT_PUBLIC_API_URL}/cart/item/${itemId}`,
+      `${BFF_CHECKOUT_URL}/cart/item/${itemId}`,
       {
         method: "PATCH",
         body: { quantity: newQuantity },
@@ -48,7 +90,7 @@ export const cartService = {
    */
   async removeItem(itemId: string): Promise<void> {
     await baseFetcher<void>(
-      `${process.env.NEXT_PUBLIC_API_URL}/cart/item/${itemId}`,
+      `${BFF_CHECKOUT_URL}/cart/item/${itemId}`,
       { method: "DELETE" },
       "Ürün sepetten kaldırılamadı",
     );
@@ -61,7 +103,7 @@ export const paymentService = {
    */
   getPaymentMethods: async (): Promise<PaymentMethod[]> => {
     return await baseFetcher<PaymentMethod[]>(
-      `${process.env.NEXT_PUBLIC_API_URL}/cart/payment-methods`,
+      `${BFF_CHECKOUT_URL}/payment-methods`,
       { method: "GET" },
       "Ödeme yöntemleri alınamadı",
     );
@@ -79,7 +121,7 @@ export const paymentService = {
    */
   async initiatePayment(payload: PaymentPayload): Promise<PaymentLinkResponse> {
     return await baseFetcher<PaymentLinkResponse, PaymentPayload>(
-      `${process.env.NEXT_PUBLIC_API_URL}/payment/initiate`,
+      `${BFF_CHECKOUT_URL}/payment/initiate`,
       { method: "POST", body: payload },
       "Ödeme başlatılamadı",
     );
@@ -94,7 +136,7 @@ export const orderService = {
     payload: OrderAuthRequest,
   ): Promise<OrderDetailResponse> => {
     return await baseFetcher<OrderDetailResponse, { email?: string }>(
-      `${process.env.NEXT_PUBLIC_API_URL}/order/${payload.order_id}`,
+      `${BFF_CHECKOUT_URL}/order/${payload.order_id}`,
       {
         method: "POST",
         body: { email: payload.email },

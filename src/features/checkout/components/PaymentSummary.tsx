@@ -46,13 +46,13 @@ export function PaymentSummary({
           <p>₺{formatPrice(productTotalAmount)}</p>
         </div>
       )}
-      {comission && (
+      {!!comission && (
         <div className="py-2 flex justify-between border-b border-[#1D303A]">
           <p>Komisyon</p>
           <p>₺{formatPrice(comission)}</p>
         </div>
       )}
-      {taxes && (
+      {!!taxes && (
         <div className="py-2 flex justify-between border-b border-[#1D303A]">
           <p>Vergiler</p>
           <p>₺{formatPrice(taxes)}</p>

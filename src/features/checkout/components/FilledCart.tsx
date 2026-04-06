@@ -19,6 +19,7 @@ interface FilledCartProps {
   ) => void;
   onRemoveItem: (id: string) => void;
   onResetCart?: () => void;
+  onGuestEmailChange?: (email: string) => void;
 }
 
 interface OutOfStockModalState {
@@ -38,6 +39,7 @@ export function FilledCart({
   onStepChange,
   onQuantityChange,
   onRemoveItem,
+  onGuestEmailChange,
 }: FilledCartProps) {
   const [outOfStockModal, setOutOfStockModal] =
     useState<OutOfStockModalState>(INITIAL_MODAL_STATE);
@@ -123,6 +125,7 @@ export function FilledCart({
                 onNext={(wantsInvoice) =>
                   onStepChange("delivery", wantsInvoice)
                 }
+                onEmailChange={onGuestEmailChange}
               />
             </div>
           </aside>

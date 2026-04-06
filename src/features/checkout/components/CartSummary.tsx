@@ -1,7 +1,7 @@
 "use client";
 import { Button, Modal, BottomSheet } from "@/components/common";
 import { DiscountCodeForm } from "./DiscountCodeForm";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { useOrderAuth } from "../hooks/useOrderAuth";
 import { AuthView } from "@/features/auth/auth.types";
@@ -18,12 +18,14 @@ interface CartSummaryProps {
   totalPrice: number;
   onBeforeNext?: () => boolean; // false dönerse ödeme durur
   onNext: (wantsInvoice: boolean) => void;
+  onEmailChange?: (email: string) => void;
 }
 
 export function CartSummary({
   totalPrice,
   onBeforeNext,
   onNext,
+  onEmailChange,
 }: CartSummaryProps) {
   const emailInputRef = useRef<HTMLDivElement>(null);
   const agreementRef = useRef<HTMLDivElement>(null);
@@ -31,6 +33,7 @@ export function CartSummary({
 
   const [discount, setDiscount] = useState<number | null>(null);
   const [email, setEmail] = useState("");
+  useEffect(() => { onEmailChange?.(email); }, [email]);
   const [isAgreed, setIsAgreed] = useState(false);
   const [wantsInvoice, setWantsInvoice] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
