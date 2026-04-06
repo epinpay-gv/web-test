@@ -18,6 +18,7 @@ import DescriptionTitle from "./Title/DescriptionTitle";
 import { Stepper } from "./Stepper/Stepper";
 import { Skeleton } from "./Skeleton/Skeleton";
 import  Textarea from "./Form/Textarea/Textarea";
+import {TimePicker} from "./TimePicker/TimePicker";
 
 export {
   Badge,
@@ -52,5 +53,6 @@ export {
   DescriptionTitle,
   Stepper,
   Skeleton,
-  Textarea
+  Textarea,
+  TimePicker
 };

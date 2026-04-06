@@ -1,6 +1,7 @@
 import { FAQ, PageMetadata, PaginationData, ParticipationConstraint, Raffle } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
 
+export type SingleValue = string | undefined;
 export interface BannerSectionData {
   id: string;
   name: string;
@@ -54,6 +55,8 @@ export interface TakeRafflePriceApiPayload{
 export type RaffleStep = "info" | "prize" | "payment";
 
 export interface RaffleFormData {
+  startDate: SingleValue;
+  endDate: SingleValue;
   title: string;
   description: string;
   type: "free" | "ep" | "coupon";

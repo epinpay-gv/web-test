@@ -12,6 +12,7 @@ export interface CheckboxProps extends React.ComponentPropsWithoutRef<
   label?: string;
   helperText?: string;
   secondaryText?: string;
+  labelClass?: string,
 }
 
 const CheckBox = React.forwardRef<
@@ -27,6 +28,7 @@ const CheckBox = React.forwardRef<
       secondaryText,
       id,
       disabled,
+      labelClass = "",
       ...props
     },
     ref,
@@ -106,7 +108,7 @@ const CheckBox = React.forwardRef<
               {label && (
                 <label
                   htmlFor={finalId}
-                  className="text-xs  text-(--text-heading) cursor-pointer"
+                  className={cn("text-xs text-(--text-heading) cursor-pointer", labelClass)}
                 >
                   {label} {secondaryText && (
                 <span className="text-sm text-body">{secondaryText}</span>
