@@ -68,6 +68,7 @@ export default async function ProductsPage({
 
   //SEO ITEMS
   const seoCollectionItems = res.data.slice(0, 4).map((product, index) => ({
+    kind: "catalog" as const,
     "@type": "ListItem",
     position: index + 1,
     item: `${pageUrl}/${product.translation.slug}`,

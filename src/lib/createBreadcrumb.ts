@@ -32,6 +32,13 @@ function blogRoot(locale: string): BreadcrumbItem {
   };
 }
 
+function aboutRoot(locale: string): BreadcrumbItem {
+  return {
+    name: locale === "en" ? "About" : "About",
+    href: `${SITE_URL}/${locale}/about`,
+  };
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                CATEGORIES PAGE                             */
 /* -------------------------------------------------------------------------- */
@@ -139,3 +146,12 @@ export function createArticleBreadcrumb(
     },
   ];
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                ABOUT PAGE                                   */
+/* -------------------------------------------------------------------------- */
+
+export function createAboutBreadcrumb(locale: string): BreadcrumbItem[] {
+  return [...base(locale), aboutRoot(locale)];
+}
+

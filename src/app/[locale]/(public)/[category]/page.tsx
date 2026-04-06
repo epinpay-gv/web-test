@@ -95,7 +95,7 @@ export default async function CategoryPage({
       "@type": "Product",
       "@id": `${pageUrl}#product`,
       name: product.translation.name,
-      url: product.translation.slug,
+      url: `${pageUrl}/${product.translation.slug}`,
       image: [`${product.translation.imgUrl}`],
       category: product.translation.category_slug, // TODO : buraya category adı gelmeli
       brand: {

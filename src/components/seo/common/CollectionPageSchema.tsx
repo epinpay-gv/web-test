@@ -4,7 +4,7 @@ type CollectionPageSchemaProps = {
   description: string;
   locale: string;
   numberOfItems: number;
-  items: ItemListElementCatalog[] | ItemListElementRaffle[];
+  items: (ItemListElementCatalog | ItemListElementRaffle)[];
 };
 
 type ItemListElementCatalog = {

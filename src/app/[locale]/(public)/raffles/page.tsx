@@ -1,4 +1,9 @@
-import { CollectionPageSchema, OrganizationSchema, WebsiteSchema } from "@/components/seo";
+import {
+  CollectionPageSchema,
+  FaqSchema,
+  OrganizationSchema,
+  WebsiteSchema,
+} from "@/components/seo";
 import { getRaffles } from "@/features/raffles/raffles.service";
 import { createSeo } from "@/lib/seo";
 import RafflesClientPage from "./raffles-client";
@@ -31,57 +36,40 @@ export default async function RafflesPage({
   const res = await getRaffles();
 
   //SEO ITEMS
-  const seoCollectionItems = res.data.sliders.slice(0, 4).map((raffle, index) => ({
+  const seoCollectionItems = res.data.sliders.map((raffle) => ({
+    kind: "raffle" as const,
     "@type": "ListItem",
-    position: index + 1,
-    item: `${pageUrl}/${raffle}`,
+    name: raffle.raffles[0].title,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    description: raffle.raffles[0].description ?? "",
+    image: raffle.raffles[0].rewards?.[0].image ?? "",
+    startDate: raffle.raffles[0].startDate,
+    endDate: raffle.raffles[0].endDate,
+    organizer: {
+      "@type": "Organization",
+      "@id": "https://www.epinpay.com/#organization",
+      name: "Epinpay",
+    },
   }));
-
-  // const seoListItems = res.data.sliders.slice(0, 4).map((raffle, index) => ({
-  //   "@type": "ListItem",
-  //   position: index,
-  //   url: `${pageUrl}`,
-  //   item: {
-  //     "@type": "Product",
-  //     "@id": `${pageUrl}#product`,
-  //     name: product.translation.name,
-  //     url: product.translation.slug,
-  //     image: [`${product.translation.imgUrl}`],
-  //     category: product.translation.category_slug, // TODO : buraya category adı gelmeli
-  //     brand: {
-  //       "@type": "Brand",
-  //       name: product.translation.category_slug, // TODO : buraya category adı gelmeli
-  //     },
-  //   },
-  //   offers: {
-  //     "@type": "Offer",
-  //     "@id": `${pageUrl}#offer`,
-  //     url: `${pageUrl}`,
-  //     price: product.basePrice || 0,
-  //     priceCurrency: "", // TODO : bu eklenecek
-  //     availability: "https://schema.org/InStock",
-  //     seller: {
-  //       "@type": "Organization",
-  //       "@id": "https://www.epinpay.com/#organization",
-  //       name: "Epinpay",
-  //       url: "https://www.epinpay.com/",
-  //     },
-  //   },
-  // }));
 
   return (
     <>
       {/* SEO Content */}
       <OrganizationSchema locale={locale} description={res.metadata.title} />
       <WebsiteSchema locale={locale} description={res.metadata.title} />
-      {/* <CollectionPageSchema
+      <CollectionPageSchema
         pageUrl={pageUrl}
         name={res.metadata.metaTitle}
         description={res.metadata.metaDescription}
         locale={locale}
-        numberOfItems={4}
-        items={seoListItems}
-      /> */}
+        numberOfItems={res.data.sliders[0].raffles.length}
+        items={seoCollectionItems}
+      />
+      <FaqSchema
+        pageUrl={pageUrl}
+        faqData={res.data.faq || []}
+      />
 
       {/* Page Content */}
       <RafflesClientPage data={res.data} isLoading={false} />
