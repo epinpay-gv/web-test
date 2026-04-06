@@ -34,7 +34,7 @@ export async function generateMetadata({
       canonical: `/${locale}/${category}`,
       locale: res.category?.translation?.locale,
     });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -57,7 +57,7 @@ export default async function CategoryPage({
   try {
     res = await getCategory(search, category);
     if (!res?.category?.translation) notFound();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -81,6 +81,7 @@ export default async function CategoryPage({
 
   //SEO ITEMS
   const seoCollectionItems = res.data.slice(0, 4).map((product, index) => ({
+    kind: "catalog" as const,
     "@type": "ListItem",
     position: index + 1,
     item: `${pageUrl}/${product.translation.slug}`,
