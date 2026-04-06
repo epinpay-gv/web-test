@@ -8,6 +8,7 @@ import {
   TopupResponsePayload,
   TopupResponseResponse,
 } from "./user.types";
+import { StreamerApplicationsApiResponse } from "../streamers/streamers.types";
 
 /* ORDERS */
 export const getOrders = (
@@ -74,3 +75,11 @@ export const getBalance = () =>
   baseFetcher<BalanceHistoryApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/user/balance`,
   );
+
+
+/* STREAMERS APPLICATION */
+
+export const getStreamerApplications = () =>
+  baseFetcher<StreamerApplicationsApiResponse>(
+    "/api/user/streamer-application",
+  ); 4 

@@ -201,3 +201,23 @@ export interface StreamerApplicationPageApiResponse {
   metadata: PageMetadata;
   data: StreamerApplicationPageData;
 }
+
+/* User paneli yayıncı başvuru takibi */
+
+// streamers.types.ts'e eklenecek
+export type ApplicationStatus = 
+  | "pending"      // değerlendiriliyor
+  | "approved"     // onaylandı
+  | "rejected";    // reddedildi
+
+export interface ApplicationRecord {
+  applicationId: string;
+  fullName: string;
+  email: string;
+  createdAt: string;       // başvuru tarihi
+  status: ApplicationStatus;
+}
+
+export interface StreamerApplicationsApiResponse {
+  data: ApplicationRecord[];
+}

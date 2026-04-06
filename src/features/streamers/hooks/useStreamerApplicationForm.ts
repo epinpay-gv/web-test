@@ -40,16 +40,16 @@ export function useStreamerApplicationForm() {
       const payload: StreamerApplicationPayload = {
         full_name: `${formData.name} ${formData.surname}`.trim(),
         email: formData.email,
-        phone: `${formData.phoneCode}${formData.phoneNumber}`,  // birthDate → phone
+        phone: `${formData.phoneCode}${formData.phoneNumber}`,  
         channelUrl: formData.channelUrl,
         contentType: formData.contentType,
         aboutYourself: formData.aboutYourself,
         weeklyStreamDays: formData.weeklyStreamDays,
         dailyStreamHours: formData.dailyStreamHours,
         social_links: JSON.stringify({
-          instagram: formData.instagramUrl,
-          tiktok: formData.tiktokUrl,
-          youtube: formData.youtubeUrl,
+        instagram: formData.instagramUrl,
+        tiktok: formData.tiktokUrl,
+        youtube: formData.youtubeUrl,
         }),
       };
 
