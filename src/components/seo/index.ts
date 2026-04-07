@@ -7,3 +7,4 @@ export * from "./common/ItemListSchema";
 
 export * from "./ProductSchema";
 export * from "./BlogSchema";
+export * from "./LegalPageSchema";
