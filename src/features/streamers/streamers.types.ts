@@ -136,7 +136,7 @@ export interface StreamersApiResponse {
   metadata: PageMetadata;
   data: {
     mainBanner: Stream[];
-    streams: { platforms: StreamPlatform[]; streams: Stream[] };
+  streams: { platforms: StreamPlatform[]; streams: Stream[] };
     epinpayStreamer: BasicStreamer[];
     packages: Packages[];
     faq: FAQ[];
@@ -163,26 +163,30 @@ export interface StreamerApplicationFormData {
   email: string;
   phoneCode: string;
   phoneNumber: string;
-  channelUrl: string;
+  twitchUrl: string;
+  kickUrl: string;
+  youtubeChannelUrl: string;
   contentType: string;
-  aboutYourself: string;
+  targetAudience: string;
   weeklyStreamDays: string;
   dailyStreamHours: string;
   instagramUrl: string;
   tiktokUrl: string;
-  youtubeUrl: string;
+  youtubeSocialUrl: string;
 }
 
 export interface StreamerApplicationPayload {
+  platform: "TWITCH" | "KICK" | "YOUTUBE";
+  stream_url: string;
   full_name: string;
   email: string;
-  phone: string;          
-  channelUrl: string;
-  contentType: string;
-  aboutYourself: string;
-  weeklyStreamDays: string;
-  dailyStreamHours: string;
-  social_links: string;
+  phone: string;
+  content_type: string;
+  target_audience: string;
+  streaming_schedule: string;
+  youtube_url?: string;
+  tiktok_url?: string;
+  instagram_url?: string;
 }
 export interface StreamerApplicationResponse {
   success: boolean;
@@ -202,22 +206,3 @@ export interface StreamerApplicationPageApiResponse {
   data: StreamerApplicationPageData;
 }
 
-/* User paneli yayıncı başvuru takibi */
-
-// streamers.types.ts'e eklenecek
-export type ApplicationStatus = 
-  | "pending"      // değerlendiriliyor
-  | "approved"     // onaylandı
-  | "rejected";    // reddedildi
-
-export interface ApplicationRecord {
-  applicationId: string;
-  fullName: string;
-  email: string;
-  createdAt: string;       // başvuru tarihi
-  status: ApplicationStatus;
-}
-
-export interface StreamerApplicationsApiResponse {
-  data: ApplicationRecord[];
-}

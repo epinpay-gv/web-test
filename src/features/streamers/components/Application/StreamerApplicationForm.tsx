@@ -5,31 +5,17 @@ import { useStreamerApplicationForm } from "@/features/streamers/hooks/useStream
 import { Envelope } from "flowbite-react-icons/outline";
 import { PHONE_CODES } from "@/features/streamers/utils/phone-code";
 
-
-function FormField({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function FormField({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5 w-64">
-      <label className="text-(--text-heading) text-sm font-medium">
-        {label}
-      </label>
+      <label className="text-(--text-heading) text-sm font-medium">{label}</label>
       {children}
     </div>
   );
 }
 
 function PlatformInput({
-  prefix,
-  name,
-  placeholder,
-  value,
-  onChange,
-  disabled,
+  prefix, name, placeholder, value, onChange, disabled,
 }: {
   prefix: string;
   name: string;
@@ -56,14 +42,7 @@ function PlatformInput({
   );
 }
 
-// ── Section header ──
-function SectionHeader({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
+function SectionHeader({ title, description }: { title: string; description: string }) {
   return (
     <div className="flex flex-col gap-1">
       <h3 className="text-(--text-heading) text-[16px] font-semibold">{title}</h3>
@@ -79,11 +58,9 @@ export default function StreamerApplicationForm() {
   return (
     <div className="flex justify-center min-h-screen bg-(--bg-neutral-primary) border border-(--border-default) rounded-xl mt-6">
       <form onSubmit={handleSubmit} className="w-132 p-6 flex flex-col gap-4">
+
         {/* Kişisel Bilgiler */}
-        <SectionHeader
-          title="Kişisel Bilgiler"
-          description="Kişisel bilgilerinizi girin."
-        />
+        <SectionHeader title="Kişisel Bilgiler" description="Kişisel bilgilerinizi girin." />
 
         <div className="flex gap-3">
           <FormField label="Ad">
@@ -95,8 +72,8 @@ export default function StreamerApplicationForm() {
               onChange={handleChange("name")}
               inputSize="base"
               disabled={isLoading}
-              rightIcon={<span />} 
-              className="w-64 h-10 rounded-[12px]"
+              rightIcon={<span />}
+              className="w-64 h-10 rounded-2xl"
             />
           </FormField>
           <FormField label="Soyad">
@@ -108,8 +85,8 @@ export default function StreamerApplicationForm() {
               onChange={handleChange("surname")}
               inputSize="base"
               disabled={isLoading}
-              rightIcon={<span />} 
-              className="w-64 h-10 rounded-[12px]"
+              rightIcon={<span />}
+              className="w-64 h-10 rounded-2xl"
             />
           </FormField>
         </div>
@@ -120,13 +97,13 @@ export default function StreamerApplicationForm() {
               type="email"
               name="email"
               placeholder="Mail adresiniz"
-              leftIcon={<Envelope width={13.33} height={10.6}/>}
+              leftIcon={<Envelope width={13.33} height={10.6} />}
               value={formData.email}
               onChange={handleChange("email")}
               inputSize="base"
               disabled={isLoading}
-              rightIcon={<span />} 
-              className="w-64 h-10 rounded-[12px]"
+              rightIcon={<span />}
+              className="w-64 h-10 rounded-2xl"
             />
           </FormField>
           <FormField label="Telefon numarası">
@@ -138,9 +115,7 @@ export default function StreamerApplicationForm() {
                 className="h-full bg-(--bg-neutral-primary-soft) border-r border-(--border-default) text-(--text-body) text-sm px-2 focus:outline-none disabled:opacity-50 shrink-0"
               >
                 {PHONE_CODES.map(({ label, value }) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
+                  <option key={value} value={value}>{label}</option>
                 ))}
               </select>
               <input
@@ -150,23 +125,17 @@ export default function StreamerApplicationForm() {
                 value={formData.phoneNumber}
                 onChange={handleChange("phoneNumber")}
                 disabled={isLoading}
-                className="flex-1 bg-transparent px-3 text-(--text-heading) placeholder:text-(--text-body) outline-none disabled:opacity-50 rounded-[12px]"
-                
+                className="flex-1 bg-transparent px-3 text-(--text-heading) placeholder:text-(--text-body) outline-none disabled:opacity-50 rounded-2xl"
               />
             </div>
           </FormField>
         </div>
 
         {/* Kanal Bilgileri */}
-        <SectionHeader
-          title="Kanal bilgileri"
-          description="Kanal bilgilerini gir."
-        />
+        <SectionHeader title="Kanal bilgileri" description="Kanal bilgilerini gir." />
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-(--text-heading) text-[16px] font-semibold">
-            Platform seçimi
-          </label>
+          <label className="text-(--text-heading) text-[16px] font-semibold">Platform seçimi</label>
           <p className="text-(--text-body) text-[14px]">
             En az bir platform seçip girişini yapmanız gerekmektedir.
           </p>
@@ -175,10 +144,10 @@ export default function StreamerApplicationForm() {
         <FormField label="Twitch kanal linki">
           <PlatformInput
             prefix="twitch.tv/"
-            name="channelUrl"
+            name="twitchUrl"
             placeholder="kanal adı"
-            value={formData.channelUrl}
-            onChange={handleChange("channelUrl")}
+            value={formData.twitchUrl}
+            onChange={handleChange("twitchUrl")}
             disabled={isLoading}
           />
         </FormField>
@@ -186,10 +155,10 @@ export default function StreamerApplicationForm() {
         <FormField label="Kick kanal linki">
           <PlatformInput
             prefix="kick.com/"
-            name="contentType"
+            name="kickUrl"
             placeholder="kanal adı"
-            value={formData.contentType}
-            onChange={handleChange("contentType")}
+            value={formData.kickUrl}
+            onChange={handleChange("kickUrl")}
             disabled={isLoading}
           />
         </FormField>
@@ -197,10 +166,10 @@ export default function StreamerApplicationForm() {
         <FormField label="Youtube kanal linki">
           <PlatformInput
             prefix="youtube.com/"
-            name="youtubeUrl"
+            name="youtubeChannelUrl"
             placeholder="kanal adı"
-            value={formData.youtubeUrl}
-            onChange={handleChange("youtubeUrl")}
+            value={formData.youtubeChannelUrl}
+            onChange={handleChange("youtubeChannelUrl")}
             disabled={isLoading}
           />
         </FormField>
@@ -210,12 +179,12 @@ export default function StreamerApplicationForm() {
             Yayın içerik türünüz nedir?
           </label>
           <textarea
-            name="aboutYourself"
+            name="contentType"
             placeholder="Örn: Gaming, Teknoloji, Spor"
-            value={formData.aboutYourself}
-            onChange={handleChange("aboutYourself")}
+            value={formData.contentType}
+            onChange={handleChange("contentType")}
             disabled={isLoading}
-            className="w-132 h-[98px] rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
+            className="w-132 h-24.5 rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
           />
         </div>
 
@@ -224,12 +193,12 @@ export default function StreamerApplicationForm() {
             Hedef kitlenizi tanımlayın
           </label>
           <textarea
-            name="weeklyStreamDays"
+            name="targetAudience"
             placeholder="Örn: 30-40 yaş oyun sever kitlesine hitap ediyorum..."
-            value={formData.weeklyStreamDays}
-            onChange={handleChange("weeklyStreamDays")}
+            value={formData.targetAudience}
+            onChange={handleChange("targetAudience")}
             disabled={isLoading}
-            className="w-132 h-[98px] rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
+            className="w-132 h-24.5 rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
           />
         </div>
 
@@ -248,9 +217,7 @@ export default function StreamerApplicationForm() {
             >
               <option value="">Gün sayısı</option>
               {[1, 2, 3, 4, 5, 6, 7].map((d) => (
-                <option key={d} value={d}>
-                  {d} gün
-                </option>
+                <option key={d} value={d}>{d} gün</option>
               ))}
             </select>
           </FormField>
@@ -263,9 +230,7 @@ export default function StreamerApplicationForm() {
             >
               <option value="">Saat sayısı</option>
               {[1, 2, 3, 4, 5, 6, 7, 8].map((h) => (
-                <option key={h} value={h}>
-                  {h} saat
-                </option>
+                <option key={h} value={h}>{h} saat</option>
               ))}
             </select>
           </FormField>
@@ -303,24 +268,20 @@ export default function StreamerApplicationForm() {
         <FormField label="Youtube">
           <PlatformInput
             prefix="youtube.com/"
-            name="youtubeUrl"
+            name="youtubeSocialUrl"
             placeholder="kullanıcı adı"
-            value={formData.youtubeUrl}
-            onChange={handleChange("youtubeUrl")}
+            value={formData.youtubeSocialUrl}
+            onChange={handleChange("youtubeSocialUrl")}
             disabled={isLoading}
           />
         </FormField>
 
-        {/* Form Error */}
         {error && (
           <div className="bg-red-500/10 border border-red-500/40 rounded-(--radius-base) px-3 py-2">
-            <p className="text-red-500 text-xs text-center font-medium leading-tight">
-              {error}
-            </p>
+            <p className="text-red-500 text-xs text-center font-medium leading-tight">{error}</p>
           </div>
         )}
 
-        {/* Submit */}
         <div>
           <Button
             variant="brand"
@@ -332,6 +293,7 @@ export default function StreamerApplicationForm() {
             className="font-semibold w-21 h-10 rounded-2x max-w-21"
           />
         </div>
+
       </form>
     </div>
   );

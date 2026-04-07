@@ -14,7 +14,7 @@ export default function SuccessForm() {
         descriptionNode={
           <>
             Başvurunuz için teşekkür ederiz. Başvuru durumunuzu Kullanıcı Paneli{" "}
-            <Link href="/user/streamer" className="text-blue-400 hover:underline">
+            <Link href="/user/streamer-application" className="text-blue-400 hover:underline">
               Yayıncı Başvurusu
             </Link>{" "}
             bölümünden takip edebilirsiniz. Ayrıca değerlendirme sonucunuz burak@gmail.com

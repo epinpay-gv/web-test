@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ApplicationRecord } from "@/features/streamers/streamers.types";
-import { getStreamerApplications } from "@/features/user/user.service";
 
-export function useStreamerApplication() {
+import { getApplications } from "../service/application.service";
+import { ApplicationRecord } from "../types/application.type";
+
+export function useApplications() {
   const [applications, setApplications] = useState<ApplicationRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getStreamerApplications()
+    getApplications()
       .then((res) => setApplications(res.data))
       .catch(() => setError("Başvurular yüklenemedi."))
       .finally(() => setIsLoading(false));

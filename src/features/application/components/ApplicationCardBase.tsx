@@ -1,9 +1,12 @@
-import { ApplicationRecord } from "@/features/streamers/streamers.types";
+import { ApplicationRecord, ApplicationStatus } from "../types/application.type";
 
-const STATUS_MAP: Record<ApplicationRecord["status"], { label: string; className: string }> = {
-  pending:  { label: "Değerlendiriliyor", className: "text-(--text-fg-success-strong) " },
-  approved: { label: "Onaylandı",         className: "text-(--text-fg-success)" },
-  rejected: { label: "Reddedildi",        className: "text-(--text-fg-danger-strong) "  },
+
+const STATUS_MAP: Record<ApplicationStatus, { label: string; className: string }> = {
+  PENDING:            { label: "Beklemede",         className: "text-(--text-fg-warning)" },
+  UNDER_REVIEW:       { label: "Değerlendiriliyor", className: "text-(--text-fg-warning)" },
+  APPROVED:           { label: "Onaylandı",         className: "text-(--text-fg-success)" },
+  REJECTED:           { label: "Reddedildi",        className: "text-(--text-fg-danger-strong)" },
+  REVISION_REQUESTED: { label: "Revizyon İstendi",  className: "text-(--text-fg-warning)" },
 };
 
 export default function ApplicationCardBase({ application }: { application: ApplicationRecord }) {
