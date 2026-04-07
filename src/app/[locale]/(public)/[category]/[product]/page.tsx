@@ -6,11 +6,17 @@ import {
   ProductSchema,
   WebsiteSchema,
 } from "@/components/seo";
-import ProductClient from "./product-client";
 import { getProduct } from "@/features/catalog/catalog.service";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { createProductBreadcrumb } from "@/lib/createBreadcrumb";
+import { Breadcrumb } from "@/components/common";
+import {
+  ProductInfo,
+  SeoSectionWithTab,
+  BasketSection,
+} from "@/features/catalog/components";
+import { Home } from "flowbite-react-icons/outline";
 
 type Params = {
   locale: string;
@@ -40,7 +46,7 @@ export async function generateMetadata({
       canonical: `/${locale}/${category}/${product}`,
       locale,
     });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -57,7 +63,7 @@ export default async function ProductPage({ params }: Props) {
   try {
     res = await getProduct("", category, product);
     if (!res?.data?.translation) notFound();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -92,11 +98,34 @@ export default async function ProductPage({ params }: Props) {
 
       {/* Page Content */}
       <Suspense fallback={null}>
-        <ProductClient
-          breadcrumbItems={breadcrumbItems}
-          initialProduct={res.data}
-          initialCategory={res.category}
-        />
+        <div className="container max-w-5xl mx-auto pb-12 py-6 space-y-4 px-4 md:px-0">
+          <Breadcrumb
+            items={breadcrumbItems.map((item, index) => ({
+              ...item,
+              icon: index === 0 ? <Home size={14} /> : undefined,
+            }))}
+          />
+          <div className="flex md:flex-row flex-col gap-4">
+            <div className="flex flex-col gap-10 flex-1 min-w-0">
+              <ProductInfo
+                data={res.data}
+                variants={res.category.variants.map((p) => ({
+                  slug: p.translation.slug,
+                  name: p.translation.name,
+                }))}
+                regions={res.category.regions}
+                platforms={res.category.platforms}
+              />
+              <SeoSectionWithTab
+                initialCategory={res.category.categoryData}
+                initialProduct={res.data}
+              />
+            </div>
+            <div className="hidden md:block">
+              <BasketSection data={res.data} />
+            </div>
+          </div>
+        </div>
       </Suspense>
     </>
   );

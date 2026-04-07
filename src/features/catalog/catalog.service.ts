@@ -29,8 +29,8 @@ export const getProducts = (
     console.log(value)
   });
   return baseFetcher<ProductsApiResponse>(
-    `${BFF_URL}/catalog/products?${params.toString()}`,
-    // `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${params.toString()}`,
+    // `${BFF_URL}/catalog/products?${params.toString()}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${params.toString()}`,
   );
 };
 

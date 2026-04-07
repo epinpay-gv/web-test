@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Product, ProductPlatform, ProductRegion } from "@/types/types";
 import { Badge } from "@/components/common";
 import FilterDropdownContainer from "../../../../filters/components/Filters/FilterDropdownContainer";
+import { useProductSearch } from "@/features/catalog/hooks";
 
 interface VariantOption {
   slug: string;
@@ -16,9 +17,6 @@ interface ProductInfoProps {
   variants: VariantOption[];
   regions?: ProductRegion[];
   platforms?: ProductPlatform[];
-  onVariantChange: (slug: string) => void;
-  onRegionChange?: (id: number) => void;
-  onPlatformChange?: (id: number) => void;
 }
 
 export default function ProductInfo({
@@ -26,10 +24,9 @@ export default function ProductInfo({
   variants,
   regions = [],
   platforms = [],
-  onVariantChange,
-  onRegionChange,
-  onPlatformChange,
 }: ProductInfoProps) {
+  const { changeVariant, changePlatform, changeRegion } = useProductSearch();
+
   const variantItems = useMemo(
     () =>
       variants.map((v) => ({
@@ -88,7 +85,7 @@ export default function ProductInfo({
             <FilterDropdownContainer
               selectedId={data.translation.slug}
               items={variantItems}
-              onSelect={(slug) => onVariantChange(slug)}
+              onSelect={(slug) => changeVariant(slug)}
             />
           </div>
 
@@ -96,14 +93,14 @@ export default function ProductInfo({
           <FilterDropdownContainer
             selectedId={String(data.platform_id)}
             items={platformItems}
-            onSelect={(id) => onPlatformChange?.(Number(id))}
+            onSelect={(id) => changePlatform?.(Number(id))}
           />
 
           {/* Region */}
           <FilterDropdownContainer
             selectedId={String(data.region_id)}
             items={regionItems}
-            onSelect={(id) => onRegionChange?.(Number(id))}
+            onSelect={(id) => changeRegion?.(Number(id))}
           />
         </div>
       </div>
