@@ -27,7 +27,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body: StreamerApplicationPayload = await request.json();
-   if (!body.full_name || !body.email || !body.phone || !body.channelUrl) {
+   if (!body.full_name || !body.email || !body.phone || !body.stream_url) {
   return NextResponse.json(
     { success: false, message: "Lütfen zorunlu alanları doldurunuz." },
     { status: 400 }

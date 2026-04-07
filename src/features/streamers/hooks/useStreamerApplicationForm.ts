@@ -36,6 +36,7 @@ export function useStreamerApplicationForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("formData:", formData);
     setIsLoading(true);
     setError(null);
 
@@ -93,9 +94,11 @@ export function useStreamerApplicationForm() {
           youtube_url: `https://youtube.com/${formData.youtubeSocialUrl}`,
         }),
       };
+      console.log("payload:", payload);
 
       const response = await submitStreamerApplication(payload);
 
+        console.log("response:", response); 
       if (response.success) {
         router.push("/streamers/success");
       } else {

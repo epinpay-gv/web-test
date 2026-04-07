@@ -149,7 +149,6 @@ export interface StreamersApiResponse {
   };
 }
 
-<<<<<<< HEAD
 /* STREAMER APPLICATION (FORM PAGE) */
 
 export interface PerformanceCriteriaItem extends Pick<PackageCriteria, "id"> {
@@ -213,9 +212,9 @@ export interface StreamerApplicationPageApiResponse {
   data: StreamerApplicationPageData;
 }
 
-=======
 export interface StreamerDetailApiResponse {
   metadata: PageMetadata;
   data: Stream;
 }
->>>>>>> development
+
+

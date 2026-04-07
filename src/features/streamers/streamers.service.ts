@@ -1,9 +1,10 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
 import {
-  StreamerDetailApiResponse, StreamersApiResponse,
+  StreamersApiResponse,
   StreamerApplicationPageApiResponse,
   StreamerApplicationPayload,
-  StreamerApplicationResponse
+  StreamerApplicationResponse,
+  StreamerDetailApiResponse
 } from "./streamers.types";
 
 export const getStreamers = () =>
