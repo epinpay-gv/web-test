@@ -22,8 +22,7 @@ export const StartDateSection = ({ data, onUpdate }: Props) => (
     <CheckBox
       id="enable-start-date"
       variant="square"
-      label="İleri bir tarihte başlat"
-      helperText="Bu seçenek işaretlenmezse çekiliş onaylandığı an yayına girer."
+      label="Başlangıç tarih ve saatini ayarla"
       labelClass="text-sm font-medium "
       checked={data.startDate !== undefined}
       onCheckedChange={(checked) => {

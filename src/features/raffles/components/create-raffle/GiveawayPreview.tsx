@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function GiveawayPreview({ data }: { data: RaffleFormData }) {
   return (
-    <div className="w-full h-full min-screen rounded-[40px] flex items-center justify-center p-8 transition-all duration-700">
+    <div className="w-full h-full min-screen rounded-[40px] flex items-start justify-center px-8 pb-8 pt-30 transition-all duration-700">
       <motion.div 
         layout
         initial={{ y: 20, opacity: 0 }}

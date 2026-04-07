@@ -55,10 +55,12 @@ export interface TakeRafflePriceApiPayload{
 export type RaffleStep = "info" | "prize" | "payment";
 
 export interface RaffleFormData {
+  amount: number;
   startDate: SingleValue;
   endDate: SingleValue;
   title: string;
   description: string;
+  prizes: RafflePrize[];
   type: "free" | "ep" | "coupon";
   prizeCount: number;
   backupCount: number;
@@ -70,4 +72,13 @@ export interface SectionProps {
   onUpdate: (newData: Partial<RaffleFormData>) => void;
   onNext: () => void;
   onPrev?: () => void;
+}
+
+export interface RafflePrize {
+  id: string;          
+  name: string;        
+  image?: string;      
+  count: number;  
+  totalStock: number 
+  price?: number;   
 }

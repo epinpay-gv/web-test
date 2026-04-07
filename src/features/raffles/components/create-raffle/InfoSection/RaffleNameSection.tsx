@@ -8,7 +8,7 @@ interface Props {
 
 export const RaffleNameSection = ({ data, onUpdate }: Props) => (
   <div className="flex flex-col gap-2">
-    <label className="text-sm font-bold text-(--text-heading) tracking-wider">
+    <label className="text-sm font-medium leading-5 text-(--text-heading) ">
       Çekiliş Adı / Başlığı
     </label>
     <Input

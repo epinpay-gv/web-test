@@ -7,50 +7,59 @@ import { PaymentSection } from "./PaymentSection/PaymentSection";
 import { GiveawayPreview } from "./GiveawayPreview";
 import { RaffleFormData, RaffleStep } from "../../raffle.types";
 
-export default function CreateRaffle() {
-  const [currentStep, setCurrentStep] = useState<RaffleStep>("info");
-  const [formData, setFormData] = useState<RaffleFormData>({
+interface CreateRaffleProps {
+  data?: RaffleFormData;
+}
+export default function CreateRaffle({ data }: CreateRaffleProps) {
+  const initialFormData: RaffleFormData = {
     title: "",
     description: "",
     type: "free",
     prizeCount: 1,
     backupCount: 0,
     endDate: "",
-    startDate: ""
-  });
+    startDate: "",
+    prizes: [],
+    amount: 0,
+  };
+  const [currentStep, setCurrentStep] = useState<RaffleStep>("info");
+  const [formData, setFormData] = useState<RaffleFormData>(data ?? initialFormData);
 
   const updateForm = (newData: Partial<RaffleFormData>) => {
     setFormData((prev) => ({ ...prev, ...newData }));
   };
 
   return (
-    <div className="min-h-screen z-50 relative">
+    <div className="min-h-screen relative">
       <RaffleStepper currentStep={currentStep} />
-      <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 p-8 transition-all duration-500">    
-        <div className={`${currentStep === "payment" ? "lg:col-span-2 mx-auto w-full " : ""}`}>
+      <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 p-8 transition-all duration-500">
+        <div
+          className={`${currentStep === "payment" ? "lg:col-span-2 mx-auto w-full " : ""}`}
+        >
           {currentStep === "info" && (
-            <InfoSection 
+            <InfoSection
               data={formData}
-              onUpdate={updateForm} 
-              onNext={() => setCurrentStep("prize")} 
+              onUpdate={updateForm}
+              onNext={() => setCurrentStep("prize")}
             />
           )}
           {currentStep === "prize" && (
-            <PrizeSection 
-              data={formData} 
-              onUpdate={updateForm} 
-              onNext={() => setCurrentStep("payment")} 
-              onPrev={() => setCurrentStep("info")} 
+            <PrizeSection
+              data={formData}
+              onUpdate={updateForm}
+              onNext={() => setCurrentStep("payment")}
+              onPrev={() => setCurrentStep("info")}
             />
           )}
           {currentStep === "payment" && (
             <PaymentSection onPrev={() => setCurrentStep("prize")} />
           )}
         </div>
-        
+
         {currentStep !== "payment" && (
-          <div className="hidden border rounded-r-(--radius-base) lg:block w-full h-full sticky  animate-in fade-in zoom-in duration-500 "            
-          style={{background: 'var(--bg-raffle-orange-gradient)'}}
+          <div
+            className="hidden border rounded-r-(--radius-base) lg:block w-full h-full sticky  animate-in fade-in zoom-in duration-500 "
+            style={{ background: "var(--bg-raffle-orange-gradient)" }}
           >
             <GiveawayPreview data={formData} />
           </div>

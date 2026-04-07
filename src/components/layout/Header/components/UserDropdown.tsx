@@ -70,7 +70,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
           sideOffset={8}
           collisionPadding={16}
           className="
-            z-[999] 
+            z-999 
             w-[calc(100vw-32px)] 
             md:w-78.25
             bg-(--bg-neutral-primary-medium)

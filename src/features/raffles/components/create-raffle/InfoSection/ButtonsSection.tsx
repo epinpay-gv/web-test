@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const ButtonsSection = ({ onNext, onCancel, disabled }: Props) => (
-  <div className="flex justify-center gap-2 pt-6  border-(--border-default)">
+  <div className="flex justify-center gap-2 pt-4  border-(--border-default)">
     <Button
       variant="secondary"
       text="İptal et"

@@ -1,68 +1,83 @@
-// PreviewCard/PreviewCardInfo.tsx
 "use client";
-import { useMemo } from "react";
 import { SHIMMER_CLASS } from "./preview.utils";
 
 interface PreviewCardInfoProps {
   title: string;
-  isLoading: boolean;
-  timeLeft: string; // useMemo ile hesaplanıp buraya geçecek
+  isLoading: boolean;  
+  isPrizeLoading: boolean;    
+  timeLeft: string;        
+  isTimeLoading?: boolean;  
+  prizeValue?: number;     
+  participantCount?: number;
+  amount: number; 
 }
 
-export default function PreviewCardInfo({ title, isLoading, timeLeft }: PreviewCardInfoProps) {
-  // SKELETON GÖRÜNÜMÜ (Başlık boşsa)
-  if (isLoading) {
-    return (
-      <div className="flex flex-col flex-1 px-3 py-2 md:px-4 md:py-3 gap-2 md:gap-4">
-        {/* TITLE Skeleton */}
-        <div className="space-y-1">
-          <div className={`w-full h-4 ${SHIMMER_CLASS}`} />
-          <div className={`w-3/4 h-4 ${SHIMMER_CLASS}`} />
-        </div>
-
-        {/* INFO Skeleton */}
-        <div className="flex justify-around w-full">
-          {[0, 1].map((i) => (
-            <div key={i} className="flex flex-col gap-1 items-center">
-              <div className={`w-12 h-3 ${SHIMMER_CLASS}`} />
-              <div className={`w-16 h-4 ${SHIMMER_CLASS}`} />
-            </div>
-          ))}
-        </div>
-
-        {/* ACTION Skeleton */}
-        <div className={`w-full h-13 md:h-14 ${SHIMMER_CLASS} mt-auto`} />
-      </div>
-    );
-  }
-
-  // CANLI GÖRÜNÜM
+export default function PreviewCardInfo({ 
+  title, 
+  isLoading,
+  isPrizeLoading, 
+  timeLeft, 
+  isTimeLoading = false,
+  prizeValue = 0,
+  participantCount = 0,
+  amount = 0
+}: PreviewCardInfoProps) {
+  
   return (
-    <div className="flex flex-col flex-1 px-3 py-2 md:px-4 md:py-3 gap-2 md:gap-4 text-white">
-      {/* TITLE */}
-      <p className="text-(--text-heading) h-10.5 text-sm font-semibold leading-[150%] line-clamp-2">
-        {title}
-      </p>
-
-      {/* INFO (Statik veriler, preview için) */}
-      <div className="flex justify-around w-full">
-        <div className="flex flex-col gap-0 items-center">
-          <p className="text-xs text-(--text-body) leading-[150%]">Ödül Değeri</p>
-          <p className="text-sm font-bold leading-[150%] text-(--text-fg-success-strong)">0 $</p>
+    <div className="flex flex-col flex-1 px-3 py-4 md:px-4 md:py-6 gap-2 md:gap-4 text-white">
+            
+      <div className="h-10.5">
+        {isLoading ? (
+          <div className="space-y-1">
+            <div className={`w-full h-4 ${SHIMMER_CLASS} rounded-sm`} />
+            <div className={`w-3/4 h-4 ${SHIMMER_CLASS} rounded-sm`} />
+          </div>
+        ) : (
+          <p className="text-(--text-heading) text-sm font-semibold leading-[150%] line-clamp-2">
+            {title}
+          </p>
+        )}
+      </div>
+      
+      <div className="flex items-center justify-between w-full px-2">
+  
+        <div className="flex flex-col gap-0 items-center flex-1">
+          <p className="text-[10px] md:text-xs text-(--text-body) leading-[150%]">Ödül Değeri</p>
+          {isPrizeLoading? (
+            <div className={`w-10 h-3.5 mt-1 ${SHIMMER_CLASS} rounded-xs`} />
+          ) : (
+            <p className="text-sm font-bold leading-[150%] text-(--text-fg-success-strong)">
+              {amount} $
+            </p>
+          )}
         </div>
-        <div className="flex flex-col gap-0 items-center">
-          <p className="text-xs text-(--text-body) leading-[150%]">Katılımcı</p>
-          <p className="text-sm font-bold leading-[150%] text-(--text-fg-brand-subtle)">0 kişi</p>
+
+        <div className="w-px h-6 bg-(--border-default-medium) opacity-50" />
+
+        <div className="flex flex-col gap-0 items-center flex-1">
+          <p className="text-[10px] md:text-xs text-(--text-body) leading-[150%]">Katılımcı</p>
+          {isPrizeLoading ? (
+            <div className={`w-10 h-3.5 mt-1 ${SHIMMER_CLASS} rounded-xs`} />
+          ) : (
+            <p className="text-sm font-bold leading-[150%] text-(--text-fg-brand-subtle)">
+              {participantCount} Kişi
+            </p>
+          )}
+        </div>
+      </div>
+  
+      <div className="w-full h-13 md:h-14 mt-auto cursor-pointer text-xs font-base rounded-lg py-1 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-0.5 items-center justify-center transition-transform active:scale-95">
+        <p className="text-(--text-black) leading-5 text-xs font-medium">Hemen katıl</p>
+        
+        <div className="min-w-20 flex justify-center rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
+          {isTimeLoading || timeLeft === "-" ? (
+            <div className={`w-14 h-3 ${SHIMMER_CLASS} opacity-40 rounded-xs`} />
+          ) : (
+            <span className="whitespace-nowrap font-bold text-[11px]">Son {timeLeft}</span>
+          )}
         </div>
       </div>
 
-      {/* ACTION (Statik "Hemen katıl" butonu) */}
-      <div className="w-full h-13 md:h-14 mt-auto cursor-pointer text-xs font-base rounded-lg py-1 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center justify-center">
-        <p className="text-black leading-5">Hemen katıl</p>
-        <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
-          Son {timeLeft}
-        </div>
-      </div>
     </div>
   );
 }
