@@ -35,6 +35,11 @@ export interface StreamerDonations {
   created_at: string;
 }
 
+export interface SocialLink {
+  platform: "x" | "youtube" | "instagram" | "discord";
+  url: string;
+}
+
 export interface Streamers {
   id: string;
   user_id: string;
@@ -109,9 +114,10 @@ export interface BasicStreamer {
   followerCount: number;
   isLive: boolean;
   isEpinpayStreamer: boolean;
+  socialLinks?: SocialLink[];
 }
 
-export interface BasicPackageCriteria{
+export interface BasicPackageCriteria {
   id: string;
   name: string;
   value: string;
@@ -143,6 +149,7 @@ export interface StreamersApiResponse {
   };
 }
 
+<<<<<<< HEAD
 /* STREAMER APPLICATION (FORM PAGE) */
 
 export interface PerformanceCriteriaItem extends Pick<PackageCriteria, "id"> {
@@ -206,3 +213,9 @@ export interface StreamerApplicationPageApiResponse {
   data: StreamerApplicationPageData;
 }
 
+=======
+export interface StreamerDetailApiResponse {
+  metadata: PageMetadata;
+  data: Stream;
+}
+>>>>>>> development

@@ -1,4 +1,4 @@
-import { PaginationData } from "@/types/types";
+import { PageMetadata, PaginationData } from "@/types/types";
 
 /* CARD BASE */
 export interface BlogCard {
@@ -32,12 +32,11 @@ export interface BlogPopularItem {
   rank: number;
 }
 
-/* LIST PAGE RESPONSE */
+/* LIST PAGE  */
 export interface BlogListPageData {
   hero: BlogHeroSection;
   popular: BlogPopularItem[];
   blogs: BlogCard[];
-  pagination: PaginationData;
 }
 
 /* DETAIL PAGE */
@@ -55,7 +54,20 @@ export interface BlogDetail {
   description: string;
   thumbnail?: string;
   publishedAt: string;
-  content?: string; 
-  sections: BlogDetailSection[]; 
+  content?: string;
+  sections: BlogDetailSection[];
   relatedPosts: BlogCard[];
+}
+
+/* RESPONSE & PAYLOAD TYPES */
+
+export interface BlogApiResponse {
+  metadata: PageMetadata;
+  data: BlogListPageData;
+  pagination: PaginationData;
+}
+
+export interface ArticleApiResponse {
+  metadata: PageMetadata;
+  data: { data: BlogDetail; popular: BlogCard[] };
 }

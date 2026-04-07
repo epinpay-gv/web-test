@@ -14,15 +14,15 @@ export const Footer = () => {
   ]
 
   const epinpayLinks : FooterLink[] = [
-    { label: "Hakkımızda", href: "#"},
-    { label: "Kategoriler", href: "#"},
-    { label: "Blog", href: "#"},
-    { label: "Şifremi Unuttum", href: "#"},
-    { label: "Siparişlerim", href: "#"},
-    { label: "Epinpay Premium", href: "#"},
-    { label: "EP Puanları", href: "#"},
-    { label: "Davet Et ve Kazan", href: "#"},
-    { label: "Yayıncılar", href: "#"},
+    { label: "Hakkımızda", href: "/about"},
+    { label: "Kategoriler", href: "/categories"},
+    { label: "Blog", href: "/blog"},
+    { label: "Şifremi Unuttum", href: "/reset-password"},
+    { label: "Siparişlerim", href: "/user/orders"},
+    // { label: "Epinpay Premium", href: "#"},
+    // { label: "EP Puanları", href: "#"},
+    // { label: "Davet Et ve Kazan", href: "#"},
+    { label: "Yayıncılar", href: "/streamers"},
   ]
 
   const institutionalLinks : FooterLink[] = [
@@ -32,9 +32,9 @@ export const Footer = () => {
     { label: "KVKK Aydınlatma Metni", href: "/legal/kvkk"},
     { label: "İade Politikası", href: "/legal/refund-policy"},
     { label: "Reklam Politikası", href: "/legal/advertising-policy"},
-    { label: "Ürün ve Listeleme Politikası", href: "#"},
-    { label: "Alıcı Koruma Politikası", href: "#"},
-    { label: "İletişim", href: "#"},
+    { label: "Ürün ve Listeleme Politikası", href: "/legal/product-and-listing-policy"},
+    { label: "Alıcı Koruma Politikası", href: "/legal/buyer-protection-policy"},
+    // { label: "İletişim", href: "#"},
   ]
 
   const popularGameLinks : FooterLink[] = [

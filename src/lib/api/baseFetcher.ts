@@ -1,5 +1,13 @@
 type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
+function getCookie(name: string): string | undefined {
+  if (typeof document === "undefined") return undefined;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift();
+  return undefined;
+}
+
 type FetcherOptions<TBody> = {
   method?: HttpMethod;
   body?: TBody;
@@ -46,6 +54,8 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     "Content-Type": "application/json",
     "EP-Language" : "", 
     "EP-Currency" : "",
+    "epinpay-language": "tr-TR",
+    "x-currency-code": getCookie("currency") ?? "TRY",
     ...options.headers,
   };
 

@@ -1,30 +1,48 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { CartStepper } from "./CartStepper";
 import { Badge } from "@/components/common";
-import { CartStep, InvoiceForm } from "../types";
+import { CartStep, CartSummary, InvoiceForm } from "../types";
 import { ShieldCheck } from "lucide-react";
 import { InvoiceFormSection } from "./InvoiceFormSection";
 import { usePaymentMethods } from "../hooks/usePaymentMethods";
 import { PaymentMethodItem } from "./PaymentMethodItem";
 import { PaymentSummary } from "./PaymentSummary";
 import { useRouter } from "next/navigation";
-import { paymentService } from "../checkout.service";
+import { paymentService, buildRequiredFields } from "../checkout.service";
+import { useAuthStore } from "@/features/auth/store/auth.store";
 
 interface PaymentCartProps {
   totalPrice: number;
+  summary: CartSummary | null;
+  itemCount: number;
   initialWantsInvoice: boolean;
   currentStep: CartStep;
+  guestEmail?: string;
 }
 
 export function PaymentCart({
   totalPrice,
+  summary,
+  itemCount,
   initialWantsInvoice,
   currentStep,
+  guestEmail,
 }: PaymentCartProps) {
   const { methods, isLoading } = usePaymentMethods();
-  const [wantsInvoice, setWantsInvoice] = useState(initialWantsInvoice);
+  const user = useAuthStore((state) => state.user);
+  const [wantsInvoice] = useState(initialWantsInvoice);
   const [selectedMethodId, setSelectedMethodId] = useState<string>("");
+
+  const selectedMethod = methods.find((m) => m.id === selectedMethodId);
+
+  const paymentValues = useMemo(() => {
+    const productTotal = Number(summary?.productTotal ?? totalPrice);
+    const commissionRate = parseFloat((selectedMethod?.commission ?? "0").replace("%", "")) / 100;
+    const commission = productTotal * commissionRate;
+    const taxes = Number(summary?.taxes ?? 0);
+    return { commission, taxes, total: productTotal + commission + taxes };
+  }, [selectedMethod, summary, totalPrice]);
   const [invoiceForm, setInvoiceForm] = useState<InvoiceForm>({
     name: "",
     surname: "",
@@ -44,13 +62,16 @@ export function PaymentCart({
     };
 
   const handlePayment = async () => {
-    if (!selectedMethodId) return;
+    if (!selectedMethod) return;
 
     try {
       setIsPaying(true);
+      const extras = buildRequiredFields(selectedMethod);
       const payload = paymentService.createPaymentPayload({
         context: "checkout",
         paymentMethodId: selectedMethodId,
+        ...(!user?.email && guestEmail ? { guestEmail } : {}),
+        ...extras,
       });
       const { paylink } = await paymentService.initiatePayment(payload);
       router.push(paylink);
@@ -116,11 +137,11 @@ export function PaymentCart({
 
         <div className="lg:col-span-2 mt-25">
           <PaymentSummary
-            productCount={2}
-            comission={9.47}
-            productTotalAmount={269.0}
-            taxes={1.06}
-            totalAmount={253.33}
+            productCount={itemCount}
+            productTotalAmount={summary?.productTotal ?? totalPrice}
+            comission={paymentValues.commission}
+            taxes={paymentValues.taxes}
+            totalAmount={paymentValues.total}
             onPay={handlePayment}
             isPaying={isPaying}
           />

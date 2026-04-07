@@ -147,13 +147,6 @@ export const blogListMock: BlogListPageData = {
   },
   popular: popularList,
   blogs: gridBlogs,
-  pagination: {
-    count: 120,
-    per_page: 8,
-    current_page: 1,
-    total_page: 6,
-    has_more: true,
-  },
 };
 
 // Detail

@@ -19,13 +19,28 @@ export interface InvoiceForm {
 
 export type PaymentMethodStatus = "active" | "disabled";
 
+export interface PaymentMethodOption {
+  label: string;
+  value: string;
+}
+
+export interface PaymentMethodOptions {
+  paymentMethod?: PaymentMethodOption[];
+  currencyId?: PaymentMethodOption[];
+  cryptoNetwork?: PaymentMethodOption[];
+  cryptoToCurrency?: PaymentMethodOption[];
+}
+
 export interface PaymentMethod {
   id: string;
   name: string;
+  slug: string;
   commission: string;
   description: string;
   icon: string;
   status: PaymentMethodStatus;
+  requiredFields: string[];
+  options: PaymentMethodOptions;
 }
 
 export type ResultType = "success" | "fail";
@@ -71,21 +86,36 @@ export interface CartErrors {
 export type PaymentContext = "balance" | "checkout";
 
 /* RESPONSE & PAYLOAD TYPES */
+export interface CartSummary {
+  productTotal: number;
+  taxes: number;
+}
+
 export interface CartResponse {
   items: CartItem[];
   totalQuantity: number;
   totalPrice: number;
   step: CartStep;
+  summary: CartSummary;
 }
 export interface BalancePaymentPayload {
   context: "balance";
   paymentMethodId: string;
   amountToLoad: number;
+  currencyId?: number;
+  paymentMethod?: string;
+  cryptoNetwork?: string;
+  cryptoToCurrency?: string;
 }
 
 export interface CartPaymentPayload {
   context: "checkout";
   paymentMethodId: string;
+  guestEmail?: string;
+  paymentMethod?: string;
+  currencyId?: number;
+  cryptoNetwork?: string;
+  cryptoToCurrency?: string;
 }
 
 export type PaymentPayload = BalancePaymentPayload | CartPaymentPayload;

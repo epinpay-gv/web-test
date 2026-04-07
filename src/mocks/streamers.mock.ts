@@ -20,7 +20,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -34,7 +34,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -48,7 +48,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -62,7 +62,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -76,7 +76,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -90,7 +90,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -104,7 +104,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -144,8 +144,26 @@ export const mockStreams: Stream[] = [
       avatar_url: "/to-be-deleted/avatar-1.jpg",
       isEpinpayStreamer: true,
       package: "bronze",
-      followerCount: 0,
+      followerCount: 10,
       isLive: false,
+      socialLinks: [
+        {
+          platform: "x",
+          url: "https://twitter.com/alexplays",
+        },
+        {
+          platform: "youtube",
+          url: "https://youtube.com/alexplays",
+        },
+        {
+          platform: "instagram",
+          url: "https://instagram.com/alexplays",
+        },
+        {
+          platform: "discord",
+          url: "https://discord.gg/alexplays",
+        },
+      ],
     },
     streamURl: "https://player.kick.com/panky",
     platform_value: "kick",

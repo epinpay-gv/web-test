@@ -9,10 +9,10 @@ import {
 } from "@/components/seo";
 import { getCategory } from "@/features/catalog/catalog.service";
 import CategoryClient from "./category-client";
-import { createCategoryBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";
 import { extractSelectedFilterOption } from "@/features/filters/utils/filters.utils";
 import { notFound } from "next/navigation";
+import { createCategoryBreadcrumb } from "@/lib/createBreadcrumb";
 
 export async function generateMetadata({
   params,
@@ -34,6 +34,7 @@ export async function generateMetadata({
       canonical: `/${locale}/${category}`,
       locale: res.category?.translation?.locale,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -56,6 +57,7 @@ export default async function CategoryPage({
   try {
     res = await getCategory(search, category);
     if (!res?.category?.translation) notFound();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -79,6 +81,7 @@ export default async function CategoryPage({
 
   //SEO ITEMS
   const seoCollectionItems = res.data.slice(0, 4).map((product, index) => ({
+    kind: "catalog" as const,
     "@type": "ListItem",
     position: index + 1,
     item: `${pageUrl}/${product.translation.slug}`,
@@ -92,7 +95,7 @@ export default async function CategoryPage({
       "@type": "Product",
       "@id": `${pageUrl}#product`,
       name: product.translation.name,
-      url: product.translation.slug,
+      url: `${pageUrl}/${product.translation.slug}`,
       image: [`${product.translation.imgUrl}`],
       category: product.translation.category_slug, // TODO : buraya category adı gelmeli
       brand: {

@@ -3,23 +3,22 @@ import { Button } from "@/components/common";
 import { Packages } from "../../streamers.types";
 import PackageCard from "./PackageCard";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface StreamerPackagesProps {
   data: Packages[];
-  selectedPackage: string;
-  onClick: (id: string) => void;
 }
 
 // Gradients
 const SECTION_BG = `linear-gradient(90deg, rgba(255,255,255,0.4) 0%, rgba(16,78,105,0.4) 10%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(16,78,105,0.4) 90%, rgba(255,255,255,0.4) 100%)`;
 const BORDER_BG = `linear-gradient(270deg, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,0.3) 100%)`;
 
-export default function StreamerPackages({
-  data,
-  selectedPackage,
-  onClick,
-}: StreamerPackagesProps) {
+export default function StreamerPackages({ data }: StreamerPackagesProps) {
   const router = useRouter();
+  const [selectedPackage, setSelectedPackage] = useState(data[0].id);
+  const selectPackage = (id: string) => {
+    setSelectedPackage(id);
+  };
 
   return (
     <section
@@ -32,7 +31,8 @@ export default function StreamerPackages({
         style={{
           padding: "2px",
           background: BORDER_BG,
-          WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          WebkitMask:
+            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           WebkitMaskComposite: "xor",
           maskComposite: "exclude",
         }}
@@ -64,7 +64,7 @@ export default function StreamerPackages({
               key={item.id}
               data={item}
               isOpen={selectedPackage === item.id}
-              onClick={onClick}
+              onClick={selectPackage}
             />
           ))}
         </div>
