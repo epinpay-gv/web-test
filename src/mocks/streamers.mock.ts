@@ -19,7 +19,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -33,7 +33,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -47,7 +47,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -61,7 +61,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -75,7 +75,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/naru",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -89,7 +89,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/levo",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {
@@ -103,7 +103,7 @@ export const mockStreams: Stream[] = [
       isLive: false,
     },
     streamURl: "https://player.kick.com/panky",
-    platform_value: "epinpay",
+    platform_value: "kick",
   },
   {
     streamer: {

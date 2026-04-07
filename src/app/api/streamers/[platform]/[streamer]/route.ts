@@ -7,14 +7,12 @@ export async function GET(
 ) {
   const { platform, streamer } = await params;
 
-  // Mock datadan yayıncıyı bul (platform ve nick_name eşleşmesi)
   const foundStream = mockStreams.find(
     (s) => 
       s.platform_value.toLowerCase() === platform.toLowerCase() && 
-      s.streamer.nick_name.toLowerCase() === streamer.toLowerCase()
+      s.streamer.streamerId.toLowerCase() === streamer.toLowerCase()
   );
 
-  // Eğer bulunamazsa fallback olarak ilkini veya 404 dön
   if (!foundStream) {
     return NextResponse.json({ error: "Streamer not found" }, { status: 404 });
   }
@@ -23,7 +21,7 @@ export async function GET(
   await new Promise((r) => setTimeout(r, 200));
 
   return NextResponse.json({
-    metadata: mockMetadata.find((m) => m.pageId === 5), // Streamers ana sayfası metadata'sını şimdilik reuse ediyoruz
+    metadata: mockMetadata.find((m) => m.pageId === 5), 
     data: foundStream,
   });
 }

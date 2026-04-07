@@ -9,21 +9,16 @@ export default async function StreamerPage({
 }) {
   const { streamer, platform } = await params;
 
-  try {
-    const res = await getStreamerDetail(platform, streamer);
+  const res = await getStreamerDetail(platform, streamer);
 
-    if (!res || !res.data) {
-      return notFound();
-    }
-
-    return (
-      <>
-        {/* Page Content */}
-        <StreamerClientPage data={res.data} isLoading={false} />
-      </>
-    );
-  } catch (error) {
-    console.error("Streamer detail fetch error:", error);
+  if (!res || !res.data) {
     return notFound();
   }
+
+  return (
+    <>
+      {/* Page Content */}
+      <StreamerClientPage data={res.data} isLoading={false} />
+    </>
+  );
 }
