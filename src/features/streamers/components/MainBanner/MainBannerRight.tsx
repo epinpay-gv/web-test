@@ -26,10 +26,10 @@ export default function MainBannerRight({ data }: MainBannerRightProps) {
       {!isPlaying ? (
         <div className="relative w-full h-full bg-neutral-900 flex items-center justify-center overflow-hidden">
           {/* ARKA PLAN DEGRADESİ */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-brand/20 to-neutral-900 opacity-60" />
+          <div className="absolute inset-0 bg-linear-to-tr from-brand/20 to-neutral-900 opacity-60" />
           
           {/* PLAY BUTONU */}
-          <div className="z-10 flex flex-col items-center gap-4">
+          <div className="z-1 flex flex-col items-center gap-4">
             <div className="w-16 h-16 bg-(--bg-brand) rounded-full flex items-center justify-center text-white shadow-2xl transform group-hover:scale-110 transition-all duration-300">
               <Play className="w-8 h-8 ml-1" />
             </div>

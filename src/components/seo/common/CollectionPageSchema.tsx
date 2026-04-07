@@ -4,13 +4,64 @@ type CollectionPageSchemaProps = {
   description: string;
   locale: string;
   numberOfItems: number;
-  items: ItemListElement[];
+  items: (ItemListElementCatalog | ItemListElementRaffle)[];
 };
 
-type ItemListElement = {
+type ItemListElementCatalog = {
+  kind: "catalog";
   "@type": string;
   position: number;
   item: string; //url
+};
+
+type ItemListElementRaffle = {
+  kind: "raffle";
+  "@type": string;
+  name: string;
+  eventStatus: string;
+  eventAttendanceMode: string;
+  description: string;
+  image: string;
+  startDate: string;
+  endDate: string;
+  organizer: {
+    "@type": string;
+    "@id": string;
+    name: string;
+  };
+};
+
+type MappedCatalogItem = {
+  "@type": "ListItem";
+  position: number;
+  item: string;
+};
+
+type MappedRaffleItem = {
+  "@type": "Event";
+  position: number;
+  name: string;
+  eventStatus: string;
+  eventAttendanceMode: string;
+  description: string;
+  image: string;
+  startDate: string;
+  endDate: string;
+  organizer: {
+    "@type": string;
+    "@id": string;
+    name: string;
+  };
+};
+
+type MappedItem = MappedRaffleItem | MappedCatalogItem;
+
+type MainEntity = {
+  "@type": string;
+  "@id": string;
+  itemListOrder: string;
+  numberOfItems: number;
+  itemListElement: MappedItem[];
 };
 
 type schemaData = {
@@ -27,14 +78,21 @@ type schemaData = {
     name: string;
     url: string;
   };
-  mainEntity: {
-    "@type": string;
-    "@id": string;
-    numberOfItems: number;
-    itemListOrder: string;
-    itemListElement: ItemListElement[];
-  };
+  mainEntity: MainEntity;
 };
+
+
+function isCatalogItem(
+  item: ItemListElementCatalog | ItemListElementRaffle,
+): item is ItemListElementCatalog {
+  return item.kind === "catalog";
+}
+
+function isRaffleItem(
+  item: ItemListElementCatalog | ItemListElementRaffle,
+): item is ItemListElementRaffle {
+  return item.kind === "raffle";
+}
 
 export function CollectionPageSchema({
   pageUrl,
@@ -66,12 +124,28 @@ export function CollectionPageSchema({
       itemListElement: [],
     },
   };
+  schema.mainEntity.itemListElement = items.map((r, index): MappedItem => {
+    if (isCatalogItem(r)) {
+      return {
+        "@type": "ListItem",
+        position: index + 1, // schema.org positions are 1-based
+        item: r.item,
+      };
+    }
 
-  schema.mainEntity.itemListElement = items.map((r, index) => ({
-    "@type": "ListItem",
-    position: index,
-    item: r.item,
-  }));
+    return {
+      "@type": "Event",
+      position: index + 1,
+      name: r.name,
+      eventStatus: r.eventStatus,
+      eventAttendanceMode: r.eventAttendanceMode,
+      description: r.description,
+      image: r.image,
+      startDate: r.startDate,
+      endDate: r.endDate,
+      organizer: r.organizer,
+    };
+  });
 
   return (
     <script

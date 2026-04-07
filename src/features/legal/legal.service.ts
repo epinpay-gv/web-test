@@ -1,12 +1,14 @@
-import { legalMockData } from "@/mocks/legal.mock";
-import { LegalDocumentType } from "./types";
+import { AboutPageApiResponse, LegalPageApiResponse } from "./types";
+import { baseFetcher } from "@/lib/api/baseFetcher";
 
-export const getAllLegalDocuments = async () => {
-  return legalMockData;
-};
+export const getLegalDocument = (
+  document: string,
+) =>
+  baseFetcher<LegalPageApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/legal/${document}`,
+  );
 
-export const getLegalDocumentByType = async (
-  type: LegalDocumentType // service'nin yanlış slug almasını engelliyor.
-) => {
-  return legalMockData.find((doc) => doc.type === type);
-};
+export const getAboutPage= () =>
+  baseFetcher<AboutPageApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/about`,
+  );

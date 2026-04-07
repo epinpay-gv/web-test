@@ -91,4 +91,22 @@ export const mockMetadata: PageMetadata[] = [
     metaTitle: "Epinpay",
     metaDescription: "Watch to streams to support your favorite streamers!",
   },
+  {
+    id: 11,
+    pageId: 6, // Blog sayfası
+    slug: "/blog",
+    locale: "tr",
+    title: "Blog | Epinpay",
+    metaTitle: "Epinpay",
+    metaDescription: "Blogla ilgili bir şeyler",
+  },
+  {
+    id: 12,
+    pageId: 6, // Blog sayfası
+    slug: "/blog",
+    locale: "en",
+    title: "Blog| Epinpay",
+    metaTitle: "Epinpay",
+    metaDescription: "Smth about blog",
+  },
 ];

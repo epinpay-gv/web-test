@@ -8,9 +8,9 @@ import {
 } from "@/components/seo";
 import ProductClient from "./product-client";
 import { getProduct } from "@/features/catalog/catalog.service";
-import { createProductBreadcrumb } from "@/features/catalog/utils";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { createProductBreadcrumb } from "@/lib/createBreadcrumb";
 
 type Params = {
   locale: string;
@@ -40,6 +40,7 @@ export async function generateMetadata({
       canonical: `/${locale}/${category}/${product}`,
       locale,
     });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;
@@ -56,6 +57,7 @@ export default async function ProductPage({ params }: Props) {
   try {
     res = await getProduct("", category, product);
     if (!res?.data?.translation) notFound();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.status === 404) notFound();
     throw error;

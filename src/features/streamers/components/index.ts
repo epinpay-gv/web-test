@@ -6,6 +6,8 @@ import EpinpayStreamers from "./EpinpayStreamers/EpinpayStreamers";
 import StreamerPackages from "./StreamerPackages/StreamerPackages";
 import ApplicationSteps from "./ApplicationSteps/ApplicationSteps";
 import FAQSection from "./FAQSection/FAQSection";
+import MainBannerSection from "./MainBanner/MainBannerSection";
+import PlatformSection from "./Platforms/PlatformSection";
 
 export {
   MainBannerLeft,
@@ -16,4 +18,6 @@ export {
   StreamerPackages,
   ApplicationSteps,
   FAQSection,
+  MainBannerSection,
+  PlatformSection,
 };
