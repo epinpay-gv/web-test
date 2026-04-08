@@ -9,6 +9,7 @@ export function CheckoutClient() {
   const {
     items,
     totalPrice,
+    summary,
     step,
     setStep,
     isLoading,
@@ -18,6 +19,7 @@ export function CheckoutClient() {
   } = useCart();
 
   const [wantsInvoice, setWantsInvoice] = useState(false);
+  const [guestEmail, setGuestEmail] = useState(""); // TODO : Buna gerek yok
 
   if (isLoading) return null; // TODO : skeleton eklenecek
 
@@ -39,13 +41,17 @@ export function CheckoutClient() {
                 setStep(nextStep);
               }}
               onRemoveItem={removeItem}
+              onGuestEmailChange={setGuestEmail}
             />
           )}
           {step === "delivery" && (
             <PaymentCart
               totalPrice={totalPrice}
+              summary={summary}
+              itemCount={items.length}
               initialWantsInvoice={wantsInvoice}
               currentStep={step}
+              guestEmail={guestEmail}
             />
           )}
         </div>

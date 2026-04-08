@@ -6,7 +6,7 @@ import { PaymentMethodItem } from "@/features/checkout/components/PaymentMethodI
 import { PaymentSummary } from "@/features/checkout/components/PaymentSummary";
 import { DescriptionTitle } from "@/components/common";
 import { ShieldCheck } from "flowbite-react-icons/outline";
-import { paymentService } from "../../checkout.service";
+import { paymentService, buildRequiredFields } from "../../checkout.service";
 import { useRouter } from "next/navigation";
 
 export default function LoadBalance() {
@@ -28,8 +28,8 @@ export default function LoadBalance() {
   const paymentValues = useMemo(() => {
     const amountNumber = Number(selectedAmountToLoad);
     const commissionRate =
-      Number(
-        methods.find((i) => i.id === selectedMethodId)?.commission ?? "0",
+      parseFloat(
+        (methods.find((i) => i.id === selectedMethodId)?.commission ?? "0").replace("%", ""),
       ) / 100;
     return {
       total: amountNumber + amountNumber * commissionRate,
@@ -40,12 +40,17 @@ export default function LoadBalance() {
   const handlePayment = async () => {
     if (!selectedMethodId || Number(selectedAmountToLoad) <= 0) return;
 
+    const selectedMethod = methods.find((m) => m.id === selectedMethodId);
+    if (!selectedMethod) return;
+
     try {
       setIsPaying(true);
+      const extras = buildRequiredFields(selectedMethod);
       const payload = paymentService.createPaymentPayload({
         context: "balance",
         paymentMethodId: selectedMethodId,
         amountToLoad: Number(selectedAmountToLoad),
+        ...extras,
       });
       const { paylink } = await paymentService.initiatePayment(payload);
       router.push(paylink);

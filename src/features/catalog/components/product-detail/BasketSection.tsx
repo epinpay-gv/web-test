@@ -12,23 +12,19 @@ import {
   AddToFavoritesPayload,
   ChangeQuantityPayload,
 } from "../../catalog.types";
+import { useBasketActions } from "../../hooks";
 
 interface BasketSectionProps {
   data: Product;
-  addToCart: (payload: AddToCartPayload) => void;
-  notifyWhenAvailable: (payload: NotifyWhenAvailablePayload) => void;
-  addToFavorites: (payload: AddToFavoritesPayload) => void;
-  changeQuantity: (payload: ChangeQuantityPayload) => void;
 }
 
 export default function BasketSection({
   data,
-  addToCart,
-  notifyWhenAvailable,
-  addToFavorites,
-  changeQuantity,
 }: BasketSectionProps) {
   const t = useTranslations("catalog.productDetail");
+
+  const { addToCart, changeQuantity, addToFavorites, notifyWhenAvailable } =
+    useBasketActions();
 
   const paymentProviders = [
     {
@@ -91,9 +87,7 @@ export default function BasketSection({
         titleColor="text-(--text-fg-success)"
         titleIcon={<ShieldCheck size={24} />}
       >
-        <p className="text-xs text-(--text-body)">
-          {t("securePaymentDesc")}
-        </p>
+        <p className="text-xs text-(--text-body)">{t("securePaymentDesc")}</p>
         <div className="flex flex-wrap gap-1">
           {paymentProviders.map((item, index) => (
             <PaymentProviderCard

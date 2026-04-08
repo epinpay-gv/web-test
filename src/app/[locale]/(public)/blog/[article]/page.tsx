@@ -1,27 +1,71 @@
-
 import { Breadcrumb } from "@/components/common";
+import {
+  BlogSchema,
+  BreadcrumbSchema,
+  OrganizationSchema,
+  WebsiteSchema,
+} from "@/components/seo";
+import { getArticle } from "@/features/blog/blog.service";
 import BlogDetailContentSection from "@/features/blog/section/BlogDetailContent";
 import BlogDetailHeroSection from "@/features/blog/section/BlogDetailHeroSection";
 import PopularSection from "@/features/blog/section/PopularSection";
-import { blogDetailMock, blogListMock } from "@/mocks/blogs.mock";
+import { createArticleBreadcrumb } from "@/lib/createBreadcrumb";
+import { createSeo } from "@/lib/seo";
 
-export default function BlogDetailPage() {
-  const blog = blogDetailMock;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; article: string }>;
+}) {
+  const { locale, article } = await params;
+
+  const res = await getArticle(article);
+
+  return createSeo({
+    title: res.metadata.title,
+    description: res.metadata.metaDescription,
+    canonical: `/${locale}/blog/${article}`,
+    locale: locale,
+  });
+}
+
+export default async function BlogDetailPage({
+  params,
+}: {
+  params: Promise<{ locale: string; article: string }>;
+}) {
+  const { locale, article } = await params;
+  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/blog/${article}`;
+  const res = await getArticle(article);
+  const breadcrumbItems = createArticleBreadcrumb(
+    locale,
+    res.metadata.title,
+    article,
+  );
+
+  //SEO ITEMS
 
   return (
     <>
-    <div className="max-w-5xl mx-auto pl-4">
-    <Breadcrumb
-  items={[
-    { name: "Ana Sayfa", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: blog.title, href: `/blog/${blog.slug}` },
-  ]}
-/>
-</div>
-      <BlogDetailHeroSection data={blog} />
-      <BlogDetailContentSection data={blog} />
-      <PopularSection data={blogListMock.blogs} />
+      {/* SEO Content */}
+      <OrganizationSchema locale={locale} description={res.metadata.title} />
+      <WebsiteSchema locale={locale} description={res.metadata?.title} />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <BlogSchema
+        locale={locale}
+        pageUrl={pageUrl}
+        headline={res.data.data.title}
+        description={res.data.data.description}
+        image={res.data.data.thumbnail ?? ""}
+      />
+
+      {/* Page Content */}
+      <div className="max-w-5xl mx-auto pl-4">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
+      <BlogDetailHeroSection data={res.data.data} />
+      <BlogDetailContentSection data={res.data.data} />
+      <PopularSection data={res.data.popular} />
     </>
   );
 }

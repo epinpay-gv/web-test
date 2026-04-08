@@ -1,3 +1,5 @@
+import { PageMetadata } from "@/types/types";
+
 export type LegalDocumentType =
   | "terms-of-use"
   | "aml-kyc-policy"
@@ -20,4 +22,15 @@ export interface LegalDocument {
   blocks: LegalContentBlock[];
   publishedAt: string;
   updatedAt?: string;
+}
+
+/* RESPONSE & PAYLOAD TYPES */
+export interface AboutPageApiResponse {
+  data: string;
+  metadata: PageMetadata;
+}
+
+export interface LegalPageApiResponse {
+  data: LegalDocument;
+  metadata: PageMetadata;
 }
