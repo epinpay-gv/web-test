@@ -1,4 +1,4 @@
-import { mockStreamerApplicationPageData } from "@/mocks/streamers.mock";
+import { mockStreamerApplicationPageData } from "@/mocks/streamer-application.mock";
 import PerformanceCriteriaCard from "./PerformanceCriteriaCard";
 
 export default function PerformanceCriteriaSection() {
@@ -11,7 +11,7 @@ export default function PerformanceCriteriaSection() {
         <p className="text-[16px]">{criteriaDescription}</p>
       </div>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap justify-center sm:justify-start gap-4">
         {criteriaItems.map((item) => (
           <PerformanceCriteriaCard key={item.id} item={item} />
         ))}

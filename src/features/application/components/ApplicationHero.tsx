@@ -1,4 +1,5 @@
-import { mockStreamerApplicationPageData } from "@/mocks/streamers.mock";
+import { mockStreamerApplicationPageData } from "@/mocks/streamer-application.mock";
+
 export default function ApplicationHero() {
   return (
     <div

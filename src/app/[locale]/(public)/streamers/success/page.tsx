@@ -1,6 +1,6 @@
 import Link from "next/link"
 import StatusState from "@/components/common/StatusState/StatusState"
-import ApplicationHero from "@/features/streamers/components/Application/ApplicationHero"
+import ApplicationHero from "@/features/application/components/ApplicationHero"
 
 
 export default function SuccessForm() {

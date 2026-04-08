@@ -1,6 +1,7 @@
+import { StreamerApplicationPayload } from "@/features/application/types/application.type";
+import { mockStreamerApplicationPageData } from "@/mocks/streamer-application.mock";
 import { NextResponse } from "next/server";
-import { mockStreamerApplicationPageData } from "@/mocks/streamers.mock";
-import { StreamerApplicationPayload } from "@/features/streamers/streamers.types";
+
 
 
 export async function GET() {

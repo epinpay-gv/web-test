@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { StreamerApplicationFormData, StreamerApplicationPayload } from "../streamers.types";
-import { submitStreamerApplication } from "../streamers.service";
+import { StreamerApplicationFormData, StreamerApplicationPayload } from "../types/application.type";
+import { submitStreamerApplication } from "../service/application.service";
+
+
 
 export function useStreamerApplicationForm() {
   const router = useRouter();

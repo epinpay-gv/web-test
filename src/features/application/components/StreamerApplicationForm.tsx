@@ -1,13 +1,13 @@
 "use client";
 
 import { Button, Input } from "@/components/common";
-import { useStreamerApplicationForm } from "@/features/streamers/hooks/useStreamerApplicationForm";
 import { Envelope } from "flowbite-react-icons/outline";
 import { PHONE_CODES } from "@/features/streamers/utils/phone-code";
+import { useStreamerApplicationForm } from "../hooks/useStreamerApplicationForm";
 
 function FormField({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-1.5 w-64">
+    <div className="flex flex-col gap-1.5 w-full sm:w-64">
       <label className="text-(--text-heading) text-sm font-medium">{label}</label>
       {children}
     </div>
@@ -25,7 +25,7 @@ function PlatformInput({
   disabled?: boolean;
 }) {
   return (
-    <div className="flex items-center w-64 h-10 rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) overflow-hidden text-sm focus-within:border-(--border-default-strong) transition-colors">
+    <div className="flex items-center w-full sm:w-64 h-10 rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) overflow-hidden text-sm focus-within:border-(--border-default-strong) transition-colors">
       <span className="px-3 text-(--text-body) whitespace-nowrap border-r border-(--border-default) bg-(--bg-neutral-primary-soft) h-full flex items-center select-none">
         {prefix}
       </span>
@@ -57,12 +57,12 @@ export default function StreamerApplicationForm() {
 
   return (
     <div className="flex justify-center min-h-screen bg-(--bg-neutral-primary) border border-(--border-default) rounded-xl mt-6">
-      <form onSubmit={handleSubmit} className="w-132 p-6 flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="w-full sm:w-132 p-4 sm:p-6 flex flex-col gap-4">
 
         {/* Kişisel Bilgiler */}
         <SectionHeader title="Kişisel Bilgiler" description="Kişisel bilgilerinizi girin." />
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <FormField label="Ad">
             <Input
               type="text"
@@ -73,7 +73,7 @@ export default function StreamerApplicationForm() {
               inputSize="base"
               disabled={isLoading}
               rightIcon={<span />}
-              className="w-64 h-10 rounded-2xl"
+              className="w-full sm:w-64 h-10 rounded-2xl"
             />
           </FormField>
           <FormField label="Soyad">
@@ -86,12 +86,12 @@ export default function StreamerApplicationForm() {
               inputSize="base"
               disabled={isLoading}
               rightIcon={<span />}
-              className="w-64 h-10 rounded-2xl"
+              className="w-full sm:w-64 h-10 rounded-2xl"
             />
           </FormField>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <FormField label="Email">
             <Input
               type="email"
@@ -103,11 +103,11 @@ export default function StreamerApplicationForm() {
               inputSize="base"
               disabled={isLoading}
               rightIcon={<span />}
-              className="w-64 h-10 rounded-2xl"
+              className="w-full sm:w-64 h-10 rounded-2xl"
             />
           </FormField>
           <FormField label="Telefon numarası">
-            <div className="flex items-center w-64 h-10 rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) overflow-hidden text-sm focus-within:border-(--border-default-strong) transition-colors">
+            <div className="flex items-center w-full sm:w-64 h-10 rounded-(--radius-base) border border-(--border-default) bg-(--bg-neutral-primary-medium) overflow-hidden text-sm focus-within:border-(--border-default-strong) transition-colors">
               <select
                 value={formData.phoneCode}
                 onChange={handleChange("phoneCode")}
@@ -184,7 +184,7 @@ export default function StreamerApplicationForm() {
             value={formData.contentType}
             onChange={handleChange("contentType")}
             disabled={isLoading}
-            className="w-132 h-24.5 rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
+            className="w-full h-24.5 rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
           />
         </div>
 
@@ -198,7 +198,7 @@ export default function StreamerApplicationForm() {
             value={formData.targetAudience}
             onChange={handleChange("targetAudience")}
             disabled={isLoading}
-            className="w-132 h-24.5 rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
+            className="w-full h-24.5 rounded-(--radius-base) border border-(--border-default-medium) bg-(--bg-neutral-primary-medium) text-(--text-heading) text-sm p-3.5 resize-none placeholder:text-(--text-body) focus:outline-none focus:border-(--border-default-strong)"
           />
         </div>
 
@@ -207,7 +207,7 @@ export default function StreamerApplicationForm() {
           Haftada kaç gün ve günde ortalama kaç saat yayın yapıyorsunuz?
         </p>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <FormField label="Haftalık yayın günü">
             <select
               value={formData.weeklyStreamDays}
@@ -242,7 +242,7 @@ export default function StreamerApplicationForm() {
           description="Sosyal medya bağlantılarını ekle. En az 1 sosyal medya gir."
         />
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <FormField label="Instagram">
             <PlatformInput
               prefix="instagram.com/"

@@ -1,8 +1,8 @@
 "use client";
 
-import ApplicationHero from "@/features/streamers/components/Application/ApplicationHero";
-import PerformanceCriteriaSection from "@/features/streamers/components/Application/PerformanceCriteriaSection";
-import StreamerApplicationForm from "@/features/streamers/components/Application/StreamerApplicationForm";
+import ApplicationHero from "@/features/application/components/ApplicationHero";
+import PerformanceCriteriaSection from "@/features/application/components/PerformanceCriteriaSection";
+import StreamerApplicationForm from "@/features/application/components/StreamerApplicationForm";
 
 export default function StreamerApplicationClientPage() {
   return (

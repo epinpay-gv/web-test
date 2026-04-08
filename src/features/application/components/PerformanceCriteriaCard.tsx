@@ -1,5 +1,6 @@
 import Image from "next/image";
-import type { PerformanceCriteriaItem } from "@/features/streamers/streamers.types";
+import { PerformanceCriteriaItem } from "../types/application.type";
+
 
 interface Props {
   item: PerformanceCriteriaItem;
