@@ -9,6 +9,7 @@ import {
   TopupResponseResponse,
 } from "./user.types";
 
+
 /* ORDERS */
 export const getOrders = (
   search: Record<string, string | string[] | undefined>,
@@ -74,3 +75,5 @@ export const getBalance = () =>
   baseFetcher<BalanceHistoryApiResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/user/balance`,
   );
+
+

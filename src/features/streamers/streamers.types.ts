@@ -142,14 +142,12 @@ export interface StreamersApiResponse {
   metadata: PageMetadata;
   data: {
     mainBanner: Stream[];
-    streams: { platforms: StreamPlatform[]; streams: Stream[] };
+  streams: { platforms: StreamPlatform[]; streams: Stream[] };
     epinpayStreamer: BasicStreamer[];
     packages: Packages[];
     faq: FAQ[];
   };
 }
 
-export interface StreamerDetailApiResponse {
-  metadata: PageMetadata;
-  data: Stream;
-}
+
+

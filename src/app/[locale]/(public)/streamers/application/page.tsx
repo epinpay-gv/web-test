@@ -35,7 +35,7 @@ export default async function StreamerApplicationPage({
       <WebsiteSchema locale={locale} description={res.metadata.title} />
 
       {/* Page Content */}
-      <StreamerApplicationClientPage isLoading={false} />
+      <StreamerApplicationClientPage  />
     </>
   );
 }

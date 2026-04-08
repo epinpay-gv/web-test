@@ -34,7 +34,7 @@ export async function GET(req: Request) {
     );
   }
 
-  // ── Date range filter ────────────────────────────────────────────────
+  // ── Date range filter 
   if (dateFrom || dateTo) {
     const start = dateFrom ? new Date(`${dateFrom}T00:00:00`) : null;
     const end   = dateTo   ? new Date(`${dateTo}T23:59:59`)   : null;
@@ -47,19 +47,19 @@ export async function GET(req: Request) {
     });
   }
 
-  // ── Status tab filter ────────────────────────────────────────────────
+  // ── Status tab filter 
   if (statusTab && statusTab !== "all") {
     data = data.filter(
       ({ status }) => STATUS_TO_FILTER_TAB[status] === statusTab
     );
   }
 
-  // ── Sort ───────────────────────────────────────────────
+  // ── Sort 
   data.sort((a, b) =>
     new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 
-  // ── Pagination ───────────────────────────────────────────────────────
+  // ── Pagination 
   const totalCount  = data.length;
   const totalPage   = Math.max(1, Math.ceil(totalCount / perPage));
   const currentPage = Math.min(page, totalPage);
