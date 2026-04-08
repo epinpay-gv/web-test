@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { SectionProps } from "../../../raffle.types";
 import { PrizeSearchInput } from "./PrizeSearchInput";
 import { Product } from "@/types/types";
@@ -18,6 +18,24 @@ export function PrizeSection(props: SectionProps) {
   } = usePrizeSection(props);
 
   const prizes = data.prizes || [];
+
+  // Mevcut seçili olan tüm ürün ID'lerini bir dizi olarak alıyoruz
+  // Bu diziyi arama bileşenine göndererek listeden gizlenmesini sağlayacağız
+  const selectedProductIds = useMemo(() => {
+    return prizes.map(p => p.id).filter(id => !!id) as string[];
+  }, [prizes]);
+
+  useEffect(() => {
+    if (prizes.length === 0) {
+      addPrizeRow();
+    }
+  }, []);
+ 
+  useEffect(() => {
+    if (winnerCount === 0 && totalPrizeCount > 0) {
+      setWinnerCount(totalPrizeCount);
+    }
+  }, [totalPrizeCount, winnerCount, setWinnerCount]);
 
   return (
     <div className=" p-6 h-full bg-[#0d121a]/20 rounded-l-(--radius-base) border border-gray-800 flex flex-col justify-between">
@@ -37,6 +55,10 @@ export function PrizeSection(props: SectionProps) {
                   <PrizeSearchInput 
                     placeholder="Ürün ara"
                     selectedValue={prize.name}
+                    // excludedIds prop'u ile o anki satır hariç diğer seçili ürünleri gönderiyoruz
+                    // Eğer kullanıcının aynı satırda ürünü değiştirmesine izin vermek istiyorsak
+                    // kendi ID'sini hariç tutarak göndeririz.
+                    excludedIds={selectedProductIds.filter(id => id !== prize.id)}
                     onSelect={(product: Product) => updatePrize(index, { 
                         id: String(product.id), 
                         name: product.translation.name,
@@ -51,7 +73,7 @@ export function PrizeSection(props: SectionProps) {
                   <label className="text-sm font-medium leading-5 text-(--text-heading) flex justify-between">
                     <span>Adet</span>
                     {prize.id && (
-                      <span className={prize.count >= prize.totalStock ? "text-(--text-fg-danger)" : "text-(--text-fg-brand)"}>
+                      <span className={prize.count >= (prize.totalStock ?? 0) ? "text-(--text-fg-danger)" : "text-(--text-fg-brand)"}>
                         Stok: {prize.totalStock}
                       </span>
                     )}
@@ -59,16 +81,14 @@ export function PrizeSection(props: SectionProps) {
                   <input
                     type="number"
                     value={prize.count}
+                    min={1}
                     onChange={(e) => updatePrize(index, { count: Number(e.target.value) })}
                     className={`w-full bg-(--bg-neutral-secondary-medium) border rounded-xl p-3 text-sm text-white focus:border-cyan-500 outline-none ${
-                      prize.id && prize.count >= prize.totalStock ? "border-(--border-danger)" : "border-(--border-default-medium)"
+                      prize.id && prize.count >= (prize.totalStock ?? 0) ? "border-(--border-danger)" : "border-(--border-default-medium)"
                     }`}
                   />
                 </div>            
 
-                {/* Kaldır butonu logic: 
-                    - Eğer tek satır varsa sadece id doluysa göster (temizleme işlemi için).
-                    - Eğer birden fazla satır varsa her zaman göster (silme işlemi için). */}
                 {(prizes.length > 1 || !!prize.id) && (
                   <button 
                     type="button" 
@@ -80,9 +100,9 @@ export function PrizeSection(props: SectionProps) {
                 )}
               </div>
             ))
-          ) : (
+          ) : (            
             <div className="py-10 border-2 border-dashed border-gray-800 rounded-xl flex flex-col items-center justify-center gap-3">
-              <span className="text-sm text-(--text-body)">Henüz bir ödül eklenmedi.</span>
+              <span className="text-sm text-(--text-body)">Yükleniyor...</span>
             </div>
           )}
 
@@ -113,7 +133,6 @@ export function PrizeSection(props: SectionProps) {
           onPrev={onPrev}
           />
       </div>
-      
     </div>
   );
 }

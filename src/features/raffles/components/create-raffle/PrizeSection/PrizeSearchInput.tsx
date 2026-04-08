@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { Search } from 'flowbite-react-icons/outline';
 import { Input } from '@/components/common';
 import { Product } from '@/types/types';
@@ -10,9 +10,15 @@ interface PrizeSearchInputProps {
   onSelect: (product: Product) => void;
   placeholder?: string;
   selectedValue?: string;
+  excludedIds?: string[]; // Daha önce seçilmiş ürünleri filtrelemek için
 }
 
-export function PrizeSearchInput({ onSelect, placeholder, selectedValue }: PrizeSearchInputProps) {
+export function PrizeSearchInput({ 
+  onSelect, 
+  placeholder, 
+  selectedValue, 
+  excludedIds = [] 
+}: PrizeSearchInputProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,11 +39,12 @@ export function PrizeSearchInput({ onSelect, placeholder, selectedValue }: Prize
       setIsLoading(true);
       try {
         const res = await fetch(`/api/products/search?q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-        setResults(data);
+        const data = await res.json();        
+        setResults(Array.isArray(data) ? data : []);
         setIsOpen(true);
       } catch (err) {
         console.error("Search error:", err);
+        setResults([]);
       } finally {
         setIsLoading(false);
       }
@@ -46,6 +53,11 @@ export function PrizeSearchInput({ onSelect, placeholder, selectedValue }: Prize
     const debounce = setTimeout(fetchProducts, 300);
     return () => clearTimeout(debounce);
   }, [query, selectedValue]);
+  
+  const filteredResults = useMemo(() => {
+    if (excludedIds.length === 0) return results;
+    return results.filter((item) => !excludedIds.includes(String(item.id)));
+  }, [results, excludedIds]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -77,9 +89,9 @@ export function PrizeSearchInput({ onSelect, placeholder, selectedValue }: Prize
             <div className="p-6 flex justify-center">
               <div className="w-5 h-5 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
             </div>
-          ) : results.length > 0 ? (
+          ) : filteredResults.length > 0 ? (
             <ul className="max-h-60 overflow-y-auto">
-              {results.map((item) => (
+              {filteredResults.map((item) => (
                 <li
                   key={item.id}
                   className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 cursor-pointer border-b border-gray-800/50 last:border-b-0 group"
@@ -89,10 +101,12 @@ export function PrizeSearchInput({ onSelect, placeholder, selectedValue }: Prize
                   }}
                 >
                   <Image 
-                    src={item.translation.imgUrl} 
+                    src={item.translation.imgUrl || ""} 
                     width={35}
                     height={35}
-                    className="w-8 h-8 rounded object-cover bg-gray-900" alt="" />
+                    className="w-8 h-8 rounded object-cover bg-gray-900" 
+                    alt={item.translation.name || "product"} 
+                  />
                   <div className="flex flex-col min-w-0 flex-1">
                     <span className="text-sm text-white truncate font-medium group-hover:text-cyan-400 transition-colors">
                       {item.translation.name}
@@ -112,8 +126,16 @@ export function PrizeSearchInput({ onSelect, placeholder, selectedValue }: Prize
               <div className="text-gray-600 mb-2">
                 <Search className="w-8 h-8 opacity-20" />
               </div>
-              <p className="text-sm text-gray-400 font-medium">Aradığınız ürün bulunamadı</p>
-              <p className="text-[10px] text-gray-600 mt-1">Lütfen farklı bir kelime deneyin veya <br/> satışta olan bir ürün arayın.</p>
+              <p className="text-sm text-gray-400 font-medium">
+                {results.length > 0 && filteredResults.length === 0 
+                  ? "Bu ürün zaten eklendi" 
+                  : "Aradığınız ürün bulunamadı"}
+              </p>
+              <p className="text-[10px] text-gray-600 mt-1">
+                {results.length > 0 && filteredResults.length === 0
+                  ? "Lütfen listede olmayan bir ürün seçin."
+                  : "Lütfen farklı bir kelime deneyin veya satışta olan bir ürün arayın."}
+              </p>
             </div>
           )}
         </div>

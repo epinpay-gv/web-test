@@ -1,4 +1,5 @@
 import { Product } from "@/types/types";
+import { RaffleFormData } from "@/features/raffles/raffle.types";
 
 export type CartStep = "empty" | "items" | "delivery" | "payment" | "success";
 
@@ -83,7 +84,7 @@ export interface CartErrors {
   agreement?: boolean;
 }
 
-export type PaymentContext = "balance" | "checkout";
+export type PaymentContext = "balance" | "checkout" | "raffle";
 
 /* RESPONSE & PAYLOAD TYPES */
 export interface CartSummary {
@@ -118,7 +119,7 @@ export interface CartPaymentPayload {
   cryptoToCurrency?: string;
 }
 
-export type PaymentPayload = BalancePaymentPayload | CartPaymentPayload;
+export type PaymentPayload = BalancePaymentPayload | CartPaymentPayload | RafflePaymentPayload;
 
 export interface PaymentLinkResponse {
   paylink: string;
@@ -137,4 +138,15 @@ export interface OrderDetailResponse {
   products: Product[];
   invoice: OrderInvoice | null;
   summary: OrderSummaryData;
+}
+
+
+export interface RafflePaymentPayload {
+  context: "raffle";
+  paymentMethodId: string;
+  raffleData: RaffleFormData; 
+  paymentMethod?: string;
+  currencyId?: number;
+  cryptoNetwork?: string;
+  cryptoToCurrency?: string;
 }

@@ -69,7 +69,7 @@
   --bg-neutral-secondary-medium: rgb(29, 48, 58);
   --bg-overlay: rgba(0, 0, 0, 0.8);
 
-  --bg-raffle-orange-gradient: linear-gradient(349.66deg, #F9D697 -18.16%, #FFE7DD 3.71%, rgba(191, 195, 210, 0) 61.76%, rgba(255, 219, 173, 0) 69.33%), linear-gradient(0deg, #FF8A4C, #FF8A4C), #33444E;
+  --bg-raffle-orange-gradient: linear-gradient(349.66deg, #F9D697 -18.16%, #FFE7DD 3.71%, rgba(191, 195, 210, 0) 61.76%, rgba(255, 219, 173, 0) 69.33%), linear-gradient(0deg, #FF8A4C, #FF8A4C), #33444E !important;
 
   /* colors/border */
 

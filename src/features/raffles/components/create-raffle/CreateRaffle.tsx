@@ -21,6 +21,8 @@ export default function CreateRaffle({ data }: CreateRaffleProps) {
     startDate: "",
     prizes: [],
     amount: 0,
+    winnerCount: 0,
+    reserveCount: 0
   };
   const [currentStep, setCurrentStep] = useState<RaffleStep>("info");
   const [formData, setFormData] = useState<RaffleFormData>(data ?? initialFormData);
@@ -52,13 +54,16 @@ export default function CreateRaffle({ data }: CreateRaffleProps) {
             />
           )}
           {currentStep === "payment" && (
-            <PaymentSection onPrev={() => setCurrentStep("prize")} />
+            <PaymentSection 
+              data={formData} 
+              onPrev={() => setCurrentStep("prize")} 
+            />
           )}
         </div>
 
         {currentStep !== "payment" && (
           <div
-            className="hidden border rounded-r-(--radius-base) lg:block w-full h-full sticky  animate-in fade-in zoom-in duration-500 "
+            className="hidden border rounded-r-(--radius-base) lg:block w-full h-full sticky animate-in fade-in zoom-in duration-500 "
             style={{ background: "var(--bg-raffle-orange-gradient)" }}
           >
             <GiveawayPreview data={formData} />

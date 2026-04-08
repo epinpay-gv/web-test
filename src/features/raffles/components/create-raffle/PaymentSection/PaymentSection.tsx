@@ -1,31 +1,103 @@
+"use client";
+import React, { useState, useMemo } from "react";
+import { RaffleFormData } from "../../../raffle.types";
+import ProductCard from "@/components/common/Cards/ProductCard/ProductCard";
+import { ProductCardOrientation } from "@/components/common/Cards/ProductCard/types";
+import { CartItem } from "@/features/checkout/types";
+import { RaffleCheckoutSummary } from "./RaffleCheckoutSummary";
+import { PaymentMethodSelection } from "./PaymentMethodSelection";
 
-export function PaymentSection({ onPrev }: { onPrev: () => void }) {
+interface PaymentSectionProps {
+  data: RaffleFormData;
+  onPrev: () => void;
+}
+
+type SubStep = "review" | "payment";
+
+export function PaymentSection({ data, onPrev }: PaymentSectionProps) {
+  const [subStep, setSubStep] = useState<SubStep>("review");
+  const [checkoutData, setCheckoutData] = useState({
+    discount: 0,
+    wantsInvoice: false
+  });
+
+  const noop = () => {};
+
+  const cartItems = useMemo<CartItem[]>(() => {
+    return data.prizes.map((p) => {      
+      const item = {
+        id: p.id,
+        offerId: p.id,
+        name: p.name,
+        slug: "",
+        unitPrice: p.price || 0,
+        totalPrice: (p.price || 0) * p.count,
+        quantity: p.count,
+        basePrice: p.price || 0,
+        translation: { 
+          name: p.name, 
+          imgUrl: p.image 
+        },        
+        seller: "Raffle Prize", 
+      };
+      return item as unknown as CartItem;
+    });
+  }, [data.prizes]);
+
+  const handleConfirmReview = (discount: number, wantsInvoice: boolean) => {
+    setCheckoutData({ discount, wantsInvoice });
+    setSubStep("payment");
+  };
+
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-      <h2 className="text-gray-500 text-sm">Adım 3: Ödeme ve Onay</h2>
-      
-      <div className="bg-[#0d121a] border border-gray-800 rounded-2xl p-6 space-y-4">
-        <div className="flex justify-between items-center border-b border-gray-800 pb-4">
-          <span className="text-gray-400 text-sm">Hizmet Bedeli</span>
-          <span className="font-bold">₺150,00</span>
-        </div>
-        <div className="flex justify-between items-center border-b border-gray-800 pb-4">
-          <span className="text-gray-400 text-sm">KDV (%20)</span>
-          <span className="font-bold">₺30,00</span>
-        </div>
-        <div className="flex justify-between items-center pt-2">
-          <span className="text-lg font-bold">Toplam Tutar</span>
-          <span className="text-lg font-bold text-cyan-400">₺180,00</span>
-        </div>
-      </div>
+    <div className="mx-auto animate-in relative fade-in duration-500 w-full">      
+      <div className="max-w-7xl mx-auto px-4">
+        {subStep === "review" ? (
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-10">
+            <div className="lg:col-span-3 space-y-4">              
+              {cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-6 bg-(--bg-neutral-primary-soft) border rounded-(--radius-base) border-[#1D303A]"
+                >
+                  <ProductCard
+                    product={item}
+                    orientation={ProductCardOrientation.HORIZONTAL}
+                    isInCart={true}                    
+                    changeQuantity={noop}
+                    addToCart={noop}
+                    notifyWhenAvailable={noop}
+                    addToFavorites={noop}
+                  />
+                </div>
+              ))}
+              <button
+                onClick={onPrev}
+                className="text-sm text-(--text-body) hover:text-(--text-heading) underline"
+              >
+                Ödül bilgilerine geri dön
+              </button>
+            </div>
 
-      <div className="flex gap-4 pt-10">
-        <button onClick={onPrev} className="px-8 py-2.5 rounded-lg bg-gray-800 text-sm font-semibold hover:bg-gray-700">
-          Geri Dön
-        </button>
-        <button className="flex-1 py-2.5 rounded-lg bg-green-600 text-sm font-bold hover:bg-green-500 transition-all shadow-lg shadow-green-900/20">
-          Ödemeyi Tamamla ve Yayınla
-        </button>
+            <aside className="lg:col-span-2">
+              <div className="lg:sticky lg:top-28">
+                <RaffleCheckoutSummary 
+                  totalPrice={data.amount} 
+                  onConfirm={handleConfirmReview} 
+                />
+              </div>
+            </aside>
+          </div>
+        ) : (
+          <div className="mt-10">
+            <PaymentMethodSelection 
+              data={data} 
+              discount={checkoutData.discount}
+              wantsInvoice={checkoutData.wantsInvoice}
+              onBack={() => setSubStep("review")} 
+            />
+          </div>
+        )}
       </div>
     </div>
   );

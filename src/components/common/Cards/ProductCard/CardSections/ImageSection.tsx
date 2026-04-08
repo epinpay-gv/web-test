@@ -57,7 +57,7 @@ export function ImageSection({
       ) : (
         <Image
           src={product.translation.imgUrl}
-          alt={product.translation.imgAlt}
+          alt={product.translation.imgAlt || "Product"}
           fill
           sizes="      
           (max-width: 768px) 146px,

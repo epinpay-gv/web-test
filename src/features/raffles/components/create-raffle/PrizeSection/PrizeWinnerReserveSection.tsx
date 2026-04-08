@@ -29,7 +29,7 @@ export default function PrizeWinnerReserveSection({
           Kazanan ve yedek sayısı belirleme
         </h3>        
         <span className='text-(--text-body) text-sm font-normal'>
-          Kazanan sayısı toplam ödül adedinden ({totalPrizeCount}) fazla olamaz.
+          Kazanın ve yedek belirlenmediği durumda ürün adedi kadar kazanan ve yedek belirlenir.
         </span>
       </div>
 

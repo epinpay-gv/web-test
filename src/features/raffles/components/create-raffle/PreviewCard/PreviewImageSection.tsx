@@ -30,8 +30,8 @@ interface PreviewImageSectionProps {
 export default function PreviewImageSection({
   constraint,
   prizeCount,
-  isLoading, // Resimlerin yüklenme durumu
-  isConstraintLoading, // Kısıtlamanın yüklenme durumu
+  isLoading,
+  isConstraintLoading,
   prizes = []
 }: PreviewImageSectionProps) {
   const currentBg = CONSTRAINT_BACKGROUNDS[constraint] || CONSTRAINT_BACKGROUNDS[ParticipationConstraint.EVERYONE];
@@ -43,11 +43,14 @@ export default function PreviewImageSection({
                      currentBadgeLabel === "Herkes Katılabilir" || 
                      rawConstraint === ParticipationConstraint.EVERYONE;
 
-  const visiblePrizes = prizes.length > 0 
-    ? (prizes.length > 1 ? prizes.slice(0, 3) : [prizes[0], prizes[0], prizes[0]])
+  // HATA ÇÖZÜMÜ: Sadece resmi olan ödülleri filtrele. Boş string ("") veya undefined olanları eler.
+  const validPrizes = prizes.filter(p => p.image && p.image.trim() !== "");
+
+  const visiblePrizes = validPrizes.length > 0 
+    ? (validPrizes.length > 1 ? validPrizes.slice(0, 3) : [validPrizes[0], validPrizes[0], validPrizes[0]])
     : [];
 
-  const isMulti = prizes.length > 1;
+  const isMulti = validPrizes.length > 1;
 
   return (
     <div className={cn(
@@ -69,11 +72,16 @@ export default function PreviewImageSection({
       <div className="relative z-10 flex flex-col items-center justify-center gap-2 w-full">            
         <div className="flex flex-col items-center">
           <div className="w-25 h-25 md:w-33.75 md:h-33.75 relative">
-            {isLoading || prizes.length === 0 ? (
+            {/* Eğer yükleniyorsa veya gösterilecek geçerli bir resim yoksa Shimmer göster */}
+            {isLoading || visiblePrizes.length === 0 ? (
               <div className={`absolute inset-0 border border-neutral-700 rounded-2xl ${SHIMMER_CLASS}`} />
             ) : (
               visiblePrizes.map((prize, index) => {
                 const variant = IMAGE_VARIANTS[index];
+                
+                // Extra güvenlik: src boşsa render etme
+                if (!prize.image) return null;
+
                 return (
                   <motion.div
                     key={`${prize.id}-${index}`}
@@ -84,7 +92,7 @@ export default function PreviewImageSection({
                     className="absolute inset-0"
                   >
                     <Image
-                      src={prize.image || ""}
+                      src={prize.image}
                       alt={prize.name || "Reward"}
                       fill
                       unoptimized
@@ -123,7 +131,8 @@ export default function PreviewImageSection({
         animate={{ scale: 1, opacity: 1 }}
         className="bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute w-11 h-11 md:w-13 md:h-13 flex items-center justify-center top-4 right-6 shadow-xl text-white"
       >          
-        {prizes.length < 1 ? (
+        {/* validPrizes kontrolü burada da yapıldı */}
+        {validPrizes.length < 1 ? (
           <div className="h-2 w-full rounded-full mx-3 bg-neutral-800" />        
         ) : (
           <p className="font-extrabold text-xl text-cyan-400 drop-shadow-md">
