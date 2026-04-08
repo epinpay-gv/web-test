@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ParticipationConstraint } from "@/types/types";
 import { CONSTRAINT_BACKGROUNDS, CONSTRAINT_LABELS, SHIMMER_CLASS } from "./preview.utils";
 import { RafflePrize } from "@/features/raffles/raffle.types";
+import { cn } from "@/lib/utils";
 
 const SPRING = { 
   type: "spring" as const, 
@@ -29,12 +30,19 @@ interface PreviewImageSectionProps {
 export default function PreviewImageSection({
   constraint,
   prizeCount,
-  isLoading,
-  isConstraintLoading,
+  isLoading, // Resimlerin yüklenme durumu
+  isConstraintLoading, // Kısıtlamanın yüklenme durumu
   prizes = []
 }: PreviewImageSectionProps) {
   const currentBg = CONSTRAINT_BACKGROUNDS[constraint] || CONSTRAINT_BACKGROUNDS[ParticipationConstraint.EVERYONE];
-  const currentBadgeLabel = CONSTRAINT_LABELS[constraint] || "Herkes";  
+  const rawConstraint = constraint || ParticipationConstraint.EVERYONE;
+  const currentBadgeLabel = CONSTRAINT_LABELS[rawConstraint as ParticipationConstraint] 
+    || (typeof rawConstraint === 'string' ? rawConstraint : "Herkes");
+  
+  const isEveryone = currentBadgeLabel === "Herkes" || 
+                     currentBadgeLabel === "Herkes Katılabilir" || 
+                     rawConstraint === ParticipationConstraint.EVERYONE;
+
   const visiblePrizes = prizes.length > 0 
     ? (prizes.length > 1 ? prizes.slice(0, 3) : [prizes[0], prizes[0], prizes[0]])
     : [];
@@ -42,7 +50,10 @@ export default function PreviewImageSection({
   const isMulti = prizes.length > 1;
 
   return (
-    <div className="shrink-0 min-h-40 md:min-h-53.75 w-full p-14 pb-6 rounded-t-2xl relative overflow-hidden flex items-center justify-center group">
+    <div className={cn(
+      "shrink-0 min-h-40 md:min-h-53.75 w-full rounded-t-2xl relative overflow-hidden flex items-center justify-center group",
+      !isEveryone ? "p-14 pb-4" : "p-14"
+      )}>
       
       <AnimatePresence mode="popLayout">
         <motion.div
@@ -55,18 +66,13 @@ export default function PreviewImageSection({
         />
       </AnimatePresence>
           
-      <div className="relative z-10 flex flex-col items-center justify-center gap-2">
-        {isLoading || prizes.length === 0 ? (
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-25 h-25 md:w-33.75 md:h-33.75 relative">
+      <div className="relative z-10 flex flex-col items-center justify-center gap-2 w-full">            
+        <div className="flex flex-col items-center">
+          <div className="w-25 h-25 md:w-33.75 md:h-33.75 relative">
+            {isLoading || prizes.length === 0 ? (
               <div className={`absolute inset-0 border border-neutral-700 rounded-2xl ${SHIMMER_CLASS}`} />
-            </div>
-            <div className={`w-24 h-5 ${SHIMMER_CLASS} opacity-50 rounded-sm mt-2`} />
-          </div>
-        ) : (
-          <div className="flex flex-col items-center">          
-            <div className="w-25 h-25 md:w-33.75 md:h-33.75 relative">
-              {visiblePrizes.map((prize, index) => {
+            ) : (
+              visiblePrizes.map((prize, index) => {
                 const variant = IMAGE_VARIANTS[index];
                 return (
                   <motion.div
@@ -81,38 +87,49 @@ export default function PreviewImageSection({
                       src={prize.image || ""}
                       alt={prize.name || "Reward"}
                       fill
+                      unoptimized
                       sizes="(max-width: 768px) 100px, 135px"
                       className="rounded-2xl border border-white/10 object-contain p-0.5 bg-neutral-900/60 shadow-2xl"
                     />
                   </motion.div>
                 );
-              })}
-            </div>                     
-            
-            <motion.div
-              initial={{ y: 5, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              className="mt-4"
-            >
-              <span
-                style={{ backgroundColor: 'rgba(163, 163, 163, 0.2)', color: "#ffffff" }}                
-                className="relative z-20 rounded-sm border border-white/10 py-0.5 px-3 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-sm inline-block"
-              >
-                {isConstraintLoading ? "Yükleniyor..." : currentBadgeLabel}
-              </span>
-            </motion.div>
+              })
+            )}
           </div>
+        </div>
+    
+        {!isEveryone && (
+          <motion.div
+            initial={{ y: 5, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="mt-2"
+          >
+            {isConstraintLoading ? (
+               <div className={`w-full h-5 ${SHIMMER_CLASS} opacity-50 rounded-sm`} />
+            ) : (
+              <span
+                style={{ backgroundColor: 'rgba(163, 163, 163, 0.2)'}}                
+                className="relative text-neutral-700 rounded-sm border border-white/10 py-0.5 px-1 text-xs  backdrop-blur-md shadow-sm inline-block"
+              >
+                {currentBadgeLabel}
+              </span>
+            )}
+          </motion.div>
         )}
       </div>
-
+    
       <motion.div 
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         className="bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute w-11 h-11 md:w-13 md:h-13 flex items-center justify-center top-4 right-6 shadow-xl text-white"
       >          
-        <p className="font-extrabold text-xl text-(--text-fg-info) drop-shadow-md">
-          {prizeCount && prizeCount !== "-" ? `X${prizeCount}` : "0"}
-        </p>
+        {prizes.length < 1 ? (
+          <div className="h-2 w-full rounded-full mx-3 bg-neutral-800" />        
+        ) : (
+          <p className="font-extrabold text-xl text-cyan-400 drop-shadow-md">
+            {`X${prizeCount}`}
+          </p>
+        )}
       </motion.div>
     </div>
   );

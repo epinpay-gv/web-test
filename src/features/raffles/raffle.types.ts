@@ -65,6 +65,8 @@ export interface RaffleFormData {
   prizeCount: number;
   backupCount: number;
   constraint?: ParticipationConstraint;
+  winnerCount: number;
+  reserveCount: number;
 }
 
 export interface SectionProps {
