@@ -38,7 +38,7 @@ export const rafflesMockData: Raffle[] = [
           name: "",
           category: "TOP_UP",
           itemType: "NORMAL",
-          price: 0,
+          price: 365.95,
           currency: "",
           imageUrl: "",
           status: "PENDING_PAYMENT"
@@ -241,7 +241,7 @@ export const rafflesMockData: Raffle[] = [
         winnerName: "Burak Y***",
       },
     ],
-    constraint: ParticipationConstraint.PREMIUM,
+    constraint: ParticipationConstraint.EVERYONE,
     participationCount: 1289,
     productCount: 10,
     categoryCount: 1,

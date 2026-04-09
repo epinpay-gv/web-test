@@ -6,18 +6,21 @@ interface Props {
   onCancel?: () => void;
   onPrev?:() => void;
   disabled?: boolean
+  editMode?: boolean
 }
 
-export const PrizeButtonSection = ({ onNext, onCancel, onPrev, disabled }: Props) => (
+export const PrizeButtonSection = ({ onNext, onCancel, onPrev, disabled, editMode }: Props) => (
   <div className="flex justify-center gap-2 pt-4  border-(--border-default)">
-    <Button
+    {!editMode &&
+      <Button
       variant="secondary"
       text="İptal et"
       iconLeft={<CloseCircle size={13.33} />}
       onClick={onCancel}
       padding="sm"
       className="max-w-fit text-sm"
-    />
+      />
+    }
     <Button 
       variant="secondary"
       text="Önceki"
@@ -28,7 +31,7 @@ export const PrizeButtonSection = ({ onNext, onCancel, onPrev, disabled }: Props
     <Button
       variant="brand"
       onClick={onNext}
-      text="Sonraki"
+      text={editMode ? "Güncellemeleri Yayınla" : "Sonraki"}
       padding="sm"
       className="max-w-fit text-sm"
       disabled={disabled}

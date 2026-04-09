@@ -42,8 +42,7 @@ export default function PreviewImageSection({
   const isEveryone = currentBadgeLabel === "Herkes" || 
                      currentBadgeLabel === "Herkes Katılabilir" || 
                      rawConstraint === ParticipationConstraint.EVERYONE;
-
-  // HATA ÇÖZÜMÜ: Sadece resmi olan ödülleri filtrele. Boş string ("") veya undefined olanları eler.
+  
   const validPrizes = prizes.filter(p => p.image && p.image.trim() !== "");
 
   const visiblePrizes = validPrizes.length > 0 
@@ -71,15 +70,12 @@ export default function PreviewImageSection({
           
       <div className="relative z-10 flex flex-col items-center justify-center gap-2 w-full">            
         <div className="flex flex-col items-center">
-          <div className="w-25 h-25 md:w-33.75 md:h-33.75 relative">
-            {/* Eğer yükleniyorsa veya gösterilecek geçerli bir resim yoksa Shimmer göster */}
+          <div className="w-25 h-25 md:w-33.75 md:h-33.75 relative">            
             {isLoading || visiblePrizes.length === 0 ? (
               <div className={`absolute inset-0 border border-neutral-700 rounded-2xl ${SHIMMER_CLASS}`} />
             ) : (
               visiblePrizes.map((prize, index) => {
-                const variant = IMAGE_VARIANTS[index];
-                
-                // Extra güvenlik: src boşsa render etme
+                const variant = IMAGE_VARIANTS[index];                
                 if (!prize.image) return null;
 
                 return (
@@ -130,8 +126,7 @@ export default function PreviewImageSection({
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         className="bg-[url('/raffles-page/quantity-badge.webp')] bg-cover bg-center z-50 absolute w-11 h-11 md:w-13 md:h-13 flex items-center justify-center top-4 right-6 shadow-xl text-white"
-      >          
-        {/* validPrizes kontrolü burada da yapıldı */}
+      >                  
         {validPrizes.length < 1 ? (
           <div className="h-2 w-full rounded-full mx-3 bg-neutral-800" />        
         ) : (

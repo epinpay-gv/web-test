@@ -9,8 +9,9 @@ import { RaffleFormData, RaffleStep } from "../../raffle.types";
 
 interface CreateRaffleProps {
   data?: RaffleFormData;
+  editMode?: boolean
 }
-export default function CreateRaffle({ data }: CreateRaffleProps) {
+export default function CreateRaffle({ data, editMode }: CreateRaffleProps) {
   const initialFormData: RaffleFormData = {
     title: "",
     description: "",
@@ -33,13 +34,15 @@ export default function CreateRaffle({ data }: CreateRaffleProps) {
 
   return (
     <div className="min-h-screen relative">
-      <RaffleStepper currentStep={currentStep} />
+      {!editMode &&
+        <RaffleStepper currentStep={currentStep} />
+      }
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 p-8 transition-all duration-500">
         <div
           className={`${currentStep === "payment" ? "lg:col-span-2 mx-auto w-full " : ""}`}
         >
           {currentStep === "info" && (
-            <InfoSection
+            <InfoSection              
               data={formData}
               onUpdate={updateForm}
               onNext={() => setCurrentStep("prize")}
@@ -47,6 +50,7 @@ export default function CreateRaffle({ data }: CreateRaffleProps) {
           )}
           {currentStep === "prize" && (
             <PrizeSection
+              editMode={editMode}
               data={formData}
               onUpdate={updateForm}
               onNext={() => setCurrentStep("payment")}

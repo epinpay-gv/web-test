@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { SectionProps } from "../../../raffle.types";
 import { PrizeSearchInput } from "./PrizeSearchInput";
 import { Product } from "@/types/types";
@@ -8,19 +8,21 @@ import { Button } from "@/components/common";
 import PrizeWinnerReserveSection from "./PrizeWinnerReserveSection";
 import { usePrizeSection } from "../../../hooks/usePrizeSection";
 import { PrizeButtonSection } from './PrizeButtonSection';
+import { cn } from '@/lib/utils';
+import { createRaffleApi, updateRaffleApi } from "../../../raffles.service";
 
 export function PrizeSection(props: SectionProps) {
-  const { data, onPrev } = props;
+  const { data, editMode, onPrev, onNext } = props;
+  const [isPending, setIsPending] = useState(false);
+
   const {
     winnerCount, setWinnerCount, reserveCount, setReserveCount,
-    totalPrizeCount, totalAmount, updatePrize, addPrizeRow, 
-    handleRemoveOrClear, handleNextStep, isFormValid, canAddMore
+    totalPrizeCount, updatePrize, addPrizeRow, 
+    handleRemoveOrClear, isFormValid, canAddMore
   } = usePrizeSection(props);
 
   const prizes = data.prizes || [];
-
-  // Mevcut seçili olan tüm ürün ID'lerini bir dizi olarak alıyoruz
-  // Bu diziyi arama bileşenine göndererek listeden gizlenmesini sağlayacağız
+  
   const selectedProductIds = useMemo(() => {
     return prizes.map(p => p.id).filter(id => !!id) as string[];
   }, [prizes]);
@@ -36,28 +38,54 @@ export function PrizeSection(props: SectionProps) {
       setWinnerCount(totalPrizeCount);
     }
   }, [totalPrizeCount, winnerCount, setWinnerCount]);
+  
+  const handleFinalAction = async () => {
+    if (!isFormValid) return;
+
+    setIsPending(true);
+    try {
+      if (editMode && data.id) {
+        const response = await updateRaffleApi(data.id, data);
+        if (response?.success) {
+          alert(response.message || "Çekiliş başarıyla güncellendi.");
+        }
+      } else {
+        const response = await createRaffleApi(data);
+        if (response?.success) {
+          alert(response.message || "Çekiliş başarıyla oluşturuldu.");
+          if (onNext) onNext();
+        }
+      }
+    } catch (error) {
+      console.error("İşlem hatası:", error);
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   return (
-    <div className=" p-6 h-full bg-[#0d121a]/20 rounded-l-(--radius-base) border border-gray-800 flex flex-col justify-between">
+    <div className="p-6 h-full bg-[#0d121a]/20 rounded-l-(--radius-base) border border-gray-800 flex flex-col justify-between">
       <div className='space-y-6'>
         <div className="border-b border-(--border-default) pb-4 text-(--text-body) font-medium">
-          Çekiliş oluşturuluyor
+          {editMode ? "Çekiliş bilgileri düzenleniyor" : "Çekiliş oluşturuluyor"}
         </div>     
         
         <div className="text-(--text-heading) font-semibold">Ödül bilgileri</div>
         
-        <div className="space-y-4">
+        {/* editMode kısıtlamaları */}
+        <div className={cn(
+          "space-y-4 transition-all duration-300", 
+          editMode ? "opacity-40 pointer-events-none select-none" : ""
+        )}>
           {prizes.length > 0 ? (
             prizes.map((prize, index) => (
               <div key={`prize-row-${index}`} className="flex flex-col md:flex-row justify-between gap-4 w-full items-end">
                 <div className="w-full flex flex-col gap-1">
                   <label className="text-sm font-medium leading-5 text-(--text-heading)">Ürün adı</label>
                   <PrizeSearchInput 
+                    editMode={editMode}
                     placeholder="Ürün ara"
-                    selectedValue={prize.name}
-                    // excludedIds prop'u ile o anki satır hariç diğer seçili ürünleri gönderiyoruz
-                    // Eğer kullanıcının aynı satırda ürünü değiştirmesine izin vermek istiyorsak
-                    // kendi ID'sini hariç tutarak göndeririz.
+                    selectedValue={prize.name}                  
                     excludedIds={selectedProductIds.filter(id => id !== prize.id)}
                     onSelect={(product: Product) => updatePrize(index, { 
                         id: String(product.id), 
@@ -83,13 +111,16 @@ export function PrizeSection(props: SectionProps) {
                     value={prize.count}
                     min={1}
                     onChange={(e) => updatePrize(index, { count: Number(e.target.value) })}
-                    className={`w-full bg-(--bg-neutral-secondary-medium) border rounded-xl p-3 text-sm text-white focus:border-cyan-500 outline-none ${
-                      prize.id && prize.count >= (prize.totalStock ?? 0) ? "border-(--border-danger)" : "border-(--border-default-medium)"
-                    }`}
+                    className={cn(
+                        "input w-full bg-(--bg-neutral-secondary-medium) border rounded-xl p-3 text-sm text-white focus:border-cyan-500 outline-none transition-all",
+                        prize.id && prize.count >= (prize.totalStock ?? 0) ? "border-(--border-danger)" : "border-(--border-default-medium)",
+                        "disabled:bg-(--bg-disabled) disabled:text-(--text-fg-disabled) disabled:cursor-not-allowed"
+                    )}
+                    disabled={editMode}
                   />
                 </div>            
-
-                {(prizes.length > 1 || !!prize.id) && (
+                
+                {!editMode && (prizes.length > 1 || !!prize.id) && (
                   <button 
                     type="button" 
                     onClick={() => handleRemoveOrClear(index)} 
@@ -105,17 +136,20 @@ export function PrizeSection(props: SectionProps) {
               <span className="text-sm text-(--text-body)">Yükleniyor...</span>
             </div>
           )}
-
-          <div className="w-fit">
-            <Button 
-              variant="brand" 
-              text="+ Ödül ekle" 
-              onClick={addPrizeRow} 
-              disabled={!canAddMore}
-              className={!canAddMore ? "opacity-50 cursor-not-allowed" : ""}
-            />
-          </div>
+          
+          {!editMode && (
+            <div className="w-fit">
+              <Button 
+                variant="brand" 
+                text="+ Ödül ekle" 
+                onClick={addPrizeRow} 
+                disabled={!canAddMore}
+                className={!canAddMore ? "opacity-50 cursor-not-allowed" : ""}
+              />
+            </div>
+          )}
         </div>
+
         <div className="pt-6">
           <PrizeWinnerReserveSection 
             winnerCount={winnerCount}
@@ -126,12 +160,14 @@ export function PrizeSection(props: SectionProps) {
           />
         </div>
       </div>
+
       <div className='bottom-0 relative'>
         <PrizeButtonSection 
-          onNext={handleNextStep}
-          disabled={!isFormValid}
+          editMode={editMode}
+          onNext={handleFinalAction} 
+          disabled={!isFormValid || isPending}
           onPrev={onPrev}
-          />
+        />
       </div>
     </div>
   );

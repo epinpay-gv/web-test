@@ -9,7 +9,7 @@ import { StartDateSection } from "./StartDateSection";
 import { ButtonsSection } from "./ButtonsSection";
 import { useMemo } from "react";
 
-export function InfoSection({ data, onUpdate, onNext }: SectionProps) {
+export function InfoSection({  data, onUpdate, onNext }: SectionProps) {
   const constraintOptions = [
     { value: ParticipationConstraint.EVERYONE, label: "Herkes", disabled: false },
     { value: ParticipationConstraint.REFERENCE, label: "Referanslılara özel", disabled: false },
@@ -45,7 +45,6 @@ export function InfoSection({ data, onUpdate, onNext }: SectionProps) {
       !data.endDate                               
     );
   }, [data.title, data.constraint, data.endDate]);
-  console.log(data)
 
   return (
     <div className="space-y-10 p-6 bg-(--bg-neutral-primary-soft) rounded-l-(--radius-base)">
@@ -70,8 +69,8 @@ export function InfoSection({ data, onUpdate, onNext }: SectionProps) {
       />
 
       <EndDateSection data={data} onUpdate={onUpdate} />
-
-      <StartDateSection data={data} onUpdate={onUpdate} />
+        
+      <StartDateSection data={data} onUpdate={onUpdate} />  
 
       <ButtonsSection onNext={onNext} disabled={isFormInvalid} />
     </div>

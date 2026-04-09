@@ -31,7 +31,7 @@ export function getTimeLeft(targetDate: string | Date | undefined | null): strin
 
 export default function PreviewCard({ data }: PreviewCardProps) {
   const [timeLeftLabel, setTimeLeftLabel] = useState("-");
-  const hasPrizes = data.amount > 0;
+  const hasPrizes = data.prizes.length > 0;
   const mainPrize = hasPrizes ? data.prizes[0] : null;
   const isImageLoading = !hasPrizes || !mainPrize?.name;
   const displayPrizeCount: string | number = data.prizeCount > 0 
@@ -55,8 +55,7 @@ export default function PreviewCard({ data }: PreviewCardProps) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [data.endDate]);
-  console.log(data)
+  }, [data.endDate]);  
   return (
     <div className="w-full h-full rounded-[40px] flex items-center justify-center p-8">
       <motion.div

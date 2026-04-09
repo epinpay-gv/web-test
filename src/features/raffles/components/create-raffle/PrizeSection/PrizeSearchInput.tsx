@@ -10,13 +10,15 @@ interface PrizeSearchInputProps {
   onSelect: (product: Product) => void;
   placeholder?: string;
   selectedValue?: string;
-  excludedIds?: string[]; // Daha önce seçilmiş ürünleri filtrelemek için
+  editMode?: boolean
+  excludedIds?: string[]; 
 }
 
 export function PrizeSearchInput({ 
   onSelect, 
   placeholder, 
   selectedValue, 
+  editMode,
   excludedIds = [] 
 }: PrizeSearchInputProps) {
   const [query, setQuery] = useState("");
@@ -77,6 +79,7 @@ export function PrizeSearchInput({
         placeholder={placeholder}
         value={query}
         rightIcon={<></>}
+        disabled={editMode}
         onChange={(e) => {
           setQuery(e.target.value);
           setIsOpen(true);
