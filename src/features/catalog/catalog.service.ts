@@ -29,8 +29,7 @@ export const getProducts = (
     console.log(value)
   });
   return baseFetcher<ProductsApiResponse>(
-    // `${BFF_URL}/catalog/products?${params.toString()}`,
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/products?${params.toString()}`,
+    `${BFF_URL}/catalog/products?${params.toString()}`,
   );
 };
 
@@ -54,7 +53,7 @@ export const getCategory = (
     }
   });
   return baseFetcher<CategoryApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}?${params.toString()}`,
+    `${BFF_URL}/catalog/${category}?${params.toString()}`,
   );
 };
 
@@ -64,7 +63,7 @@ export const getProduct = (
   product: string,
 ) =>
   baseFetcher<ProductDetailApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/${category}/${product}?${query}`,
+    `${BFF_URL}/catalog/${category}/${product}?${query}`,
   );
 
 /* -------------------------- BASKET ACTIONS -------------------------- */

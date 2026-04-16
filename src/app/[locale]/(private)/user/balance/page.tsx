@@ -1,8 +1,8 @@
 import { DescriptionTitle } from "@/components/common";
-import { BalanceBox, BalanceHistoryData } from "@/features/user/components";
+import BalanceBox from "@/features/user/components/balance/BalanceBox";
 import UserPageHeader from "@/features/user/components/common/UserPageHeader";
-import { getBalance } from "@/features/user/user.service";
 import { createSeo } from "@/lib/seo";
+import BalanceClient from "./balance-client";
 
 export async function generateMetadata({
   params,
@@ -19,15 +19,12 @@ export async function generateMetadata({
   });
 }
 
-export default async function BalancePage() {
-  const res = await getBalance();
-  console.log(res);
+export default function BalancePage() {
   return (
     <div>
       <UserPageHeader title="Bakiye İşlemleri" />
       <div className="grid md:grid-cols-2 gap-4">
         <div className="space-y-8">
-          {/* LOAD BALANCE */}
           <div className="flex flex-col gap-2">
             <DescriptionTitle
               title="Bakiye yükle"
@@ -35,18 +32,12 @@ export default async function BalancePage() {
             />
             <BalanceBox />
           </div>
-
-         {/* BALANCE HISTORY */}
           <div className="flex flex-col gap-2">
             <DescriptionTitle
               title="Bakiye yükleme geçmişi"
               description="Geçmiş yüklemelerini buradan kontrol edebilirsiniz."
             />
-            <div className="space-y-2">
-              {res.data.map((item) => (
-                <BalanceHistoryData key={item.id} data={item} />
-              ))}
-            </div>
+            <BalanceClient />
           </div>
         </div>
       </div>

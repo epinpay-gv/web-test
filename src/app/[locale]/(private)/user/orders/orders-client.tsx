@@ -1,25 +1,15 @@
 "use client";
 import { Pagination, Button } from "@/components/common";
 import StatusState from "@/components/common/StatusState/StatusState";
-import { FilterGroupConfig } from "@/features/filters/filters.types";
 import { useUrlFilters } from "@/features/filters/hooks/useUrlFilters";
 import { FiltersSection, OrdersSection } from "@/features/user/components";
-import { Order } from "@/features/user/user.types";
-import { PaginationData } from "@/types/types";
+import { useOrders } from "@/features/user/hooks/useOrders";
 import { useRouter } from "next/navigation";
 
-interface OrdersClientProps {
-  data: Order[];
-  pagination: PaginationData;
-  initialFilters: FilterGroupConfig[];
-}
-
-export default function OrdersClient({
-  data,
-  pagination,
-  initialFilters,
-}: OrdersClientProps) {
+export default function OrdersClient() {
   const router = useRouter();
+  const { orders, meta, isLoading } = useOrders();
+
   const {
     searchParams,
     handleSearchChange,
@@ -27,31 +17,45 @@ export default function OrdersClient({
     handleDateRangeChange,
     handlePageChange,
     handleResetFilters,
-  } = useUrlFilters(initialFilters);
+  } = useUrlFilters([]);
 
   const isFiltered = searchParams.toString().length > 0;
+
+  const pagination = meta
+    ? {
+        count: meta.total,
+        per_page: meta.limit,
+        current_page: meta.page,
+        total_page: Math.ceil(meta.total / meta.limit),
+        has_more: meta.page < Math.ceil(meta.total / meta.limit),
+      }
+    : null;
+
+  if (isLoading) return null; // TODO: skeleton
 
   return (
     <div>
       <FiltersSection
-        filters={initialFilters}
+        filters={[]}
         searchParams={searchParams}
         onSearchChange={handleSearchChange}
         onStatusChange={handleSingleFilter}
         onDateRangeChange={handleDateRangeChange}
-        totalCount={pagination.count}
+        totalCount={meta?.total ?? 0}
         isSearchAndDate={true}
       />
 
-      {data.length > 0 ? (
+      {orders.length > 0 ? (
         <>
-          <OrdersSection orders={data} />
-          <div className="flex justify-center mt-4">
-            <Pagination
-              pagination={pagination}
-              onPageChange={handlePageChange}
-            />
-          </div>
+          <OrdersSection orders={orders} />
+          {pagination && (
+            <div className="flex justify-center mt-4">
+              <Pagination
+                pagination={pagination}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          )}
         </>
       ) : (
         <StatusState

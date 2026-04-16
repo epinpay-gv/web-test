@@ -5,18 +5,14 @@ import { Input } from "@/components/common";
 
 export function TopupInfoForm() {
   const { topupFields, setTopupValue } = useCatalogStore();
-  const [values, setValues] = useState<Record<number, string>>({});
+  const [values, setValues] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const payload = topupFields.map((field) => ({
-      id: field.id,
-      value: values[field.id] ?? "",
-    }));
-    setTopupValue(payload);
-  }, [values, topupFields, setTopupValue]);
+    setTopupValue(values);
+  }, [values, setTopupValue]);
 
-  const handleChange = (id: number, value: string) => {
-    setValues((prev) => ({ ...prev, [id]: value }));
+  const handleChange = (key: string, value: string) => {
+    setValues((prev) => ({ ...prev, [key]: value }));
   };
 
   if (!topupFields.length) {
@@ -26,16 +22,17 @@ export function TopupInfoForm() {
   return (
     <div className="flex flex-col gap-4">
       {topupFields.map((field) => (
-        <div key={field.id} className="flex flex-col gap-1">
+        <div key={field.key} className="flex flex-col gap-1">
           <label className="text-(--text-heading) text-sm font-medium">
-            {field.label} <span className="text-(--text-fg-danger)">*</span>
+            {field.label}
+            {field.required && <span className="text-(--text-fg-danger)"> *</span>}
           </label>
           <Input
             type="text"
-            name="email"
-            placeholder={field.value}
-            value={values[field.id] ?? ""}
-            onChange={(e) => handleChange(field.id, e.target.value)}
+            name={field.key}
+            placeholder={field.label}
+            value={values[field.key] ?? ""}
+            onChange={(e) => handleChange(field.key, e.target.value)}
             inputSize="base"
           />
         </div>

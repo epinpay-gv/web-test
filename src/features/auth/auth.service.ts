@@ -20,7 +20,9 @@ import {
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
-const BASE_URL = 'http://192.168.1.117:3041/api/features/auth';
+// const BASE_URL = 'http://192.168.1.117:3041/api/features/auth';
+// const BASE_URL = 'http://localhost:3041/api/features/auth';
+const BASE_URL = `${process.env.NEXT_PUBLIC_BFF_URL}/auth`;
 
 export const authService = {
 

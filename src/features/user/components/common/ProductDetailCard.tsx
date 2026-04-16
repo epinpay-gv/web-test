@@ -1,4 +1,5 @@
-import { OrderProduct } from "@/features/user/user.types";
+"use client";
+import { BffOrderItem } from "@/features/user/user.types";
 import { useOrderProductStatus } from "../../hooks/useOrderProductStatus";
 import ActionBox from "./ProductDetailCardSections/ActionBox";
 import CardInfo from "./ProductDetailCardSections/CardInfo";
@@ -6,19 +7,18 @@ import CardStatus from "./ProductDetailCardSections/CardStatus";
 
 interface ProductDetailCardProps {
   orderId: string;
-  product: OrderProduct;
+  product: BffOrderItem;
 }
 
-export default function ProductDetailCard({
-  orderId,
-  product,
-}: ProductDetailCardProps) {
+export default function ProductDetailCard({ orderId, product }: ProductDetailCardProps) {
   const {
-    copied,
+    copiedIndex,
     codeVisible,
     setCodeVisible,
-    maskedCode,
+    epinCodes,
+    topUpSelection,
     handleCopyCode,
+    handleViewEpin,
     handleConfirm,
     handleDispute,
   } = useOrderProductStatus(orderId, product);
@@ -30,14 +30,16 @@ export default function ProductDetailCard({
         <CardStatus product={product} />
       </div>
       <ActionBox
-        copied={copied}
+        copiedIndex={copiedIndex}
         handleCopyCode={handleCopyCode}
         handleConfirm={handleConfirm}
         handleDispute={handleDispute}
+        handleViewEpin={handleViewEpin}
         codeVisible={codeVisible}
         setCodeVisible={setCodeVisible}
         product={product}
-        maskedCode={maskedCode}
+        epinCodes={epinCodes}
+        topUpSelection={topUpSelection ?? undefined}
       />
     </div>
   );

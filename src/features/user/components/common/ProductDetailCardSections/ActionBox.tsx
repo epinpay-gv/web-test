@@ -1,55 +1,37 @@
 import { Button } from "@/components/common";
-import { TopupResponsePayload, OrderProduct } from "@/features/user/user.types";
+import { BffOrderItem } from "@/features/user/user.types";
 import { Check, Eye } from "flowbite-react-icons/outline";
 import { Copy, EyeOff } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 
 interface ActionBoxProps {
   topUpSelection?: "disputed" | "confirmed";
-  handleCopyCode: () => void;
-  handleConfirm: (payload: TopupResponsePayload) => void;
-  handleDispute: (reason?: string | undefined) => void;
-  copied: boolean;
+  handleCopyCode: (code: string, index: number) => void;
+  handleConfirm: () => void;
+  handleDispute: (reason?: string) => void;
+  handleViewEpin: () => void;
+  copiedIndex: number | null;
   codeVisible: boolean;
   setCodeVisible: Dispatch<SetStateAction<boolean>>;
-  product: OrderProduct;
-  maskedCode: string;
-
+  product: BffOrderItem;
+  epinCodes: string[];
 }
-
-export type OrderItemStatus =
-  | "PENDING_PAYMENT"      // Beklemede       
-  | "PAID"                 // Beklemede
-  | "EPIN_READY"           // Teslim Edildi
-  | "AWAITING_DELIVERY"    // Beklemede
-  | "DELIVERED"            // Teslim Edildi
-  | "COMPLETED"            // Teslim Edildi
-  | "DISPUTED"             // Beklemede
-  | "TIMEOUT"              // İptal Edildi
-  | "CANCELLED";           // İptal Edildi
 
 export default function ActionBox({
   topUpSelection,
   handleCopyCode,
   handleConfirm,
   handleDispute,
-  copied,
+  handleViewEpin,
+  copiedIndex,
   codeVisible,
   product,
   setCodeVisible,
-  maskedCode
+  epinCodes,
 }: ActionBoxProps) {
-  const productCancelled = ["CANCELLED", "TIMEOUT"].includes(product.status);
-  const productWaiting = ["PAID", "PENDING_PAYMENT", "AWAITING_DELIVERY", "DISPUTED"].includes(product.status);
-  const productCompleted = ["EPIN_READY", "DELIVERED", "COMPLETED" ].includes(product.status);
-
-
-  const showTopupBox = (product.itemType === "TOP_UP" || product.itemType === "DROPSHIPPING") && productWaiting;
-  const showEpinBox = product.itemType === "NORMAL" && productCompleted ;
-
   return (
     <>
-      {showTopupBox && (
+      {product.canConfirm && (
         <div className="flex flex-col gap-2 items-end border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
           <span className="text-(--text-body) text-sm">
             Ürünü teslim aldınız mı?
@@ -59,11 +41,7 @@ export default function ActionBox({
               text="Teslim Aldım"
               textSize="xs"
               variant="success"
-              onClick={() =>
-                handleConfirm({
-                  status: "confirm",
-                })
-              }
+              onClick={handleConfirm}
               disabled={topUpSelection === "disputed"}
               className="rounded-2xl flex-1"
             />
@@ -76,60 +54,64 @@ export default function ActionBox({
               className="whitespace-nowrap rounded-2xl flex-1"
             />
           </div>
-          {topUpSelection === "disputed" ? (
-            <button
-              type="button"
-              onClick={() => {}}
-              className="text-xs text-(--text-fg-brand) hover:opacity-80 transition-opacity"
-            >
-              Sorun bildir
-            </button>
-          ) : (
-            <span className="text-xs text-(--text-body)">
-              Nasıl kullanırım?{" "}
-              <span className="text-(--text-fg-brand)">incele</span>
-            </span>
-          )}
         </div>
       )}
-      {showEpinBox && (
+
+      {product.canViewEpin && (
         <div className="flex flex-col gap-2 items-end border-2 border-dashed border-(--border-brand-light) bg-(--bg-brand-softer) rounded-xl px-4 py-3">
           <span className="text-(--text-body) text-sm">ürün kodu</span>
-          <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-(--bg-success)">
+          {epinCodes.length > 0 ? (
+            <div className="flex flex-col gap-1.5 w-full items-end">
+              {epinCodes.map((code, index) => {
+                const maskedCode = code.replace(/[^\s]/g, "*");
+                return (
+                  <div key={index} className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-(--bg-success)">
+                    <Button
+                      icon={
+                        copiedIndex === index ? (
+                          <Check size={13} className="text-white" />
+                        ) : (
+                          <Copy size={13} className="text-white" />
+                        )
+                      }
+                      size="xs"
+                      variant="ghost"
+                      appearance="filled"
+                      padding="rounded"
+                      title="Kopyala"
+                      onClick={() => handleCopyCode(code, index)}
+                    />
+                    <span className="text-sm font-mono text-white tracking-widest select-all">
+                      {codeVisible ? code : maskedCode}
+                    </span>
+                    <Button
+                      icon={
+                        codeVisible ? (
+                          <EyeOff size={13} className="text-white" />
+                        ) : (
+                          <Eye size={13} className="text-white" />
+                        )
+                      }
+                      size="xs"
+                      variant="ghost"
+                      appearance="filled"
+                      padding="rounded"
+                      title={codeVisible ? "Gizle" : "Göster"}
+                      onClick={() => setCodeVisible((v: boolean) => !v)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
             <Button
-              icon={
-                copied ? (
-                  <Check size={13} className="text-white" />
-                ) : (
-                  <Copy size={13} className="text-white" />
-                )
-              }
-              size="xs"
-              variant="ghost"
-              appearance="filled"
-              padding="rounded"
-              title="Kopyala"
-              onClick={handleCopyCode}
+              text="Kodu Göster"
+              textSize="xs"
+              variant="brand"
+              onClick={handleViewEpin}
+              className="rounded-2xl"
             />
-            <span className="text-sm font-mono text-white tracking-widest select-all">
-              {codeVisible ? product.code : maskedCode}
-            </span>
-            <Button
-              icon={
-                codeVisible ? (
-                  <EyeOff size={13} className="text-white" />
-                ) : (
-                  <Eye size={13} className="text-white" />
-                )
-              }
-              size="xs"
-              variant="ghost"
-              appearance="filled"
-              padding="rounded"
-              title={codeVisible ? "Gizle" : "Göster"}
-              onClick={() => setCodeVisible((v: boolean) => !v)}
-            />
-          </div>
+          )}
         </div>
       )}
     </>

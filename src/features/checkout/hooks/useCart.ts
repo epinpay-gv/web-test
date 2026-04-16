@@ -37,7 +37,7 @@ export function useCart() {
 
   const recalculateTotal = (updatedItems: CartItem[]): number =>
     updatedItems.reduce(
-      (acc, curr) => acc + (curr.unitPrice ?? 0) * curr.quantity,
+      (acc, curr) => acc + (curr.unitPrice ?? curr.basePrice ?? 0) * curr.quantity,
       0
     );
 

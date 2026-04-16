@@ -25,7 +25,7 @@ export type RaffleDisplayStatus =
 
 // ─── Order ────────────────────────────────────────────────────────────────────
 
-export function getOrderDisplayStatus(status: OrderStatus): DisplayStatus {
+export function getOrderDisplayStatus(status: OrderStatus | string): DisplayStatus {
   if (status === "COMPLETED") return "COMPLETED";
   if (
     status === "CANCELLED" ||
@@ -51,7 +51,7 @@ export const ORDER_DISPLAY_COLORS: Record<DisplayStatus, string> = {
 
 export type ItemDisplayStatus = "DELIVERED" | "CANCELLED" | "PENDING";
 
-export function getItemDisplayStatus(status: OrderItemStatus): ItemDisplayStatus {
+export function getItemDisplayStatus(status: OrderItemStatus | string): ItemDisplayStatus {
   if (status === "COMPLETED" || status === "DISPUTED") return "DELIVERED";
   if (status === "CANCELLED" || status === "TIMEOUT")  return "CANCELLED";
   return "PENDING";

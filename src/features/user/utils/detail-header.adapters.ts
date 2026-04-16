@@ -1,4 +1,4 @@
-import { DetailHeaderData, Order } from "@/features/user/user.types";
+import { DetailHeaderData, Order, BffOrderDetailApiResponse } from "@/features/user/user.types";
 import { getOrderDisplayStatus, ORDER_DISPLAY_LABELS, ORDER_DISPLAY_COLORS, getRaffleDisplayStatus, RAFFLE_DISPLAY_LABELS, RAFFLE_DISPLAY_COLORS } from "./status.mappers";
 import { Raffle } from "@/types/types";
 
@@ -18,6 +18,27 @@ export function orderToDetailHeader(order: Order): DetailHeaderData {
     ],
     currency: order.currency,
     totalAmount: String(order.totalAmount),
+    totalLabel: "Toplam Tutar",
+  };
+}
+
+export function bffOrderToDetailHeader(order: BffOrderDetailApiResponse): DetailHeaderData {
+  const displayStatus = getOrderDisplayStatus(order.status);
+  const totalItems = order.sellers?.reduce((acc, s) => acc + s.items.length, 0) ?? 0;
+  const sellerNames = order.sellers?.map((s) => s.storeName).filter(Boolean).join(", ") ?? "-";
+
+  return {
+    createdAt: order.date ?? "",
+    backHref: "/user/orders",
+    referenceNumber: order.id,
+    referenceLabel: "Sipariş No",
+    statusLabel: ORDER_DISPLAY_LABELS[displayStatus],
+    statusColor: ORDER_DISPLAY_COLORS[displayStatus],
+    metaItems: [
+      `${totalItems} Ürün`,
+      `Satıcı ${sellerNames}`,
+    ],
+    totalAmount: order.totalAmount != null ? String(order.totalAmount) : undefined,
     totalLabel: "Toplam Tutar",
   };
 }

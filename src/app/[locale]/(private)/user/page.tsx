@@ -1,16 +1,11 @@
-import { mockProfile, mockProfileSectionContent } from "@/mocks/user/profile.mock";
 import UserPageHeader from "@/features/user/components/common/UserPageHeader";
-import UserProfileSection from "@/features/user/components/profile/UserProfileSection";
+import ProfileClient from "./profile-client";
 
 export default function User() {
   return (
     <div>
       <UserPageHeader title="Kullanıcı Bilgilerim" />
-
-      <UserProfileSection
-        user={mockProfile}
-        content={mockProfileSectionContent}
-      />
+      <ProfileClient />
     </div>
   );
 }

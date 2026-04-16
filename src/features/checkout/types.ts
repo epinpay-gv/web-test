@@ -1,7 +1,14 @@
-import { Product } from "@/types/types";
+import { Product, TopupFormField, TopupFormType } from "@/types/types";
+export type { TopupFormField, TopupFormType };
 import { RaffleFormData } from "@/features/raffles/raffle.types";
 
 export type CartStep = "empty" | "items" | "delivery" | "payment" | "success";
+
+
+export interface TopupItemInfo {
+  formTypeCode: string;
+  formData: Record<string, string>;
+}
 
 export interface CartItem extends Product {
   offerId: string;
@@ -9,6 +16,7 @@ export interface CartItem extends Product {
   totalPrice: number;
   quantity: number;
   seller?: string;
+  formType?: TopupFormType | null;
 }
 
 export interface InvoiceForm {
@@ -117,6 +125,7 @@ export interface CartPaymentPayload {
   currencyId?: number;
   cryptoNetwork?: string;
   cryptoToCurrency?: string;
+  topupInfo?: Record<string, TopupItemInfo>;
 }
 
 export type PaymentPayload = BalancePaymentPayload | CartPaymentPayload | RafflePaymentPayload;

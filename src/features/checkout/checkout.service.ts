@@ -16,6 +16,14 @@ function getCurrencyCode(): string {
   return "USD";
 }
 
+function getCountryCode(): string | null {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; country=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift() ?? null;
+  return null;
+}
+
 //TODO : Bunu payload dataya ekleyebiliriz. Bu şekilde kalacaksa bakiye yükleme akışında da kullanılmalı ve checkout>utils klasörüne taşınmalı.
 export function buildRequiredFields(
   method: PaymentMethod,
@@ -103,8 +111,12 @@ export const paymentService = {
    * Aktif ödeme yöntemlerini (Lidio, Ziina, Gpay vb.) getirir.
    */
   getPaymentMethods: async (): Promise<PaymentMethod[]> => {
+    const country = getCountryCode();
+    const url = country
+      ? `${BFF_CHECKOUT_URL}/payment-methods?country=${country}`
+      : `${BFF_CHECKOUT_URL}/payment-methods`;
     return await baseFetcher<PaymentMethod[]>(
-      `${BFF_CHECKOUT_URL}/payment-methods`,
+      url,
       { method: "GET" },
       "Ödeme yöntemleri alınamadı",
     );

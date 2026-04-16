@@ -1,10 +1,10 @@
-import { OrderProduct } from "@/features/user/user.types";
+import { BffOrderItem } from "@/features/user/user.types";
 import { getItemDisplayStatus, ITEM_DISPLAY_LABELS, ITEM_DISPLAY_COLORS } from "@/features/user/utils/status.mappers";
 
-
 interface CardStatusProps {
-  product: OrderProduct;
+  product: BffOrderItem;
 }
+
 export default function CardStatus({ product }: CardStatusProps) {
   const displayStatus = getItemDisplayStatus(product.status);
   const statusLabel = ITEM_DISPLAY_LABELS[displayStatus];

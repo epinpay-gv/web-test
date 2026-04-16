@@ -5,7 +5,6 @@ import { AddToCartPayload } from "@/features/catalog/catalog.types";
 import { Product } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useCatalogStore } from "@/features/catalog/store/catalog.store";
-import { getTopupModalData } from "@/features/catalog/catalog.service";
 
 interface ActionButtonsProps {
   isLoading?: boolean;
@@ -25,12 +24,11 @@ export function ActionButtons({
   const router = useRouter();
   const { openTopupModal, setTopupFields } = useCatalogStore();
 
-  const handleCartAction = async (callback: () => void) => {
-    if (product.type?.toLowerCase() === "top-up" || product.type_id === 5) {
-      const res = await getTopupModalData(product.id);
-      if (res?.data) {
-        setTopupFields(res.data);
-      }
+  const handleCartAction = (callback: () => void) => {
+    if (product.formType != null) {
+      setTopupFields(product.formType.fields);
+      openTopupModal(product);
+    } else if (product.type?.toLowerCase() === "top-up" || product.type_id === 5) {
       openTopupModal(product);
     } else {
       callback();

@@ -1,70 +1,60 @@
 "use client";
 
 import { useState } from "react";
-import {
-  OrderProduct,
-  TopupResponsePayload,
-} from "@/features/user/user.types";
-import { baseFetcher } from "@/lib/api/baseFetcher";
+import { BffOrderItem } from "@/features/user/user.types";
+import { confirmItem, disputeItem, viewEpin } from "@/features/user/user.service";
 import { handleRequest } from "@/lib/utils";
-import { confirmTopup } from "@/features/user/user.service";
 
-export function useOrderProductStatus(orderId: string, product: OrderProduct) {
-  const [copied, setCopied] = useState(false);
+export function useOrderProductStatus(orderId: string, product: BffOrderItem) {
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [codeVisible, setCodeVisible] = useState(false);
-  const [topUpSelection, setTopUpSelection] = useState<
-    null | "confirmed" | "disputed"
-  >(null);
+  const [epinCodes, setEpinCodes] = useState<string[]>([]);
+  const [topUpSelection, setTopUpSelection] = useState<null | "confirmed" | "disputed">(null);
   const [loading, setLoading] = useState(false);
 
-  const maskedCode = product.code ? product.code.replace(/[^\s]/g, "*") : "";
-
-  const handleCopyCode = () => {
-    if (!product.code) return;
-    navigator.clipboard.writeText(product.code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyCode = (code: string, index: number) => {
+    navigator.clipboard.writeText(code);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
   };
 
-  // UI önce güncellenecek ve ardından arka planda API çağrısı yapılacak..
-  const handleConfirm = (payload: TopupResponsePayload) => {
-    setTopUpSelection("confirmed");
+  const handleViewEpin = async () => {
+    try {
+      const res = await viewEpin(orderId, product.id) as { epins?: string[] };
+      if (res?.epins?.length) setEpinCodes(res.epins);
+    } catch (err) {
+      console.error("view-epin error:", err);
+    }
+  };
 
+  const handleConfirm = () => {
+    setTopUpSelection("confirmed");
     handleRequest(
-      () => confirmTopup(orderId, product.id, payload),
-      "Topup durumu güncellendi",
+      () => confirmItem(orderId, product.id),
+      "Teslim alındı olarak işaretlendi",
       setLoading,
     );
   };
 
   const handleDispute = (reason?: string) => {
     setTopUpSelection("disputed");
-    baseFetcher(
-      `${process.env.NEXT_PUBLIC_API_URL}/order/${orderId}/items/${product.id}/dispute`,
-      { method: "POST", body: JSON.stringify({ reason }) },
-    ).catch((err) => console.error("dispute error:", err));
+    handleRequest(
+      () => disputeItem(orderId, product.id, { reason: reason ?? "" }),
+      "İtiraz oluşturuldu",
+      setLoading,
+    );
   };
 
-  const showCodeBox =
-    (product.itemType === "NORMAL" || product.itemType === "DROPSHIPPING") &&
-    product.status === "COMPLETED" &&
-    !!product.code;
-
-  const showTopUpActions =
-    product.itemType === "TOP_UP" &&
-    (product.status === "DELIVERED" || topUpSelection !== null);
-
   return {
-    product: product,
-    copied,
+    copiedIndex,
     codeVisible,
     setCodeVisible,
-    maskedCode,
+    epinCodes,
     topUpSelection,
+    loading,
     handleCopyCode,
+    handleViewEpin,
     handleConfirm,
     handleDispute,
-    showCodeBox,
-    showTopUpActions,
   };
 }

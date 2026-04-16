@@ -55,7 +55,7 @@ export interface AddToCartPayload {
   productId: number;
   offerId: string;
   quantity: number;
-  topupData?: {id: number; value: string;}[];
+  topupInfo?: { formTypeCode: string; formData: Record<string, string> };
 }
 
 export interface AddToCartResponse {

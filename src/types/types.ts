@@ -38,6 +38,20 @@ export interface BreadcrumbItemType {
   icon?: ReactNode;
 }
 
+/* TOPUP FORM */
+export interface TopupFormField {
+  key: string;
+  label: string;
+  required: boolean;
+}
+
+export interface TopupFormType {
+  id: number;
+  code: string;
+  name: string;
+  fields: TopupFormField[];
+}
+
 /* PRODUCT */
 export enum PRODUCT_STATUS {
   ACTIVE = "ACTIVE",
@@ -72,6 +86,7 @@ export interface Product {
   totalStock: number | null; // ! bu backende eklenmeli - seo için
 
   isFavorite?: boolean;
+  formType?: TopupFormType | null;
 }
 
 export interface Translation {

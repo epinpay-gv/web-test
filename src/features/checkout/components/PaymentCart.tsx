@@ -33,7 +33,6 @@ export function PaymentCart({
   const user = useAuthStore((state) => state.user);
   const [wantsInvoice] = useState(initialWantsInvoice);
   const [selectedMethodId, setSelectedMethodId] = useState<string>("");
-
   const selectedMethod = methods.find((m) => m.id === selectedMethodId);
 
   const paymentValues = useMemo(() => {
@@ -66,7 +65,11 @@ export function PaymentCart({
 
     try {
       setIsPaying(true);
+      if (!user?.email && guestEmail) {
+        localStorage.setItem("guest_checkout", JSON.stringify({ email: guestEmail }));
+      }
       const extras = buildRequiredFields(selectedMethod);
+
       const payload = paymentService.createPaymentPayload({
         context: "checkout",
         paymentMethodId: selectedMethodId,

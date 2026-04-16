@@ -1,25 +1,32 @@
 "use client";
-import {
-  DetailPageHeader,
-  ProductDetailCard,
-} from "@/features/user/components";
-import { Order } from "@/features/user/user.types";
-import { orderToDetailHeader } from "@/features/user/utils/detail-header.adapters";
+import { ProductDetailCard } from "@/features/user/components";
+import DetailPageHeader from "@/features/user/components/common/DetailPageHeader/DetailPageHeader";
+import { useOrderDetail } from "@/features/user/hooks/useOrderDetail";
+import { bffOrderToDetailHeader } from "@/features/user/utils/detail-header.adapters";
+
 interface OrderDetailClientProps {
-  order: Order;
+  id: string;
 }
 
-export default function OrderDetailClient({ order }: OrderDetailClientProps) {
+export default function OrderDetailClient({ id }: OrderDetailClientProps) {
+  const { order, isLoading } = useOrderDetail(id);
+
+  if (isLoading) return null; // TODO: skeleton
+  if (!order) return null;
+
+  const allItems = order.sellers?.flatMap((seller) =>
+    seller.items.map((item) => ({ ...item, storeName: seller.storeName }))
+  ) ?? [];
+
   return (
     <div className="rounded-2xl bg-(--bg-neutral-primary) border border-(#1D303A) px-3 py-3 flex flex-col divide-y">
-      <DetailPageHeader data={orderToDetailHeader(order)} />
-
+      <DetailPageHeader data={bffOrderToDetailHeader(order)} />
       <div className="flex flex-col">
-        {order.products.map((product) => (
+        {allItems.map((item) => (
           <ProductDetailCard
-            key={product.id}
+            key={item.id}
             orderId={order.id}
-            product={product}
+            product={item}
           />
         ))}
       </div>

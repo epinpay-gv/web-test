@@ -11,15 +11,18 @@ export function TopupModalContainer() {
 
   const handleConfirm = () => {
     if (topupModal.product) {
-      console.log(
-        `[Topup Modal] Ürün sepete eklendi. Gelen veri: ${topupValue}`,
-      );
-
       addToCart({
         productId: topupModal.product.id,
         offerId: topupModal.product.cheapestOffer?.id || "",
         quantity: 1,
-        topupData: topupValue,
+        ...(topupModal.product.formType
+          ? {
+              topupInfo: {
+                formTypeCode: topupModal.product.formType.code,
+                formData: topupValue,
+              },
+            }
+          : {}),
       });
     }
     closeTopupModal();

@@ -1,18 +1,12 @@
-import { getOrderById } from "@/features/user/user.service";
 import OrderDetailClient from "./order-detail-client";
-import { notFound } from "next/navigation";
 import UserPageHeader from "@/features/user/components/common/UserPageHeader";
 import { createSeo } from "@/lib/seo";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; id: string }>;
-}) {
+export async function generateMetadata({ params }: Props) {
   const { locale, id } = await params;
 
   return createSeo({
@@ -25,9 +19,6 @@ export async function generateMetadata({
 
 export default async function OrderDetailPage({ params }: Props) {
   const { id } = await params;
-  const res = await getOrderById(id);
-
-  if (!res?.data) notFound();
 
   return (
     <>
@@ -35,7 +26,7 @@ export default async function OrderDetailPage({ params }: Props) {
         <UserPageHeader title="Siparişlerim" />
       </div>
       <div className="block md:hidden"></div>
-      <OrderDetailClient order={res.data} />
+      <OrderDetailClient id={id} />
     </>
   );
 }

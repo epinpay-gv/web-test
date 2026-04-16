@@ -169,3 +169,117 @@ export interface BalanceHistoryApiResponse {
   data: BalanceHistory[];
   pagination: PaginationData;
 }
+
+/* =========================================================
+   BFF TYPES — /api/features/user/*
+   ========================================================= */
+
+// GET /api/features/user/me
+export interface UserMeResponse {
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  phone: string | null;
+  initials: string | null;
+  isIdentityVerified: boolean;
+  roles: UserRole[];
+  wallet: {
+    currencyId: number;
+    balance: number;
+    currencyName: string;
+  } | null;
+  epBalance: number | null;
+}
+
+// GET /api/features/user/wallet
+export interface WalletDepositHistory {
+  id: string;
+  amount: number;
+  date: string;
+}
+
+export interface WalletApiResponse {
+  wallet: {
+    id: number;
+    balance: number;
+    currencyId: number;
+  };
+  depositHistory: WalletDepositHistory[];
+}
+
+// GET /api/features/user/wallet/deposit-page
+export interface WalletDepositPageApiResponse {
+  wallet: {
+    balance: number;
+    currencyName: string;
+  } | null;
+  paymentMethods: unknown[];
+  depositHistory?: WalletDepositHistory[];
+}
+
+// GET /api/features/user/orders
+export type BffOrderItemType = "epin" | "topup";
+
+export interface BffOrderItem {
+  id: string;
+  offerId: string;
+  productName: string | null;
+  productImage: string | null;
+  typeCode: string | null;
+  itemType: BffOrderItemType;
+  price: number;
+  quantity: number;
+  status: string;
+  canViewEpin: boolean;
+  canConfirm: boolean;
+  canDispute: boolean;
+  isDisputed: boolean;
+}
+
+export interface BffOrderSeller {
+  storeId: string;
+  storeName: string | null;
+  items: BffOrderItem[];
+}
+
+export interface BffOrderFirstItem {
+  offerId: string;
+  productName: string;
+  productImage: string;
+  itemType: string;
+  status: string;
+  quantity: number;
+}
+
+export interface BffOrder {
+  id: string;
+  status: string;
+  orderType: string;
+  date: string;
+  totalAmount: string;
+  currencyCode: string;
+  paymentMethodId: string;
+  itemCount: number;
+  firstItem: BffOrderFirstItem;
+  storeNames: string[];
+  sellers?: BffOrderSeller[];
+}
+
+export interface BffOrdersMeta {
+  page: number;
+  limit: number;
+  total: number;
+}
+
+export interface BffOrdersPageApiResponse {
+  orders: BffOrder[];
+  meta: BffOrdersMeta;
+}
+
+// GET /api/features/user/orders/:orderId
+export type BffOrderDetailApiResponse = BffOrder;
+
+// POST /api/features/user/orders/:orderId/items/:itemId/dispute
+export interface DisputePayload {
+  reason: string;
+}

@@ -1,8 +1,8 @@
-import { Order } from "@/features/user/user.types";
+import { BffOrder } from "@/features/user/user.types";
 import { OrderCard } from "./OrderCard";
 
 interface OrdersSectionProps {
-  orders: Order[];
+  orders: BffOrder[];
 }
 
 export default function OrdersSection({ orders }: OrdersSectionProps) {
