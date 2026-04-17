@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 type NavLinkTypes = "default" | "withBg" | "withContainer";
-type NavLinkTitleTypes = "default" | "header" | "highlight";
+type NavLinkTitleTypes = "default" | "header" | "highlight"  | "truncate";
 type NavLinkHelperTypes = "default" | "green" ;
 
 const CONTAINER_CLASSES: Record<NavLinkTypes, string> = {
@@ -13,7 +13,8 @@ const CONTAINER_CLASSES: Record<NavLinkTypes, string> = {
 const TITLE_CLASSES: Record<NavLinkTitleTypes, string> = {
   default: "text-sm font-base group-hover:text-(--text-fg-brand)",
   header: "text-base font-semibold text-(--text-heading) group-hover:text-(--text-fg-brand)",
-  highlight: "text-sm font-base leading-5 text-(--text-fg-brand)"
+  highlight: "text-sm font-base leading-5 text-(--text-fg-brand)",
+  truncate: "text-sm font-base group-hover:text-(--text-fg-brand) truncate"
 };
 
 const HELPER_CLASSES: Record<NavLinkHelperTypes, string> = {
@@ -60,9 +61,9 @@ export default function NavLink({
         ) : (
           rigthIcon
         ))}
-      <div className={`flex gap-1 w-61 ${type === "withContainer" ? "justify-between" : "flex-col"}`}>
+       <div className={`flex gap-1 min-w-0 flex-1 ${type === "withContainer" ? "justify-between" : "flex-col"}`}>
         <p className={`${TITLE_CLASSES[titleType]}`}>{title}</p>
-        {helper && <p className={`${HELPER_CLASSES[helperType]}`}>{helper}</p>}
+        {helper && <p className={`${HELPER_CLASSES[helperType]} shrink-0`}>{helper}</p>}
       </div>
       {leftIcon}
     </Link>

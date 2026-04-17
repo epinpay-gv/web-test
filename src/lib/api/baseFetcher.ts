@@ -12,34 +12,36 @@ type FetcherOptions<TBody> = {
   method?: HttpMethod;
   body?: TBody;
   cache?: RequestCache;
-  headers?: Record<string, string>; 
+  headers?: Record<string, string>;
 };
 
 export async function baseFetcher<TResponse, TBody = undefined>(
   url: string,
   options: FetcherOptions<TBody> = {},
-  msg: string = "Request failed"
+  msg: string = "Request failed",
 ): Promise<TResponse> {
-  const finalUrl = url.startsWith("http")
-    ? url
-    : `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
+  const apiUrl = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+
+  const finalUrl = url.startsWith("http") ? url : `${apiUrl}${url}`;
 
   // Kimlik doğrulama token'ını bul
   let token: string | undefined = undefined;
-  
+
   if (typeof window !== "undefined") {
-    // Çerezden oku 
+    // Çerezden oku
     const cookieToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("accessToken="))
       ?.split("=")[1];
-    
+
     if (cookieToken) {
       token = cookieToken;
     } else {
       // Çerez yoksa localStorage'a bak
       try {
-        const authData = localStorage.getItem('auth-storage') || sessionStorage.getItem('auth-storage');
+        const authData =
+          localStorage.getItem("auth-storage") ||
+          sessionStorage.getItem("auth-storage");
         if (authData) {
           const parsed = JSON.parse(authData);
           token = parsed.state?.token || parsed.token || parsed.user?.token;
@@ -52,8 +54,8 @@ export async function baseFetcher<TResponse, TBody = undefined>(
 
   const finalHeaders: Record<string, string> = {
     "Content-Type": "application/json",
-    "EP-Language" : "", 
-    "EP-Currency" : "",
+    "EP-Language": "",
+    "EP-Currency": "",
     "epinpay-language": "tr-TR",
     "x-currency-code": getCookie("currency") ?? "TRY",
     ...options.headers,
@@ -63,6 +65,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     finalHeaders["Authorization"] = `Bearer ${token}`;
   }
 
+  console.log("Fetching:", finalUrl, finalHeaders);
   const res = await fetch(finalUrl, {
     method: options.method ?? "GET",
     headers: finalHeaders,

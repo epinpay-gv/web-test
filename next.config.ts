@@ -1,7 +1,7 @@
 import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const nextConfig: NextConfig = {  
+const nextConfig: NextConfig = {
   reactStrictMode: false,
   images: {
     remotePatterns: [
@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.epinpay.com",
         pathname: "/image/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.epinpay.com",
       },
     ],
   },

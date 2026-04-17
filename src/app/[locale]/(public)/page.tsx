@@ -37,6 +37,8 @@ export default async function Home({
 
   const res = await getMainPageData();
 
+  console.log("ANASAYFA", res);
+
   return (
     <>
       {/* SEO Content */}
@@ -44,13 +46,23 @@ export default async function Home({
       <WebsiteSchema description={res.metadata.title} locale={locale} />
 
       {/* Page Content */}
-      <PromotedSection data={res.data.promoted} />
-      <BestSellersSection data={res.data.bestsellers} />
-      <StreamerRafflesSection data={res.data.streamerRaffles} />
-      <EpinpayRafflesSection data={res.data.epinpayRaffles} />
+      {res.data.promoted && <PromotedSection data={res.data.promoted} />}
+      {res.data.bestsellers && (
+        <BestSellersSection data={res.data.bestsellers} />
+      )}
+      {res.data.streamerRaffles && (
+        <StreamerRafflesSection data={res.data.streamerRaffles} />
+      )}
+      {res.data.epinpayRaffles && (
+        <EpinpayRafflesSection data={res.data.epinpayRaffles} />
+      )}
       <EpinpayCardsSection />
-      <EpinpayStreamersSection data={res.data.epinpayStreamers} />
-      <BestSellersSection data={res.data.bestsellers} />
+      {res.data.epinpayStreamers && (
+        <EpinpayStreamersSection data={res.data.epinpayStreamers} />
+      )}
+      {res.data.bestsellers && (
+        <BestSellersSection data={res.data.bestsellers} />
+      )}
       <StreamerBannerSection />
       {/* <PremiumSection data={res.data.premium} /> */}
     </>

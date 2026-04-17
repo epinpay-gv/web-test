@@ -11,33 +11,31 @@ import {
   NotifyWhenAvailablePayload,
   TopupModalDataApiResponse,
 } from "./catalog.types";
+import { cache } from "react";
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
-const BFF_URL = "http://localhost:3041/api/features";
-export const getProducts = (
-  search: Record<string, string | string[] | undefined>,
-) => {
-  const params = new URLSearchParams();
-  Object.entries(search).forEach(([key, value]) => {
-    if (!value) return;
-    if (Array.isArray(value)) {
-      value.forEach((v) => params.append(key, v));
-    } else {
-      params.set(key, value);
-    }
-    console.log(value)
-  });
-  return baseFetcher<ProductsApiResponse>(
-    `${BFF_URL}/catalog/products?${params.toString()}`,
-  );
-};
+export const getProducts = 
+  (search: Record<string, string | string[] | undefined>) => {
+    const params = new URLSearchParams();
+    Object.entries(search).forEach(([key, value]) => {
+      if (!value) return;
+      if (Array.isArray(value)) {
+        value.forEach((v) => params.append(key, v));
+      } else {
+        params.set(key, value);
+      }
+      console.log(value);
+    });
+    return baseFetcher<ProductsApiResponse>(
+      `/catalog/products?${params.toString()}`,
+    );
+  };
+
 
 // TODO : SEO schemaları ekle
 export const getCategories = (query: URLSearchParams) =>
-  baseFetcher<CategoriesApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/categories?${query.toString()}`,
-  );
+  baseFetcher<CategoriesApiResponse>(`/catalog/categories?${query.toString()}`);
 
 export const getCategory = (
   search: Record<string, string | string[] | undefined>,
@@ -53,7 +51,7 @@ export const getCategory = (
     }
   });
   return baseFetcher<CategoryApiResponse>(
-    `${BFF_URL}/catalog/${category}?${params.toString()}`,
+    `/catalog/${category}?${params.toString()}`,
   );
 };
 
@@ -63,15 +61,14 @@ export const getProduct = (
   product: string,
 ) =>
   baseFetcher<ProductDetailApiResponse>(
-    `${BFF_URL}/catalog/${category}/${product}?${query}`,
+    `/catalog/${category}/${product}?${query}`,
   );
 
 /* -------------------------- BASKET ACTIONS -------------------------- */
-const BFF_CHECKOUT_URL = "http://localhost:3041/api/features/checkout";
 
 export const addToCartService = async (payload: AddToCartPayload) =>
   await baseFetcher<AddToCartResponse, AddToCartPayload>(
-    `${BFF_CHECKOUT_URL}/cart`,
+    `/checkout/cart`,
     {
       method: "POST",
       body: payload,
@@ -83,7 +80,7 @@ export const changeQuantityService = async (payload: ChangeQuantityPayload) => {
   // BFF'de güncelleme PATCH /cart/item/:itemId ile yapılıyor.
   // Catalog tarafındaki payload'da offerId var, bunu itemId olarak kullanıyoruz.
   return await baseFetcher<{ success: boolean }, { quantity: number }>(
-    `${BFF_CHECKOUT_URL}/cart/item/${payload.offerId}`,
+    `/checkout/cart/item/${payload.offerId}`,
     {
       method: "PATCH",
       body: { quantity: payload.quantity },
@@ -94,7 +91,7 @@ export const changeQuantityService = async (payload: ChangeQuantityPayload) => {
 
 export const addToFavoritesService = async (payload: AddToFavoritesPayload) =>
   await baseFetcher<{ success: boolean }, AddToFavoritesPayload>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/add-to-favorites`,
+    `/catalog/add-to-favorites`,
     {
       method: "POST",
       body: payload,
@@ -106,7 +103,7 @@ export const notifyWhenAvailableService = async (
   payload: NotifyWhenAvailablePayload,
 ) =>
   await baseFetcher<{ success: boolean }, NotifyWhenAvailablePayload>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/notify`,
+    `/catalog/notify`,
     {
       method: "POST",
       body: payload,
@@ -116,5 +113,5 @@ export const notifyWhenAvailableService = async (
 
 export const getTopupModalData = async (productId: number) =>
   await baseFetcher<TopupModalDataApiResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/catalog/topup-info/${productId}`,
+    `/catalog/topup-info/${productId}`,
   );

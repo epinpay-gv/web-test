@@ -40,6 +40,7 @@ export default function PromotedProductList({
             title={item.name}
             url={item.slug}
             type="withContainer"
+            titleType="truncate"
             helper={`$ ${item.price}`}
             helperType="green"
           />
