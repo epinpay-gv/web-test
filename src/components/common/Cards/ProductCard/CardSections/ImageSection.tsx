@@ -40,14 +40,14 @@ export function ImageSection({
       <div
         className={`absolute top-2 right-2 z-10 ${isHorizontal ? "hidden md:block" : ""}`}
       >
-        <FavButton
+        {/* <FavButton
           isFavorite={product.isFavorite}
           addToFavorites={() =>
             addToFavorites?.({
               productId: product.id,
             })
           }
-        />
+        /> */}
       </div>
 
       {isLoading ? (

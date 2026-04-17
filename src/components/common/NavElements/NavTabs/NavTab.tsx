@@ -94,9 +94,9 @@ export default function NavTab({
   return (
     <nav className="w-full overflow-x-auto overflow-y-hidden scrollbar-hide">
       <div className={`${containerClasses} ${containerClassName ?? ""} `}>
-        {items.map((item) => (
+        {items.map((item, index) => (
           <NavItem
-            key={item.value}
+            key={item.value ?? index}
             label={item.label}
             value={item.value}
             icon={item.icon}

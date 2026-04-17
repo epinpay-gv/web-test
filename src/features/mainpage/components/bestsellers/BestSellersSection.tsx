@@ -11,7 +11,7 @@ interface BestSellersProps {
 }
 
 export default function BestSellers({ data }: BestSellersProps) {
-  const [range, setRange] = useState("24h");
+  const [range, setRange] = useState(data.tabInfo[0]?.value ?? "");
   const t = useTranslations("mainpage.bestsellers");
 
   return (
