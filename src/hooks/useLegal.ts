@@ -1,5 +1,5 @@
 
-import { getAllLegalDocuments, getLegalDocumentByType } from "@/features/legal/legal.service";
+// import { getAllLegalDocuments, getLegalDocumentByType } from "@/features/legal/legal.service";
 import { LegalDocument, LegalDocumentType } from "@/features/legal/types";
 import { useEffect, useState } from "react";
 
@@ -9,10 +9,10 @@ export const useLegalList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAllLegalDocuments().then((res) => {
-      setData(res);
-      setLoading(false);
-    });
+    // getAllLegalDocuments().then((res) => {
+    //   setData(res);
+    //   setLoading(false);
+    // });
   }, []);
 
   return { data, loading };
@@ -23,10 +23,10 @@ export const useLegalDocument = (type: LegalDocumentType) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getLegalDocumentByType(type).then((res) => {
-      setData(res);
-      setLoading(false);
-    });
+    // getLegalDocumentByType(type).then((res) => {
+    //   setData(res);
+    //   setLoading(false);
+    // });
   }, [type]);
 
   return { data, loading };

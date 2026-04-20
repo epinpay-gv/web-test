@@ -50,14 +50,14 @@ export default async function BlogPage({
       <OrganizationSchema locale={locale} description={res.metadata.title} />
       <WebsiteSchema locale={locale} description={res.metadata.title} />
       <BreadcrumbSchema items={breadcrumbItems} />
-      <CollectionPageSchema
+      {/* <CollectionPageSchema
         pageUrl={pageUrl}
         name={res.metadata.title}
         description={res.metadata.metaDescription}
         locale={locale}
         numberOfItems={4}
         items={seoCollectionItems}
-      />
+      /> */}
       
       {/* Page Content */}
       <div className="max-w-5xl mx-auto pl-4">
