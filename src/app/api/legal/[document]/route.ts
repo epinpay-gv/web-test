@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockMetadata, legalMockData } from "@/mocks";
+import { getLegalDocument } from "@/features/legal/legal.service";
 
 type Params = {
   document: string;
@@ -11,13 +11,14 @@ export async function GET(
 ) {
   const { document } = await params;
 
-  const legalData = legalMockData.find((doc) => doc.type === document);
-
-  // FAKE LATENCY
-  await new Promise((r) => setTimeout(r, 200));
-
-  return NextResponse.json({
-    metadata: mockMetadata.find((m) => m.pageId === 1),
-    data: legalData,
-  });
+  try {
+    const response = await getLegalDocument(document);
+    
+    return NextResponse.json(response);
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: "Veri getirilemedi" },
+      { status: 500 }
+    );
+  }
 }

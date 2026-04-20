@@ -86,10 +86,10 @@ export const Footer = () => {
                 
                 <div className="flex gap-2">
                   {[
-                    { icon: X, name: "X/Twitter", href: "#" },
-                    { icon: Youtube, name: "Youtube", href: "#" },
+                    { icon: X, name: "X/Twitter", href: "x.com/epinpay" },
+                    { icon: Youtube, name: "Youtube", href: "https://www.youtube.com/@epinpay" },
                     { icon: Facebook, name: "Facebook", href: "#" },
-                    { icon: Instagram,name: "Instagram",  href: "#" }
+                    { icon: Instagram,name: "Instagram",  href: "instagram.com/epinpayofficial" }
                   ].map((social, idx) => (
                     <a 
                       key={idx} 
