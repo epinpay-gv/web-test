@@ -60,7 +60,7 @@ export default function RafflesClientPage({
   return (
     <>
       {/* MAIN BANNER */}
-      <MainBanner data={data.activeParticipantCount} />
+      {data.activeParticipantCount && <MainBanner data={data.activeParticipantCount} />}
 
       {/* PREMIUM SLIDER */}
       {slider1Data && (
@@ -72,7 +72,7 @@ export default function RafflesClientPage({
       )}
 
       {/* STREAMER BANNER */}
-      <BannerSection
+      {data.banners.streamers && <BannerSection
         accentColor="#8B0836"
         left={
           <StreamerBannerLeft
@@ -88,7 +88,7 @@ export default function RafflesClientPage({
             onCardClick={(raffle) => setSelectedRaffle(raffle)}
           />
         }
-      />
+      />}
 
       {/* REFERENCE SLIDER */}
       {slider2Data && (
@@ -100,7 +100,7 @@ export default function RafflesClientPage({
       )}
 
       {/* EPINPAY BANNER */}
-      <BannerSection
+      {data.banners.featured && <BannerSection
         accentColor="#615FFF"
         left={
           <FeaturedBannerLeft
@@ -109,7 +109,7 @@ export default function RafflesClientPage({
           />
         }
         right={<FeaturedBannerRight data={data.banners.featured} />}
-      />
+      />}
 
       <div className="relative flex flex-col gap-4 pt-20 items-center overflow-hidden">
         {/* BACKGROUND IMAGE */}
@@ -126,9 +126,9 @@ export default function RafflesClientPage({
         />
         <div className="relative z-10 w-full flex flex-col gap-4 items-center">
           {/* CARDS */}
-          <DescriptionCards
+          {data.activeParticipantCount && <DescriptionCards
             activeParticipantCount={data.activeParticipantCount}
-          />
+          />}
 
           {/* EPINPAY SLIDER */}
           {slider3Data && (
@@ -141,10 +141,10 @@ export default function RafflesClientPage({
           )}
 
           {/* WINNERS */}
-          <Winners data={data.winners} />
+          {data.winners && <Winners data={data.winners} />}
 
           {/* FAQ */}
-          <FAQSection data={data.faq} />
+          {data.faq && <FAQSection data={data.faq} />}
 
           {/* FOOTER IMAGE */}
           <div className="relative w-full h-88.25">

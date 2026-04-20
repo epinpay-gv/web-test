@@ -72,14 +72,14 @@ export default function ProductInfo({
       <div className="flex flex-col gap-6 flex-1">
         {/* Header */}
         <div className="flex md:flex-row flex-col md:items-center gap-2">
-          <Badge text={data.type} theme="success" className="max-w-12" />
+          <Badge text={data.type} theme="success" className="max-w-16" />
           <h1 className="font-semibold text-xl text-(--text-heading)">
             {data.translation.name}
           </h1>
         </div>
 
         {/* Dropdown Section */}
-        <div className="hidden md:flex item-center gap-4">
+        <div className="hidden md:flex flex-wrap item-center gap-4">
           {/* Points / Variant */}
           <div className="col-span-2">
             <FilterDropdownContainer

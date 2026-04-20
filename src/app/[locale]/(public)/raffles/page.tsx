@@ -8,22 +8,22 @@ import { getRaffles } from "@/features/raffles/raffles.service";
 import { createSeo } from "@/lib/seo";
 import RafflesClientPage from "./raffles-client";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: Promise<{ locale: string }>;
+// }) {
+//   const { locale } = await params;
 
-  const res = await getRaffles();
+//   const res = await getRaffles();
 
-  return createSeo({
-    title: res.metadata.title,
-    description: res.metadata.metaDescription,
-    canonical: `/${locale}/raffles`,
-    locale: locale,
-  });
-}
+//   return createSeo({
+//     title: res.metadata.title,
+//     description: res.metadata.metaDescription,
+//     canonical: `/${locale}/raffles`,
+//     locale: locale,
+//   });
+// }
 
 export default async function RafflesPage({
   params,
