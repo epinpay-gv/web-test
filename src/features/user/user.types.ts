@@ -183,6 +183,7 @@ export interface UserMeResponse {
   initials: string | null;
   isIdentityVerified: boolean;
   roles: UserRole[];
+  referralCode: string | null;
   wallet: {
     currencyId: number;
     balance: number;
