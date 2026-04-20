@@ -1,39 +1,42 @@
-'use client';
-
-import { useRef, useEffect, KeyboardEvent as ReactKeyboardEvent } from 'react';
-import { useSearch } from '@/features/search/fetcher/services';
-import { Search } from 'flowbite-react-icons/outline';
-import { Input } from '@/components/common';
-import { useTranslations } from 'next-intl';
-import { useRouter } from '@/i18n/navigation';
+"use client";
+import { useRef, useEffect, KeyboardEvent as ReactKeyboardEvent } from "react";
+import { useSearch } from "@/features/search/fetcher/services";
+import { Search } from "flowbite-react-icons/outline";
+import { Input } from "@/components/common";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 
 export function SearchInput() {
   const t = useTranslations("layout.header");
   const router = useRouter();
 
-  const { query, setQuery, results, isLoading, isOpen, setIsOpen } = useSearch();
+  const { query, setQuery, results, isLoading, isOpen, setIsOpen } =
+    useSearch();
   const wrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [setIsOpen]);
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsOpen(false);
+      if (event.key === "Escape") setIsOpen(false);
     };
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [setIsOpen]);
 
   const handleKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && query.trim()) {
+    if (e.key === "Enter" && query.trim()) {
       setIsOpen(false);
       router.push(`/products?search=${encodeURIComponent(query.trim())}`);
     }
@@ -43,7 +46,7 @@ export function SearchInput() {
     <div ref={wrapperRef} className="relative w-full">
       <Input
         variant="default"
-        leftIcon={<Search className='w-5 h-5' />}
+        leftIcon={<Search className="w-5 h-5" />}
         placeholder="Search"
         value={query}
         onClear={() => setQuery("")}
@@ -57,7 +60,6 @@ export function SearchInput() {
       {/* Dropdown Liste */}
       {isOpen && (
         <div className="absolute top-full mt-2 w-full rounded-(--radius-base) border border-gray-700 bg-gray-800 shadow-xl z-999 overflow-hidden">
-
           {/* Loading State */}
           {isLoading && (
             <div className="px-4 py-8 flex items-center justify-center">
@@ -84,8 +86,16 @@ export function SearchInput() {
                     }}
                   >
                     {/* Image Placeholder */}
-                    <div className="w-10 h-10 rounded-(--radius-base) bg-gray-700 shrink-0 flex items-center justify-center">
-                      <Search />
+                    <div className="w-10 h-10 rounded-(--radius-base) bg-gray-700 shrink-0 overflow-hidden">
+                      {item.imgUrl ? (
+                        <img
+                          src={item.imgUrl}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <Search className="w-5 h-5" />
+                      )}
                     </div>
 
                     {/* Info */}
@@ -100,7 +110,7 @@ export function SearchInput() {
 
                     {/* Price */}
                     <span className="text-sm font-semibold text-blue-400 shrink-0">
-                      {item.price.toLocaleString('tr-TR')}₺
+                      {item.price.toLocaleString("tr-TR")}₺
                     </span>
                   </li>
                 ))}

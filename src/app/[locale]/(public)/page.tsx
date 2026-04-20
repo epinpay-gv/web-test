@@ -37,8 +37,6 @@ export default async function Home({
 
   const res = await getMainPageData();
 
-  console.log("ANASAYFA", res);
-
   return (
     <>
       {/* SEO Content */}

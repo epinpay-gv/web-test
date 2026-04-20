@@ -46,8 +46,6 @@ export default function RafflesClient({
           <RaffleGrid
             data={data}
             onCardClick={(card: Raffle) => {
-              console.log("clicked card:", card); 
-              console.log("full data array:", data); 
               router.push(`/user/raffles/${card.id}`);
             }}
           />

@@ -11,29 +11,27 @@ import {
   NotifyWhenAvailablePayload,
   TopupModalDataApiResponse,
 } from "./catalog.types";
-import { cache } from "react";
 
 /* -------------------------- GET REQUESTS -------------------------- */
 
-export const getProducts = 
-  (search: Record<string, string | string[] | undefined>) => {
-    const params = new URLSearchParams();
-    Object.entries(search).forEach(([key, value]) => {
-      if (!value) return;
-      if (Array.isArray(value)) {
-        value.forEach((v) => params.append(key, v));
-      } else {
-        params.set(key, value);
-      }
-      console.log(value);
-    });
-    return baseFetcher<ProductsApiResponse>(
-      `/catalog/products?${params.toString()}`,
-    );
-  };
+export const getProducts = (
+  search: Record<string, string | string[] | undefined>,
+) => {
+  const params = new URLSearchParams();
+  Object.entries(search).forEach(([key, value]) => {
+    if (!value) return;
+    if (Array.isArray(value)) {
+      value.forEach((v) => params.append(key, v));
+    } else {
+      params.set(key, value);
+    }
+  });
+  params.set("per_page", "12");
+  return baseFetcher<ProductsApiResponse>(
+    `/catalog/products?${params.toString()}`,
+  );
+};
 
-
-// TODO : SEO schemaları ekle
 export const getCategories = (query: URLSearchParams) =>
   baseFetcher<CategoriesApiResponse>(`/catalog/categories?${query.toString()}`);
 
@@ -50,6 +48,7 @@ export const getCategory = (
       params.set(key, value);
     }
   });
+  params.set("per_page", "12");
   return baseFetcher<CategoryApiResponse>(
     `/catalog/${category}?${params.toString()}`,
   );

@@ -3,7 +3,9 @@ export interface SearchItem {
   title: string;
   category: string;
   price: number;
-  image: string;
+  imgUrl: string; 
+  type: 'product' | 'category';
+  slug: string;
 }
 
 export interface SearchFetcherResponse {

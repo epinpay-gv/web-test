@@ -14,8 +14,6 @@ export function useLogout() {
 
     logoutFromStore();
 
-    console.log('✅ [Logout] Çıkış başarılı');
-
     // router.push('/login');
     router.refresh();
   };
