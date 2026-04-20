@@ -6,24 +6,24 @@ import {
   userMenuSecondary,
 } from "@/features/user/data/userMenu.data";
 import { Sidebar } from "@/components/layout/Sidebar/Sidebar";
-
+import { useUserMe } from "@/features/user/hooks/useUserMe";
 interface UserLayoutProps {
   children: React.ReactNode;
 }
 
 export default function UserLayout({ children }: UserLayoutProps) {
-  //TODO : userdata endpointten gelmeli
+  const { data, isLoading } = useUserMe();  
   return (
       <div className="mx-auto flex max-w-322 gap-6 py-8 md:px-4">
         {/* SOL PANEL */}
         <Sidebar
           data={userMenu}
           userData={{
-            firstName: "İlsu",
-            lastName: "sunal",
-            email: "ilsusunal@gmail.com",
-            referralCode: "",
-            isEmailVerified: false,
+            firstName: data?.firstName || "",
+            lastName: data?.lastName || "",
+            email: data?.email || "",
+            referralCode: data?.referralCode || "",
+            isEmailVerified: data?.isIdentityVerified || false,
           }}
           secondaryData={userMenuSecondary}
         />

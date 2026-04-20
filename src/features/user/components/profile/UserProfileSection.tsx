@@ -51,7 +51,7 @@ export default function UserProfileSection({ user, content }: Props) {
         lastName: user.lastName,
         email: user.email,
     });
-
+    
     const [passwordForm, setPasswordForm] = useState({
         password: "",
         passwordRepeat: "",
@@ -137,6 +137,7 @@ export default function UserProfileSection({ user, content }: Props) {
                         <FormField label="Referans Kodu">
                             <Input
                                 value={user.referralCode}
+                                readOnly={true}
                                 rightIcon={<></>}
                                 className={INPUT_CLASS}
                             />

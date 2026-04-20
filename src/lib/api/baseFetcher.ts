@@ -1,7 +1,16 @@
 type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
-function getCookie(name: string): string | undefined {
-  if (typeof document === "undefined") return undefined;
+async function getCookie(name: string): Promise<string | undefined> {
+  if (typeof window === "undefined") {
+    try {
+      const { cookies } = await import("next/headers");
+      const cookieStore = await cookies();
+      return cookieStore.get(name)?.value;
+    } catch (e) {
+      console.warn(`[baseFetcher] Could not access cookies on server for ${name}`);
+      return undefined;
+    }
+  }
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop()?.split(";").shift();
@@ -27,12 +36,12 @@ export async function baseFetcher<TResponse, TBody = undefined>(
   // Kimlik doğrulama token'ını bul
   let token: string | undefined = undefined;
 
-  if (typeof window !== "undefined") {
-    // Çerezden oku
-    const cookieToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("accessToken="))
-      ?.split("=")[1];
+  if (typeof window === "undefined") {
+    // Server-side: next/headers kullan
+    token = await getCookie("accessToken");
+  } else {
+    // Client-side: document.cookie (veya localStorage) kullan
+    const cookieToken = await getCookie("accessToken");
 
     if (cookieToken) {
       token = cookieToken;
@@ -57,7 +66,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     "EP-Language": "",
     "EP-Currency": "",
     "epinpay-language": "tr-TR",
-    "x-currency-code": getCookie("currency") ?? "TRY",
+    "x-currency-code": (await getCookie("currency")) ?? "TRY",
     ...options.headers,
   };
 
@@ -65,21 +74,32 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     finalHeaders["Authorization"] = `Bearer ${token}`;
   }
 
-  console.log("Fetching:", finalUrl, finalHeaders);
-  const res = await fetch(finalUrl, {
-    method: options.method ?? "GET",
-    headers: finalHeaders,
-    body: options.body ? JSON.stringify(options.body) : undefined,
-    cache: options.cache,
-    credentials: "include", // Çerezleri gönder
-  });
+  let res: Response;
+  try {
+    res = await fetch(finalUrl, {
+      method: options.method ?? "GET",
+      headers: finalHeaders,
+      body: options.body ? JSON.stringify(options.body) : undefined,
+      cache: options.cache,
+      credentials: "include", // Çerezleri gönder
+    });
+  } catch (error: any) {
+    console.error("[baseFetcher] Fetch fundamentally failed (network, invalid url):", {
+      originalUrl: url,
+      finalUrl,
+      apiUrl,
+      errorMsg: error?.message,
+      cause: error?.cause?.message
+    });
+    throw error;
+  }
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
-    const message = errorData.message || msg;
+    const message = errorData.message || msg;    
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const error = new Error(message) as any;
-    error.status = res.status;
+    error.status = res.status;    
     throw error;
   }
 

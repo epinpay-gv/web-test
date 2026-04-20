@@ -9,7 +9,6 @@ const mockProfileSectionContent = {
 
 export default function ProfileClient() {
   const { data, isLoading } = useUserMe();
-
   if (isLoading) return null; // TODO: skeleton
   if (!data) return null;
 
@@ -19,7 +18,7 @@ export default function ProfileClient() {
         firstName: data.firstName ?? "",
         lastName: data.lastName ?? "",
         email: data.email ?? "",
-        referralCode: "",
+        referralCode: data.referralCode ?? "",
         isEmailVerified: data.isIdentityVerified,
       }}
       content={mockProfileSectionContent}

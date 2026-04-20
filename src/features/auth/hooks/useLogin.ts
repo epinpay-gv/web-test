@@ -149,8 +149,8 @@ export function useLogin(onSuccess?: () => void) {
         });
         if (response?.user) performLogin(response.user, state.formData.rememberMe, response.token, response.refreshToken);
         setState((prev) => ({ ...prev, isLoading: false }));
-      } catch (err: unknown) {
-        const code = err instanceof Error ? err.message : 'UNKNOWN_ERROR';
+      } catch (err: unknown) {        
+        const code = err instanceof Error ? err.message : 'UNKNOWN_ERROR';        
         setState((prev) => ({
           ...prev,
           isLoading: false,
@@ -197,6 +197,10 @@ function mapFirebaseError(code: string): string {
     'auth/invalid-credential': 'E-posta veya şifre hatalı.',
     'auth/too-many-requests': 'Çok fazla başarısız deneme. Hesabınız kilitlendi.',
     'auth/network-request-failed': 'İnternet bağlantınızı kontrol edin.',
+    'auth/email-not-verified': 'E-posta adresiniz doğrulanmamış. Lütfen e-postanızı kontrol edin ve doğrulayın.',
+    'auth/weak-password': 'Şifre çok zayıf.',
+    'auth/operation-not-allowed': 'Bu oturum açma yöntemi etkin değil.',
+    'auth/requires-recent-login': 'Bu işlem için yeniden oturum açmanız gerekiyor.',
   };
 
   const matched = Object.keys(errorMap).find(key => code.includes(key));

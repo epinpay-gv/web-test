@@ -64,16 +64,18 @@ export const authService = {
       credentials.email,
       credentials.password
     );
-    const firebaseToken = await userCredential.user.getIdToken();
+    const firebaseToken = await userCredential.user.getIdToken();    
     let response;
     if (!firebaseToken) {
       response = await baseFetcher<AuthResponse, { email: string; phone: string; reason: string; provider: string; }>(`${BASE_URL}/login-failed-attempt`, {
         method: 'POST', body: { email: credentials.email, phone: '', reason: 'no_token', provider: 'email', },
-      }, 'Login failed attempt gönderilemedi');
+      }, 'Login failed attempt gönderilemedi');      
       return response;
     }
+
+    const requestBody = { firebaseToken, email: credentials.email };
     response = await baseFetcher<AuthResponse, { firebaseToken: string; email: string }>(
-      `${BASE_URL}/login`, { method: 'POST', body: { firebaseToken, email: credentials.email, }, },
+      `${BASE_URL}/login`, { method: 'POST', body: requestBody },
       'Backend login başarısız'
     );
     return response;
