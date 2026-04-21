@@ -9,8 +9,8 @@ import { IconShape } from "@/components/common/IconShape/IconShape"
 export const Footer = () => {
   const supportLinks : FooterLink[] = [
     { label: "support@epinpay.com", href: "#"},
-    { label: "Çözüm Merkezi", href: "#"},
-    { label: "Destek Talebi Oluştur", href: "#"},
+    { label: "Çözüm Merkezi", href: "/user"},
+    { label: "Destek Talebi Oluştur", href: "/user"},
   ]
 
   const epinpayLinks : FooterLink[] = [
@@ -36,7 +36,7 @@ export const Footer = () => {
     { label: "Alıcı Koruma Politikası", href: "/legal/buyer-protection-policy"},
     // { label: "İletişim", href: "#"},
   ]
-
+ 
   const popularGameLinks : FooterLink[] = [
     { label: "PUBG Mobile", href: "#"},
     { label: "Valorant VP", href: "#"},
@@ -86,10 +86,10 @@ export const Footer = () => {
                 
                 <div className="flex gap-2">
                   {[
-                    { icon: X, name: "X/Twitter", href: "x.com/epinpay" },
+                    { icon: X, name: "X/Twitter", href: "https://x.com/epinpay" },
                     { icon: Youtube, name: "Youtube", href: "https://www.youtube.com/@epinpay" },
                     { icon: Facebook, name: "Facebook", href: "#" },
-                    { icon: Instagram,name: "Instagram",  href: "instagram.com/epinpayofficial" }
+                    { icon: Instagram,name: "Instagram",  href: "https://www.instagram.com/epinpayofficial/" }
                   ].map((social, idx) => (
                     <a 
                       key={idx} 

@@ -11,73 +11,142 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
+
 import clsx from "clsx";
-import { Check, ChevronDown } from "flowbite-react-icons/outline";
+import { Check } from "flowbite-react-icons/outline";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { Button } from "@/components/common";
+import { baseFetcher } from "@/lib/api/baseFetcher";
 
-const LANGUAGES = [
-  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-];
+interface Language {
+  code: string;
+  label: string;
+  flag: string;
+}
 
-const CURRENCIES = [
-  { code: "TRY", label: "TL", symbol: "₺" },
-  { code: "USD", label: "USD", symbol: "$" },
-  { code: "EUR", label: "EUR", symbol: "€" },
-];
+interface Currency {
+  code: string;
+  label: string;
+  symbol: string;
+}
+
+interface AppConfigResponse {
+  success: boolean;
+  data: {
+    languages: Language[];
+    currencies: Currency[];
+  };
+}
 
 export function LocaleDropdown() {
   const router = useRouter();
   const pathname = usePathname();
   const currentLocale = useLocale();
-  const [currency, setCurrency] = React.useState(CURRENCIES[0]);
 
-  // Cookie okuma yardımcısı
+  const [languages, setLanguages] = React.useState<Language[]>([]);
+  const [currencies, setCurrencies] = React.useState<Currency[]>([]);
+  const [currency, setCurrency] = React.useState<Currency | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+
+
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(";").shift();
-    return null;
+    return parts.length === 2
+      ? parts.pop()?.split(";").shift()
+      : null;
   };
 
-  // Cookie ayarlama yardımcısı
   const setCookie = (name: string, value: string) => {
     document.cookie = `${name}=${value}; path=/; max-age=31536000; SameSite=Lax`;
   };
 
+
+
   React.useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const response = await baseFetcher<AppConfigResponse>(
+          "/app-config"
+        );
+
+        if (response.success && response.data) {
+          console.log("APP-CONFIG RESPONSE:", response);
+          const { languages, currencies } = response.data;
+
+          setLanguages(languages);
+          setCurrencies(currencies);
+
+          initializeSelection(languages, currencies);
+        }
+      } catch (err) {
+        console.error("Config fetch error:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchConfig();
+  }, []);
+
+
+
+  const initializeSelection = (
+    availLangs: Language[],
+    availCurs: Currency[]
+  ) => {
     const savedCurrencyCode = getCookie("currency");
     const savedLang = getCookie("ep-language");
+
+    // currency
     if (savedCurrencyCode) {
-      const found = CURRENCIES.find((c) => c.code === savedCurrencyCode);
+      const found = availCurs.find((c) => c.code === savedCurrencyCode);
       if (found) setCurrency(found);
     } else {
-      let defaultCur = CURRENCIES.find((c) => c.code === "TRY");
-      if (currentLocale === "en") defaultCur = CURRENCIES.find((c) => c.code === "USD");
-      else if (["de", "fr"].includes(currentLocale)) defaultCur = CURRENCIES.find((c) => c.code === "EUR");
+      let defaultCur =
+        availCurs.find((c) => c.code === "TRY") ?? availCurs[0];
+
+      if (currentLocale === "en")
+        defaultCur = availCurs.find((c) => c.code === "USD") ?? defaultCur;
+      else if (["de", "fr"].includes(currentLocale))
+        defaultCur = availCurs.find((c) => c.code === "EUR") ?? defaultCur;
+
       if (defaultCur) {
         setCurrency(defaultCur);
         setCookie("currency", defaultCur.code);
       }
     }
-    if (!savedLang) setCookie("ep-language", currentLocale);
-  }, []); // Sadece mount anında bir kez çalışır
 
-  function handleLanguageChange(langCode: string) {
+    if (!savedLang) setCookie("ep-language", currentLocale);
+  };
+
+  /* ================= HANDLERS ================= */
+
+  const handleLanguageChange = (langCode: string) => {
     setCookie("ep-language", langCode);
     router.replace(pathname, { locale: langCode });
-  }
+  };
 
-  function handleCurrencyChange(cur: typeof CURRENCIES[0]) {
+  const handleCurrencyChange = (cur: Currency) => {
     setCurrency(cur);
     setCookie("currency", cur.code);
-  }
-  const currentLanguage = LANGUAGES.find((l) => l.code === currentLocale) ?? LANGUAGES[0];
-  const buttonName = `${currentLanguage.label} / ${currency.symbol} ${currency.label}  `
+  };
+
+  /* ================= DERIVED VALUES ================= */
+
+  const currentLanguage =
+    languages.find((l) => l.code === currentLocale) || languages[0];
+
+  const isReady =
+    languages.length > 0 && currencies.length > 0 && currency;
+
+  const buttonName = !isReady
+    ? "Loading..."
+    : `${currentLanguage.label} / ${currency?.symbol} ${currency?.label}`;
+
+  /* ================= UI ================= */
 
   return (
     <DropdownMenu>
@@ -90,6 +159,7 @@ export function LocaleDropdown() {
           appearance="filled"
           padding="sm"
           className="border-none! focus:ring-0 text-(--text-body) w-full"
+          disabled={isLoading}
         />
       </DropdownMenuTrigger>
 
@@ -98,30 +168,35 @@ export function LocaleDropdown() {
         sideOffset={8}
         className="w-56 bg-(--bg-neutral-secondary-soft)"
       >
-        {/* LANGUAGE SUBMENU */}
+        {/* LANGUAGE */}
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger className="text-(--text-body)">
+          <DropdownMenuSubTrigger>
             <span>Language</span>
           </DropdownMenuSubTrigger>
 
-          <DropdownMenuSubContent className="bg-(--bg-neutral-secondary-soft)">
-            {LANGUAGES.map((lang, index) => (
+          <DropdownMenuSubContent>
+            {languages.map((lang, index) => (
               <React.Fragment key={lang.code}>
                 <DropdownMenuItem
                   onClick={() => handleLanguageChange(lang.code)}
                   className={clsx(
                     "flex items-center justify-between cursor-pointer",
-                    currentLocale === lang.code && "bg-(--bg-neutral-tertiary)",
+                    currentLocale === lang.code &&
+                      "bg-(--bg-neutral-tertiary)"
                   )}
                 >
-                  <span className="text-(--text-body)">
+                  <span>
                     {lang.flag} {lang.label}
                   </span>
+
                   {currentLocale === lang.code && (
-                    <Check className="w-4 h-4 text-(--text-body)" />
+                    <Check className="w-4 h-4" />
                   )}
                 </DropdownMenuItem>
-                {index < LANGUAGES.length - 1 && <DropdownMenuSeparator />}
+
+                {index < languages.length - 1 && (
+                  <DropdownMenuSeparator />
+                )}
               </React.Fragment>
             ))}
           </DropdownMenuSubContent>
@@ -129,29 +204,33 @@ export function LocaleDropdown() {
 
         <DropdownMenuSeparator />
 
-        {/* CURRENCY SUBMENU */}
+        {/* CURRENCY */}
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger className="flex items-center text-(--text-body) justify-between">
+          <DropdownMenuSubTrigger>
             <span>Currency</span>
           </DropdownMenuSubTrigger>
 
-          <DropdownMenuSubContent className="bg-(--bg-neutral-secondary-soft)">
-            {CURRENCIES.map((cur, index) => (
+          <DropdownMenuSubContent>
+            {currencies.map((cur, index) => (
               <React.Fragment key={cur.code}>
                 <DropdownMenuItem
                   onClick={() => handleCurrencyChange(cur)}
                   className={clsx(
-                    "cursor-pointer flex justify-between",
-                    currency.code === cur.code && "bg-(--bg-neutral-tertiary)",
+                    "flex justify-between cursor-pointer",
+                    currency?.code === cur.code &&
+                      "bg-(--bg-neutral-tertiary)"
                   )}
                 >
-                  <span className="text-(--text-body)">{cur.label}</span>
-                  {currency.code === cur.code && (
-                    <Check className="w-4 h-4 text-(--text-body)" />
+                  <span>{cur.label}</span>
+
+                  {currency?.code === cur.code && (
+                    <Check className="w-4 h-4" />
                   )}
                 </DropdownMenuItem>
-                {/* Son eleman değilse separator ekle */}
-                {index < CURRENCIES.length - 1 && <DropdownMenuSeparator />}
+
+                {index < currencies.length - 1 && (
+                  <DropdownMenuSeparator />
+                )}
               </React.Fragment>
             ))}
           </DropdownMenuSubContent>
