@@ -29,9 +29,10 @@ export async function baseFetcher<TResponse, TBody = undefined>(
   options: FetcherOptions<TBody> = {},
   msg: string = "Request failed",
 ): Promise<TResponse> {
-  const apiUrl = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+  // const apiUrl = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
 
-  const finalUrl = url.startsWith("http") ? url : `${apiUrl}${url}`;
+  // const finalUrl = url.startsWith("http") ? url : `${apiUrl}${url}`;
+  const finalUrl = `${process.env.NEXT_PUBLIC_API_URL}${url}`;
 
   // Kimlik doğrulama token'ını bul
   let token: string | undefined = undefined;
@@ -77,6 +78,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
 
   let res: Response;
   try {
+    console.log("URL : ", finalUrl);
     res = await fetch(finalUrl, {
       method: options.method ?? "GET",
       headers: finalHeaders,
@@ -89,7 +91,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     console.error("[baseFetcher] Fetch fundamentally failed (network, invalid url):", {
       originalUrl: url,
       finalUrl,
-      apiUrl,
+      // apiUrl,
       errorMsg: error?.message,
       cause: error?.cause?.message
     });
