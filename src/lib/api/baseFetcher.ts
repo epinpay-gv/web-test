@@ -79,6 +79,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
   let res: Response;
   try {
     console.log("URL : ", finalUrl);
+    console.log("Headers : ", JSON.stringify(finalHeaders, null, 2));
     res = await fetch(finalUrl, {
       method: options.method ?? "GET",
       headers: finalHeaders,
