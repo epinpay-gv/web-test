@@ -67,7 +67,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     "EP-Currency": "",
     "epinpay-language": "tr-TR",
     "x-currency-code": (await getCookie("currency")) ?? "TRY",
-    "x-api-key": "AIzaSyBFUsWEISiImLREu2usXWXIjOpKowiGwjE",
+    "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY || "",
     ...options.headers,
   };
 
@@ -91,7 +91,8 @@ export async function baseFetcher<TResponse, TBody = undefined>(
       finalUrl,
       apiUrl,
       errorMsg: error?.message,
-      cause: error?.cause?.message
+      cause: error?.cause?.message,
+      stack: error?.stack
     });
     throw error;
   }

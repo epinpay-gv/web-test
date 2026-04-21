@@ -1,11 +1,15 @@
 interface UserPageHeaderProps {
-  title: string
+  title: string;
+  children?: React.ReactNode;
 }
 
-export default function UserPageHeader({ title }: UserPageHeaderProps) {
+export default function UserPageHeader({ title, children }: UserPageHeaderProps) {
   return (
-    <h1 className="text-(--text-body) text-[16px] border-b border-(--border-default) pb-3 mb-3">
-      {title}
-    </h1>
+    <div className="flex justify-between items-center border-b border-(--border-default) pb-3 mb-3">
+      <h1 className="text-(--text-body) text-[16px]">
+        {title}
+      </h1>
+      {children}
+    </div>
   )
 }

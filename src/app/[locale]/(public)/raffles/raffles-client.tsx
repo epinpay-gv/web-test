@@ -47,9 +47,9 @@ export default function RafflesClientPage({
   const slider2Data = data?.sliders.find((i) => i.line === 2);
   const slider3Data = data?.sliders.find((i) => i.line === 3);
 
-  const streamerIndex = Math.floor(data.banners.streamers.length / 2);
+  const streamerIndex = data?.banners?.streamers?.length > 0 ? Math.floor(data.banners.streamers.length / 2) : -1;
   const [selectedStreamer, setSelectedStreamer] = useState(
-    data.banners.streamers[streamerIndex].id,
+    streamerIndex !== -1 ? data.banners.streamers[streamerIndex].id : "",
   );
   const [selectedRaffle, setSelectedRaffle] = useState<Raffle | null>(null);
 

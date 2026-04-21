@@ -52,6 +52,9 @@ export function PrizeSection(props: SectionProps) {
       } else {
         const response = await createRaffleApi(data);
         if (response?.success) {
+          if (response.id) {
+            props.onUpdate({ id: response.id });
+          }
           alert(response.message || "Çekiliş başarıyla oluşturuldu.");
           if (onNext) onNext();
         }

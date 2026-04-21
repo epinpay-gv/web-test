@@ -2,9 +2,7 @@ import { baseFetcher } from "@/lib/api/baseFetcher";
 import { AllRafflesApiResponse, JoinRaffleApiPayload, RaffleFormData, RafflesApiResponse } from "./raffle.types";
 import { Raffle } from "@/types/types";
 
-const RAFFLE_BASE_URL = process.env.NEXT_PUBLIC_API_URL 
-  ? `${process.env.NEXT_PUBLIC_API_URL}/raffles` 
-  : "/api/raffles";
+const RAFFLE_BASE_URL = `${process.env.NEXT_PUBLIC_BFF_URL}/raffles`;
 
 export const getRaffles = () =>
   baseFetcher<RafflesApiResponse>(RAFFLE_BASE_URL);

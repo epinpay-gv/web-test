@@ -39,13 +39,13 @@ export default async function RafflesPage({
   const seoCollectionItems = res.data.sliders.map((raffle) => ({
     kind: "raffle" as const,
     "@type": "ListItem",
-    name: raffle.raffles[0].title,
+    name: raffle?.raffles[0]?.title,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-    description: raffle.raffles[0].description ?? "",
-    image: raffle.raffles[0].rewards?.[0].image ?? "",
-    startDate: raffle.raffles[0].startDate,
-    endDate: raffle.raffles[0].endDate,
+    description: raffle?.raffles[0]?.description ?? "",
+    image: raffle?.raffles[0]?.rewards?.[0]?.image ?? "",
+    startDate: raffle?.raffles[0]?.startDate,
+    endDate: raffle?.raffles[0]?.endDate,
     organizer: {
       "@type": "Organization",
       "@id": "https://www.epinpay.com/#organization",

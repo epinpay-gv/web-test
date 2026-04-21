@@ -23,7 +23,8 @@ export default function CreateRaffle({ data, editMode }: CreateRaffleProps) {
     prizes: [],
     amount: 0,
     winnerCount: 0,
-    reserveCount: 0
+    reserveCount: 0,
+    currencyId: 3
   };
   const [currentStep, setCurrentStep] = useState<RaffleStep>("info");
   const [formData, setFormData] = useState<RaffleFormData>(data ?? initialFormData);

@@ -55,7 +55,7 @@ export default function PreviewCard({ data }: PreviewCardProps) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [data.endDate]);  
+  }, [data.endDate]); 
   return (
     <div className="w-full h-full rounded-[40px] flex items-center justify-center p-8">
       <motion.div
