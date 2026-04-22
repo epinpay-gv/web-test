@@ -20,10 +20,6 @@ import {
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
-// const BASE_URL = 'http://192.168.1.117:3041/api/features/auth';
-// const BASE_URL = 'http://localhost:3041/api/features/auth';
-const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/auth`;
-
 export const authService = {
 
   /* =======================================
@@ -32,7 +28,7 @@ export const authService = {
 
   async initiateRegister(data: RegisterFormData): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, RegisterFormData>(
-      `${BASE_URL}/register/initiate`,
+      `/auth/register/initiate`,
       { method: 'POST', body: data },
       'Kayıt başlatılamadı'
     );
@@ -40,7 +36,7 @@ export const authService = {
 
   async verifyOtp(email: string, otpCode: string): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, { email: string; otpCode: string }>(
-      `${BASE_URL}/register/verify`,
+      `/auth/register/verify`,
       { method: 'POST', body: { email, otpCode } },
       'OTP doğrulama başarısız'
     );
@@ -48,7 +44,7 @@ export const authService = {
 
   async resendOtp(email: string): Promise<AuthResponse> {
     return baseFetcher<AuthResponse, { email: string }>(
-      `${BASE_URL}/register/resend`,
+      `/auth/register/resend`,
       { method: 'POST', body: { email } },
       'OTP tekrar gönderilemedi'
     );
@@ -67,7 +63,7 @@ export const authService = {
     const firebaseToken = await userCredential.user.getIdToken();    
     let response;
     if (!firebaseToken) {
-      response = await baseFetcher<AuthResponse, { email: string; phone: string; reason: string; provider: string; }>(`${BASE_URL}/login-failed-attempt`, {
+      response = await baseFetcher<AuthResponse, { email: string; phone: string; reason: string; provider: string; }>(`/auth/login-failed-attempt`, {
         method: 'POST', body: { email: credentials.email, phone: '', reason: 'no_token', provider: 'email', },
       }, 'Login failed attempt gönderilemedi');      
       return response;
@@ -75,7 +71,7 @@ export const authService = {
 
     const requestBody = { firebaseToken, email: credentials.email };
     response = await baseFetcher<AuthResponse, { firebaseToken: string; email: string }>(
-      `${BASE_URL}/login`, { method: 'POST', body: requestBody },
+      `/auth/login`, { method: 'POST', body: requestBody },
       'Backend login başarısız'
     );
     return response;
