@@ -83,10 +83,10 @@ export default async function middleware(request: NextRequest) {
   
   // Güvenli: httpOnly cookie'den token payload'unu al
   const tokenPayload = accessToken ? getTokenPayload(accessToken) : null;
-  // const isLoggedIn = !!tokenPayload && !isTokenExpired(accessToken!);
-  const isLoggedIn = true;
+  const isLoggedIn = !!tokenPayload && !isTokenExpired(accessToken!);
   
   // Gerçek JWT payload yapısına göre rolü al: { user: { roles: ["USER"], ... } }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userRoles: string[] = (tokenPayload as any)?.user?.roles || [];
   const primaryRole = userRoles[0]?.toLowerCase() || '';
 

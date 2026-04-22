@@ -7,7 +7,6 @@ interface PrivateLayoutProps {
 }
 
 export default function PrivateLayout({ children }: PrivateLayoutProps) {
-  //TODO : userdata endpointten gelmeli
   return (
       <div className="flex min-h-screen flex-col ">
         <Header />

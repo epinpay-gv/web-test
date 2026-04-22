@@ -48,19 +48,19 @@ export default async function Home({
       {res.data.bestsellers && (
         <BestSellersSection data={res.data.bestsellers} />
       )}
-      {res.data.streamerRaffles && (
+      {/* {res.data.streamerRaffles && (
         <StreamerRafflesSection data={res.data.streamerRaffles} />
-      )}
-      {res.data.epinpayRaffles && (
+      )} */}
+      {/* {res.data.epinpayRaffles && (
         <EpinpayRafflesSection data={res.data.epinpayRaffles} />
-      )}
+      )} */}
       <EpinpayCardsSection />
-      {res.data.epinpayStreamers && (
+      {/* {res.data.epinpayStreamers && (
         <EpinpayStreamersSection data={res.data.epinpayStreamers} />
-      )}
-      {res.data.bestsellers && (
+      )} */}
+      {/* {res.data.bestsellers && (
         <BestSellersSection data={res.data.bestsellers} />
-      )}
+      )} */}
       <StreamerBannerSection />
       {/* <PremiumSection data={res.data.premium} /> */}
     </>
