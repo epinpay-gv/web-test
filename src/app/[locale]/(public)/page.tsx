@@ -48,7 +48,7 @@ export default async function Home({
       {res.data.bestsellers && (
         <BestSellersSection data={res.data.bestsellers} />
       )}
-      {/* {res.data.streamerRaffles && (
+      {/* {res.data.streamerRaffles?.length > 0 && (
         <StreamerRafflesSection data={res.data.streamerRaffles} />
       )} */}
       {/* {res.data.epinpayRaffles && (

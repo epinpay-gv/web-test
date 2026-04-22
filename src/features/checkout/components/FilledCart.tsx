@@ -73,7 +73,7 @@ export function FilledCart({
   }, [onRemoveItem, outOfStockModal.products]);
 
   const handleBeforeNext = useCallback((): boolean => {
-    const outOfStockItems = items.filter((item) => !item.basePrice);
+    const outOfStockItems = items.filter((item) => !item.unitPrice);
     if (outOfStockItems.length > 0) {
       openOutOfStockModal(outOfStockItems);
       return false;

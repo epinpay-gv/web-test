@@ -76,8 +76,12 @@ export function PaymentCart({
         ...(!user?.email && guestEmail ? { guestEmail } : {}),
         ...extras,
       });
-      const { paylink } = await paymentService.initiatePayment(payload);
-      router.push(paylink);
+      const { paylink, orderId } = await paymentService.initiatePayment(payload);
+      if (paylink) {
+        router.push(paylink);
+      } else {
+        router.push(`/checkout/success?order_id=${orderId}`);
+      }
     } catch (error) {
       console.error("Ödeme başlatılamadı:", error);
     } finally {
