@@ -67,7 +67,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     "EP-Language": "",
     "EP-Currency": "",
     "epinpay-language": "tr-TR",
-    "x-currency-code": (await getCookie("currency")) ?? "TRY",
+    "x-currency-id": (await getCookie("currency")) ?? "3",
     "x-api-key": "AIzaSyBFUsWEISiImLREu2usXWXIjOpKowiGwjE",
     ...options.headers,
   };
