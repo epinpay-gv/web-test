@@ -1,5 +1,12 @@
-import { FAQ, PageMetadata, PaginationData, ParticipationConstraint, Raffle } from "@/types/types";
+import { FAQ, PageMetadata, PaginationData, ParticipationConstraint, Product, Raffle } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
+
+export interface SearchProductsApiResponse {
+  metadata: PageMetadata[];
+  data: Product[];
+  pagination: PaginationData;
+  filters: FilterGroupConfig[];
+}
 
 export type SingleValue = string | undefined;
 export interface BannerSectionData {
@@ -69,6 +76,9 @@ export interface RaffleFormData {
   winnerCount: number;
   reserveCount: number;
   currencyId: number;
+  paymentMethodId?: string;
+  creatorType?: "STORE" | "STREAMER" | "ADMIN";
+  creatorId?: string;
 }
 
 export interface SectionProps {
@@ -81,6 +91,8 @@ export interface SectionProps {
 
 export interface RafflePrize {
   id: string;          
+  productId: string;
+  offerId: string;
   name: string;        
   image?: string;      
   count: number;  

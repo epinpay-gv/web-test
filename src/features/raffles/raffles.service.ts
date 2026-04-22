@@ -1,6 +1,6 @@
 import { baseFetcher } from "@/lib/api/baseFetcher";
-import { AllRafflesApiResponse, JoinRaffleApiPayload, RaffleFormData, RafflesApiResponse } from "./raffle.types";
-import { Raffle } from "@/types/types";
+import { AllRafflesApiResponse, JoinRaffleApiPayload, RaffleFormData, RafflesApiResponse, SearchProductsApiResponse } from "./raffle.types";
+import { Product, Raffle } from "@/types/types";
 
 const RAFFLE_BASE_URL = `${process.env.NEXT_PUBLIC_BFF_URL}/raffles`;
 
@@ -27,8 +27,8 @@ export const getRaffleById = (id: string) =>
  * Yeni Çekiliş Oluşturma
  */
 export const createRaffleApi = (data: RaffleFormData) =>
-  baseFetcher<{ success: boolean; message: string; id: string }, RaffleFormData>(
-    RAFFLE_BASE_URL,
+  baseFetcher<{ success: boolean; message: string; data: { id: string }; paymentUrl?: string }, RaffleFormData>(
+    `${RAFFLE_BASE_URL}/`,
     {
       method: "POST",
       body: data,
@@ -48,3 +48,6 @@ export const updateRaffleApi = (id: string, data: RaffleFormData) =>
     },
     "Çekiliş güncellenirken bir hata oluştu"
   );
+
+export const searchProductsApi = (query: string) =>
+  baseFetcher<SearchProductsApiResponse>(`${process.env.NEXT_PUBLIC_BFF_URL}/catalog/prizes/search?search=${encodeURIComponent(query)}`);

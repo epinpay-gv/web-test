@@ -4,6 +4,7 @@ import { useRef, useEffect, useState, useMemo } from 'react';
 import { Search } from 'flowbite-react-icons/outline';
 import { Input } from '@/components/common';
 import { Product } from '@/types/types';
+import { searchProductsApi } from '../../../raffles.service';
 import Image from 'next/image';
 
 interface PrizeSearchInputProps {
@@ -40,9 +41,8 @@ export function PrizeSearchInput({
       
       setIsLoading(true);
       try {
-        const res = await fetch(`/api/products/search?q=${encodeURIComponent(query)}`);
-        const data = await res.json();        
-        setResults(Array.isArray(data) ? data : []);
+        const response = await searchProductsApi(query);
+        setResults(response.data || []);
         setIsOpen(true);
       } catch (err) {
         console.error("Search error:", err);
@@ -119,7 +119,7 @@ export function PrizeSearchInput({
                     </span>
                   </div>
                   <span className="text-xs font-bold text-cyan-400">
-                    {(item.basePrice ?? 0).toLocaleString('tr-TR')}₺
+                    {(item.cheapestOffer ?? 0).toLocaleString('tr-TR')}₺
                   </span>
                 </li>
               ))}

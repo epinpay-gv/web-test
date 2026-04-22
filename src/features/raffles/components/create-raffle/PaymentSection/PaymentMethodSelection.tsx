@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import { createRaffleApi } from "@/features/raffles/raffles.service";
+import { toast } from "react-toastify";
 import { PaymentMethodItem } from "@/features/checkout/components/PaymentMethodItem";
 import { PaymentSummary } from "@/features/checkout/components/PaymentSummary";
 import { usePaymentMethods } from "@/features/checkout/hooks/usePaymentMethods";
@@ -17,7 +19,7 @@ interface PaymentMethodSelectionProps {
 
 export function PaymentMethodSelection({ data, discount, wantsInvoice, onBack }: PaymentMethodSelectionProps) {
   const router = useRouter();
-  const { methods, isLoading } = usePaymentMethods();
+  const { methods, isLoading, error } = usePaymentMethods();
   const [selectedMethodId, setSelectedMethodId] = useState<string>("");
   const [isPaying, setIsPaying] = useState(false);
 
@@ -42,19 +44,21 @@ export function PaymentMethodSelection({ data, discount, wantsInvoice, onBack }:
 
     try {
       setIsPaying(true);
-      const extras = buildRequiredFields(selectedMethod);
-      
-      const payload: RafflePaymentPayload = {
-        context: "raffle",
+      const payload = {
+        ...data,
         paymentMethodId: selectedMethodId,
-        raffleData: data,
-        ...extras,
       };
 
-      const { paylink } = await paymentService.initiatePayment(payload);
-      if (paylink) router.push(paylink);
-    } catch (error) {
-      console.error("Ödeme hatası:", error);
+      const response = await createRaffleApi(payload);
+      
+      if (response.success && response.paymentUrl) {
+        window.location.href = response.paymentUrl;
+      } else if (response.success) {
+        toast.success("Çekiliş başarıyla oluşturuldu!");
+        router.push("/raffles/my-raffles");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Ödeme başlatılamadı.");
     } finally {
       setIsPaying(false);
     }
@@ -65,14 +69,24 @@ export function PaymentMethodSelection({ data, discount, wantsInvoice, onBack }:
       <div className="lg:col-span-3 space-y-6">
         <h2 className="text-xl font-semibold text-(--text-heading)">Ödeme Yöntemi Seçin</h2>
         <div className="flex flex-col gap-3">
-          {methods.map((method) => (
-            <PaymentMethodItem
-              key={method.id}
-              method={method}
-              isSelected={selectedMethodId === method.id}
-              onSelect={setSelectedMethodId}
-            />
-          ))}
+          {isLoading ? (
+            <div className="py-10 text-center text-(--text-body)">Yükleniyor...</div>
+          ) : error ? (
+            <div className="py-10 text-center text-(--text-fg-danger)">{error}</div>
+          ) : methods.length > 0 ? (
+            methods.map((method) => (
+              <PaymentMethodItem
+                key={method.id}
+                method={method}
+                isSelected={selectedMethodId === method.id}
+                onSelect={setSelectedMethodId}
+              />
+            ))
+          ) : (
+            <div className="py-10 text-center text-(--text-body)">
+              Ödeme yöntemi bulunamadı. Lütfen daha sonra tekrar deneyiniz.
+            </div>
+          )}
         </div>
         <button onClick={onBack} className="text-sm underline text-(--text-body)">
           Geri dön

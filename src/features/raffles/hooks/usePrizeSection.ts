@@ -21,10 +21,19 @@ export function usePrizeSection({ data, onUpdate, onNext }: Partial<SectionProps
   }, [data?.prizes]);
 
   useEffect(() => {
-    if (onUpdate && (data?.amount !== totalAmount || data?.prizeCount !== totalQuantity)) {
-      onUpdate({ amount: totalAmount, prizeCount: totalQuantity });
+    const effectiveWinner = winnerCount === "" || winnerCount === 0 ? totalPrizeCount : (winnerCount as number);
+    const effectiveReserve = reserveCount === "" ? 0 : (reserveCount as number);
+
+    const updates: Partial<RaffleFormData> = {};
+    if (data?.amount !== totalAmount) updates.amount = totalAmount;
+    if (data?.prizeCount !== totalQuantity) updates.prizeCount = totalQuantity;
+    if (data?.winnerCount !== effectiveWinner) updates.winnerCount = effectiveWinner;
+    if (data?.reserveCount !== effectiveReserve) updates.reserveCount = effectiveReserve;
+
+    if (onUpdate && Object.keys(updates).length > 0) {
+      onUpdate(updates);
     }
-  }, [totalAmount, totalQuantity, data?.amount, data?.prizeCount, onUpdate]);
+  }, [totalAmount, totalQuantity, winnerCount, reserveCount, totalPrizeCount, data?.amount, data?.prizeCount, data?.winnerCount, data?.reserveCount, onUpdate]);
 
   const isOverLimit = useMemo(() => {
     const effectiveWinner = winnerCount === "" || winnerCount === 0 ? totalPrizeCount : winnerCount;
@@ -66,7 +75,7 @@ export function usePrizeSection({ data, onUpdate, onNext }: Partial<SectionProps
   const addPrizeRow = useCallback(() => {
     if (!onUpdate || !canAddMore) return;
     onUpdate({ 
-      prizes: [...(data?.prizes || []), { id: '', name: '', count: 1, price: 0, totalStock: 999 }] 
+      prizes: [...(data?.prizes || []), { id: '', productId: '', offerId: '', name: '', count: 1, price: 0, totalStock: 999 }] 
     });
   }, [data?.prizes, onUpdate, canAddMore]);
 
@@ -77,7 +86,7 @@ export function usePrizeSection({ data, onUpdate, onNext }: Partial<SectionProps
     // Eğer tek satır varsa veya ilk satırsa ve id'si varsa satırı silme, içini temizle
     if (current.length === 1) {
       onUpdate({ 
-        prizes: [{ id: '', name: '', count: 1, price: 0, totalStock: 999 }] 
+        prizes: [{ id: '', productId: '', offerId: '', name: '', count: 1, price: 0, totalStock: 999 }] 
       });
     } else {
       // Birden fazla satır varsa o indeksi tamamen uçur

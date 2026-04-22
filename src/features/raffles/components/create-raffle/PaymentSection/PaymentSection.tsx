@@ -16,6 +16,7 @@ type SubStep = "review" | "payment";
 
 export function PaymentSection({ data, onPrev }: PaymentSectionProps) {
   const [subStep, setSubStep] = useState<SubStep>("review");
+  const [isCreating, setIsCreating] = useState(false);
   const [checkoutData, setCheckoutData] = useState({
     discount: 0,
     wantsInvoice: false

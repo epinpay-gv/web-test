@@ -24,7 +24,7 @@ export function PrizeSection(props: SectionProps) {
   const prizes = data.prizes || [];
   
   const selectedProductIds = useMemo(() => {
-    return prizes.map(p => p.id).filter(id => !!id) as string[];
+    return prizes.map(p => p.productId).filter(id => !!id) as string[];
   }, [prizes]);
 
   useEffect(() => {
@@ -42,27 +42,22 @@ export function PrizeSection(props: SectionProps) {
   const handleFinalAction = async () => {
     if (!isFormValid) return;
 
-    setIsPending(true);
-    try {
-      if (editMode && data.id) {
+    if (editMode && data.id) {
+      setIsPending(true);
+      try {
         const response = await updateRaffleApi(data.id, data);
         if (response?.success) {
           alert(response.message || "Çekiliş başarıyla güncellendi.");
-        }
-      } else {
-        const response = await createRaffleApi(data);
-        if (response?.success) {
-          if (response.id) {
-            props.onUpdate({ id: response.id });
-          }
-          alert(response.message || "Çekiliş başarıyla oluşturuldu.");
           if (onNext) onNext();
         }
+      } catch (error) {
+        console.error("Güncelleme hatası:", error);
+      } finally {
+        setIsPending(false);
       }
-    } catch (error) {
-      console.error("İşlem hatası:", error);
-    } finally {
-      setIsPending(false);
+    } else {
+      // Create raffle logic is now handled in PaymentSection
+      if (onNext) onNext();
     }
   };
 
@@ -89,9 +84,11 @@ export function PrizeSection(props: SectionProps) {
                     editMode={editMode}
                     placeholder="Ürün ara"
                     selectedValue={prize.name}                  
-                    excludedIds={selectedProductIds.filter(id => id !== prize.id)}
+                    excludedIds={selectedProductIds.filter(id => id !== prize.productId)}
                     onSelect={(product: Product) => updatePrize(index, { 
-                        id: String(product.id), 
+                        id: product.cheapestOffer?.id || String(product.id), 
+                        productId: String(product.id),
+                        offerId: product.cheapestOffer?.id || "",
                         name: product.translation.name,
                         price: product.basePrice ?? 0,
                         totalStock: product.totalStock ?? 0,
