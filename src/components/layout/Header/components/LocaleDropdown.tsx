@@ -122,7 +122,7 @@ export function LocaleDropdown() {
     if (!savedLang) setCookie("ep-language", currentLocale);
   };
 
-  /* ================= HANDLERS ================= */
+
 
   const handleLanguageChange = (langCode: string) => {
     setCookie("ep-language", langCode);
@@ -134,7 +134,7 @@ export function LocaleDropdown() {
     setCookie("currency", cur.code);
   };
 
-  /* ================= DERIVED VALUES ================= */
+
 
   const currentLanguage =
     languages.find((l) => l.code === currentLocale) || languages[0];
@@ -146,7 +146,7 @@ export function LocaleDropdown() {
     ? "Loading..."
     : `${currentLanguage.label} / ${currency?.symbol} ${currency?.label}`;
 
-  /* ================= UI ================= */
+
 
   return (
     <DropdownMenu>
@@ -182,7 +182,7 @@ export function LocaleDropdown() {
                   className={clsx(
                     "flex items-center justify-between cursor-pointer",
                     currentLocale === lang.code &&
-                      "bg-(--bg-neutral-tertiary)"
+                    "bg-(--bg-neutral-tertiary)"
                   )}
                 >
                   <span>
@@ -218,7 +218,7 @@ export function LocaleDropdown() {
                   className={clsx(
                     "flex justify-between cursor-pointer",
                     currency?.code === cur.code &&
-                      "bg-(--bg-neutral-tertiary)"
+                    "bg-(--bg-neutral-tertiary)"
                   )}
                 >
                   <span>{cur.label}</span>
