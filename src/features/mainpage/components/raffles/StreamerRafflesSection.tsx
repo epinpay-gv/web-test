@@ -24,7 +24,7 @@ export default function StreamerRafflesSection({
 
   const streamerIndex =  Math.floor(data.length / 2);
   const [selectedStreamer, setSelectedStreamer] = useState(
-    data[streamerIndex].id,
+    data[streamerIndex]?.id ?? 0
   );
   const [selectedRaffle, setSelectedRaffle] = useState<Raffle | null>(null);
 
