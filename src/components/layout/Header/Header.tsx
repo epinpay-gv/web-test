@@ -76,9 +76,9 @@ export function Header() {
               </div>
             ) : (
               <div className="flex items-center gap-1 md:gap-3">
-                <div className="hidden md:block">
+                {/* <div className="hidden md:block">
                   <NotificationDropdown />
-                </div>
+                </div> */}
                 <div className="relative">
                   <UserDropdown user={user} />
                 </div>
