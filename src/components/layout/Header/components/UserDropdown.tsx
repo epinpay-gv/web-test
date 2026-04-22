@@ -92,9 +92,9 @@ export function UserDropdown({ user }: UserDropdownProps) {
                   {!(user.name || user.surname) && <span>{user.email}</span>}
                 </div>
                 <div className="mt-2">
-                  <button onClick={() => router.push('/premium')} className="cursor-pointer bg-(--bg-neutral-primary-soft) py-0.5 px-3 rounded-(--radius-base) border border-(--border-default) text-(--text-fg-yellow) font-medium flex items-center gap-1 text-[11px] hover:bg-(--bg-neutral-primary-medium) transition-colors">
+                  {/* <button onClick={() => router.push('/premium')} className="cursor-pointer bg-(--bg-neutral-primary-soft) py-0.5 px-3 rounded-(--radius-base) border border-(--border-default) text-(--text-fg-yellow) font-medium flex items-center gap-1 text-[11px] hover:bg-(--bg-neutral-primary-medium) transition-colors">
                     <Star size={14} /> Premium ol
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
@@ -121,7 +121,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
                 </div>
 
                 {/* EP Point */}
-                <div className="bg-(--bg-neutral-primary-strong) flex items-center justify-between rounded-(--radius-base) border border-(--border-default-medium) p-2">
+                {/* <div className="bg-(--bg-neutral-primary-strong) flex items-center justify-between rounded-(--radius-base) border border-(--border-default-medium) p-2">
                   <div className="leading-[150%] space-y-1">
                     <div className="text-(--text-body) text-xs font-medium">
                       EP Puan
@@ -137,7 +137,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
                     className="rounded-full max-w-36 text-sm font-medium gap-1 py-1!"
                     iconLeft={<InfoCircle size={14}/>}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </DropdownMenuLabel>

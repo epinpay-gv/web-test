@@ -3,7 +3,7 @@ import { User, ShoppingBag, Receipt, Heart, SalePercent, Messages, Bell, Star, C
 export const userMenu = [
     {icon: User, label: "Kullanıcı Bilgilerim", url: "/user"},
     {icon: ShoppingBag, label: "Siparişlerim", url: "/user/orders"},
-    {icon: Receipt, label: "Çekilişlerim", url: "/user/raffles"},
+    // {icon: Receipt, label: "Çekilişlerim", url: "/user/raffles"},
     // {icon: Heart, label: "Favorilerim", url: "/user/favorites"},
     // {icon: SalePercent, label: "Kuponlarım", url: "/user/coupons"},
     // {icon: Messages, label: "Mesajlarım", url: "/user/messages"},
@@ -14,6 +14,6 @@ export const userMenu = [
 
 export const userMenuSecondary = [
     // {icon: UserHeadset, label: "Destek Taleplerim", url: "/user/tickets"},
-    {icon: UsersGroup, label: "Yayıncı Başvurusu", url: "/user/streamer-application"},
+    // {icon: UsersGroup, label: "Yayıncı Başvurusu", url: "/user/streamer-application"},
     // {icon: LifeSaver, label: "Yardım", url: "/support-hub"},
 ]

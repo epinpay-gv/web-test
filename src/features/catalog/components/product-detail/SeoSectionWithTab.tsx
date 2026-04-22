@@ -65,7 +65,7 @@ export default function SeoSectionWithTab({
 
   return (
     <div className="flex flex-col gap-10">
-      <div className="sticky top-0 z-20 py-2 bg-(--bg-variants-gray) w-full">
+      <div className="sticky top-0 z-1 py-2 bg-(--bg-variants-gray) w-full">
         <NavTab
           items={tabs}
           activeValue={activeTab}

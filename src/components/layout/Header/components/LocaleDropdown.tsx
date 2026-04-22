@@ -12,16 +12,14 @@ import {
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
 import clsx from "clsx";
-import { Check, ChevronDown } from "flowbite-react-icons/outline";
+import { Check } from "flowbite-react-icons/outline";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { Button } from "@/components/common";
 
 const LANGUAGES = [
-  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "tr", label: "Türkçe", flag: "TR" },
+  { code: "en", label: "English", flag: "EN" },
 ];
 
 const CURRENCIES = [

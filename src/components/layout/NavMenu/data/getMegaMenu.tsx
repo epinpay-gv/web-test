@@ -7,27 +7,27 @@ export function getMegaMenu(t: (key: string) => string) {
         {
           title: "Cüzdan Kodları ve Hediye Kartları",
           description: "Cüzdan kodları ve hediye kartlarını anında satın alın.",
-          url: "/products?productType=2",
+          url: "/products?type=2",
         },
 
         {
           title: "Konsol ve Abonelik Hizmetleri",
           description:
             "Konsol üyelikleri ve abonelik paketlerine kolayca erişin.",
-          url: "/products?productType=4",
+          url: "/products?type=4",
         },
 
         {
           title: "Yazılım ve Lisanslar",
           description:
             "Orijinal yazılım lisanslarını hızlı teslimat avantajıyla edinin.",
-          url: "/products?productType=1",
+          url: "/products?type=1",
         },
         {
           title: "Oyun Pinleri",
           description:
             "Kodlarla hesabınızı hızlı ve güvenli şekilde güçlendirin.",
-          url: "/products?productType=3",
+          url: "/products?type=3",
         },
       ],
       productLinks: [

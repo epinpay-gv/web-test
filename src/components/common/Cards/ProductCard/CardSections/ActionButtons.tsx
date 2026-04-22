@@ -102,7 +102,7 @@ export function ActionButtons({
         textSize="xs"
         variant="brand"
         text="Hemen Al"
-        className="w-full font-medium z-10"
+        className="w-full font-medium z-1"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
