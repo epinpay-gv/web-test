@@ -26,6 +26,7 @@ interface Language {
 }
 
 interface Currency {
+  id: number;
   code: string;
   label: string;
   symbol: string;
@@ -97,26 +98,32 @@ export function LocaleDropdown() {
     availLangs: Language[],
     availCurs: Currency[]
   ) => {
-    const savedCurrencyCode = getCookie("currency");
+    const savedCurrencyId = getCookie("currency");
     const savedLang = getCookie("ep-language");
 
-    // currency
-    if (savedCurrencyCode) {
-      const found = availCurs.find((c) => c.code === savedCurrencyCode);
-      if (found) setCurrency(found);
-    } else {
-      let defaultCur =
-        availCurs.find((c) => c.code === "TRY") ?? availCurs[0];
+    let currencyToSet: Currency | undefined;
+
+    if (savedCurrencyId) {
+      currencyToSet = availCurs.find((c) => c.id.toString() === savedCurrencyId);
+      
+      // Geriye dönük uyumluluk: Eğer cookie'de ID yerine 'TRY' gibi bir code kaldıysa
+      if (!currencyToSet) {
+        currencyToSet = availCurs.find((c) => c.code === savedCurrencyId);
+      }
+    }
+
+    if (!currencyToSet) {
+      currencyToSet = availCurs.find((c) => c.code === "TRY") ?? availCurs[0];
 
       if (currentLocale === "en")
-        defaultCur = availCurs.find((c) => c.code === "USD") ?? defaultCur;
+        currencyToSet = availCurs.find((c) => c.code === "USD") ?? currencyToSet;
       else if (["de", "fr"].includes(currentLocale))
-        defaultCur = availCurs.find((c) => c.code === "EUR") ?? defaultCur;
+        currencyToSet = availCurs.find((c) => c.code === "EUR") ?? currencyToSet;
+    }
 
-      if (defaultCur) {
-        setCurrency(defaultCur);
-        setCookie("currency", defaultCur.code);
-      }
+    if (currencyToSet) {
+      setCurrency(currencyToSet);
+      setCookie("currency", currencyToSet.id.toString());
     }
 
     if (!savedLang) setCookie("ep-language", currentLocale);
@@ -131,7 +138,8 @@ export function LocaleDropdown() {
 
   const handleCurrencyChange = (cur: Currency) => {
     setCurrency(cur);
-    setCookie("currency", cur.code);
+    setCookie("currency", cur.id.toString());
+    router.refresh();
   };
 
 
@@ -210,7 +218,7 @@ export function LocaleDropdown() {
             <span>Currency</span>
           </DropdownMenuSubTrigger>
 
-          <DropdownMenuSubContent>
+          <DropdownMenuSubContent className="max-h-[300px] overflow-y-auto">
             {currencies.map((cur, index) => (
               <React.Fragment key={cur.code}>
                 <DropdownMenuItem
