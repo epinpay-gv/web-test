@@ -139,7 +139,7 @@ export default function ProductCard({
     return <div className={cardClasses}>{content}</div>;
   }
 
-  const productHref = `/${product.translation.category_slug}/${product.translation.slug}`;
+  const productHref = `${process.env.NEXT_PUBLIC_SITE_URL}/${product.translation.category_slug}/${product.translation.slug}`;
 
   return (
     <Link href={productHref} className={cardClasses}>

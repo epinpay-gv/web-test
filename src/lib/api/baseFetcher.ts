@@ -67,8 +67,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     "EP-Language": "",
     "EP-Currency": "",
     "epinpay-language": "tr-TR",
-    "x-currency-id": "3",
-    // "x-currency-id": (await getCookie("currency")) ?? "3",
+    "x-currency-id": (await getCookie("currency")) ?? "3",
     "x-api-key": "AIzaSyBFUsWEISiImLREu2usXWXIjOpKowiGwjE",
     ...options.headers,
   };
@@ -88,7 +87,7 @@ export async function baseFetcher<TResponse, TBody = undefined>(
       cache: options.cache,
       credentials: "include", // Çerezleri gönder
     });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("[baseFetcher] Fetch fundamentally failed (network, invalid url):", {
       originalUrl: url,
@@ -102,10 +101,10 @@ export async function baseFetcher<TResponse, TBody = undefined>(
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
-    const message = errorData.message || msg;    
+    const message = errorData.message || msg;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const error = new Error(message) as any;
-    error.status = res.status;    
+    error.status = res.status;
     throw error;
   }
 
