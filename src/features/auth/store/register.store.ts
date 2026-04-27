@@ -29,7 +29,7 @@ export const useRegisterStore = create<RegisterState>((set) => ({
   },
   isLoading: false,
   error: null,
-  otpExpiresIn: 10, // Varsayılan 5 dakika
+  otpExpiresIn: 60, // İlk aşamada 60 saniye
   setStep: (step) => set({ step }),
   updateFormData: (data) => set((state) => ({ 
     formData: { ...state.formData, ...data } 
@@ -37,5 +37,5 @@ export const useRegisterStore = create<RegisterState>((set) => ({
   setIsLoading: (isLoading) => set({ isLoading }),
   setError: (error) => set({ error }),
   setOtpExpiresIn: (otpExpiresIn) => set({ otpExpiresIn }),
-  reset: () => set({ step: 'form', error: null, otpExpiresIn: 300 }),
+  reset: () => set({ step: 'form', error: null, otpExpiresIn: 60 }),
 }));

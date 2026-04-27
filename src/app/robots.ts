@@ -5,18 +5,19 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
-        disallow: [
-          '/api',
-          '/checkout',
-          '/search',
-          '/account',
-          '/products',
-          '/categories/',
-          '/user',
-          '/store',
-          '/cdn-cgi',
-        ],
+        // allow: '/',
+        // disallow: [
+        //   '/api',
+        //   '/checkout',
+        //   '/search',
+        //   '/account',
+        //   '/products',
+        //   '/categories/',
+        //   '/user',
+        //   '/store',
+        //   '/cdn-cgi',
+        // ],
+        disallow: '/',
       },
     ],
     sitemap: [

@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 interface Props {
   email: string;
   onVerify: (otp: string) => void;
-  onResend: () => void;
+  onResend: () => Promise<void> | void;
   isLoading: boolean;
   serverError?: string;
   expiresIn?: number; 

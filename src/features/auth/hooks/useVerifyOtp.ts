@@ -5,7 +5,7 @@ import { useRegisterStore } from "../store/register.store";
 
 interface UseVerifyOtpProps {
   onVerify: (otp: string) => void;
-  onResend: () => void;
+  onResend: () => Promise<void> | void;
   isLoading: boolean;
   expiresIn?: number;
 }
@@ -18,8 +18,11 @@ export function useVerifyOtp({
 }: UseVerifyOtpProps) {
   const store = useRegisterStore();
   const [otp, setOtp] = useState("");
-  // const [timeLeft, setTimeLeft] = useState(expiresIn);
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [timeLeft, setTimeLeft] = useState(expiresIn);
+
+  useEffect(() => {
+    setTimeLeft(expiresIn);
+  }, [expiresIn]);
 
   const canResend = useMemo(() => timeLeft === 0, [timeLeft]);
   const isExpired = useMemo(() => timeLeft === 0, [timeLeft]);
@@ -60,12 +63,19 @@ export function useVerifyOtp({
     }
   };
 
-  const handleResend = () => {
+  const handleResend = async () => {
     if (!canResend || isLoading) return;
 
     setOtp("");
-    setTimeLeft(expiresIn);
-    onResend();
+    await onResend();
+    
+    // Using setTimeout to read the updated store after synchronous state updates
+    setTimeout(() => {
+      const currentStore = useRegisterStore.getState();
+      if (!currentStore.error) {
+        setTimeLeft(currentStore.otpExpiresIn);
+      }
+    }, 0);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
