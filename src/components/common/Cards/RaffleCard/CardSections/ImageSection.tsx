@@ -4,17 +4,9 @@ import { motion } from "framer-motion";
 import { ParticipationConstraint, Raffle, CreatorType } from "@/types/types";
 
 const BADGE_TEXT: Record<ParticipationConstraint, string> = {
-  EVERYONE: "Epinpay çekilişi",
+  EVERYONE: "",
   PREMIUM: "Premium üyelere özel",
   REFERENCE: "Referanslı üyelere özel",
-  FOLLOWER: "",
-  ROLE: "",
-};
-
-const BACKGROUND_CLASSES: Record<ParticipationConstraint, string> = {
-  EVERYONE: "",
-  PREMIUM: "bg-[url('/raffles-page/type-gold.webp')] bg-cover bg-center",
-  REFERENCE: "bg-[url('/raffles-page/type-gray.webp')] bg-cover bg-center",
   FOLLOWER: "",
   ROLE: "",
 };
@@ -92,9 +84,7 @@ export default function ImageSection({
   type = "special",
   orientation = "vertical",
 }: ImageSectionProps) {
-  const rewards = card.rewards ?? [];
-
-  // If categoryCount > 1, multi-reward fan in first state else 1 image only
+  const rewards = card.rewards ?? [];  
   const visibleRewards =
     card.categoryCount > 1
       ? rewards.slice(0, 3)
@@ -102,17 +92,23 @@ export default function ImageSection({
 
   const isMulti = card.categoryCount > 1 && visibleRewards.length > 1;
 
-  // Main div bg class
-  const backgroundClass = (() => {
-    if (orientation !== "vertical" || type !== "special") return "";
-    if (card.creatorType === CreatorType.PLATFORM)
-      return "bg-[url('/raffles-page/type-blue.webp')] bg-cover bg-center";
-    if (
-      card.constraint === ParticipationConstraint.PREMIUM ||
-      card.constraint === ParticipationConstraint.REFERENCE
-    )
-      return BACKGROUND_CLASSES[card.constraint];
-    return "";
+  const bgImage = (() => {
+    if (orientation !== "vertical" || type !== "special") return null;
+    
+    if (card.creatorType === CreatorType.PLATFORM) {
+      return "/raffles-page/type-blue.webp";
+    }
+    
+    if (card.constraint === ParticipationConstraint.PREMIUM) {
+      return "/raffles-page/type-gold.webp";
+    }
+    
+    if (card.constraint === ParticipationConstraint.REFERENCE) {
+      return "/raffles-page/type-gray.webp";
+    }
+
+    // Default for other types if special
+    return "/raffles-page/type-blue.webp";
   })();
 
   // Main div layout class
@@ -134,7 +130,12 @@ export default function ImageSection({
 
   return (
     <div
-      className={`flex items-center justify-center relative shrink-0 ${backgroundClass} ${layoutClass}`}
+      className={`flex items-center justify-center relative shrink-0 ${layoutClass}`}
+      style={bgImage ? { 
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      } : {}}
     >
       {/* Image stack container */}
       <div className={IMAGE_STACK_CLASSES[type]}>
@@ -177,17 +178,28 @@ export default function ImageSection({
         </p>
       </div>
 
-      {/* Special Badge */}
-      {type === "special" && orientation === "vertical" && (
+      {/* Participant Badge - Only for PREMIUM or REFERENCE */}
+      {type === "special" && 
+       orientation === "vertical" && 
+       (card.constraint === ParticipationConstraint.PREMIUM || card.constraint === ParticipationConstraint.REFERENCE) && (
         <div
-          className={`absolute rounded-sm py-0 5 px-2 text-sm bg-neutral-700/50 bottom-2 text-neutral-700 font-base
-        `}
+          className="absolute rounded-sm py-0.5 px-2 text-[10px] font-bold bottom-2 tracking-wide uppercase"
+          style={{
+            backgroundColor: card.constraint === ParticipationConstraint.PREMIUM 
+              ? 'var(--bg-warning-soft)' 
+              : 'var(--bg-neutral-tertiary-medium)',
+            border: `1px solid ${card.constraint === ParticipationConstraint.PREMIUM 
+              ? 'var(--border-warning-subtle)' 
+              : 'var(--border-default)'}`,
+            color: card.constraint === ParticipationConstraint.PREMIUM 
+              ? 'var(--text-fg-yellow)' 
+              : 'var(--text-body)'
+          }}
         >
-          {card.creatorType === CreatorType.PLATFORM
-            ? BADGE_TEXT[ParticipationConstraint.EVERYONE]
-            : BADGE_TEXT[card.constraint]}
+          {BADGE_TEXT[card.constraint]}
         </div>
       )}
     </div>
   );
 }
+

@@ -13,13 +13,6 @@ export default async function MyRafflesPage({
   const res = await getRaffles(search);
   return (
     <div>
-      <UserPageHeader title="Çekilişlerim">
-        <Link href="/create-raffle">
-          <Button size="sm" className="h-9 px-4">
-            Yeni Çekiliş Oluştur
-          </Button>
-        </Link>
-      </UserPageHeader>
       <RafflesClient
         data={res.data}
         initialFilters={res.filters}

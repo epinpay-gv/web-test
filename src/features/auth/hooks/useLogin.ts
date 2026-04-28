@@ -62,7 +62,7 @@ export function useLogin(onSuccess?: () => void) {
           uid: user.uid,
           email: user.email,
           displayName: user.displayName || '',
-          role: user.role || 'user',
+          roles: user.roles || ['user'],
           epPoints: user.epPoints || 0,
           balance: user.balance || 0,
           id: user.uid || user.id || ''

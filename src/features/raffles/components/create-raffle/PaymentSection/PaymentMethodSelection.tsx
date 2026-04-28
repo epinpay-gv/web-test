@@ -9,6 +9,7 @@ import { usePaymentMethods } from "@/features/checkout/hooks/usePaymentMethods";
 import { paymentService, buildRequiredFields } from "@/features/checkout/checkout.service";
 import { RaffleFormData } from "../../../raffle.types";
 import { RafflePaymentPayload } from "@/features/checkout/types";
+import { useAuthStore } from "@/features/auth/store/auth.store";
 
 interface PaymentMethodSelectionProps {
   data: RaffleFormData;
@@ -29,24 +30,42 @@ export function PaymentMethodSelection({ data, discount, wantsInvoice, onBack }:
   );
 
   const paymentValues = useMemo(() => {
-    const productTotal = data.amount - discount;
+    const productTotal = (data?.amount || 0) - (discount || 0);
     const commissionRate = parseFloat((selectedMethod?.commission ?? "0").replace("%", "")) / 100;
-    const commission = productTotal * commissionRate;
+    const commission = productTotal * (isNaN(commissionRate) ? 0 : commissionRate);
     
     return {
-      commission,
-      total: productTotal + commission,
+      commission: commission || 0,
+      total: productTotal + (commission || 0),
     };
-  }, [selectedMethod, data.amount, discount]);
+  }, [selectedMethod, data?.amount, discount]);
+
+  const { user } = useAuthStore();
 
   const handlePayment = async () => {
     if (!selectedMethod) return;
 
     try {
       setIsPaying(true);
+
+      // Determine creatorType based on user roles
+      let creatorType: "ADMIN" | "STREAMER" | "STORE" = "ADMIN";
+      const roles = user?.roles?.map(r => r.toUpperCase()) || [];
+      
+      if (roles.includes("STREAMER")) {
+        creatorType = "STREAMER";
+      } else if (roles.includes("STORE")) {
+        creatorType = "STORE";
+      } else if (roles.includes("ADMIN")) {
+        creatorType = "ADMIN";
+      }
+      
       const payload = {
         ...data,
         paymentMethodId: selectedMethodId,
+        amount: paymentValues.total,
+        totalAmount: paymentValues.total, // Added both for safety
+        creatorType: creatorType,
       };
 
       const response = await createRaffleApi(payload);
@@ -55,10 +74,13 @@ export function PaymentMethodSelection({ data, discount, wantsInvoice, onBack }:
         window.location.href = response.paymentUrl;
       } else if (response.success) {
         toast.success("Çekiliş başarıyla oluşturuldu!");
-        router.push("/raffles/my-raffles");
+        router.push(`/create-raffle/result/${response.data?.id || 'success'}?status=success`);
+      } else {
+        router.push("/create-raffle/result/failed?status=error");
       }
     } catch (err: any) {
       toast.error(err.message || "Ödeme başlatılamadı.");
+      router.push("/create-raffle/result/failed?status=error");
     } finally {
       setIsPaying(false);
     }
@@ -95,11 +117,11 @@ export function PaymentMethodSelection({ data, discount, wantsInvoice, onBack }:
 
       <div className="lg:col-span-2">
         <PaymentSummary
-          productCount={data.prizeCount}
-          productTotalAmount={data.amount - discount}
-          comission={paymentValues.commission}
+          productCount={data?.prizeCount || 0}
+          productTotalAmount={(data?.amount || 0) - (discount || 0)}
+          comission={paymentValues?.commission || 0}
           taxes={0}
-          totalAmount={paymentValues.total}
+          totalAmount={paymentValues?.total || 0}
           onPay={handlePayment}
           isPaying={isPaying || !selectedMethodId}
         />

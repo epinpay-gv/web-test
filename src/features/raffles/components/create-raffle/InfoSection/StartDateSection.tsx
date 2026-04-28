@@ -6,9 +6,10 @@ import { AnimatePresence, motion } from "framer-motion";
 interface Props {
   data: RaffleFormData;
   onUpdate: (data: Partial<RaffleFormData>) => void;
+  disabled?: boolean;
 }
 
-export const StartDateSection = ({ data, onUpdate }: Props) => (
+export const StartDateSection = ({ data, onUpdate, disabled }: Props) => (
   <div className="flex flex-col gap-5">
     <div className="flex flex-col gap-1">
       <label className="text-base font-bold text-(--text-heading) tracking-wider ml-1">
@@ -25,6 +26,7 @@ export const StartDateSection = ({ data, onUpdate }: Props) => (
       label="Başlangıç tarih ve saatini ayarla"
       labelClass="text-sm font-medium "
       checked={data.startDate !== undefined}
+      disabled={disabled}
       onCheckedChange={(checked) => {
         onUpdate({ startDate: checked ? new Date().toISOString() : undefined });
       }}
@@ -47,6 +49,7 @@ export const StartDateSection = ({ data, onUpdate }: Props) => (
                 theme="light"
                 value={data.startDate}
                 onChange={(val) => onUpdate({ startDate: val })}
+                disabled={disabled}
               />
             </div>
             <div className="flex flex-col gap-2 w-1/2">
@@ -55,7 +58,7 @@ export const StartDateSection = ({ data, onUpdate }: Props) => (
                 theme="light"
                 value={data.startDate}
                 onChange={(val) => onUpdate({ startDate: val })}
-                disabled={!data.startDate}
+                disabled={disabled || !data.startDate}
               />
             </div>
           </div>

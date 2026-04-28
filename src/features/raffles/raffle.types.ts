@@ -52,11 +52,12 @@ export interface AllRafflesApiResponse {
 }
 
 export interface JoinRaffleApiPayload {
-  raffleId: string;
+  raffleId?: string;
+  couponCode?: string;
 }
 
-export interface TakeRafflePriceApiPayload{
-  raffleId: string;
+export interface TakeRafflePriceApiPayload {
+  raffleId?: string;
 }
 
 export type RaffleStep = "info" | "prize" | "payment";

@@ -119,7 +119,7 @@ export function PrizeSearchInput({
                     </span>
                   </div>
                   <span className="text-xs font-bold text-cyan-400">
-                    {(item.cheapestOffer ?? 0).toLocaleString('tr-TR')}₺
+                    {(item.cheapestOffer?.amount ?? item.basePrice ?? 0).toLocaleString('tr-TR')}₺
                   </span>
                 </li>
               ))}

@@ -8,12 +8,14 @@ interface RaffleGridProps {
   data: Raffle[];
   isLoading?: boolean;
   onCardClick?: (card: Raffle) => void;
+  onEdit?: (card: Raffle) => void;
 }
 
 export default function RaffleGrid({
   data,
   isLoading = false,
-  onCardClick
+  onCardClick,
+  onEdit
 }: RaffleGridProps) {
   const t = useTranslations("common.messages");
   const tBtn = useTranslations("common.buttons");
@@ -21,9 +23,11 @@ export default function RaffleGrid({
   return (
     <>
       {data.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 auto-rows-max">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
           {data.map((card, index) => (
-            <RaffleCard card={card} key={index} onCardClick={onCardClick}/>
+            <div key={index} className="flex flex-col gap-2">
+              <RaffleCard card={card} onCardClick={onCardClick}/>              
+            </div>
           ))}
         </div>
       ) : (

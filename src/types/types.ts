@@ -147,6 +147,9 @@ export interface CategoryTranslation extends Translation {
 
 export interface Offer {
   id: string;
+  amount: number;
+  currency?: string;
+  total_stock?: number;
 }
 
 export interface Comment {

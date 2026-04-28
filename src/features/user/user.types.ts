@@ -2,7 +2,7 @@ import { PaginationData, Raffle } from "@/types/types";
 import { FilterGroupConfig } from "../filters/filters.types";
 
 // User
-export type UserRole = "USER" | "ADMIN";
+export type UserRole = "USER" | "ADMIN" | "STORE" | "STREAMER";
 
 export interface User {
   id: string;

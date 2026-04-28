@@ -1,5 +1,5 @@
 import CreateRaffle from "@/features/raffles/components/create-raffle/CreateRaffle";
-import { getRaffleById } from "@/features/raffles/raffles.service"; 
+import { getRaffleById } from "@/features/user/user.service";
 import { mapRaffleToFormData } from "@/features/raffles/utils/raffleMapper";
 import { notFound } from "next/navigation";
 
@@ -15,15 +15,17 @@ export default async function UpdateRafflePage({ params }: PageProps) {
 
   let raffleData = null;  
   try {
-    raffleData = await getRaffleById(id);
+    const res = await getRaffleById(id);
+    raffleData = res.data || res; 
   } catch (error) {
     console.error("Veri çekme hatası:", error);
-    return <div className="p-10 text-white">Veriler yüklenirken bir hata oluştu.</div>;
-  }
-
-  if (!raffleData) {
     return notFound();
   }
+
+  if (!raffleData || !raffleData.title) {
+    return notFound();
+  }
+
   const formData = {
     ...mapRaffleToFormData(raffleData),
     id: id 

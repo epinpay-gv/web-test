@@ -1,5 +1,10 @@
+"use client";
 import { getTimeLeft } from "@/lib/utils";
 import { Raffle } from "@/types/types";
+import { useAuthStore } from "@/features/auth/store/auth.store";
+import { joinToRaffle } from "@/features/raffles/raffles.service";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 interface CardInfoProps {
   card: Raffle;
@@ -14,6 +19,39 @@ export default function CardInfo({
   type = "special",
   orientation = "vertical",
 }: CardInfoProps) {
+  const { user } = useAuthStore();
+  const [isJoining, setIsJoining] = useState(false);
+
+  const isOwner = user?.id === card.creatorId;
+
+  const handleJoin = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Kart tıklamasını (detay sayfasına gitmeyi) engelle
+    
+    if (!user) {
+      toast.info("Lütfen önce giriş yapın.");
+      return;
+    }
+
+    if (isOwner) {
+      toast.warning("Kendi oluşturduğunuz çekilişe katılamazsınız.");
+      return;
+    }
+
+    try {
+      setIsJoining(true);
+      const res = await joinToRaffle(card.id);
+      if (res.success) {
+        toast.success("Çekilişe başarıyla katıldınız!");
+      } else {
+        toast.error(res.message || "Katılım sağlanamadı.");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Bir hata oluştu.");
+    } finally {
+      setIsJoining(false);
+    }
+  };
+
   const raffleInfo = [
     {
       title: "Ödül Değeri",
@@ -84,10 +122,13 @@ export default function CardInfo({
         {/* ACTION DIV */}
         {card.status === "ACTIVE" && (
           <div
+            onClick={handleJoin}
             className={`${orientation === "vertical" && type === "special" ? "w-full h-13 md:h-14" : "w-full h-14.5"} 
-        cursor-pointer text-xs font-base rounded-lg py-0.5 md:py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center`}
+        cursor-pointer text-xs font-base rounded-lg py-0.5 md:py-1.5 px-3 bg-(--bg-brand) shadow-xs flex flex-col gap-1 items-center ${isJoining ? "opacity-50 pointer-events-none" : ""}`}
           >
-            <p className="text-black leading-5">Hemen katıl</p>
+            <p className="text-black leading-5 font-bold">
+              {isJoining ? "Katılıyor..." : isOwner ? "Kendi Çekilişiniz" : "Hemen katıl"}
+            </p>
             <div className="rounded-sm py-0.5 px-2 bg-(--bg-brand-soft) text-(--text-fg-brand) leading-4">
               Son {getTimeLeft(card.endDate)}
             </div>

@@ -28,6 +28,8 @@ export const mapRaffleToFormData = (raffle: Raffle): RaffleFormData => {
 
     return {
       id: reward.id,
+      productId: reward.productId || "",
+      offerId: reward.offerId || "",
       name: reward.name,
       image: prizeImage,
       count: reward.quantity,
@@ -53,5 +55,6 @@ export const mapRaffleToFormData = (raffle: Raffle): RaffleFormData => {
     reserveCount: 0,
     constraint: raffle.constraint,
     prizes: mappedPrizes,
+    currencyId: raffle.currencyId || 3,
   };
 };

@@ -22,7 +22,7 @@ export interface AuthResponse {
 }
 
 export interface UserProfile {
-  role: string;
+  roles: string[];
   displayName: string;
   uid: string;
   epPoints: number;

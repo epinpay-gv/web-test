@@ -4,9 +4,10 @@ import { RaffleFormData } from "@/features/raffles/raffle.types";
 interface Props {
   data: RaffleFormData;
   onUpdate: (data: Partial<RaffleFormData>) => void;
+  disabled?: boolean;
 }
 
-export const RaffleDescriptionSection = ({ data, onUpdate }: Props) => (
+export const RaffleDescriptionSection = ({ data, onUpdate, disabled }: Props) => (
   <div className="flex flex-col w-1/2 gap-2">
     <label className="text-sm font-bold text-(--text-heading) tracking-wider">
       Çekiliş Açıklaması
@@ -17,6 +18,7 @@ export const RaffleDescriptionSection = ({ data, onUpdate }: Props) => (
       placeholder="Çekiliş açıklaması girebilirsiniz"
       rows={5}
       className="bg-(--bg-neutral-secondary-medium)! border-(--border-default-medium)"
+      disabled={disabled}
     />
     <p className="text-xs text-(--text-body)">Opsiyonel</p>
   </div>

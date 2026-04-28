@@ -38,10 +38,10 @@ export async function baseFetcher<TResponse, TBody = undefined>(
 
   if (typeof window === "undefined") {
     // Server-side: next/headers kullan
-    token = await getCookie("accessToken");
+    token = (await getCookie("accessToken")) || (await getCookie("token")) || (await getCookie("firebaseToken"));
   } else {
     // Client-side: document.cookie (veya localStorage) kullan
-    const cookieToken = await getCookie("accessToken");
+    const cookieToken = (await getCookie("accessToken")) || (await getCookie("token")) || (await getCookie("firebaseToken"));
 
     if (cookieToken) {
       token = cookieToken;
@@ -60,6 +60,8 @@ export async function baseFetcher<TResponse, TBody = undefined>(
       }
     }
   }
+
+  if (token === "") token = undefined;
 
   const finalHeaders: Record<string, string> = {
     "Content-Type": "application/json",
@@ -84,16 +86,14 @@ export async function baseFetcher<TResponse, TBody = undefined>(
       cache: options.cache,
       credentials: "include", // Çerezleri gönder
     });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error("[baseFetcher] Fetch fundamentally failed (network, invalid url):", {
-      originalUrl: url,
-      finalUrl,
-      apiUrl,
-      errorMsg: error?.message,
-      cause: error?.cause?.message,
-      stack: error?.stack
-    });
+    console.error(`[baseFetcher] Fetch fundamentally failed (network, invalid url):
+originalUrl: ${url}
+finalUrl: ${finalUrl}
+apiUrl: ${apiUrl}
+errorMsg: ${error?.message}
+cause: ${error?.cause?.message}
+stack: ${error?.stack}`);
     throw error;
   }
 

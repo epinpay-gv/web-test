@@ -133,7 +133,7 @@ export const authService = {
         uid: result.user.uid,
         email: result.user.email || '',
         displayName: result.user.displayName || '',
-        role: 'user',
+        roles: ['user'],
         epPoints: 0,
         balance: 0,
         id: result.user.uid

@@ -43,9 +43,9 @@ export default function RafflesClientPage({
 }: RafflesClientProps) {
   const { joinToTheRaffle } = useRaffleActions();
 
-  const slider1Data = data?.sliders.find((i) => i.line === 1);
-  const slider2Data = data?.sliders.find((i) => i.line === 2);
-  const slider3Data = data?.sliders.find((i) => i.line === 3);
+  const slider1Data = data?.sliders?.find((i) => i.line === 1);
+  const slider2Data = data?.sliders?.find((i) => i.line === 2);
+  const slider3Data = data?.sliders?.find((i) => i.line === 3);
 
   const streamerIndex = data?.banners?.streamers?.length > 0 ? Math.floor(data.banners.streamers.length / 2) : -1;
   const [selectedStreamer, setSelectedStreamer] = useState(
@@ -60,7 +60,7 @@ export default function RafflesClientPage({
   return (
     <>
       {/* MAIN BANNER */}
-      {data.activeParticipantCount && <MainBanner data={data.activeParticipantCount} />}
+      {data?.activeParticipantCount !== undefined && <MainBanner data={data.activeParticipantCount} />}
 
       {/* PREMIUM SLIDER */}
       {slider1Data && (
@@ -72,23 +72,25 @@ export default function RafflesClientPage({
       )}
 
       {/* STREAMER BANNER */}
-      {data.banners.streamers && <BannerSection
-        accentColor="#8B0836"
-        left={
-          <StreamerBannerLeft
-            data={data.banners.streamers}
-            selectedId={selectedStreamer}
-            onSelect={handleStreamerChange}
-          />
-        }
-        right={
-          <StreamerBannerRight
-            data={data.banners.streamers}
-            selectedId={selectedStreamer}
-            onCardClick={(raffle) => setSelectedRaffle(raffle)}
-          />
-        }
-      />}
+      {data?.banners?.streamers && data.banners.streamers.length > 0 && (
+        <BannerSection
+          accentColor="#8B0836"
+          left={
+            <StreamerBannerLeft
+              data={data.banners.streamers}
+              selectedId={selectedStreamer}
+              onSelect={handleStreamerChange}
+            />
+          }
+          right={
+            <StreamerBannerRight
+              data={data.banners.streamers}
+              selectedId={selectedStreamer}
+              onCardClick={(raffle) => setSelectedRaffle(raffle)}
+            />
+          }
+        />
+      )}
 
       {/* REFERENCE SLIDER */}
       {slider2Data && (
@@ -100,16 +102,18 @@ export default function RafflesClientPage({
       )}
 
       {/* EPINPAY BANNER */}
-      {data.banners.featured && <BannerSection
-        accentColor="#615FFF"
-        left={
-          <FeaturedBannerLeft
-            data={data.banners.featured}
-            onCardClick={(raffle) => setSelectedRaffle(raffle)}
-          />
-        }
-        right={<FeaturedBannerRight data={data.banners.featured} />}
-      />}
+      {data?.banners?.featured && (
+        <BannerSection
+          accentColor="#615FFF"
+          left={
+            <FeaturedBannerLeft
+              data={data.banners.featured}
+              onCardClick={(raffle) => setSelectedRaffle(raffle)}
+            />
+          }
+          right={<FeaturedBannerRight data={data.banners.featured} />}
+        />
+      )}
 
       <div className="relative flex flex-col gap-4 pt-20 items-center overflow-hidden">
         {/* BACKGROUND IMAGE */}
@@ -126,9 +130,11 @@ export default function RafflesClientPage({
         />
         <div className="relative z-10 w-full flex flex-col gap-4 items-center">
           {/* CARDS */}
-          {data.activeParticipantCount && <DescriptionCards
-            activeParticipantCount={data.activeParticipantCount}
-          />}
+          {data?.activeParticipantCount !== undefined && (
+            <DescriptionCards
+              activeParticipantCount={data.activeParticipantCount}
+            />
+          )}
 
           {/* EPINPAY SLIDER */}
           {slider3Data && (
@@ -141,10 +147,10 @@ export default function RafflesClientPage({
           )}
 
           {/* WINNERS */}
-          {data.winners && <Winners data={data.winners} />}
+          {data?.winners && <Winners data={data.winners} />}
 
           {/* FAQ */}
-          {data.faq && <FAQSection data={data.faq} />}
+          {data?.faq && <FAQSection data={data.faq} />}
 
           {/* FOOTER IMAGE */}
           <div className="relative w-full h-88.25">

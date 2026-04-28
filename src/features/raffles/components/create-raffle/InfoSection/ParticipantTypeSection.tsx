@@ -13,9 +13,10 @@ interface Props {
   data: RaffleFormData;
   onUpdate: (data: Partial<RaffleFormData>) => void;
   options: ParticipantOption[];
+  disabled?: boolean;
 }
 
-export const ParticipantTypeSection = ({ data, onUpdate, options }: Props) => {
+export const ParticipantTypeSection = ({ data, onUpdate, options, disabled }: Props) => {
   
   useEffect(() => {
     if (!data.constraint) {
@@ -36,7 +37,7 @@ export const ParticipantTypeSection = ({ data, onUpdate, options }: Props) => {
             label={option.label}
             variant="square"          
             checked={data.constraint === option.value}
-            disabled={option.disabled}
+            disabled={disabled || option.disabled}
             onCheckedChange={(checked) => {
               if (checked) onUpdate({ constraint: option.value });
             }}

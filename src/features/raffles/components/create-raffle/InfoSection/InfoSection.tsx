@@ -9,7 +9,12 @@ import { StartDateSection } from "./StartDateSection";
 import { ButtonsSection } from "./ButtonsSection";
 import { useMemo } from "react";
 
-export function InfoSection({  data, onUpdate, onNext }: SectionProps) {
+interface ExtendedInfoSectionProps extends SectionProps {
+  editMode?: boolean;
+  isUpdating?: boolean;
+}
+
+export function InfoSection({ data, onUpdate, onNext, editMode, isUpdating }: ExtendedInfoSectionProps) {
   const constraintOptions = [
     { value: ParticipationConstraint.EVERYONE, label: "Herkes", disabled: false },
     { value: ParticipationConstraint.REFERENCE, label: "Referanslılara özel", disabled: false },
@@ -41,38 +46,45 @@ export function InfoSection({  data, onUpdate, onNext }: SectionProps) {
   const isFormInvalid = useMemo(() => {
     return (
       !data.title || data.title.trim() === "" || 
-      !data.constraint ||                         
+      (!editMode && !data.constraint) ||                         
       !data.endDate                               
     );
-  }, [data.title, data.constraint, data.endDate]);
+  }, [data.title, data.constraint, data.endDate, editMode]);
 
   return (
     <div className="space-y-10 p-6 bg-(--bg-neutral-primary-soft) rounded-l-(--radius-base)">
       <div className="border-b border-(--border-default) pb-4 text-(--text-body) font-medium">
-        Çekiliş oluşturuluyor
+        {editMode ? "Çekiliş düzenleniyor" : "Çekiliş oluşturuluyor"}
       </div>
 
       <RaffleNameSection data={data} onUpdate={onUpdate} />
       
-      <RaffleDescriptionSection data={data} onUpdate={onUpdate} />
+      <RaffleDescriptionSection data={data} onUpdate={onUpdate} disabled={editMode} />
 
       <ParticipantTypeSection 
         data={data} 
         onUpdate={onUpdate} 
         options={constraintOptions} 
+        disabled={editMode}
       />
 
       <ParticipationTypeSection 
         data={data} 
         onUpdate={onUpdate} 
         types={participationTypes} 
+        disabled={editMode}
       />
 
       <EndDateSection data={data} onUpdate={onUpdate} />
         
-      <StartDateSection data={data} onUpdate={onUpdate} />  
+      <StartDateSection data={data} onUpdate={onUpdate} disabled={editMode} />  
 
-      <ButtonsSection onNext={onNext} disabled={isFormInvalid} />
+      <ButtonsSection 
+        onNext={onNext} 
+        disabled={isFormInvalid || isUpdating} 
+        editMode={editMode}
+        isUpdating={isUpdating}
+      />
     </div>
   );
 }

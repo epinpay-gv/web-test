@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
-import { RafflePrize, SectionProps } from "../raffle.types";
+import { RaffleFormData, RafflePrize, SectionProps } from "../raffle.types";
 import { Product } from "@/types/types";
 import { toast } from "react-toastify";
 

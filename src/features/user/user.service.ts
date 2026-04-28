@@ -94,9 +94,10 @@ export const getRaffles = (
       params.set(key, value);
     }
   });
-  // return baseFetcher<RafflesPageApiResponse>(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/user/raffles?${params.toString()}`,
-  // );
+  if (!params.has('limit')) {
+    params.set('limit', '3');
+  }
+
   return baseFetcher<RafflesPageApiResponse>(
     `${process.env.NEXT_PUBLIC_BFF_URL}/user/raffles?${params.toString()}`,
   );
@@ -108,4 +109,13 @@ export const getRaffleById = (id: string) =>
   // );
   baseFetcher<RaffleDetailPageApiResponse>(
     `${process.env.NEXT_PUBLIC_BFF_URL}/user/raffles/${id}`,
+  );
+
+export const updateRaffle = (id: string, data: { title?: string, endDate?: string }) =>
+  baseFetcher<any, { title?: string, endDate?: string }>(
+    `${process.env.NEXT_PUBLIC_BFF_URL}/user/raffles/${id}`,
+    {
+      method: "PATCH",
+      body: data,
+    },
   );

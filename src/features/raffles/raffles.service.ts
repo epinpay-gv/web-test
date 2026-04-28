@@ -7,14 +7,14 @@ const RAFFLE_BASE_URL = `${process.env.NEXT_PUBLIC_BFF_URL}/raffles`;
 export const getRaffles = () =>
   baseFetcher<RafflesApiResponse>(RAFFLE_BASE_URL);
 
-export const joinToRaffle = (payload: JoinRaffleApiPayload) =>
-  baseFetcher<{ success: boolean }, JoinRaffleApiPayload>(
-    RAFFLE_BASE_URL,
+export const joinToRaffle = (id: string, payload: JoinRaffleApiPayload = {}) =>
+  baseFetcher<{ success: boolean; message: string }, JoinRaffleApiPayload>(
+    `${RAFFLE_BASE_URL}/${id}/join`,
     {
       method: "POST",
       body: payload,
     },
-    "Sepete eklenemedi",
+    "Çekilişe katılım sağlanamadı"
   );
 
 export const getAllRaffles = () =>
@@ -50,4 +50,4 @@ export const updateRaffleApi = (id: string, data: RaffleFormData) =>
   );
 
 export const searchProductsApi = (query: string) =>
-  baseFetcher<SearchProductsApiResponse>(`${process.env.NEXT_PUBLIC_BFF_URL}/catalog/prizes/search?search=${encodeURIComponent(query)}`);
+  baseFetcher<SearchProductsApiResponse>(`${process.env.NEXT_PUBLIC_BFF_URL}/search/prizes?search=${encodeURIComponent(query)}`);

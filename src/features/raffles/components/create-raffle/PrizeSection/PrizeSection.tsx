@@ -28,9 +28,37 @@ export function PrizeSection(props: SectionProps) {
   }, [prizes]);
 
   useEffect(() => {
-    if (prizes.length === 0) {
-      addPrizeRow();
-    }
+    const fetchDefaultPrize = async () => {
+      if (prizes.length === 0) {
+        try {
+          const apiUrl = `${process.env.NEXT_PUBLIC_BFF_URL}/search/prizes?offer_id=208fb9b8-eab1-4707-996e-8c1ec2c565c1`;
+          const res = await fetch(apiUrl);
+          const response = await res.json();
+          
+          if (response.data && response.data.length > 0) {
+            const product = response.data[0];
+            props.onUpdate({
+              prizes: [{
+                id: product.cheapestOffer?.id || '208fb9b8-eab1-4707-996e-8c1ec2c565c1',
+                productId: String(product.id),
+                offerId: product.cheapestOffer?.id || '208fb9b8-eab1-4707-996e-8c1ec2c565c1',
+                name: product.translation.name,
+                count: 1,
+                price: product.basePrice ?? 0,
+                totalStock: product.totalStock ?? 0,
+                image: product.translation.imgUrl 
+              }]
+            });
+          } else {
+            addPrizeRow();
+          }
+        } catch (error) {
+          console.error("Default prize fetch error:", error);
+          addPrizeRow();
+        }
+      }
+    };
+    fetchDefaultPrize();
   }, []);
  
   useEffect(() => {
@@ -61,6 +89,7 @@ export function PrizeSection(props: SectionProps) {
     }
   };
 
+  console.log("data: ", data)
   return (
     <div className="p-6 h-full bg-[#0d121a]/20 rounded-l-(--radius-base) border border-gray-800 flex flex-col justify-between">
       <div className='space-y-6'>

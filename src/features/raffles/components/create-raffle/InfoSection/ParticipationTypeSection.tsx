@@ -12,9 +12,10 @@ interface Props {
   data: RaffleFormData;
   onUpdate: (data: Partial<RaffleFormData>) => void;
   types: ParticipationType[];
+  disabled?: boolean;
 }
 
-export const ParticipationTypeSection = ({ data, onUpdate, types }: Props) => {
+export const ParticipationTypeSection = ({ data, onUpdate, types, disabled }: Props) => {
   // İlk elemanı (Bedelsiz) ve diğerlerini ayırıyoruz
   const [primaryType, ...secondaryTypes] = types;
 
@@ -26,13 +27,16 @@ export const ParticipationTypeSection = ({ data, onUpdate, types }: Props) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Aktif Kart */}
         <div
-          onClick={() => onUpdate({ type: primaryType.id })}
-          className="p-4 rounded-(--radius-base) border-2 border-(--border-default) cursor-pointer transition-all duration-300 hover:border-blue-500/50"
+          onClick={() => !disabled && onUpdate({ type: primaryType.id })}
+          className={`p-4 rounded-(--radius-base) border-2 border-(--border-default) transition-all duration-300 ${
+            disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer hover:border-blue-500/50"
+          }`}
         >
           <CheckBox
             label={primaryType.title}
             checked={data.type === primaryType.id}
-            onCheckedChange={() => onUpdate({ type: primaryType.id })}
+            disabled={disabled}
+            onCheckedChange={() => !disabled && onUpdate({ type: primaryType.id })}
             className="mb-2"
           />
           <p className="text-[10px] text-(--text-body) leading-relaxed pl-9">

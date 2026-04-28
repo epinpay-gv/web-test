@@ -1,22 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RaffleStepper } from "./RaffleStepper";
 import { InfoSection } from "./InfoSection/InfoSection";
 import { PrizeSection } from "./PrizeSection/PrizeSection";
 import { PaymentSection } from "./PaymentSection/PaymentSection";
 import { GiveawayPreview } from "./GiveawayPreview";
 import { RaffleFormData, RaffleStep } from "../../raffle.types";
+import { updateRaffle } from "@/features/user/user.service";
+import { ParticipationConstraint } from "@/types/types";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface CreateRaffleProps {
   data?: RaffleFormData;
   editMode?: boolean
 }
 export default function CreateRaffle({ data, editMode }: CreateRaffleProps) {
+  const router = useRouter();
   const initialFormData: RaffleFormData = {
     title: "",
     description: "",
     type: "free",
-    prizeCount: 1,
+    prizeCount: 0,
     backupCount: 0,
     endDate: "",
     startDate: "",
@@ -24,13 +29,48 @@ export default function CreateRaffle({ data, editMode }: CreateRaffleProps) {
     amount: 0,
     winnerCount: 0,
     reserveCount: 0,
-    currencyId: 3
+    currencyId: 3,
+    constraint: ParticipationConstraint.EVERYONE,
   };
+
   const [currentStep, setCurrentStep] = useState<RaffleStep>("info");
-  const [formData, setFormData] = useState<RaffleFormData>(data ?? initialFormData);
+  // data içindeki undefined alanları initialFormData ile dolduruyoruz
+  const [formData, setFormData] = useState<RaffleFormData>({ ...initialFormData, ...data });
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  // Prop değiştiğinde state'i güncelle (Dolu gelmesini sağlar)
+  useEffect(() => {
+    if (data) {
+      setFormData(prev => ({ ...prev, ...data }));
+    }
+  }, [data]);
 
   const updateForm = (newData: Partial<RaffleFormData>) => {
     setFormData((prev) => ({ ...prev, ...newData }));
+  };
+
+  const handleUpdate = async () => {
+    if (!formData.id) {
+      toast.error("Çekiliş ID'si bulunamadı.");
+      return;
+    }
+    try {
+      setIsUpdating(true);
+      const payload = {
+        title: formData.title || "",
+        endDate: formData.endDate || ""
+      };
+      
+      await updateRaffle(formData.id, payload);
+
+      toast.success("Çekiliş başarıyla güncellendi.");
+      router.push("/user/raffles?type=created");
+      router.refresh();
+    } catch (error: any) {
+      toast.error(error.message || "Güncelleme sırasında bir hata oluştu.");
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   return (
@@ -46,10 +86,12 @@ export default function CreateRaffle({ data, editMode }: CreateRaffleProps) {
             <InfoSection              
               data={formData}
               onUpdate={updateForm}
-              onNext={() => setCurrentStep("prize")}
+              onNext={editMode ? handleUpdate : () => setCurrentStep("prize")}
+              editMode={editMode}
+              isUpdating={isUpdating}
             />
           )}
-          {currentStep === "prize" && (
+          {!editMode && currentStep === "prize" && (
             <PrizeSection
               editMode={editMode}
               data={formData}
@@ -58,7 +100,7 @@ export default function CreateRaffle({ data, editMode }: CreateRaffleProps) {
               onPrev={() => setCurrentStep("info")}
             />
           )}
-          {currentStep === "payment" && (
+          {!editMode && currentStep === "payment" && (
             <PaymentSection 
               data={formData} 
               onPrev={() => setCurrentStep("prize")} 
