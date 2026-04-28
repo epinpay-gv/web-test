@@ -56,7 +56,7 @@ export function buildRequiredFields(
   return extras;
 }
 
-const BFF_CHECKOUT_URL = "http://localhost:3041/api/features/checkout";
+const BFF_CHECKOUT_URL = "/checkout";
 
 interface UpdateQuantityParams {
   itemId: string;

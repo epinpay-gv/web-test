@@ -22,9 +22,9 @@ export default function StreamerRafflesSection({
 }: StreamerRafflesSectionProps) {
   const { joinToTheRaffle } = useRaffleActions();
 
-  const streamerIndex =  Math.floor(data.length / 2);
+  const streamerIndex = Math.floor(data.length / 2);
   const [selectedStreamer, setSelectedStreamer] = useState(
-    data[streamerIndex].id,
+    data[streamerIndex]?.id ?? data[0]?.id ?? "",
   );
   const [selectedRaffle, setSelectedRaffle] = useState<Raffle | null>(null);
 

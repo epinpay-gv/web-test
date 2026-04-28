@@ -131,7 +131,8 @@ export interface CartPaymentPayload {
 export type PaymentPayload = BalancePaymentPayload | CartPaymentPayload | RafflePaymentPayload;
 
 export interface PaymentLinkResponse {
-  paylink: string;
+  paylink: string | null;
+  orderId: string;
 }
 
 export interface OrderDetailResponse {

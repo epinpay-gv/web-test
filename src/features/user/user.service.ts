@@ -15,21 +15,21 @@ import {
 /* USER ME */
 export const getUserMe = () =>
   baseFetcher<UserMeResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/me`,
+    `/user/me`,
   );
 
 /* WALLET */
 export const getWallet = (currencyId: string) =>
   // baseFetcher<BalanceHistoryApiResponse>(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/user/balance`,
+  //   `/user/balance`,
   // );
   baseFetcher<WalletApiResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/wallet?currencyId=${currencyId}`,
+    `/user/wallet?currencyId=${currencyId}`,
   );
 
 export const getWalletDepositPage = () =>
   baseFetcher<WalletDepositPageApiResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/wallet/deposit-page`,
+    `/user/wallet/deposit-page`,
   );
 
 /* ORDERS */
@@ -46,38 +46,38 @@ export const getOrders = (
     }
   });
   // return baseFetcher<OrdersPageApiResponse>(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/user/orders?${params.toString()}`,
+  //   `/user/orders?${params.toString()}`,
   // );
   return baseFetcher<BffOrdersPageApiResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/orders?${params.toString()}`,
+    `/user/orders?${params.toString()}`,
   );
 };
 
 export const getOrderById = (id: string) =>
   // baseFetcher<OrderDetailPageApiResponse>(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/user/orders/${id}`,
+  //   `/user/orders/${id}`,
   // );
   baseFetcher<BffOrderDetailApiResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/orders/${id}`,
+    `/user/orders/${id}`,
   );
 
 export const viewEpin = (orderId: string, itemId: string) =>
   baseFetcher<TopupResponseResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/orders/${orderId}/items/${itemId}/view-epin`,
+    `/user/orders/${orderId}/items/${itemId}/view-epin`,
     { method: "POST" },
   );
 
 export const confirmItem = (orderId: string, itemId: string) =>
   // confirmTopup eski endpoint:
-  // baseFetcher(`${process.env.NEXT_PUBLIC_BFF_URL}/user/orders/${id}/items/${productId}`, ...)
+  // baseFetcher(`/user/orders/${id}/items/${productId}`, ...)
   baseFetcher<TopupResponseResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/orders/${orderId}/items/${itemId}/confirm`,
+    `/user/orders/${orderId}/items/${itemId}/confirm`,
     { method: "POST" },
   );
 
 export const disputeItem = (orderId: string, itemId: string, payload: DisputePayload) =>
   baseFetcher<TopupResponseResponse, DisputePayload>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/orders/${orderId}/items/${itemId}/dispute`,
+    `/user/orders/${orderId}/items/${itemId}/dispute`,
     { method: "POST", body: payload },
   );
 
@@ -99,16 +99,16 @@ export const getRaffles = (
   }
 
   return baseFetcher<RafflesPageApiResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/raffles?${params.toString()}`,
+    `/user/raffles?${params.toString()}`,
   );
 };
 
 export const getRaffleById = (id: string) =>
   // baseFetcher<RaffleDetailPageApiResponse>(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/user/raffles/${id}`,
+  //   `/user/raffles/${id}`,
   // );
   baseFetcher<RaffleDetailPageApiResponse>(
-    `${process.env.NEXT_PUBLIC_BFF_URL}/user/raffles/${id}`,
+    `/user/raffles/${id}`,
   );
 
 export const updateRaffle = (id: string, data: { title?: string, endDate?: string }) =>

@@ -57,6 +57,19 @@ export function useLogin(onSuccess?: () => void) {
         }),
       });
       if (!cookieRes.ok) throw new Error('Cookie set operation failed');
+
+      // Guest sepetini kullanıcı hesabına merge et (sessizce, hata olsa da akışı bloklama)
+      try {
+        await fetch(`${process.env.NEXT_PUBLIC_BFF_URL}/checkout/cart/merge`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        });
+      } catch (_) {
+        // merge hatası kullanıcıyı bloklamaz
+      }
+
       login(
         {
           uid: user.uid,

@@ -53,7 +53,7 @@ export default function LoadBalance() {
         ...extras,
       });
       const { paylink } = await paymentService.initiatePayment(payload);
-      router.push(paylink);
+      router.push(paylink ?? "/") ;
     } catch (error) {
       console.error("Ödeme başlatılamadı:", error);
     } finally {

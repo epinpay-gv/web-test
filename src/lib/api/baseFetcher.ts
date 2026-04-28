@@ -29,9 +29,10 @@ export async function baseFetcher<TResponse, TBody = undefined>(
   options: FetcherOptions<TBody> = {},
   msg: string = "Request failed",
 ): Promise<TResponse> {
-  const apiUrl = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+  // const apiUrl = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
 
-  const finalUrl = url.startsWith("http") ? url : `${apiUrl}${url}`;
+  // const finalUrl = url.startsWith("http") ? url : `${apiUrl}${url}`;
+  const finalUrl = `${process.env.NEXT_PUBLIC_API_URL}${url}`;
 
   // Kimlik doğrulama token'ını bul
   let token: string | undefined = undefined;
@@ -68,8 +69,8 @@ export async function baseFetcher<TResponse, TBody = undefined>(
     "EP-Language": "",
     "EP-Currency": "",
     "epinpay-language": "tr-TR",
-    "x-currency-code": (await getCookie("currency")) ?? "TRY",
-    "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY || "",
+    "x-currency-id": (await getCookie("currency")) ?? "3",
+    "x-api-key": "AIzaSyBFUsWEISiImLREu2usXWXIjOpKowiGwjE",
     ...options.headers,
   };
 
@@ -79,6 +80,8 @@ export async function baseFetcher<TResponse, TBody = undefined>(
 
   let res: Response;
   try {
+    console.log("URL : ", finalUrl);
+    console.log("Headers : ", JSON.stringify(finalHeaders, null, 2));
     res = await fetch(finalUrl, {
       method: options.method ?? "GET",
       headers: finalHeaders,
@@ -86,23 +89,24 @@ export async function baseFetcher<TResponse, TBody = undefined>(
       cache: options.cache,
       credentials: "include", // Çerezleri gönder
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error(`[baseFetcher] Fetch fundamentally failed (network, invalid url):
-originalUrl: ${url}
-finalUrl: ${finalUrl}
-apiUrl: ${apiUrl}
-errorMsg: ${error?.message}
-cause: ${error?.cause?.message}
-stack: ${error?.stack}`);
+    console.error("[baseFetcher] Fetch fundamentally failed (network, invalid url):", {
+      originalUrl: url,
+      finalUrl,
+      // apiUrl,
+      errorMsg: error?.message,
+      cause: error?.cause?.message
+    });
     throw error;
   }
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
-    const message = errorData.message || msg;    
+    const message = errorData.message || msg;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const error = new Error(message) as any;
-    error.status = res.status;    
+    error.status = res.status;
     throw error;
   }
 

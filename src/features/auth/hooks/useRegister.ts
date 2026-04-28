@@ -57,6 +57,8 @@ export function useRegister(onSuccess?: () => void) {
       
       if (response.expiresIn) {
         store.setOtpExpiresIn(response.expiresIn);
+      } else {
+        store.setOtpExpiresIn(60);
       }
       
       store.setStep('otp');
@@ -101,6 +103,8 @@ export function useRegister(onSuccess?: () => void) {
       const response = await authService.resendOtp(store.formData.email);
       if (response.expiresIn) {
         store.setOtpExpiresIn(response.expiresIn);
+      } else {
+        store.setOtpExpiresIn(300);
       }
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "OTP tekrar gönderilemedi.";

@@ -8,14 +8,18 @@ import {
 } from "../types/application.type";
 
 export const getStreamerApplicationData = () =>
-  baseFetcher<StreamerApplicationPageApiResponse>("/api/application");
+  baseFetcher<StreamerApplicationPageApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/application`
+  );
 
 export const submitStreamerApplication = (payload: StreamerApplicationPayload) =>
   baseFetcher<StreamerApplicationResponse, StreamerApplicationPayload>(
-    "/api/application",
+    `${process.env.NEXT_PUBLIC_API_URL}/application`,
     { method: "POST", body: payload },
     "Başvuru işlemi sırasında bir hata oluştu."
   );
 
 export const getApplications = () =>
-  baseFetcher<ApplicationsApiResponse>("/api/user/streamer-application");
+  baseFetcher<ApplicationsApiResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/user/streamer-application`
+  );

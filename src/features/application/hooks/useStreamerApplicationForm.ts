@@ -104,11 +104,15 @@ export function useStreamerApplicationForm() {
         setError(response.message || "Başvuru sırasında bir hata oluştu.");
       }
     } catch (err: unknown) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Sunucuya bağlanılamadı. Lütfen tekrar deneyin."
-      );
+      if (err instanceof Error && (err as { status?: number }).status === 401) {
+        setError("Bu işlem için giriş yapmanız gerekiyor.");
+      } else {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Sunucuya bağlanılamadı. Lütfen tekrar deneyin."
+        );
+      }
     } finally {
       setIsLoading(false);
     }

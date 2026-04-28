@@ -1,36 +1,47 @@
+"use client";
 import { Button } from "@/components/common";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface EpinpayCardsSectionProps {
   data?: string;
 }
 
 export default function EpinpayCardsSection({}: EpinpayCardsSectionProps) {
+  const router = useRouter();
+
   const data = [
     {
       name: "Top-up",
       description:
         "Top-up işlemlerinde genellikle doğrudan hesabınıza bakiye yükleme işlemini ifade eder.",
       image: "/mainpage/top-up.webp",
+      link: "https://gelecekvadisi-web-test.netlify.app/products?type=5",
     },
     {
       name: "E-pin",
       description:
         "Oyun içi bakiye veya içerik satın almak için kullanılan dijital koddur.",
       image: "/mainpage/e-pin.webp",
+      link: "https://gelecekvadisi-web-test.netlify.app/products?type=3",
     },
     {
       name: "Key",
       description:
         "Bir oyunu etkinleştirmek ve doğrulamak için kullanılan benzersiz bir alfasayısal koddur",
       image: "/mainpage/key.webp",
+      link: "https://gelecekvadisi-web-test.netlify.app/products?type=1",
     },
   ];
 
   return (
     <section
       className="w-full relative overflow-hidden py-10 md:py-20 px-4 md:px-10 "
-      style={{ backgroundImage: "url('/mainpage/epinpay-section-bg.webp')", backgroundSize: "cover", backgroundPosition: "center" }}
+      style={{
+        backgroundImage: "url('/mainpage/epinpay-section-bg.webp')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       {/* İÇERİK */}
       <div className="flex flex-col items-center space-y-6 max-w-5xl mx-auto">
@@ -57,6 +68,7 @@ export default function EpinpayCardsSection({}: EpinpayCardsSectionProps) {
                   text={`${i.name} satın al`}
                   padding="xs"
                   className="text-xs font-semibold"
+                  onClick={() => router.push(i.link)}
                 />
               </div>
               <Image
