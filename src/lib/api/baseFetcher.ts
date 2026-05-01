@@ -37,9 +37,26 @@ export async function baseFetcher<TResponse, TBody = undefined>(
   // Kimlik doğrulama token'ını bul
   let token: string | undefined = undefined;
 
+  const finalHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+    "EP-Language": "",
+    "EP-Currency": "",
+    "epinpay-language": "tr-TR",
+    "x-currency-id": (await getCookie("currency")) ?? "3",
+    "x-api-key": "AIzaSyBFUsWEISiImLREu2usXWXIjOpKowiGwjE",
+    ...options.headers,
+  };
+
   if (typeof window === "undefined") {
-    // Server-side: next/headers kullan
-    token = await getCookie("accessToken");
+    const { cookies } = await import("next/headers");
+    const cookieStore = await cookies();
+
+    const cookieHeader = cookieStore
+      .getAll()
+      .map(c => `${c.name}=${c.value}`)
+      .join("; ");
+
+    finalHeaders["Cookie"] = cookieHeader;
   } else {
     // Client-side: document.cookie (veya localStorage) kullan
     const cookieToken = await getCookie("accessToken");
@@ -61,16 +78,6 @@ export async function baseFetcher<TResponse, TBody = undefined>(
       }
     }
   }
-
-  const finalHeaders: Record<string, string> = {
-    "Content-Type": "application/json",
-    "EP-Language": "",
-    "EP-Currency": "",
-    "epinpay-language": "tr-TR",
-    "x-currency-id": (await getCookie("currency")) ?? "3",
-    "x-api-key": "AIzaSyBFUsWEISiImLREu2usXWXIjOpKowiGwjE",
-    ...options.headers,
-  };
 
   if (token) {
     finalHeaders["Authorization"] = `Bearer ${token}`;
